@@ -19,21 +19,18 @@ The **Squirrel Prover** is an interactive prover for protocols. While reasoning 
 
 # Core Team
 
-[David Baelde](http://www.lsv.fr/~baelde/),
-[Stéphanie Delaune](http://people.irisa.fr/Stephanie.Delaune/),
-[Charlie Jacomme](https://charlie.jacomme.fr),
-[Adrien Koutsos](https://adrienkoutsos.fr/),
-[Solène Moreau](https://people.irisa.fr/Solene.Moreau/)
+ * [David Baelde](http://www.lsv.fr/~baelde/), _LMF, ENS Paris-Saclay & CNRS, Université Paris-Saclay_;
+ * [Stéphanie Delaune](http://people.irisa.fr/Stephanie.Delaune/), _Univ Rennes, CNRS, IRISA_;
+ * [Charlie Jacomme](https://charlie.jacomme.fr), _CISPA Helmholtz Center for Information Security_;
+ * [Adrien Koutsos](https://adrienkoutsos.fr/), _Inria Paris_;
+ * [Solène Moreau](https://people.irisa.fr/Solene.Moreau/), _Univ Rennes, CNRS, IRISA_;
 
-
-**Squirrel** is currently developped at LMF, INRIA Paris, Univ. Rennes and CISPA.
 
 # Source code
 
 **Squirrel** is an open source project, licensed under the GNU General
 Public License v3.0. All source code is available
 [here](https://github.com/squirrel-prover/squirrel-prover/).
-
 
 # Publications
 
