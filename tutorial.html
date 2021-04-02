@@ -173,7 +173,14 @@ R --&gt; T : ok</code></pre>
 <p>We express reachabilities formulas inside a first-order logic. In this logic, terms can be of type <code>message</code>, <code>boolean</code>, <code>index</code> and <code>timestamp</code>. The logic proves that formulas are true for all possible traces of the protocol, and for all possible values of the variable given this trace/</p>
 <p>For instance, a timestamp variable <code>t</code> allows to talk about a given point inside a trace. <code>t</code> will intuitively have to take the value of some concrete action, e.g., <code>T(i)</code> or <code>R(j)</code> in our example.</p>
 <h2 id="macros">Macros</h2>
-<p>To discuss about the value of the output performed at some timestamp, we use macros: * <code>input@t</code> is the value given as input by the attacker to the action at t; * <code>output@t</code> is the output performed by action at t; * <code>cond@t</code> is the executability condition at t; * <code>frame@t</code> is the sequence of all previous outputs up to t; * <code>exec@t</code> is the conjonction of all executability conditions up to t.</p>
+<p>To discuss about the value of the output performed at some timestamp, we use macros:</p>
+<ul>
+<li><code>input@t</code> is the value given as input by the attacker to the action at t;</li>
+<li><code>output@t</code> is the output performed by action at t;</li>
+<li><code>cond@t</code> is the executability condition at t;</li>
+<li><code>frame@t</code> is the sequence of all previous outputs up to t;</li>
+<li><code>exec@t</code> is the conjonction of all executability conditions up to t.</li>
+</ul>
 <h2 id="formulas">Formulas</h2>
 <p>It is then possible to write formulas that capture properties satisfied by all executions of the protocol. For instance, the following formula describes that the executability execution of the reader in fact implies some authentication property, in the sense that there must exists an action T(i,k) that was executed before the reader, and such the input of the reader corresonds to the name of T(i,k).</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">goal</span> wa :</span>
