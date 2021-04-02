@@ -1,4 +1,4 @@
-PANDOC = pandoc
+PANDOC = pandoc --syntax-definition squirrel.xml
 IFORMAT = markdown
 
 FLAGS = --standalone --mathjax=$(MATHJAX)
@@ -12,7 +12,7 @@ endif
 
 TEMPLATE_HTML = template/template.html
 
-all: index.html
+all: index.html tutorial.html
 
 index.html: index_src.md
 	$(PANDOC) \
@@ -21,7 +21,13 @@ index.html: index_src.md
 		--csl=ieee.csl\
 	  -t html -o $@ $<
 
-
+tutorial.html: tutorial_src.md squirrel-prover/examples/tutorial/tutorial.sp tutorial_header.md
+	./tutorial.sh
+	$(PANDOC) \
+	  --template $(TEMPLATE_HTML)\
+		--bibliography=biblio.bib\
+		--csl=ieee.csl\
+	  -t html -o $@ $<
 
 clean:
 	-rm -f *.html

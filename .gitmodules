@@ -1,0 +1,3 @@
+[submodule "squirrel-prover"]
+	path = squirrel-prover
+	url = https://github.com/squirrel-prover/squirrel-prover/
