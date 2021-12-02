@@ -12,7 +12,7 @@ endif
 
 TEMPLATE_HTML = template/template.html
 
-all: index.html tutorial.html
+all: index.html tutorial.html examples.html
 
 index.html: index_src.md
 	$(PANDOC) \
@@ -23,6 +23,13 @@ index.html: index_src.md
 
 tutorial.html: tutorial_src.md squirrel-prover/examples/tutorial/tutorial.sp tutorial_header.md
 	./tutorial.sh
+	$(PANDOC) \
+	  --template $(TEMPLATE_HTML)\
+		--bibliography=biblio.bib\
+		--csl=ieee.csl\
+	  -t html -o $@ $<
+
+examples.html: examples_src.md
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\
 		--bibliography=biblio.bib\

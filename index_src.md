@@ -19,7 +19,12 @@ The **Squirrel Prover** is an interactive prover for protocols. While reasoning 
 
 # Getting started
 
-A 13 minutes introduction to the base concepts and core ideas of the **Squirrel Prover** can be found [here](https://www.youtube.com/watch?v=n-s_lGe44EM). Otherwise, a [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions and a [tutorial](tutorial.html) allows to start discovering it. The technical details are inside the paper [1].
+A 13 minutes introduction to the base concepts and core ideas of the **Squirrel Prover** can be found [here](https://www.youtube.com/watch?v=n-s_lGe44EM).
+
+A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions.
+
+A [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it. 
+The technical details are inside the paper [1].
 
 # Core Team
 
