@@ -15,11 +15,11 @@
     @*
 ---
 
-The **Squirrel Prover** is an interactive prover for protocols. While reasoning inside a first-order logic, it allows to obtain computational guarantees.
+The **Squirrel Prover** is a proof assistant for protocols. It is based on first-order logic and provides guarantees in the computational model.
 
 # Getting started
 
-A 13 minutes introduction to the base concepts and core ideas of the **Squirrel Prover** can be found [here](https://www.youtube.com/watch?v=n-s_lGe44EM).
+A 13 minutes introduction to the basic concepts and core ideas of the **Squirrel Prover** can be found [here](https://www.youtube.com/watch?v=n-s_lGe44EM).
 
 A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions.
 
@@ -28,7 +28,7 @@ The technical details are inside the paper [1].
 
 # Core Team
 
- * [David Baelde](http://www.lsv.fr/~baelde/), _LMF, ENS Paris-Saclay & CNRS, Université Paris-Saclay_;
+ * [David Baelde](http://www.lsv.fr/~baelde/), _ENS Rennes, Univ Rennes, CNRS, IRISA_;
  * [Stéphanie Delaune](http://people.irisa.fr/Stephanie.Delaune/), _Univ Rennes, CNRS, IRISA_;
  * [Charlie Jacomme](https://charlie.jacomme.fr), _CISPA Helmholtz Center for Information Security_;
  * [Adrien Koutsos](https://adrienkoutsos.fr/), _Inria Paris_;
