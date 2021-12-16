@@ -31,6 +31,10 @@ In this file, we prove two security properties for this protocol.
 [A] Mayla Brusò, Kostas Chatzikokolakis, and Jerry den Hartog. Formal
 Verification of Privacy for RFID Systems. pages 75–88, July 2010.
 *******************************************************************************)
+(**
+When this option is set to `true`, Squirrel checks whether each tactic invoked
+for the proof is also sound for quantum attackers.
+**)
 set postQuantumSound=true.</span><span class="output-line" id="out0">true
 </span><span class="input-line" id="in1">
 
@@ -165,7 +169,7 @@ forall (j:index),
   (** We start by introducing the variable `j` and the hypothesis 
   `happens(R(j))`, before unfolding the definiton of the `cond` macro,
   which corresponds to an existential quantification. **)
-  intro j Hap.</span><span class="output-line" id="out9">[&gt; Line 126: (intro j Hap) 
+  intro j Hap.</span><span class="output-line" id="out9">[&gt; Line 130: (intro j Hap) 
 [goal&gt; Focused goal (1/1):
 System: default
 Variables: j:index
@@ -178,7 +182,7 @@ exists (i,k:index),
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j)</span>))]
 
 </span><span class="input-line" id="in10">
-  expand cond.</span><span class="output-line" id="out10">[&gt; Line 127: (expand cond) 
+  expand cond.</span><span class="output-line" id="out10">[&gt; Line 131: (expand cond) 
 [goal&gt; Focused goal (1/1):
 System: default
 Variables: j:index
@@ -194,7 +198,7 @@ exists (i,k:index),
 </span><span class="input-line" id="in11">
   (** We have to prove two implications (`&lt;=&gt;`): we thus split the proof 
   in two parts. We now have two different goals to prove. **)
-  split.</span><span class="output-line" id="out11">[&gt; Line 130: split 
+  split.</span><span class="output-line" id="out11">[&gt; Line 134: split 
 [goal&gt; Focused goal (1/2):
 System: default
 Variables: i,j,k:index
@@ -209,7 +213,7 @@ exists (i,k:index),
 </span><span class="input-line" id="in12">
   (** For the first implication (=&gt;), we actually prove it separately for the 
   real system (left) and the ideal system (right). **)
-  project.</span><span class="output-line" id="out12">[&gt; Line 133: project 
+  project.</span><span class="output-line" id="out12">[&gt; Line 137: project 
 [goal&gt; Focused goal (1/3):
 System: default/left
 Variables: i,j,k:index
@@ -228,7 +232,7 @@ exists (i,k:index),
   already been hashed before.
   The only possibility is that this hash comes from the output of a tag that 
   has played before (thus the new hypothesis on timestamps). **)
-  (* LEFT *) euf Meq.</span><span class="output-line" id="out13">[&gt; Line 140: (euf Meq) 
+  (* LEFT *) euf Meq.</span><span class="output-line" id="out13">[&gt; Line 144: (euf Meq) 
 [goal&gt; Focused goal (1/3):
 System: default/left
 Variables: i,j,k,k0:index
@@ -242,7 +246,7 @@ exists (i,k:index),
   (<span class="ga" style="color: #00AA00">T(i,k)</span> &lt; <span class="ga" style="color: #00AA00">R(j)</span> &amp;&amp; <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j)</span>) &amp;&amp;
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j)</span>))
 
-</span><span class="input-line" id="in14"> by exists i,k0.</span><span class="output-line" id="out14">[&gt; Line 140: by (exists i, k0) 
+</span><span class="input-line" id="in14"> by exists i,k0.</span><span class="output-line" id="out14">[&gt; Line 144: by (exists i, k0) 
 [goal&gt; Focused goal (1/2):
 System: default/right
 Variables: i,j,k:index
@@ -255,7 +259,7 @@ exists (i,k:index),
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j)</span>))
 
 </span><span class="input-line" id="in15">
-  (* RIGHT *) euf Meq.</span><span class="output-line" id="out15">[&gt; Line 141: (euf Meq) 
+  (* RIGHT *) euf Meq.</span><span class="output-line" id="out15">[&gt; Line 145: (euf Meq) 
 [goal&gt; Focused goal (1/2):
 System: default/right
 Variables: i,j,k:index
@@ -269,7 +273,7 @@ exists (i,k:index),
   (<span class="ga" style="color: #00AA00">T(i,k)</span> &lt; <span class="ga" style="color: #00AA00">R(j)</span> &amp;&amp; <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j)</span>) &amp;&amp;
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j)</span>))
 
-</span><span class="input-line" id="in16"> by exists i,k.</span><span class="output-line" id="out16">[&gt; Line 141: by (exists i, k) 
+</span><span class="input-line" id="in16"> by exists i,k.</span><span class="output-line" id="out16">[&gt; Line 145: by (exists i, k) 
 [goal&gt; Focused goal (1/1):
 System: default
 Variables: i,j,k:index
@@ -286,7 +290,7 @@ exists (i,k:index),
 </span><span class="input-line" id="in17">
   (** For the second implication (&lt;=), the conclusion of the goal can directly 
   be obtained from the hypotheses. **)
-  by exists i,k.</span><span class="output-line" id="out17">[&gt; Line 144: by (exists i, k) 
+  by exists i,k.</span><span class="output-line" id="out17">[&gt; Line 148: by (exists i, k) 
 [goal&gt; Goal wa_R is proved 
 </span><span class="input-line" id="in18">
 Qed.</span><span class="output-line" id="out18">Exiting proof mode.
@@ -328,7 +332,7 @@ forall (j:index),
            <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>)))]))
 
 </span><span class="input-line" id="in21">
-  intro *.</span><span class="output-line" id="out21">[&gt; Line 164: (intro *) 
+  intro *.</span><span class="output-line" id="out21">[&gt; Line 168: (intro *) 
 [goal&gt; Focused goal (1/1):
 System: default
 Variables: j:index
@@ -341,7 +345,7 @@ not(exists (i,k:index),
        <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>)))]
 
 </span><span class="input-line" id="in22">
-  expand cond.</span><span class="output-line" id="out22">[&gt; Line 165: (expand cond) 
+  expand cond.</span><span class="output-line" id="out22">[&gt; Line 169: (expand cond) 
 [goal&gt; Focused goal (1/1):
 System: default
 Variables: j:index
@@ -355,7 +359,7 @@ not(exists (i,k:index),
        <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>)))]
 
 </span><span class="input-line" id="in23">
-  split.</span><span class="output-line" id="out23">[&gt; Line 166: split 
+  split.</span><span class="output-line" id="out23">[&gt; Line 170: split 
 [goal&gt; Focused goal (1/2):
 System: default
 Variables: i,j,k:index
@@ -378,7 +382,7 @@ false
   to show that it is derivable from the hypotheses (and thus obtain the
   contradiction).
   **)
-  use H.</span><span class="output-line" id="out24">[&gt; Line 174: (assert ... as ) 
+  use H.</span><span class="output-line" id="out24">[&gt; Line 178: (assert ... as ) 
 [goal&gt; Focused goal (1/2):
 System: default
 Variables: i,j,k:index
@@ -394,7 +398,7 @@ Meq0: <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" sty
 exists (i,k:index),
   <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>),diff(<span class="gn" style="color: #AA5500">key</span>(i),<span class="gn" style="color: #AA5500">key'</span>(i,k)))
 
-</span><span class="input-line" id="in25"> exists i,k.</span><span class="output-line" id="out25">[&gt; Line 174: (exists i, k) 
+</span><span class="input-line" id="in25"> exists i,k.</span><span class="output-line" id="out25">[&gt; Line 178: (exists i, k) 
 [goal&gt; Focused goal (1/1):
 System: default
 Variables: i,j,k:index
@@ -410,7 +414,7 @@ false
 </span><span class="input-line" id="in26">
   (** The first implication (=&gt;) relies on the EUF assumption and is also
   proved by contradiction. **)
-  use H.</span><span class="output-line" id="out26">[&gt; Line 177: (assert ... as ) 
+  use H.</span><span class="output-line" id="out26">[&gt; Line 181: (assert ... as ) 
 [goal&gt; Focused goal (1/1):
 System: default
 Variables: i,j,k:index
@@ -425,7 +429,7 @@ exists (i,k:index),
   (<span class="ga" style="color: #00AA00">T(i,k)</span> &lt; <span class="ga" style="color: #00AA00">R1(j)</span> &amp;&amp; <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>) &amp;&amp;
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>))
 
-</span><span class="input-line" id="in27"> project.</span><span class="output-line" id="out27">[&gt; Line 177: project 
+</span><span class="input-line" id="in27"> project.</span><span class="output-line" id="out27">[&gt; Line 181: project 
 [goal&gt; Focused goal (1/2):
 System: default/left
 Variables: i,j,k:index
@@ -441,7 +445,7 @@ exists (i,k:index),
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>))
 
 </span><span class="input-line" id="in28">
-  (* LEFT *) euf Meq.</span><span class="output-line" id="out28">[&gt; Line 178: (euf Meq) 
+  (* LEFT *) euf Meq.</span><span class="output-line" id="out28">[&gt; Line 182: (euf Meq) 
 [goal&gt; Focused goal (1/2):
 System: default/left
 Variables: i,j,k,k0:index
@@ -458,7 +462,7 @@ exists (i,k:index),
   (<span class="ga" style="color: #00AA00">T(i,k)</span> &lt; <span class="ga" style="color: #00AA00">R1(j)</span> &amp;&amp; <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>) &amp;&amp;
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>))
 
-</span><span class="input-line" id="in29"> by exists i,k0.</span><span class="output-line" id="out29">[&gt; Line 178: by (exists i, k0) 
+</span><span class="input-line" id="in29"> by exists i,k0.</span><span class="output-line" id="out29">[&gt; Line 182: by (exists i, k0) 
 [goal&gt; Focused goal (1/1):
 System: default/right
 Variables: i,j,k:index
@@ -474,7 +478,7 @@ exists (i,k:index),
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>))
 
 </span><span class="input-line" id="in30">
-  (* RIGHT *) euf Meq.</span><span class="output-line" id="out30">[&gt; Line 179: (euf Meq) 
+  (* RIGHT *) euf Meq.</span><span class="output-line" id="out30">[&gt; Line 183: (euf Meq) 
 [goal&gt; Focused goal (1/1):
 System: default/right
 Variables: i,j,k:index
@@ -491,7 +495,7 @@ exists (i,k:index),
   (<span class="ga" style="color: #00AA00">T(i,k)</span> &lt; <span class="ga" style="color: #00AA00">R1(j)</span> &amp;&amp; <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>) &amp;&amp;
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>))
 
-</span><span class="input-line" id="in31"> by exists i,k.</span><span class="output-line" id="out31">[&gt; Line 179: by (exists i, k) 
+</span><span class="input-line" id="in31"> by exists i,k.</span><span class="output-line" id="out31">[&gt; Line 183: by (exists i, k) 
 [goal&gt; Goal wa_R1 is proved 
 </span><span class="input-line" id="in32">
 Qed.</span><span class="output-line" id="out32">Exiting proof mode.
@@ -534,7 +538,7 @@ H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)
   all the possible values for `t`.
   The case `t = init` is trivial and automatically closed.
   The other cases correspond to the 3 different actions of the protocol. **)
-  induction t.</span><span class="output-line" id="out35">[&gt; Line 207: (induction t) 
+  induction t.</span><span class="output-line" id="out35">[&gt; Line 211: (induction t) 
 [goal&gt; Focused goal (1/3):
 Systems: default
 Variables: j:index
@@ -548,7 +552,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
   (** Case where t = R(j).
   We start by expanding the macros and splitting the pairs. **)
-  expand frame.</span><span class="output-line" id="out36">[&gt; Line 211: (expand frame) 
+  expand frame.</span><span class="output-line" id="out36">[&gt; Line 215: (expand frame) 
 [goal&gt; Focused goal (1/3):
 Systems: default
 Variables: j:index
@@ -558,7 +562,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 0: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">R(j)</span>),&lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R(j)</span>),if <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R(j)</span> then <span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">R(j)</span>&gt;&gt;
 
 
-</span><span class="input-line" id="in37"> fa 0.</span><span class="output-line" id="out37">[&gt; Line 211: (fa 0) 
+</span><span class="input-line" id="in37"> fa 0.</span><span class="output-line" id="out37">[&gt; Line 215: (fa 0) 
 [goal&gt; Focused goal (1/3):
 Systems: default
 Variables: j:index
@@ -569,7 +573,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 1: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R(j)</span>),if <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R(j)</span> then <span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">R(j)</span>&gt;
 
 
-</span><span class="input-line" id="in38"> fa 1.</span><span class="output-line" id="out38">[&gt; Line 211: (fa 1) 
+</span><span class="input-line" id="in38"> fa 1.</span><span class="output-line" id="out38">[&gt; Line 215: (fa 1) 
 [goal&gt; Focused goal (1/3):
 Systems: default
 Variables: j:index
@@ -582,7 +586,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
 
 </span><span class="input-line" id="in39">
-  expand exec, output.</span><span class="output-line" id="out39">[&gt; Line 212: (expand exec, output) 
+  expand exec, output.</span><span class="output-line" id="out39">[&gt; Line 216: (expand exec, output) 
 [goal&gt; Focused goal (1/3):
 Systems: default
 Variables: j:index
@@ -602,7 +606,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
     (cond@R(j)),
     (exists (i,k:index), T(i,k) &lt; R(j) &amp;&amp;
        fst(output@T(i,k))=fst(input@R(j)) &amp;&amp;
-       snd(output@T(i,k))=snd(input@R(j))).</span><span class="output-line" id="out40">[&gt; Line 221: (equivalent cond@R(j),
+       snd(output@T(i,k))=snd(input@R(j))).</span><span class="output-line" id="out40">[&gt; Line 225: (equivalent cond@R(j),
              <span>exists</span> (i,k:index),
              ((T(i,k) &lt; R(j) &amp;&amp; fst(output@T(i,k)) = fst(input@R(j))) &amp;&amp;
               snd(output@T(i,k)) = snd(input@R(j))))
@@ -619,7 +623,7 @@ exists (i,k:index),
    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j)</span>))]
 
 </span><span class="input-line" id="in41">
-  by use wa_R with j.</span><span class="output-line" id="out41">[&gt; Line 222: by (assert ... as ) 
+  by use wa_R with j.</span><span class="output-line" id="out41">[&gt; Line 226: by (assert ... as ) 
 [goal&gt; Focused goal (1/3):
 Systems: default
 Variables: j:index
@@ -638,7 +642,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
   is able to compute it using information obtained in the past. Indeed, each 
   element of this formula is already available in `frame@pred(R(j))`.
   This is done by the `fadup` tactic. **)
-  by fadup 1.</span><span class="output-line" id="out42">[&gt; Line 227: by (fadup 1) 
+  by fadup 1.</span><span class="output-line" id="out42">[&gt; Line 231: by (fadup 1) 
 [goal&gt; Focused goal (1/2):
 Systems: default
 Variables: j:index
@@ -652,7 +656,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
   (** Case where t = R1(j).
   This case is similar to the previous one. **)
-  expand frame.</span><span class="output-line" id="out43">[&gt; Line 231: (expand frame) 
+  expand frame.</span><span class="output-line" id="out43">[&gt; Line 235: (expand frame) 
 [goal&gt; Focused goal (1/2):
 Systems: default
 Variables: j:index
@@ -662,7 +666,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 0: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">R1(j)</span>),&lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R1(j)</span>),if <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R1(j)</span> then <span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">R1(j)</span>&gt;&gt;
 
 
-</span><span class="input-line" id="in44"> fa 0.</span><span class="output-line" id="out44">[&gt; Line 231: (fa 0) 
+</span><span class="input-line" id="in44"> fa 0.</span><span class="output-line" id="out44">[&gt; Line 235: (fa 0) 
 [goal&gt; Focused goal (1/2):
 Systems: default
 Variables: j:index
@@ -673,7 +677,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 1: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R1(j)</span>),if <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">R1(j)</span> then <span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">R1(j)</span>&gt;
 
 
-</span><span class="input-line" id="in45"> fa 1.</span><span class="output-line" id="out45">[&gt; Line 231: (fa 1) 
+</span><span class="input-line" id="in45"> fa 1.</span><span class="output-line" id="out45">[&gt; Line 235: (fa 1) 
 [goal&gt; Focused goal (1/2):
 Systems: default
 Variables: j:index
@@ -686,7 +690,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
 
 </span><span class="input-line" id="in46">
-  expand exec, output.</span><span class="output-line" id="out46">[&gt; Line 232: (expand exec, output) 
+  expand exec, output.</span><span class="output-line" id="out46">[&gt; Line 236: (expand exec, output) 
 [goal&gt; Focused goal (1/2):
 Systems: default
 Variables: j:index
@@ -702,7 +706,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
     (cond@R1(j)),
     (not(exists (i,k:index), T(i,k) &lt; R1(j) &amp;&amp;
        fst(output@T(i,k))=fst(input@R1(j)) &amp;&amp;
-       snd(output@T(i,k))=snd(input@R1(j)))).</span><span class="output-line" id="out47">[&gt; Line 237: (equivalent cond@R1(j),
+       snd(output@T(i,k))=snd(input@R1(j)))).</span><span class="output-line" id="out47">[&gt; Line 241: (equivalent cond@R1(j),
              not(<span>exists</span> (i,k:index),
                  ((T(i,k) &lt; R1(j) &amp;&amp; fst(output@T(i,k)) = fst(input@R1(j)))
                   &amp;&amp; snd(output@T(i,k)) = snd(input@R1(j)))))
@@ -719,7 +723,7 @@ not(exists (i,k:index),
        <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>)))]
 
 </span><span class="input-line" id="in48">
-  by use wa_R1 with j.</span><span class="output-line" id="out48">[&gt; Line 238: by (assert ... as ) 
+  by use wa_R1 with j.</span><span class="output-line" id="out48">[&gt; Line 242: by (assert ... as ) 
 [goal&gt; Focused goal (1/2):
 Systems: default
 Variables: j:index
@@ -734,7 +738,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
 
 </span><span class="input-line" id="in49">
-  by fadup 1.</span><span class="output-line" id="out49">[&gt; Line 239: by (fadup 1) 
+  by fadup 1.</span><span class="output-line" id="out49">[&gt; Line 243: by (fadup 1) 
 [goal&gt; Focused goal (1/1):
 Systems: default
 Variables: i,k:index
@@ -748,7 +752,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
   (** Case where t = T(i,k).
   We start by expanding the macros and splitting the pairs. **)
-  expand frame, exec, cond, output.</span><span class="output-line" id="out50">[&gt; Line 243: (expand frame, exec, cond, output) 
+  expand frame, exec, cond, output.</span><span class="output-line" id="out50">[&gt; Line 247: (expand frame, exec, cond, output) 
 [goal&gt; Focused goal (1/1):
 Systems: default
 Variables: i,k:index
@@ -762,7 +766,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
 
 </span><span class="input-line" id="in51">
-  fa 0; fa 1; fa 1; fa 1.</span><span class="output-line" id="out51">[&gt; Line 244: ((fa 0);((fa 1);((fa 1);(fa 1)))) 
+  fa 0; fa 1; fa 1; fa 1.</span><span class="output-line" id="out51">[&gt; Line 248: ((fa 0);((fa 1);((fa 1);(fa 1)))) 
 [goal&gt; Focused goal (1/1):
 Systems: default
 Variables: i,k:index
@@ -779,7 +783,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
   name. The tactic actually replaces the hash by a conditional term in which 
   the then branch is the fresh name.
   The goal is now to prove that this condition always evaluate to `true`. **)
-  prf 2.</span><span class="output-line" id="out52">[&gt; Line 249: (prf 2) 
+  prf 2.</span><span class="output-line" id="out52">[&gt; Line 253: (prf 2) 
 [goal&gt; Focused goal (1/1):
 Systems: default
 Variables: i,k:index
@@ -809,7 +813,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 
 
 </span><span class="input-line" id="in53">
-  yesif 2.</span><span class="output-line" id="out53">[&gt; Line 250: (yesif 2) 
+  yesif 2.</span><span class="output-line" id="out53">[&gt; Line 254: (yesif 2) 
 [goal&gt; Focused goal (1/2):
 System: default
 Variables: i,k:index
@@ -829,7 +833,7 @@ diff(
   forall (i0,k0:index),
     (<span class="ga" style="color: #00AA00">T(i0,k0)</span> &lt; <span class="ga" style="color: #00AA00">T(i,k)</span> =&gt; (i = i0 &amp;&amp; k = k0) =&gt; <span class="gn" style="color: #AA5500">nT</span>(i,k) &lt;&gt; <span class="gn" style="color: #AA5500">nT</span>(i0,k0)))
 
-</span><span class="input-line" id="in54"> help project.</span><span class="output-line" id="out54">[&gt; Line 250: (help project) 
+</span><span class="input-line" id="in54"> help project.</span><span class="output-line" id="out54">[&gt; Line 254: (help project) 
 
 - <span class="hf" style="font-weight: bold; color: #AA00AA">project</span> -
     Turn a goal on a bi-system into one goal for each projection of the
@@ -865,7 +869,7 @@ diff(
   one goal for the right projection. Note that the 3rd conjuct (the one with
   `nT(i,k) &lt;&gt; nT(i0,k0)`) is automatically simplified by Squirrel, using the
   fact that names with different indices cannot be equal. **)
-  project.</span><span class="output-line" id="out55">[&gt; Line 255: project 
+  project.</span><span class="output-line" id="out55">[&gt; Line 259: project 
 [goal&gt; Focused goal (1/3):
 System: default/left
 Variables: i,k:index
@@ -882,7 +886,7 @@ forall (i0,j:index),
   tactic allows to conclude because `nT(i,k)` is freshly generated at each new
   session of a tag, and since `R(j) &lt; T(i,k)` we know that the equality cannot 
   hold. **)
-  split.</span><span class="output-line" id="out56">[&gt; Line 262: split 
+  split.</span><span class="output-line" id="out56">[&gt; Line 266: split 
 [goal&gt; Focused goal (1/4):
 System: default/left
 Variables: i,j,k:index
@@ -893,7 +897,7 @@ Meq: <span class="gn" style="color: #AA5500">nT</span>(i,k) = <span class="gf" s
 <span class="sep" style="font-weight: bold">----------------------------------------</span>
 false
 
-</span><span class="input-line" id="in57"> by fresh Meq.</span><span class="output-line" id="out57">[&gt; Line 262: by (fresh Meq) 
+</span><span class="input-line" id="in57"> by fresh Meq.</span><span class="output-line" id="out57">[&gt; Line 266: by (fresh Meq) 
 [goal&gt; Focused goal (1/3):
 System: default/left
 Variables: i,j,k:index
@@ -904,7 +908,7 @@ Meq: <span class="gn" style="color: #AA5500">nT</span>(i,k) = <span class="gf" s
 <span class="sep" style="font-weight: bold">----------------------------------------</span>
 false
 
-</span><span class="input-line" id="in58"> by fresh Meq.</span><span class="output-line" id="out58">[&gt; Line 262: by (fresh Meq) 
+</span><span class="input-line" id="in58"> by fresh Meq.</span><span class="output-line" id="out58">[&gt; Line 266: by (fresh Meq) 
 [goal&gt; Focused goal (1/2):
 System: default/right
 Variables: i,k:index
@@ -916,7 +920,7 @@ forall (i0,j,k0:index),
   (<span class="ga" style="color: #00AA00">R1(j)</span> &lt; <span class="ga" style="color: #00AA00">T(i,k)</span> =&gt; (i = i0 &amp;&amp; k = k0) =&gt; <span class="gn" style="color: #AA5500">nT</span>(i,k) &lt;&gt; <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>))
 
 </span><span class="input-line" id="in59">
-  split.</span><span class="output-line" id="out59">[&gt; Line 263: split 
+  split.</span><span class="output-line" id="out59">[&gt; Line 267: split 
 [goal&gt; Focused goal (1/3):
 System: default/right
 Variables: i,j,k:index
@@ -927,7 +931,7 @@ Meq: <span class="gn" style="color: #AA5500">nT</span>(i,k) = <span class="gf" s
 <span class="sep" style="font-weight: bold">----------------------------------------</span>
 false
 
-</span><span class="input-line" id="in60"> by fresh Meq.</span><span class="output-line" id="out60">[&gt; Line 263: by (fresh Meq) 
+</span><span class="input-line" id="in60"> by fresh Meq.</span><span class="output-line" id="out60">[&gt; Line 267: by (fresh Meq) 
 [goal&gt; Focused goal (1/2):
 System: default/right
 Variables: i,j,k:index
@@ -938,7 +942,7 @@ Meq: <span class="gn" style="color: #AA5500">nT</span>(i,k) = <span class="gf" s
 <span class="sep" style="font-weight: bold">----------------------------------------</span>
 false
 
-</span><span class="input-line" id="in61"> by fresh Meq.</span><span class="output-line" id="out61">[&gt; Line 263: by (fresh Meq) 
+</span><span class="input-line" id="in61"> by fresh Meq.</span><span class="output-line" id="out61">[&gt; Line 267: by (fresh Meq) 
 [goal&gt; Focused goal (1/1):
 Systems: default
 Variables: i,k:index
@@ -953,7 +957,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 </span><span class="input-line" id="in62">
   (** We have now replaced the hash by a fresh name occurring nowhere else, 
   so we can remove it using the `fresh` tactic. **)
-  fresh 2.</span><span class="output-line" id="out62">[&gt; Line 266: (fresh 2) 
+  fresh 2.</span><span class="output-line" id="out62">[&gt; Line 270: (fresh 2) 
 [goal&gt; Focused goal (1/1):
 Systems: default
 Variables: i,k:index
@@ -967,7 +971,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
 </span><span class="input-line" id="in63">
   (** We can also remove the name `nT(i,k)`, and conclude by induction
   hypothesis. **)
-  fresh 1.</span><span class="output-line" id="out63">[&gt; Line 269: (fresh 1) 
+  fresh 1.</span><span class="output-line" id="out63">[&gt; Line 273: (fresh 1) 
 [goal&gt; Focused goal (1/1):
 Systems: default
 Variables: i,k:index
@@ -979,7 +983,7 @@ IH: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred
      then <span class="gf" style="font-weight: bold">zero</span> else <span class="gn" style="color: #AA5500">nT</span>(i,k)
 
 
-</span><span class="input-line" id="in64"> by yesif 1.</span><span class="output-line" id="out64">[&gt; Line 269: by (yesif 1) 
+</span><span class="input-line" id="in64"> by yesif 1.</span><span class="output-line" id="out64">[&gt; Line 273: by (yesif 1) 
 [goal&gt; Goal unlinkability is proved 
 </span><span class="input-line" id="in65">
 Qed.</span><span class="output-line" id="out65">Exiting proof mode.

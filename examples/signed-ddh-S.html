@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Squirrel Prover - Squirrel Prover</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<span style="display: none;"><span class="input-line" id="in0">(*******************************************************************************
+SIGNED DDH
+
+The signed DDH protocol as described in [G] features two roles, P and S.
+Each role is associated to a secret key (skP and skS).
+
+P -&gt; S : &lt;pk(skP), g^a&gt;
+S -&gt; P : &lt;pk(skS),g^b&gt;,sign(&lt;&lt;g^a,g^b&gt;,pk(skP)&gt;,skS)
+P -&gt; S : sign(&lt;&lt;g^b,g^a&gt;,pk(skS)&gt;,skP)
+
+We consider multiple sessions but two agents only (one agent for the role P and
+one agent for the role S) and show the strong secrecy of the shared key.
+
+* In this file `signed-ddh-S.sp`, we show that the key g^a^b as computed by S 
+  is indistinguishable from g^k with k fresh (system secretS).
+* In another file `signed-ddh-P.sp`, we show that the key g^a^b as computed by P 
+  is indistinguishable from g^k with k fresh (system secretP).
+
+[G] ISO/IEC 9798-3:2019, IT Security techniques – Entity authentication –
+Part 3: Mechanisms using digital signature techniques.
+*******************************************************************************)
+
+(**
+Declarations are identical to the ones in `signed-ddh-P.sp`.
+**)
+abstract ok : message
+abstract ko : message
+
+name skP : message
+name skS : message
+
+channel cP
+channel cS
+
+name a : index -&gt; message
+name b : index -&gt; message
+name k :  index -&gt; index -&gt; message
+
+ddh g, (^) where group:message exposants:message.</span><span class="output-line" id="out0">true
+</span><span class="input-line" id="in1">
+
+signature sign,checksign,pk
+
+(**
+The system `secretS` is the counterpart of the system `secretP` defined in 
+the file `signed-ddh-P.sp`.
+This time, we add an output at the end of the role of S.
+**)
+process P(i:index) =
+  out(cP, &lt;pk(skP),g^a(i)&gt;);
+  in(cP, x2);
+  let gs = snd(fst(x2)) in
+  let pks = fst(fst(x2)) in
+  if checksign(snd(x2),pks) = &lt;&lt;g^a(i),gs&gt;,pk(skP)&gt; &amp;&amp; pks = pk(skS) then
+    out(cP,sign(&lt;&lt;gs,g^a(i)&gt;,pks&gt;,skP))
+
+process Schall(j:index) =
+  in(cS, x1);
+  let gp = snd(x1) in
+  let pkp = fst(x1) in
+  if pkp = pk(skP) then
+    out(cS, &lt; &lt;pk(skS),g^b(j)&gt;, sign(&lt;&lt;gp,g^b(j)&gt;,pkp&gt;,skS)&gt;);
+    in(cS, x3);
+    if checksign(x3,pkp) = &lt;&lt;g^b(j),gp&gt;,pk(skS)&gt; then
+      out(cS,ok);
+      in(cS, challenge);
+      try find i such that gp = g^a(i) in
+        out(cS, diff(g^a(i)^b(j),g^k(i,j)))
+      else 
+        out(cS, diff(ok,ko))
+
+system [secretS] (!_i P(i) | !_j Schall(j)).</span><span class="output-line" id="out1">Un-processed system:
+  
+  (!_i <span class="pn" style="font-weight:bold; color: #0000AA">P</span> i) | (!_j <span class="pn" style="font-weight:bold; color: #0000AA">Schall</span> j)
+
+Processed system:
+  
+  (!_i
+     P:
+     <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,pair(pk(skP),(g ^ a(i))));
+     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cP</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x2</span>);
+     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">gs</span> = snd(fst(x2)) <span class="pk" style="font-weight: bold">in</span>
+     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">pks</span> = fst(fst(x2)) <span class="pk" style="font-weight: bold">in</span>
+     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> (checksign(snd(x2),pks(i)) = pair(pair((g ^ a(i)),gs(i)),pk(skP)) &amp;&amp;
+         pks(i) = pk(skS)) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span>
+       P1: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,sign(pair(pair(gs(i),(g ^ a(i))),pks(i)),skP)); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span>
+       P2: <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |
+  (!_j
+     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cS</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x1</span>);
+     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">gp</span> = snd(x1) <span class="pk" style="font-weight: bold">in</span>
+     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">pkp</span> = fst(x1) <span class="pk" style="font-weight: bold">in</span>
+     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> pkp(j) = pk(skP) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span>
+       Schall:
+       <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,
+       pair(pair(pk(skS),(g ^ b(j))),
+             sign(pair(pair(gp(j),(g ^ b(j))),pkp(j)),skS)));
+       <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cS</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x3</span>);
+       <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> checksign(x3,pkp(j)) = pair(pair((g ^ b(j)),gp(j)),pk(skS)) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span>
+         Schall1:
+         <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,ok);
+         <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cS</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">challenge</span>);
+         <span class="pc" style="text-decoration: underline; color: #AA0000">find</span> (i) <span class="pc" style="text-decoration: underline; color: #AA0000">such that</span> gp(j) = (g ^ a(i)) <span class="pc" style="text-decoration: underline; color: #AA0000">in</span>
+           Schall2: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,<span>diff</span>(((g ^ a(i)) ^ b(j)),(g ^ k(i,j)))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span>
+           Schall3: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,<span>diff</span>(ok,ko)); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> Schall4: <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span>
+       Schall5: <span class="pn" style="font-weight:bold; color: #0000AA">null</span>)
+
+System secretS registered with actions (init,P,P1,P2,Schall,Schall1,Schall2,
+                                         Schall3,Schall4,Schall5).
+</span><span class="input-line" id="in2">
+
+(**
+In the proof of strong secrecy for the system `secretS`, we will use 
+the following property, stating that whenever S accepts a message from P, 
+this message is of the form `&lt;&lt;_,x&gt;,_&gt;` where `x = g^a(i)`.
+**)
+goal [secretS] S_charac (j:index):
+  happens(Schall1(j)) =&gt;
+    exec@Schall1(j) =&gt; 
+      exists (i:index), snd(input@Schall(j)) = g^a(i).</span><span class="output-line" id="out2">Goal S_charac :
+  <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>) =&gt;
+  <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+</span><span class="input-line" id="in3">
+Proof.</span><span class="output-line" id="out3">[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>) =&gt;
+<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in4">
+  intro Hap Hexec.</span><span class="output-line" id="out4">[&gt; Line 83: (intro Hap Hexec) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D0: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+Hexec: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in5">
+  expand exec.</span><span class="output-line" id="out5">[&gt; Line 84: (expand exec) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D0: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in6">
+  executable pred(Schall1(j)).</span><span class="output-line" id="out6">[&gt; Line 85: (executable <span>pred</span>(Schall1(j))) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D0: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>
+H1: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in7">
+  depends Schall(j), Schall1(j).</span><span class="output-line" id="out7">[&gt; Line 86: (depends Schall(j), Schall1(j)) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+Clt: <span class="ga" style="color: #00AA00">Schall(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D0: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>))
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>
+H1: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in8">
+  use H1 with Schall(j).</span><span class="output-line" id="out8">[&gt; Line 87: (assert ... as ) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+Clt: <span class="ga" style="color: #00AA00">Schall(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D0: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>))
+D3: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>
+H1: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+H2: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in9">
+  expand exec, cond, pkp(j)@Schall1(j).</span><span class="output-line" id="out9">[&gt; Line 88: (expand exec, cond, pkp(j)@Schall1(j)) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+Clt: <span class="ga" style="color: #00AA00">Schall(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>))
+D3: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>,<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)) =
+    &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)&gt;
+H1: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+H2: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>)
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+Meq: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in10">
+  assert fst(input@Schall(j)) = pk(skP) as Meq'.</span><span class="output-line" id="out10">[&gt; Line 89: (assert fst(input@Schall(j)) = pk(skP), Meq') 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+Clt: <span class="ga" style="color: #00AA00">Schall(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>))
+D3: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>,<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)) =
+    &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)&gt;
+H1: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+H2: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>)
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+Meq: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)
+Meq': <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in11">
+  rewrite Meq' in H0.</span><span class="output-line" id="out11">[&gt; Line 90: (rewrite ... in H0) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: j:index
+Clt: <span class="ga" style="color: #00AA00">Schall(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>))
+D3: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)) =
+    &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)&gt;
+H1: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+H2: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>)
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+Meq: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)
+Meq': <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in12">
+  euf H0.</span><span class="output-line" id="out12">[&gt; Line 91: (euf H0) 
+[goal&gt; Focused goal (1/1):
+System: secretS
+Variables: i,j:index
+Clt: <span class="ga" style="color: #00AA00">Schall(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>))
+D3: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+H0: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)) =
+    &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)&gt;
+H1: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+H2: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H3: <span class="ga" style="color: #00AA00">P1(i)</span> &lt;= <span class="ga" style="color: #00AA00">Schall1(j)</span> || <span class="ga" style="color: #00AA00">P1(i)</span> &lt; <span class="ga" style="color: #00AA00">Schall1(j)</span>
+Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall1(j)</span>)
+Meq: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall(j)</span> = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)
+Meq': <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)
+Meq0: &lt;&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">gs</span>(i)@<span class="ga" style="color: #00AA00">P1(i)</span>,<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)&gt;,<span class="gm" style="font-weight: bold; color: #AA00AA">pks</span>(i)@<span class="ga" style="color: #00AA00">P1(i)</span>&gt; =
+      &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)&gt;
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+exists (i:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+
+</span><span class="input-line" id="in13">
+  by exists i.</span><span class="output-line" id="out13">[&gt; Line 92: by (exists i) 
+[goal&gt; Goal S_charac is proved 
+</span><span class="input-line" id="in14">
+Qed.</span><span class="output-line" id="out14">Exiting proof mode.
+
+
+</span><span class="input-line" id="in15">
+
+(** 
+We show the counterpart of the property `strongSecP`, this time for the 
+system `secretS`. The proof is carried out exactly in the same way. 
+**)
+equiv [secretS] strongSecS.</span><span class="output-line" id="out15">Goal strongSecS :
+  forall t:timestamp, <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
+</span><span class="input-line" id="in16">
+Proof.</span><span class="output-line" id="out16">[goal&gt; Focused goal (1/1):
+Systems: secretS
+Variables: t:timestamp
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
+
+
+</span><span class="input-line" id="in17">
+  enrich 
+    skP, skS, 
+    seq(i:index -&gt;g^a(i)), 
+    seq(j:index -&gt;g^b(j)),
+    seq(i,j:index -&gt;diff(g^a(i)^b(j),g^k(i,j))).</span><span class="output-line" id="out17">[&gt; Line 105: (enrich skP, skS, <span>seq</span>(i:index-&gt;(g ^ a(i))),
+             <span>seq</span>(j:index-&gt;(g ^ b(j))),
+             <span>seq</span>(i,j:index-&gt;<span>diff</span>(((g ^ a(i)) ^ b(j)),(g ^ k(i,j)))))
+
+[goal&gt; Focused goal (1/1):
+Systems: secretS
+Variables: t:timestamp
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
+
+
+</span><span class="input-line" id="in18">
+
+  induction t; try (by expandall; apply IH).</span><span class="output-line" id="out18">[&gt; Line 107: ((induction t);(try by (expandall;(apply ... )))) 
+[goal&gt; Focused goal (1/2):
+Systems: secretS
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">init</span>)]
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">init</span>
+
+
+</span><span class="input-line" id="in19">
+
+  (* init *)
+  expandall.</span><span class="output-line" id="out19">[&gt; Line 110: expandall 
+[goal&gt; Focused goal (1/2):
+Systems: secretS
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">init</span>)]
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+
+
+</span><span class="input-line" id="in20">
+  by ddh g,a,b,k.</span><span class="output-line" id="out20">[&gt; Line 111: by (ddh g, a, b, k) 
+[goal&gt; Focused goal (1/1):
+Systems: secretS
+Variables: j:index
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)]
+IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
+    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
+    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">Schall3(j)</span>
+
+
+</span><span class="input-line" id="in21">
+
+  (* Schall3 *)
+  expand frame, exec, output.</span><span class="output-line" id="out21">[&gt; Line 114: (expand frame, exec, output) 
+[goal&gt; Focused goal (1/1):
+Systems: secretS
+Variables: j:index
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)]
+IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
+    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
+    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+5: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>),
+    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>) &amp;&amp; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Schall3(j)</span>),
+     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>) &amp;&amp; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Schall3(j)</span>) then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;&gt;
+
+
+</span><span class="input-line" id="in22">
+  equivalent exec@pred(Schall3(j)) &amp;&amp; cond@Schall3(j), False.</span><span class="output-line" id="out22">[&gt; Line 115: (equivalent (exec@<span>pred</span>(Schall3(j)) &amp;&amp; cond@Schall3(j)), <span>False</span>) 
+[goal&gt; Focused goal (1/2):
+System: secretS
+Variables: j:index
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H1: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Schall3(j)</span>
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+false
+
+</span><span class="input-line" id="in23">
+    expand cond.</span><span class="output-line" id="out23">[&gt; Line 116: (expand cond) 
+[goal&gt; Focused goal (1/2):
+System: secretS
+Variables: j:index
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H1: forall (i:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+false
+
+</span><span class="input-line" id="in24">
+    executable pred(Schall3(j)).</span><span class="output-line" id="out24">[&gt; Line 117: (executable <span>pred</span>(Schall3(j))) 
+[goal&gt; Focused goal (1/2):
+System: secretS
+Variables: j:index
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H1: forall (i:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall3(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+false
+
+</span><span class="input-line" id="in25">
+    depends Schall1(j), Schall3(j).</span><span class="output-line" id="out25">[&gt; Line 118: (depends Schall1(j), Schall3(j)) 
+[goal&gt; Focused goal (1/2):
+System: secretS
+Variables: j:index
+Clt: <span class="ga" style="color: #00AA00">Schall1(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall3(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H1: forall (i:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall3(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+false
+
+</span><span class="input-line" id="in26">
+    use H2 with Schall1(j).</span><span class="output-line" id="out26">[&gt; Line 119: (assert ... as ) 
+[goal&gt; Focused goal (1/2):
+System: secretS
+Variables: j:index
+Clt: <span class="ga" style="color: #00AA00">Schall1(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall3(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D0: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H1: forall (i:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall3(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+false
+
+</span><span class="input-line" id="in27">
+    use S_charac with j.</span><span class="output-line" id="out27">[&gt; Line 120: (assert ... as ) 
+[goal&gt; Focused goal (1/2):
+System: secretS
+Variables: i,j:index
+Clt: <span class="ga" style="color: #00AA00">Schall1(j)</span> &lt; <span class="ga" style="color: #00AA00">Schall3(j)</span>
+D: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D0: <span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkp</span>(j)@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>)
+D2: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall1(j)</span>))
+H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+H1: forall (i:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gp</span>(j)@<span class="ga" style="color: #00AA00">Schall3(j)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Schall3(j)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
+H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Schall1(j)</span>
+Meq: <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Schall(j)</span>) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+false
+
+</span><span class="input-line" id="in28">
+    by use H1 with i.</span><span class="output-line" id="out28">[&gt; Line 121: by (assert ... as ) 
+[goal&gt; Focused goal (1/1):
+Systems: secretS
+Variables: j:index
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)]
+IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
+    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
+    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+5: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>),&lt;<span class="gf" style="font-weight: bold">of_bool</span>(false),if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;&gt;
+
+
+</span><span class="input-line" id="in29">
+  fa 5.</span><span class="output-line" id="out29">[&gt; Line 122: (fa 5) 
+[goal&gt; Focused goal (1/1):
+Systems: secretS
+Variables: j:index
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)]
+IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
+    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
+    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+6: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(false),if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;
+
+
+</span><span class="input-line" id="in30"> fa 6.</span><span class="output-line" id="out30">[&gt; Line 122: (fa 6) 
+[goal&gt; Focused goal (1/1):
+Systems: secretS
+Variables: j:index
+H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Schall3(j)</span>)]
+IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
+    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
+    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+<span class="sep" style="font-weight: bold">----------------------------------------</span>
+0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
+1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
+2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
+3: <span class="gn" style="color: #AA5500">skS</span>
+4: <span class="gn" style="color: #AA5500">skP</span>
+5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Schall3(j)</span>)
+6: if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)
+
+
+</span><span class="input-line" id="in31">
+  by noif 6.</span><span class="output-line" id="out31">[&gt; Line 123: by (noif 6) 
+[goal&gt; Goal strongSecS is proved 
+</span><span class="input-line" id="in32">
+Qed.</span><span class="output-line" id="out32">Exiting proof mode.
+
+
+</span></span>
+<h1 id="about-this-tutorial">Example</h1>
+<div class="example-left">
+  <div class="example-buttons">
+    <button type="button" class="command" onclick="goto_down()">-</button>
+    <button type="button" class="command" onclick="goto_selected()">=></button>
+    <button type="button" class="command" onclick="goto_up()">+</button>
+    <button type="button" class="command" style="float: right;">doc</button>
+  </div>
+  <div class="example-code" style="height: 650px;	border-style: none solid solid solid;"><span id="in-line"></span></div>
+</div>
+<div class="example-left">
+  <div class="example-code" style="height: 300px;	border-style: solid solid double none;"><span>Previously:</span>
+<span id="prec-line"></span>
+  </div>
+  <div class="example-code" style="height: 400px;	border-style: none solid solid none;"><span id="out-line"></span></div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
