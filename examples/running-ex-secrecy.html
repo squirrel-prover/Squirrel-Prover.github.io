@@ -8,137 +8,128 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-<span style="display: none;"><span class="input-line" id="in0">(*******************************************************************************
-RUNNING EXAMPLE - secrecy
+<body onkeydown="key(event)">
+<span style="display: none;"><span class="squirrel-step" id="step0">
+<span class="input-line" id="in0">set autoIntro  = false.</span>
+<span class="output-line" id="out0"></span>
+<span class="com-line" id="com0"><h1 id="running-example---secrecy">RUNNING EXAMPLE - secrecy</h1>
+<p>In this file we illustrate the articulation between equivalence and reachability by showing a proof of (weak) secrecy using a strong secrecy property as hypothesis.</p>
+</span>
+</span>
 
-In this file we illustrate the articulation between equivalence and 
-reachability by showing a proof of (weak) secrecy using a strong secrecy 
-property as hypothesis.
-*******************************************************************************)
+<span class="squirrel-step" id="step1">
+<span class="input-line" id="in1">name s0 : index-&gt;message.</span>
+<span class="output-line" id="out1"></span>
+<span class="com-line" id="com1"><p>We first declare:</p>
+<ul>
+<li>an indexed name <code>s0(i)</code> used to initialize the mutable state <code>s</code>;</li>
+<li>a name <code>m</code> used to represent a fresh random message.</li>
+</ul>
+</span>
+</span>
 
-set autoIntro  = false.</span><span class="output-line" id="out0">true
-</span><span class="input-line" id="in1">
+<span class="squirrel-step" id="step2">
+<span class="input-line" id="in2"><br>mutable s (i:index) : message = s0(i).</span>
+<span class="output-line" id="out2"></span>
+</span>
 
-(**
-We first declare:
-* an indexed name `s0(i)` used to initialize the mutable state `s`;
-* a name `m` used to represent a fresh random message.
-**)
-name s0 : index-&gt;message.</span><span class="output-line" id="out1"></span><span class="input-line" id="in2">
-mutable s (i:index) : message = s0(i).</span><span class="output-line" id="out2"></span><span class="input-line" id="in3">
-name m : message.</span><span class="output-line" id="out3"></span><span class="input-line" id="in4">
+<span class="squirrel-step" id="step3">
+<span class="input-line" id="in3"><br>name m : message.</span>
+<span class="output-line" id="out3"></span>
+</span>
 
-(**
-In this file, our goal is to prove a secrecy property regardless of any specific
-protocol. This is why we declare an empty system.
-**)
-system null.</span><span class="output-line" id="out4">Un-processed system:
-  
-  <span class="pn" style="font-weight:bold; color: #0000AA">null</span>
+<span class="squirrel-step" id="step4">
+<span class="input-line" id="in4">system null.</span>
+<span class="output-line" id="out4">Un-processed system:<br>  <br>  <span class="pn" style="font-weight:bold; color: #0000AA">null</span><br><br>Processed system:<br>  <br>  <span class="pn" style="font-weight:bold; color: #0000AA">null</span><br><br>System default registered with actions (init).<br></span>
+<span class="com-line" id="com4"><p>In this file, our goal is to prove a secrecy property regardless of any specific protocol. This is why we declare an empty system.</p>
+</span>
+</span>
 
-Processed system:
-  
-  <span class="pn" style="font-weight:bold; color: #0000AA">null</span>
+<span class="squirrel-step" id="step5">
+<span class="input-line" id="in5">global goal [default/left,default/left] secrecy (i:index,tau,tau':timestamp):<br>  [happens(pred(tau))]<br>    -&gt; equiv(frame@tau, diff(s(i)@tau',m))<br>    -&gt; [input@tau &lt;&gt; s(i)@tau'].</span>
+<span class="output-line" id="out5">Goal secrecy :<br>  forall i:index,tau,tau':timestamp,<br>  [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))] -&gt;<br>    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>) -&gt;<br>      [<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau']<br></span>
+<span class="com-line" id="com5"><p>The following secrecy property is expressed by a global meta-logic formula. It states that, if the values stored in the memory cell <code>s</code> are strongly secret (this is expressed by the formula <code>equiv(frame@tau, diff(s(i)@tau',m))</code>), then the value <code>s(i)@tau'</code> is weakly secret, <em>i.e.</em> the attacker cannot deduce this value (this is expressed by the formula <code>[input@tau &lt;&gt; s(i)@tau']</code>).</p>
+<p>Note that <code>happens(pred(tau))</code> is needed for the proof, and actually implies <code>happens(tau)</code>.</p>
+<p>Note that this global meta-logic formula is defined w.r.t. the same system (<code>default/left</code>) for the left and the right projections. This is a technical restriction coming from the fact that, in the current implementation of Squirrel, global and local hypotheses cannot coexist.</p>
+</span>
+</span>
 
-System default registered with actions (init).
-</span><span class="input-line" id="in5">
+<span class="squirrel-step" id="step6">
+<span class="input-line" id="in6">Proof.</span>
+<span class="output-line" id="out6">[goal&gt; Focused goal (1/1):<br>Systems: default/left,default/left<br>Variables: i:index,tau,tau':timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>[<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))] -&gt;<br>  <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>) -&gt;<br>    [<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau']<br><br></span>
+<span class="com-line" id="com6"><p>The high-level idea of this proof is to use the strong secrecy hypothesis to prove the weak secrecy, relying on the <code>rewrite equiv</code> tactic which allows to derive a reachability judgement from an equivalence judgement.</p>
+</span>
+</span>
 
-(**
-The following secrecy property is expressed by a global meta-logic formula.
-It states that, if the values stored in the memory cell `s` are strongly 
-secret (this is expressed by the formula `equiv(frame@tau, diff(s(i)@tau',m))`), 
-then the value `s(i)@tau'` is weakly secret, _i.e._ the attacker cannot deduce 
-this value (this is expressed by the formula `[input@tau &lt;&gt; s(i)@tau']`).
-Note that `happens(pred(tau))` is needed for the proof, and actually implies 
-`happens(tau)`.
-Note that this global meta-logic formula is defined w.r.t. the same system 
-(`default/left`) for the left and the right projections.
-This is a technical restriction coming from the fact that, in the current
-implementation of Squirrel, global and local hypotheses cannot coexist.
-**)
-global goal [default/left,default/left] secrecy (i:index,tau,tau':timestamp):
-  [happens(pred(tau))]
-    -&gt; equiv(frame@tau, diff(s(i)@tau',m))
-    -&gt; [input@tau &lt;&gt; s(i)@tau'].</span><span class="output-line" id="out5">Goal secrecy :
-  forall i:index,tau,tau':timestamp,
-  [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))] -&gt;
-    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>) -&gt;
-      [<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau']
-</span><span class="input-line" id="in6">
-(**
-The high-level idea of this proof is to use the strong secrecy hypothesis
-to prove the weak secrecy, relying on the `rewrite equiv` tactic which allows
-to derive a reachability judgement from an equivalence judgement.
-**)
-Proof.</span><span class="output-line" id="out6">[goal&gt; Focused goal (1/1):
-Systems: default/left,default/left
-Variables: i:index,tau,tau':timestamp
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-[<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))] -&gt;
-  <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>) -&gt;
-    [<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau']
+<span class="squirrel-step" id="step7">
+<span class="input-line" id="in7">  intro Hap H.</span>
+<span class="output-line" id="out7">[goal&gt; Focused goal (1/1):<br>System: default/left,default/left<br>Variables: i:index,tau,tau':timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>)<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau'<br><br></span>
+<span class="com-line" id="com7"><p>We start by introducing the hypotheses.</p>
+</span>
+</span>
 
-</span><span class="input-line" id="in7">
-  (** We start by introducing the hypotheses. **)
-  intro Hap H.</span><span class="output-line" id="out7">[&gt; Line 50: (intro Hap H) 
-[goal&gt; Focused goal (1/1):
-System: default/left,default/left
-Variables: i:index,tau,tau':timestamp
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>)
-Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau'
+<span class="squirrel-step" id="step8">
+<span class="input-line" id="in8">  rewrite equiv H.</span>
+<span class="output-line" id="out8">[goal&gt; Focused goal (1/1):<br>System: default/left,default/left<br>Variables: i:index,tau,tau':timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>)<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gn" style="color: #AA5500">m</span><br><br></span>
+<span class="com-line" id="com8"><p>Here, we use the <code>rewrite equiv</code> tactic to rewrite the conclusion of the goal: all occurrences of left elements from <code>H</code> are replaced by their corresponding right elements.</p>
+<p>In this case, the tactic allows to replace <code>s(i)@tau'</code> by the name <code>m</code>.</p>
+</span>
+</span>
 
-</span><span class="input-line" id="in8">
-  (** Here, we use the `rewrite equiv` tactic to rewrite the conclusion of the
-  goal: all occurrences of left elements from `H` are replaced by their 
-  corresponding right elements.
-  In this case, the tactic allows to replace `s(i)@tau'` by the name `m`. **)
-  rewrite equiv H.</span><span class="output-line" id="out8">[&gt; Line 55: (rewrite equiv ...) 
-[goal&gt; Focused goal (1/1):
-System: default/left,default/left
-Variables: i:index,tau,tau':timestamp
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>)
-Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau &lt;&gt; <span class="gn" style="color: #AA5500">m</span>
+<span class="squirrel-step" id="step9">
+<span class="input-line" id="in9">  intro H'.</span>
+<span class="output-line" id="out9">[goal&gt; Focused goal (1/1):<br>System: default/left,default/left<br>Variables: i:index,tau,tau':timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>)<br>H': <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau = <span class="gn" style="color: #AA5500">m</span><br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+<span class="com-line" id="com9"><p>It remains now to show that the attacker cannot deduce a fresh name, using the <code>fresh</code> tactic.</p>
+</span>
+</span>
 
-</span><span class="input-line" id="in9">
-  (** It remains now to show that the attacker cannot deduce a fresh name,
-  using the `fresh` tactic. **)
-  intro H'.</span><span class="output-line" id="out9">[&gt; Line 58: (intro H') 
-[goal&gt; Focused goal (1/1):
-System: default/left,default/left
-Variables: i:index,tau,tau':timestamp
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@tau, diff(<span class="gm" style="font-weight: bold; color: #AA00AA">s</span>(i)@tau',<span class="gn" style="color: #AA5500">m</span>)
-H': <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau = <span class="gn" style="color: #AA5500">m</span>
-Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(pred(tau))
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
+<span class="squirrel-step" id="step10">
+<span class="input-line" id="in10"> by fresh H'.</span>
+<span class="output-line" id="out10">[goal&gt; Goal secrecy is proved <br></span>
+</span>
 
-</span><span class="input-line" id="in10"> by fresh H'.</span><span class="output-line" id="out10">[&gt; Line 58: by (fresh H') 
-[goal&gt; Goal secrecy is proved 
-</span><span class="input-line" id="in11">
-Qed.</span><span class="output-line" id="out11">Exiting proof mode.
+<span class="squirrel-step" id="step11">
+<span class="input-line" id="in11"><br>Qed.</span>
+<span class="output-line" id="out11">Exiting proof mode.<br><br><br></span>
+</span>
 
-
-</span></span>
-<h1 id="about-this-tutorial">Example</h1>
-<div class="example-left">
-  <div class="example-buttons">
-    <button type="button" class="command" onclick="goto_down()">-</button>
-    <button type="button" class="command" onclick="goto_selected()">=></button>
-    <button type="button" class="command" onclick="goto_up()">+</button>
-    <button type="button" class="command" style="float: right;">doc</button>
-  </div>
-  <div class="example-code" style="height: 650px;	border-style: none solid solid solid;"><span id="in-line"></span></div>
+</span>
+<div class="page-header">
+  <img src="../logo-circular.png" class="logo">
+  <h1 class="project-tagline">Squirrel Prover</h1>
+  <a href="https://squirrel-prover.github.io/examples.html" class="header-button">
+    <button type="button" class="header-button">Exit</button>
+  </a>
+  <button type="button" class="header-button" onclick="help()" id="button-panel">Help</button>
 </div>
-<div class="example-left">
-  <div class="example-code" style="height: 300px;	border-style: solid solid double none;"><span>Previously:</span>
-<span id="prec-line"></span>
+
+<div class="help-panel" id="help-panel">
+  Press the left and right arrows to do and undo an instruction.
+  <br><br>
+  Alternatively, you can double-click or an instruction.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('in-zone')" onmouseleave="highlightOff('in-zone')">This zone</span> show a squirrel file. You can double-click on a commentary to collapse it for better readabilility.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('out-zone')" onmouseleave="highlightOff('out-zone')">This zone</span> show the output given by Squirrel.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('prec-zone')" onmouseleave="highlightOff('prec-zone')">This zone</span> show the output of the previous instruction to explicit the change caused by a tactic.
+</div>
+
+<div class="mainsection" id="main">
+  <div class="example-grid">
+    <div class="example-col example-col-left" id="in-zone">
+      <p class="example-code"><span id="in-line"></span></p>
+    </div>
+    <div class="example-col example-col-right">
+      <div class="example-code example-code-right" style="height: 45%;	border-bottom: 4px double #8B0000;" id="prec-zone"><span>Previously:</span><br><br><span id="prec-line"></span>
+      </div>
+      <div style="position: relative;">
+      <button type="button" class="prec-button" onclick="hidePrec()" id="prec-button" >Hide</button>
+      </div>
+      <div class="example-code example-code-right" style="height: 55%;" id="out-zone"><span id="out-line"></span>
+      </div>
+    </div>
   </div>
-  <div class="example-code" style="height: 400px;	border-style: none solid solid none;"><span id="out-line"></span></div>
 </div>
 
 <script src="script.js"></script>

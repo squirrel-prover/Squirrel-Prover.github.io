@@ -8,555 +8,274 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-<span style="display: none;"><span class="input-line" id="in0">(*******************************************************************************
-SIGNED DDH
+<body onkeydown="key(event)">
+<span style="display: none;"><span class="squirrel-step" id="step0">
+<span class="input-line" id="in0">abstract ok : message<br>abstract ko : message<br><br>name skP : message<br>name skS : message<br><br>channel cP<br>channel cS.</span>
+<span class="output-line" id="out0"></span>
+<span class="com-line" id="com0"><h1 id="signed-ddh">SIGNED DDH</h1>
+<p>The signed DDH protocol as described in [G] features two roles, P and S. Each role is associated to a secret key (skP and skS).</p>
+<ul>
+<li>P -&gt; S : &lt;pk(skP), g^a&gt;</li>
+<li>S -&gt; P : &lt;pk(skS),g<sup>b&gt;,sign(&lt;&lt;g</sup>a,g^b&gt;,pk(skP)&gt;,skS)</li>
+<li>P -&gt; S : sign(&lt;&lt;g<sup>b,g</sup>a&gt;,pk(skS)&gt;,skP)</li>
+</ul>
+<p>We consider multiple sessions but two agents only (one agent for the role P and one agent for the role S) and show the strong secrecy of the shared key.</p>
+<ul>
+<li>In this file <code>signed-ddh-P.sp</code>, we show that the key g<sup>a</sup>b as computed by P is indistinguishable from g^k with k fresh (system secretP).</li>
+<li>In another file <code>signed-ddh-S.sp</code>, we show that the key g<sup>a</sup>b as computed by S is indistinguishable from g^k with k fresh (system secretS).</li>
+</ul>
+<p>[G] ISO/IEC 9798-3:2019, IT Security techniques – Entity authentication – Part 3: Mechanisms using digital signature techniques.</p>
+<hr />
+<p>We first declare some public constants, the secret keys for roles P and S, the channels used by these two roles.</p>
+</span>
+</span>
 
-The signed DDH protocol as described in [G] features two roles, P and S.
-Each role is associated to a secret key (skP and skS).
+<span class="squirrel-step" id="step1">
+<span class="input-line" id="in1">name a : index -&gt; message<br>name b : index -&gt; message.</span>
+<span class="output-line" id="out1"></span>
+<span class="com-line" id="com1"><p>Names <code>a</code> and <code>b</code> represent the random numbers used by roles P and S. They are indexed so that each new session uses a new random name.</p>
+</span>
+</span>
 
-P -&gt; S : &lt;pk(skP), g^a&gt;
-S -&gt; P : &lt;pk(skS),g^b&gt;,sign(&lt;&lt;g^a,g^b&gt;,pk(skP)&gt;,skS)
-P -&gt; S : sign(&lt;&lt;g^b,g^a&gt;,pk(skS)&gt;,skP)
+<span class="squirrel-step" id="step2">
+<span class="input-line" id="in2">name k :  index -&gt; index -&gt; message.</span>
+<span class="output-line" id="out2"></span>
+<span class="com-line" id="com2"><p>The name <code>k</code> represents the random number used in the strong secrecy property. It has 2 as index arity to model the fact that each interaction between session <code>i</code> of role P and session <code>j</code> of role S uses a new random name.</p>
+</span>
+</span>
 
-We consider multiple sessions but two agents only (one agent for the role P and
-one agent for the role S) and show the strong secrecy of the shared key.
+<span class="squirrel-step" id="step3">
+<span class="input-line" id="in3">ddh g, (^) where group:message exposants:message.</span>
+<span class="output-line" id="out3"></span>
+<span class="com-line" id="com3"><p>We declare a DDH context, using <code>g</code> for the generator element and <code>^</code> for the power operator.</p>
+</span>
+</span>
 
-* In this file `signed-ddh-P.sp`, we show that the key g^a^b as computed by P 
-  is indistinguishable from g^k with k fresh (system secretP).
-* In another file `signed-ddh-S.sp`, we show that the key g^a^b as computed by S 
-  is indistinguishable from g^k with k fresh (system secretS).
+<span class="squirrel-step" id="step4">
+<span class="input-line" id="in4">signature sign,checksign,pk.</span>
+<span class="output-line" id="out4"></span>
+<span class="com-line" id="com4"><p>We also declare a signature scheme by specifying 3 function symbols.</p>
+</span>
+</span>
 
-[G] ISO/IEC 9798-3:2019, IT Security techniques – Entity authentication –
-Part 3: Mechanisms using digital signature techniques.
-*******************************************************************************)
+<span class="squirrel-step" id="step5">
+<span class="input-line" id="in5">process Pchall(i:index) =<br>  out(cP, &lt;pk(skP),g^a(i)&gt;);<br>  in(cP, x2);<br>  let gS = snd(fst(x2)) in<br>  let pkS = fst(fst(x2)) in<br>  if checksign(snd(x2),pkS) = &lt;&lt;g^a(i),gS&gt;,pk(skP)&gt; &amp;&amp; pkS = pk(skS) then<br>    out(cP,sign(&lt;&lt;gS,g^a(i)&gt;,pkS&gt;,skP));<br>    in(cP, challenge);<br>      try find j such that gS = g^b(j) in<br>        out(cP, diff(g^a(i)^b(j),g^k(i,j)))<br>      else<br>        <br>        out(cP, diff(ok,ko))<br><br>process S(j:index) =<br>  in(cS, x1);<br>  let gP = snd(x1) in<br>  let pkP = fst(x1) in<br>  if pkP = pk(skP) then<br>    out(cS, &lt; &lt;pk(skS),g^b(j)&gt;, sign(&lt;&lt;gP,g^b(j)&gt;,pkP&gt;,skS)&gt;);<br>    in(cS, x3);<br>    if checksign(x3,pkP) = &lt;&lt;g^b(j),gP&gt;,pk(skS)&gt; then<br>      out(cS,ok)<br><br>system [secretP] (!_i Pchall(i) | !_j S(j)).</span>
+<span class="output-line" id="out5">Un-processed system:<br>  <br>  (!_i <span class="pn" style="font-weight:bold; color: #0000AA">Pchall</span> i) | (!_j <span class="pn" style="font-weight:bold; color: #0000AA">S</span> j)<br><br>Processed system:<br>  <br>  (!_i<br>     Pchall:<br>     <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,pair(pk(skP),(g ^ a(i))));<br>     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cP</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x2</span>);<br>     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">gS</span> = snd(fst(x2)) <span class="pk" style="font-weight: bold">in</span><br>     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">pkS</span> = fst(fst(x2)) <span class="pk" style="font-weight: bold">in</span><br>     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> (checksign(snd(x2),pkS(i)) = pair(pair((g ^ a(i)),gS(i)),pk(skP)) &amp;&amp;<br>         pkS(i) = pk(skS)) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span><br>       Pchall1:<br>       <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,sign(pair(pair(gS(i),(g ^ a(i))),pkS(i)),skP));<br>       <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cP</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">challenge</span>);<br>       <span class="pc" style="text-decoration: underline; color: #AA0000">find</span> (j) <span class="pc" style="text-decoration: underline; color: #AA0000">such that</span> gS(i) = (g ^ b(j)) <span class="pc" style="text-decoration: underline; color: #AA0000">in</span><br>         Pchall2: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,<span>diff</span>(((g ^ a(i)) ^ b(j)),(g ^ k(i,j)))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span><br>         Pchall3: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,<span>diff</span>(ok,ko)); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> Pchall4: <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |<br>  (!_j<br>     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cS</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x1</span>);<br>     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">gP</span> = snd(x1) <span class="pk" style="font-weight: bold">in</span><br>     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">pkP</span> = fst(x1) <span class="pk" style="font-weight: bold">in</span><br>     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> pkP(j) = pk(skP) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span><br>       S:<br>       <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,<br>       pair(pair(pk(skS),(g ^ b(j))),<br>             sign(pair(pair(gP(j),(g ^ b(j))),pkP(j)),skS)));<br>       <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cS</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x3</span>);<br>       <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> checksign(x3,pkP(j)) = pair(pair((g ^ b(j)),gP(j)),pk(skS)) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span><br>         S1: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,ok); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> S2: <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> S3: <span class="pn" style="font-weight:bold; color: #0000AA">null</span>)<br><br>System secretP registered with actions (init,Pchall,Pchall1,Pchall2,Pchall3,<br>                                         Pchall4,S,S1,S2,S3).<br></span>
+<span class="com-line" id="com5"><p>In the system <code>secretP</code>, we add an output at the end of the role of P. This output is actually a bi-term:</p>
+<ul>
+<li>the left side of the system outputs the shared key as computed by P,</li>
+<li>the right side of the system outputs <code>g^k(i,j)</code> where <code>k(i,j)</code> is fresh.</li>
+</ul>
+<p>The goal will be to prove that these two sides are indistinguishable.</p>
+<p>The <code>try find</code> construct is needed to retrieve the index <code>j</code>, but this else branch should never be reachable. We thus output a bi-term with distinct public constants so that the equivalence for the strong secrecy could not hold if this else branch is reached.</p>
+</span>
+</span>
 
-(**
-We first declare some public constants, the secret keys for roles P and S,
-the channels used by these two roles.
-**)
-abstract ok : message
-abstract ko : message
+<span class="squirrel-step" id="step6">
+<span class="input-line" id="in6">goal [secretP] P_charac (i:index):<br>  happens(Pchall1(i)) =&gt;<br>    cond@Pchall1(i) =&gt;<br>      exists (j:index), snd(fst(input@Pchall1(i))) = g^b(j).</span>
+<span class="output-line" id="out6">Goal P_charac :<br>  <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>) =&gt;<br>  <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> =&gt;<br>  exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))<br></span>
+<span class="com-line" id="com6"><p>In the proof of strong secrecy for the system <code>secretP</code>, we will use the following property, stating that whenever P accepts a message from S, this message is of the form <code>&lt;&lt;_,x&gt;,_&gt;</code> where <code>x = g^b(j)</code>.</p>
+</span>
+</span>
 
-name skP : message
-name skS : message
+<span class="squirrel-step" id="step7">
+<span class="input-line" id="in7">Proof.</span>
+<span class="output-line" id="out7">[goal&gt; Focused goal (1/1):<br>System: secretP<br>Variables: i:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>) =&gt;<br><span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> =&gt; exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))<br><br></span>
+<span class="com-line" id="com7"><p>The high-level idea of the proof is to use the EUF cryptographic axiom: only S can forge a correct signature that will be accepted by P since the secret key is not known by the attacker.</p>
+</span>
+</span>
 
-channel cP
-channel cS
+<span class="squirrel-step" id="step8">
+<span class="input-line" id="in8">  intro Hap Hcond.</span>
+<span class="output-line" id="out8">[goal&gt; Focused goal (1/1):<br>System: secretP<br>Variables: i:index<br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D0: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))<br><br></span>
+<span class="com-line" id="com8"><p>We start by introducing the hypotheses and expanding the macros.</p>
+</span>
+</span>
 
-(**
-Names `a` and `b` represent the random numbers used by roles P and S.
-They are indexed so that each new session uses a new random name.
-**)
-name a : index -&gt; message
-name b : index -&gt; message
-(**
-The name `k` represents the random number used in the strong secrecy property.
-It has 2 as index arity to model the fact that each interaction between
-session `i` of role P and session `j` of role S uses a new random name.
-**)
-name k :  index -&gt; index -&gt; message
+<span class="squirrel-step" id="step9">
+<span class="input-line" id="in9"><br>  expand cond, pkS(i)@Pchall1(i).</span>
+<span class="output-line" id="out9">[goal&gt; Focused goal (1/1):<br>System: secretP<br>Variables: i:index<br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)<br>Meq: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>),<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))) =<br>     &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;<br>Meq0: <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))<br><br></span>
+</span>
 
-(**
-We declare a DDH context, using `g` for the generator element and `^` for the
-power operator.
-**)
-ddh g, (^) where group:message exposants:message.</span><span class="output-line" id="out0">true
-</span><span class="input-line" id="in1">
+<span class="squirrel-step" id="step10">
+<span class="input-line" id="in10">  rewrite Meq0 in Meq.</span>
+<span class="output-line" id="out10">[goal&gt; Focused goal (1/1):<br>System: secretP<br>Variables: i:index<br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)<br>Meq: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)) =<br>     &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;<br>Meq0: <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))<br><br></span>
+<span class="com-line" id="com10"><p>We then rewrite Meq using the message equality Meq0.</p>
+</span>
+</span>
 
-(**
-We also declare a signature scheme by specifying 3 function symbols.
-**)
-signature sign,checksign,pk
+<span class="squirrel-step" id="step11">
+<span class="input-line" id="in11">  euf Meq.</span>
+<span class="output-line" id="out11">[goal&gt; Focused goal (1/1):<br>System: secretP<br>Variables: i,j:index<br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="ga" style="color: #00AA00">S(j)</span> &lt;= <span class="ga" style="color: #00AA00">Pchall1(i)</span> || <span class="ga" style="color: #00AA00">S(j)</span> &lt; <span class="ga" style="color: #00AA00">Pchall1(i)</span><br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)<br>Meq: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)) =<br>     &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;<br>Meq0: <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)<br>Meq1: &lt;&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">gP</span>(j)@<span class="ga" style="color: #00AA00">S(j)</span>,<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)&gt;,<span class="gm" style="font-weight: bold; color: #AA00AA">pkP</span>(j)@<span class="ga" style="color: #00AA00">S(j)</span>&gt; =<br>      &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))<br><br></span>
+<span class="com-line" id="com11"><p>We are now able to apply the <code>euf</code> tactic, which will search for occurences of signatures with <code>skS</code>: the only possibility is the output of an action <code>S(j)</code>.</p>
+</span>
+</span>
 
-(**
-In the system `secretP`, we add an output at the end of the role of P.
-This output is actually a bi-term:
-* the left side of the system outputs the shared key as computed by P,
-* the right side of the system outputs `g^k(i,j)` where `k(i,j)` is fresh.
-The goal will be to prove that these two sides are indistinguishable.
-**)
-process Pchall(i:index) =
-  out(cP, &lt;pk(skP),g^a(i)&gt;);
-  in(cP, x2);
-  let gS = snd(fst(x2)) in
-  let pkS = fst(fst(x2)) in
-  if checksign(snd(x2),pkS) = &lt;&lt;g^a(i),gS&gt;,pk(skP)&gt; &amp;&amp; pkS = pk(skS) then
-    out(cP,sign(&lt;&lt;gS,g^a(i)&gt;,pkS&gt;,skP));
-    in(cP, challenge);
-      try find j such that gS = g^b(j) in
-        out(cP, diff(g^a(i)^b(j),g^k(i,j)))
-      else
-        (** The `try find` construct is needed to retrieve the index `j`,
-        but this else branch should never be reachable.
-        We thus output a bi-term with distinct public constants so that
-        the equivalence for the strong secrecy could not hold if this else
-        branch is reached. **)
-        out(cP, diff(ok,ko))
+<span class="squirrel-step" id="step12">
+<span class="input-line" id="in12">  by exists j.</span>
+<span class="output-line" id="out12">[goal&gt; Goal P_charac is proved <br></span>
+<span class="com-line" id="com12"><p>The conclusion is now trivial from the Meq1 and D1 hypotheses.</p>
+</span>
+</span>
 
-process S(j:index) =
-  in(cS, x1);
-  let gP = snd(x1) in
-  let pkP = fst(x1) in
-  if pkP = pk(skP) then
-    out(cS, &lt; &lt;pk(skS),g^b(j)&gt;, sign(&lt;&lt;gP,g^b(j)&gt;,pkP&gt;,skS)&gt;);
-    in(cS, x3);
-    if checksign(x3,pkP) = &lt;&lt;g^b(j),gP&gt;,pk(skS)&gt; then
-      out(cS,ok)
+<span class="squirrel-step" id="step13">
+<span class="input-line" id="in13"><br>Qed.</span>
+<span class="output-line" id="out13">Exiting proof mode.<br><br><br></span>
+</span>
 
-system [secretP] (!_i Pchall(i) | !_j S(j)).</span><span class="output-line" id="out1">Un-processed system:
-  
-  (!_i <span class="pn" style="font-weight:bold; color: #0000AA">Pchall</span> i) | (!_j <span class="pn" style="font-weight:bold; color: #0000AA">S</span> j)
+<span class="squirrel-step" id="step14">
+<span class="input-line" id="in14">equiv [secretP] strongSecP.</span>
+<span class="output-line" id="out14">Goal strongSecP :<br>  forall t:timestamp, <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t<br></span>
+<span class="com-line" id="com14"><p>We now show the strong secrecy of the shared key for the system <code>secretP</code>, expressed by the logic formula <code>forall t:timestamp, frame@t</code> where <code>frame@t</code> is actually a bi-frame. We will prove that the left projection of <code>frame@t</code> (<em>i.e.</em> where the shared key <code>g^a^b</code> is outputted) is indistinguishable from the right projection of <code>frame@t</code> (<em>i.e.</em> where <code>g^k</code> is outputted).</p>
+</span>
+</span>
 
-Processed system:
-  
-  (!_i
-     Pchall:
-     <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,pair(pk(skP),(g ^ a(i))));
-     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cP</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x2</span>);
-     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">gS</span> = snd(fst(x2)) <span class="pk" style="font-weight: bold">in</span>
-     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">pkS</span> = fst(fst(x2)) <span class="pk" style="font-weight: bold">in</span>
-     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> (checksign(snd(x2),pkS(i)) = pair(pair((g ^ a(i)),gS(i)),pk(skP)) &amp;&amp;
-         pkS(i) = pk(skS)) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span>
-       Pchall1:
-       <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,sign(pair(pair(gS(i),(g ^ a(i))),pkS(i)),skP));
-       <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cP</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">challenge</span>);
-       <span class="pc" style="text-decoration: underline; color: #AA0000">find</span> (j) <span class="pc" style="text-decoration: underline; color: #AA0000">such that</span> gS(i) = (g ^ b(j)) <span class="pc" style="text-decoration: underline; color: #AA0000">in</span>
-         Pchall2: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,<span>diff</span>(((g ^ a(i)) ^ b(j)),(g ^ k(i,j)))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span>
-         Pchall3: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cP</span>,<span>diff</span>(ok,ko)); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> Pchall4: <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |
-  (!_j
-     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cS</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x1</span>);
-     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">gP</span> = snd(x1) <span class="pk" style="font-weight: bold">in</span>
-     <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">pkP</span> = fst(x1) <span class="pk" style="font-weight: bold">in</span>
-     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> pkP(j) = pk(skP) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span>
-       S:
-       <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,
-       pair(pair(pk(skS),(g ^ b(j))),
-             sign(pair(pair(gP(j),(g ^ b(j))),pkP(j)),skS)));
-       <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cS</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x3</span>);
-       <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> checksign(x3,pkP(j)) = pair(pair((g ^ b(j)),gP(j)),pk(skS)) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span>
-         S1: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cS</span>,ok); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> S2: <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> S3: <span class="pn" style="font-weight:bold; color: #0000AA">null</span>)
+<span class="squirrel-step" id="step15">
+<span class="input-line" id="in15">Proof.</span>
+<span class="output-line" id="out15">[goal&gt; Focused goal (1/1):<br>Systems: secretP<br>Variables: t:timestamp<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t<br><br><br></span>
+<span class="com-line" id="com15"><p>The proof is done by induction, after having enriched the frame with some additional (bi-)terms. Intuitively, the idea of enriching the frame is to simplify the cases that are contexts built using applications of public function symbols and terms added in the enriched frame. It then remains to prove:</p>
+<ul>
+<li>the base case, <em>i.e.</em> prove that the enriched bi-frame is indistinguishable;</li>
+<li>the case corresponding to the output <code>diff(ok,ko)</code>, <em>i.e.</em> prove that this output is never reached using the previous <code>P_charac</code> property.</li>
+</ul>
+</span>
+</span>
 
-System secretP registered with actions (init,Pchall,Pchall1,Pchall2,Pchall3,
-                                         Pchall4,S,S1,S2,S3).
-</span><span class="input-line" id="in2">
+<span class="squirrel-step" id="step16">
+<span class="input-line" id="in16">  enrich<br>    skP, skS,<br>    seq(i:index -&gt;g^a(i)),<br>    seq(j:index -&gt;g^b(j)),<br>    seq(i,j:index -&gt;diff(g^a(i)^b(j),g^k(i,j))).</span>
+<span class="output-line" id="out16">[goal&gt; Focused goal (1/1):<br>Systems: secretP<br>Variables: t:timestamp<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br>5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t<br><br><br></span>
+<span class="com-line" id="com16"><p>We start by enriching the frame.</p>
+</span>
+</span>
 
-(**
-In the proof of strong secrecy for the system `secretP`, we will use 
-the following property, stating that whenever P accepts a message from S, 
-this message is of the form `&lt;&lt;_,x&gt;,_&gt;` where `x = g^b(j)`.
-**)
-goal [secretP] P_charac (i:index):
-  happens(Pchall1(i)) =&gt; 
-    cond@Pchall1(i) =&gt; 
-      exists (j:index), snd(fst(input@Pchall1(i))) = g^b(j).</span><span class="output-line" id="out2">Goal P_charac :
-  <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>) =&gt;
-  <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> =&gt;
-  exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))
-</span><span class="input-line" id="in3">
-(**
-The high-level idea of the proof is to use the EUF cryptographic axiom:
-only S can forge a correct signature that will be accepted by P since
-the secret key is not known by the attacker.
-**)
-Proof.</span><span class="output-line" id="out3">[goal&gt; Focused goal (1/1):
-System: secretP
-Variables: i:index
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>) =&gt;
-<span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> =&gt; exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))
+<span class="squirrel-step" id="step17">
+<span class="input-line" id="in17">  induction t; try (by expandall; apply IH).</span>
+<span class="output-line" id="out17">[goal&gt; Focused goal (1/2):<br>Systems: secretP<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">init</span>)]<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br>5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">init</span><br><br><br></span>
+<span class="com-line" id="com17"><p>We now apply the <code>induction</code> tactic, which generates several cases, one for each possible value that can be taken by the timestamp <code>t</code>.</p>
+<p>For most cases, applying the induction hypothesis <code>IH</code> allows to conclude because <code>frame@t</code> can be built from <code>frame@pred(t)</code> and elements added to the frame by the tactic <code>enrich</code>.</p>
+</span>
+</span>
 
-</span><span class="input-line" id="in4">
-  (** We start by introducing the hypotheses and expanding the macros. **)
-  intro Hap Hcond.</span><span class="output-line" id="out4">[&gt; Line 113: (intro Hap Hcond) 
-[goal&gt; Focused goal (1/1):
-System: secretP
-Variables: i:index
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D0: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)
-Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))
+<span class="squirrel-step" id="step18">
+<span class="input-line" id="in18">  expandall.</span>
+<span class="output-line" id="out18">[goal&gt; Focused goal (1/2):<br>Systems: secretP<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">init</span>)]<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br><br><br></span>
+<span class="com-line" id="com18"><p><strong>Case where <code>t = init</code>:</strong><br />
+We use here the DDH assumption.</p>
+</span>
+</span>
 
-</span><span class="input-line" id="in5">
-  expand cond, pkS(i)@Pchall1(i).</span><span class="output-line" id="out5">[&gt; Line 114: (expand cond, pkS(i)@Pchall1(i)) 
-[goal&gt; Focused goal (1/1):
-System: secretP
-Variables: i:index
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)
-Meq: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>),<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))) =
-     &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;
-Meq0: <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))
+<span class="squirrel-step" id="step19">
+<span class="input-line" id="in19"><br>  by ddh g,a,b,k.</span>
+<span class="output-line" id="out19">[goal&gt; Focused goal (1/1):<br>Systems: secretP<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]<br>IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),<br>    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,<br>    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br>5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span><br><br><br></span>
+</span>
 
-</span><span class="input-line" id="in6">
-  (** We then rewrite Meq using the message equality Meq0. **)
-  rewrite Meq0 in Meq.</span><span class="output-line" id="out6">[&gt; Line 116: (rewrite ... in Meq) 
-[goal&gt; Focused goal (1/1):
-System: secretP
-Variables: i:index
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)
-Meq: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)) =
-     &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;
-Meq0: <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))
+<span class="squirrel-step" id="step20">
+<span class="input-line" id="in20">  expand frame, exec, output.</span>
+<span class="output-line" id="out20">[goal&gt; Focused goal (1/1):<br>Systems: secretP<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]<br>IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),<br>    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,<br>    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br>5: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>),<br>    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>) &amp;&amp; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span>),<br>     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>) &amp;&amp; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span>) then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;&gt;<br><br><br></span>
+<span class="com-line" id="com20"><p><strong>Case where <code>t = Pchall3(i)</code>:</strong><br />
+We will show that this case is not possible, by showing that the formula <code>exec@pred(Pchall3(i)) &amp;&amp; cond@Pchall3(i)</code> is equivalent to <code>False</code>, relying on the previous property <code>P_charac</code>. *</p>
+</span>
+</span>
 
-</span><span class="input-line" id="in7"> 
-  (** We are now able to apply the `euf` tactic, which will search for
-  occurences of signatures with `skS`: the only possibility is the output
-  of an action `S(j)`.  **)
-  euf Meq.</span><span class="output-line" id="out7">[&gt; Line 120: (euf Meq) 
-[goal&gt; Focused goal (1/1):
-System: secretP
-Variables: i,j:index
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D1: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="ga" style="color: #00AA00">S(j)</span> &lt;= <span class="ga" style="color: #00AA00">Pchall1(i)</span> || <span class="ga" style="color: #00AA00">S(j)</span> &lt; <span class="ga" style="color: #00AA00">Pchall1(i)</span>
-Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)
-Meq: <span class="gf" style="font-weight: bold">checksign</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)) =
-     &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;
-Meq0: <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skS</span>)
-Meq1: &lt;&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">gP</span>(j)@<span class="ga" style="color: #00AA00">S(j)</span>,<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)&gt;,<span class="gm" style="font-weight: bold; color: #AA00AA">pkP</span>(j)@<span class="ga" style="color: #00AA00">S(j)</span>&gt; =
-      &lt;&lt;<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i),<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span>&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">skP</span>)&gt;
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-exists (j:index), <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))
+<span class="squirrel-step" id="step21">
+<span class="input-line" id="in21"><br>  equivalent exec@pred(Pchall3(i)) &amp;&amp; cond@Pchall3(i), False.</span>
+<span class="output-line" id="out21">[goal&gt; Focused goal (1/2):<br>System: secretP<br>Variables: i:index<br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H1: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+</span>
 
-</span><span class="input-line" id="in8">
-  (** The conclusion is now trivial from the Meq1 and D1 hypotheses. **)
-  by exists j.</span><span class="output-line" id="out8">[&gt; Line 122: by (exists j) 
-[goal&gt; Goal P_charac is proved 
-</span><span class="input-line" id="in9">
-Qed.</span><span class="output-line" id="out9">Exiting proof mode.
+<span class="squirrel-step" id="step22">
+<span class="input-line" id="in22"><br>    expand cond.</span>
+<span class="output-line" id="out22">[goal&gt; Focused goal (1/2):<br>System: secretP<br>Variables: i:index<br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+</span>
 
+<span class="squirrel-step" id="step23">
+<span class="input-line" id="in23"><br>    executable pred(Pchall3(i)).</span>
+<span class="output-line" id="out23">[goal&gt; Focused goal (1/2):<br>System: secretP<br>Variables: i:index<br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+</span>
 
-</span><span class="input-line" id="in10">
+<span class="squirrel-step" id="step24">
+<span class="input-line" id="in24"><br>    depends Pchall1(i), Pchall3(i).</span>
+<span class="output-line" id="out24">[goal&gt; Focused goal (1/2):<br>System: secretP<br>Variables: i:index<br>Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span><br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+</span>
 
-(**
-We now show the strong secrecy of the shared key for the system `secretP`,
-expressed by the logic formula `forall t:timestamp, frame@t` where `frame@t` 
-is actually a bi-frame. We will prove that the left projection of `frame@t` 
-(_i.e._ where the shared key `g^a^b` is outputted) is indistinguishable from the 
-right projection of `frame@t` (_i.e._ where `g^k` is outputted).
-**)
-equiv [secretP] strongSecP.</span><span class="output-line" id="out10">Goal strongSecP :
-  forall t:timestamp, <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
-</span><span class="input-line" id="in11">
-(**
-The proof is done by induction, after having enriched the frame with some
-additional (bi-)terms. Intuitively, the idea of enriching the frame is to
-simplify the cases that are contexts built using applications of public
-function symbols and terms added in the enriched frame.
-It then remains to prove:
-* the base case, _i.e._ prove that the enriched bi-frame is indistinguishable;
-* the case corresponding to the output `diff(ok,ko)`, _i.e._ prove that this
-output is never reached using the previous `P_charac` property.
-**)
-Proof.</span><span class="output-line" id="out11">[goal&gt; Focused goal (1/1):
-Systems: secretP
-Variables: t:timestamp
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
+<span class="squirrel-step" id="step25">
+<span class="input-line" id="in25"><br>    use H2 with Pchall1(i).</span>
+<span class="output-line" id="out25">[goal&gt; Focused goal (1/2):<br>System: secretP<br>Variables: i:index<br>Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span><br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D2: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)<br>H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+</span>
 
+<span class="squirrel-step" id="step26">
+<span class="input-line" id="in26"><br>    expand exec.</span>
+<span class="output-line" id="out26">[goal&gt; Focused goal (1/2):<br>System: secretP<br>Variables: i:index<br>Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span><br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D2: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)<br>H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)<br>H4: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+</span>
 
-</span><span class="input-line" id="in12">
-  (** We start by enriching the frame. **)
-  enrich 
-    skP, skS, 
-    seq(i:index -&gt;g^a(i)), 
-    seq(j:index -&gt;g^b(j)),
-    seq(i,j:index -&gt;diff(g^a(i)^b(j),g^k(i,j))).</span><span class="output-line" id="out12">[&gt; Line 149: (enrich skP, skS, <span>seq</span>(i:index-&gt;(g ^ a(i))),
-             <span>seq</span>(j:index-&gt;(g ^ b(j))),
-             <span>seq</span>(i,j:index-&gt;<span>diff</span>(((g ^ a(i)) ^ b(j)),(g ^ k(i,j)))))
+<span class="squirrel-step" id="step27">
+<span class="input-line" id="in27"><br>    use P_charac with i.</span>
+<span class="output-line" id="out27">[goal&gt; Focused goal (1/2):<br>System: secretP<br>Variables: i,j:index<br>Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span><br>D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>D2: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)<br>H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)<br>H4: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span><br>Meq: <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+</span>
 
-[goal&gt; Focused goal (1/1):
-Systems: secretP
-Variables: t:timestamp
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
+<span class="squirrel-step" id="step28">
+<span class="input-line" id="in28"><br>    by use H1 with j.</span>
+<span class="output-line" id="out28">[goal&gt; Focused goal (1/1):<br>Systems: secretP<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]<br>IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),<br>    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,<br>    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br>5: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>),&lt;<span class="gf" style="font-weight: bold">of_bool</span>(false),if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;&gt;<br><br><br></span>
+</span>
 
+<span class="squirrel-step" id="step29">
+<span class="input-line" id="in29"><br>  fa 5.</span>
+<span class="output-line" id="out29">[goal&gt; Focused goal (1/1):<br>Systems: secretP<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]<br>IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),<br>    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,<br>    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br>5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>6: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(false),if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;<br><br><br></span>
+</span>
 
-</span><span class="input-line" id="in13">
+<span class="squirrel-step" id="step30">
+<span class="input-line" id="in30"> fa 6.</span>
+<span class="output-line" id="out30">[goal&gt; Focused goal (1/1):<br>Systems: secretP<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]<br>IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),<br>    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,<br>    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))<br>1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))<br>2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))<br>3: <span class="gn" style="color: #AA5500">skS</span><br>4: <span class="gn" style="color: #AA5500">skP</span><br>5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)<br>6: if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)<br><br><br></span>
+</span>
 
-  (** We now apply the `induction` tactic, which generates several cases,
-  one for each possible value that can be taken by the timestamp `t`.
-  For most cases, applying the induction hypothesis `IH` allows to conclude
-  because `frame@t` can be built from `frame@pred(t)` and elements added to
-  the frame by the tactic `enrich`. **)
-  induction t; try (by expandall; apply IH).</span><span class="output-line" id="out13">[&gt; Line 156: ((induction t);(try by (expandall;(apply ... )))) 
-[goal&gt; Focused goal (1/2):
-Systems: secretP
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">init</span>)]
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">init</span>
+<span class="squirrel-step" id="step31">
+<span class="input-line" id="in31">  by noif 6.</span>
+<span class="output-line" id="out31">[goal&gt; Goal strongSecP is proved <br></span>
+<span class="com-line" id="com31"><p>It now remains to simplify <code>if false then diff(ok,ko)</code>.</p>
+</span>
+</span>
 
+<span class="squirrel-step" id="step32">
+<span class="input-line" id="in32"><br>Qed.</span>
+<span class="output-line" id="out32">Exiting proof mode.<br><br><br></span>
+</span>
 
-</span><span class="input-line" id="in14">
-
-  (** Case where `t = init`.
-  We use here the DDH assumption. **)
-  expandall.</span><span class="output-line" id="out14">[&gt; Line 160: expandall 
-[goal&gt; Focused goal (1/2):
-Systems: secretP
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">init</span>)]
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-
-
-</span><span class="input-line" id="in15">
-  by ddh g,a,b,k.</span><span class="output-line" id="out15">[&gt; Line 161: by (ddh g, a, b, k) 
-[goal&gt; Focused goal (1/1):
-Systems: secretP
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]
-IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
-    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
-    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span>
-
-
-</span><span class="input-line" id="in16">
-
-  (** Case where `t = Pchall3(i)`. 
-  We will show that this case is not possible, by showing that the formula
-  `exec@pred(Pchall3(i)) &amp;&amp; cond@Pchall3(i)` is equivalent to `False`, relying
-  on the previous property `P_charac`. **)
-  expand frame, exec, output.</span><span class="output-line" id="out16">[&gt; Line 167: (expand frame, exec, output) 
-[goal&gt; Focused goal (1/1):
-Systems: secretP
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]
-IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
-    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
-    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-5: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>),
-    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>) &amp;&amp; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span>),
-     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>) &amp;&amp; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span>) then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;&gt;
-
-
-</span><span class="input-line" id="in17">
-  equivalent exec@pred(Pchall3(i)) &amp;&amp; cond@Pchall3(i), False.</span><span class="output-line" id="out17">[&gt; Line 168: (equivalent (exec@<span>pred</span>(Pchall3(i)) &amp;&amp; cond@Pchall3(i)), <span>False</span>) 
-[goal&gt; Focused goal (1/2):
-System: secretP
-Variables: i:index
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H1: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall3(i)</span>
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
-
-</span><span class="input-line" id="in18">
-    expand cond.</span><span class="output-line" id="out18">[&gt; Line 169: (expand cond) 
-[goal&gt; Focused goal (1/2):
-System: secretP
-Variables: i:index
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
-
-</span><span class="input-line" id="in19">
-    executable pred(Pchall3(i)).</span><span class="output-line" id="out19">[&gt; Line 170: (executable <span>pred</span>(Pchall3(i))) 
-[goal&gt; Focused goal (1/2):
-System: secretP
-Variables: i:index
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
-
-</span><span class="input-line" id="in20">
-    depends Pchall1(i), Pchall3(i).</span><span class="output-line" id="out20">[&gt; Line 171: (depends Pchall1(i), Pchall3(i)) 
-[goal&gt; Focused goal (1/2):
-System: secretP
-Variables: i:index
-Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span>
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
-
-</span><span class="input-line" id="in21">
-    use H2 with Pchall1(i).</span><span class="output-line" id="out21">[&gt; Line 172: (assert ... as ) 
-[goal&gt; Focused goal (1/2):
-System: secretP
-Variables: i:index
-Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span>
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D2: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
-H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
-
-</span><span class="input-line" id="in22">
-    expand exec.</span><span class="output-line" id="out22">[&gt; Line 173: (expand exec) 
-[goal&gt; Focused goal (1/2):
-System: secretP
-Variables: i:index
-Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span>
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D2: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
-H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)
-H4: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
-
-</span><span class="input-line" id="in23">
-    use P_charac with i.</span><span class="output-line" id="out23">[&gt; Line 174: (assert ... as ) 
-[goal&gt; Focused goal (1/2):
-System: secretP
-Variables: i,j:index
-Clt: <span class="ga" style="color: #00AA00">Pchall1(i)</span> &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span>
-D: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D0: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">att</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D1: <span class="gm" style="font-weight: bold; color: #AA00AA">pkS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-D2: <span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall1(i)</span> = <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>))
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H0: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-H1: forall (j:index), not(<span class="gm" style="font-weight: bold; color: #AA00AA">gS</span>(i)@<span class="ga" style="color: #00AA00">Pchall3(i)</span> = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-H2: forall (t:timestamp), (t &lt; <span class="ga" style="color: #00AA00">Pchall3(i)</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@t)
-H3: <span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Pchall1(i)</span>)
-H4: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>
-Meq: <span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">Pchall1(i)</span>)) = (<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-false
-
-</span><span class="input-line" id="in24">
-    by use H1 with j.</span><span class="output-line" id="out24">[&gt; Line 175: by (assert ... as ) 
-[goal&gt; Focused goal (1/1):
-Systems: secretP
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]
-IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
-    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
-    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-5: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>),&lt;<span class="gf" style="font-weight: bold">of_bool</span>(false),if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;&gt;
-
-
-</span><span class="input-line" id="in25">
-  fa 5.</span><span class="output-line" id="out25">[&gt; Line 176: (fa 5) 
-[goal&gt; Focused goal (1/1):
-Systems: secretP
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]
-IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
-    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
-    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-6: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(false),if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)&gt;
-
-
-</span><span class="input-line" id="in26"> fa 6.</span><span class="output-line" id="out26">[&gt; Line 176: (fa 6) 
-[goal&gt; Focused goal (1/1):
-Systems: secretP
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)]
-IH: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j))),
-    seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j))), seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i))), <span class="gn" style="color: #AA5500">skS</span>, <span class="gn" style="color: #AA5500">skP</span>,
-    <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: seq(i,j:index-&gt;diff(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i) ^ <span class="gn" style="color: #AA5500">b</span>(j),<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">k</span>(i,j)))
-1: seq(j:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">b</span>(j)))
-2: seq(i:index-&gt;(<span class="gf" style="font-weight: bold">g</span> ^ <span class="gn" style="color: #AA5500">a</span>(i)))
-3: <span class="gn" style="color: #AA5500">skS</span>
-4: <span class="gn" style="color: #AA5500">skP</span>
-5: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Pchall3(i)</span>)
-6: if false then diff(<span class="gf" style="font-weight: bold">ok</span>,<span class="gf" style="font-weight: bold">ko</span>)
-
-
-</span><span class="input-line" id="in27">
-  (** It now remains to simplify `if false then diff(ok,ko)`. **)
-  by noif 6.</span><span class="output-line" id="out27">[&gt; Line 178: by (noif 6) 
-[goal&gt; Goal strongSecP is proved 
-</span><span class="input-line" id="in28">
-Qed.</span><span class="output-line" id="out28">Exiting proof mode.
-
-
-</span></span>
-<h1 id="about-this-tutorial">Example</h1>
-<div class="example-left">
-  <div class="example-buttons">
-    <button type="button" class="command" onclick="goto_down()">-</button>
-    <button type="button" class="command" onclick="goto_selected()">=></button>
-    <button type="button" class="command" onclick="goto_up()">+</button>
-    <button type="button" class="command" style="float: right;">doc</button>
-  </div>
-  <div class="example-code" style="height: 650px;	border-style: none solid solid solid;"><span id="in-line"></span></div>
+</span>
+<div class="page-header">
+  <img src="../logo-circular.png" class="logo">
+  <h1 class="project-tagline">Squirrel Prover</h1>
+  <a href="https://squirrel-prover.github.io/examples.html" class="header-button">
+    <button type="button" class="header-button">Exit</button>
+  </a>
+  <button type="button" class="header-button" onclick="help()" id="button-panel">Help</button>
 </div>
-<div class="example-left">
-  <div class="example-code" style="height: 300px;	border-style: solid solid double none;"><span>Previously:</span>
-<span id="prec-line"></span>
+
+<div class="help-panel" id="help-panel">
+  Press the left and right arrows to do and undo an instruction.
+  <br><br>
+  Alternatively, you can double-click or an instruction.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('in-zone')" onmouseleave="highlightOff('in-zone')">This zone</span> show a squirrel file. You can double-click on a commentary to collapse it for better readabilility.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('out-zone')" onmouseleave="highlightOff('out-zone')">This zone</span> show the output given by Squirrel.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('prec-zone')" onmouseleave="highlightOff('prec-zone')">This zone</span> show the output of the previous instruction to explicit the change caused by a tactic.
+</div>
+
+<div class="mainsection" id="main">
+  <div class="example-grid">
+    <div class="example-col example-col-left" id="in-zone">
+      <p class="example-code"><span id="in-line"></span></p>
+    </div>
+    <div class="example-col example-col-right">
+      <div class="example-code example-code-right" style="height: 45%;	border-bottom: 4px double #8B0000;" id="prec-zone"><span>Previously:</span><br><br><span id="prec-line"></span>
+      </div>
+      <div style="position: relative;">
+      <button type="button" class="prec-button" onclick="hidePrec()" id="prec-button" >Hide</button>
+      </div>
+      <div class="example-code example-code-right" style="height: 55%;" id="out-zone"><span id="out-line"></span>
+      </div>
+    </div>
   </div>
-  <div class="example-code" style="height: 400px;	border-style: none solid solid none;"><span id="out-line"></span></div>
 </div>
 
 <script src="script.js"></script>

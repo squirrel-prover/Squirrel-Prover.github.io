@@ -8,830 +8,318 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-<span style="display: none;"><span class="input-line" id="in0">(*******************************************************************************
-PRIVATE AUTHENTICATION
-
-The Private Authentication protocol as described in [F] involves an initiator A
-and a responder B.
-The initiator A sends a message `enc(&lt;pkA,n0&gt;,r0,pkB)` to the responder B,
-where `pkA` (respectively `pkB`) is the public key of A (respectively B).
-The responder B checks that the first projection of the decryption of the 
-received message is equal to `pkA` and that the second projection of the 
-decryption of the received message has a correct length.
-In that case, B sends back `enc(&lt;n0,n&gt;,r,pkA)`.
-
-The protocol is as follows:
-
-A -&gt; B : enc(&lt;pkA,n0&gt;,r0,pkB)
-B -&gt; A : enc(&lt;n0,n&gt;,r,pkA)
-
-This is a &quot;light&quot; model without the last check of A.
-
-In this file, we prove anonymity, _i.e._ that an attacker cannot tell whether 
-a session is initiated by an identity A or by an identity Abis.
-
-[F] G. Bana and H. Comon-Lundh. A computationally complete symbolic
-attacker for equivalence properties. In 2014 ACM Conference on
-Computer and Communications Security, CCS ’14, pages 609–620.
-ACM, 2014
-*******************************************************************************)
-(**
-When this option is set to `true`, Squirrel checks whether each tactic invoked
-for the proof is also sound for quantum attackers.
-**)
-set postQuantumSound=true.</span><span class="output-line" id="out0">true
-</span><span class="input-line" id="in1">
-
-(** 
-We first declare the communication channels, the function symbols for the public
-encryption scheme as well as the several names used in the protocol's messages. 
-**)
-
-channel cA
-channel cAbis
-channel cB
-channel cO
-
-aenc enc,dec,pk
-
-name kA : message
-name kAbis : message
-name kB : message
-
-name n0 : index -&gt; message
-name r0 : index -&gt; message
-name n0bis : index -&gt; message
-name r0bis : index -&gt; message
-
-name n : index -&gt; message
-name r : index -&gt; message.</span><span class="output-line" id="out1"></span><span class="input-line" id="in2">
-
-(**
-We also declare a public function symbol `plus`, which we will use to model
-the addition of lengths of messages.
-**)
-
-abstract plus : message -&gt; message -&gt; message.</span><span class="output-line" id="out2"></span><span class="input-line" id="in3">
-
-(**
-The initiator A is indexed by `i` to represent an unbounded number of sessions
-and is defined by a single output.
-**)
-process A(i:index) =
-  out(cA, enc(&lt;pk(kA),n0(i)&gt;,r0(i),pk(kB))).</span><span class="output-line" id="out3"></span><span class="input-line" id="in4">
-
-(**
-We define a similar process for the initiator Abis.
-**)
-process Abis(i:index) =
-  out(cAbis, enc(&lt;pk(kAbis),n0bis(i)&gt;,r0bis(i),pk(kB))).</span><span class="output-line" id="out4"></span><span class="input-line" id="in5">
-
-(**
-The responder B is indexed by `j` to represent an unbounded number of sessions.
-In order to express anonymity using an equivalence property, we model two 
-systems using the `diff` operator.
-On the left side, the key `kA` is used while the right side uses the key `kAbis`.
-**)
-process B(j:index) =
-  in(cB, mess);
-  let dmess = dec(mess, kB) in
-  out(cB,
-    enc(
-      (if fst(dmess) = diff(pk(kA),pk(kAbis)) &amp;&amp; len(snd(dmess)) = len(n(j)) then
-         &lt;snd(dmess), n(j)&gt;
-       else
-         &lt;n(j), n(j)&gt;),
-      r(j), pk(diff(kA,kAbis)))
-  ).</span><span class="output-line" id="out5"></span><span class="input-line" id="in6">
-
-(**
-The protocol is finally defined by a system where an unbounded number of 
-sessions for A, Abis and B play in parallel, after having outputted the 
-public keys of A, Abis and B.
-**)
-system O: 
-  out(cO,&lt;&lt;pk(kA),pk(kAbis)&gt;,pk(kB)&gt;); 
-  (!_i A(i) | !_ibis Abis(ibis) | !_j B(j)).</span><span class="output-line" id="out6">Un-processed system:
-  
-  O:
-  <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cO</span>,pair(pair(pk(kA),pk(kAbis)),pk(kB)));
-  (!_i <span class="pn" style="font-weight:bold; color: #0000AA">A</span> i) | ((!_ibis <span class="pn" style="font-weight:bold; color: #0000AA">Abis</span> ibis) | (!_j <span class="pn" style="font-weight:bold; color: #0000AA">B</span> j))
-
-Processed system:
-  
-  O:
-  <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cO</span>,pair(pair(pk(kA),pk(kAbis)),pk(kB)));
-  (!_i A: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cA</span>,enc(pair(pk(kA),n0(i)),r0(i),pk(kB))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |
-  ((!_ibis
-      Abis:
-      <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cAbis</span>,enc(pair(pk(kAbis),n0bis(ibis)),r0bis(ibis),pk(kB))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |
-   (!_j
-      <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cB</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">mess</span>);
-      <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">dmess</span> = dec(mess,kB) <span class="pk" style="font-weight: bold">in</span>
-      B:
-      <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cB</span>,
-      enc(<span>if</span>
-          (fst(dmess(j)) = <span>diff</span>(pk(kA),pk(kAbis)) &amp;&amp;
-           len(snd(dmess(j))) = len(n(j)))
-          <span>then</span> pair(snd(dmess(j)),n(j)) <span>else</span> pair(n(j),n(j)),r(j),
-           pk(<span>diff</span>(kA,kAbis)))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>))
-
-System default registered with actions (init,O,A,Abis,B).
-</span><span class="input-line" id="in7">
-
-(**
-This axiom states that the length of a pair is equal to the sum of the lengths
-of each component of the pair.
-**)
-
-axiom length (m1:message, m2:message): len(&lt;m1,m2&gt;) = plus(len(m1),len(m2)).</span><span class="output-line" id="out7"></span><span class="input-line" id="in8">
-
-(** Helper lemma for pushing conditionals under the `len(_)` function. **)
-goal if_len (b : boolean, y,z:message):
-  len(if b then y else z) =
-  (if b then len(y) else len(z)).</span><span class="output-line" id="out8">Goal if_len :
-  <span class="gf" style="font-weight: bold">len</span>(if b then y else z) = if b then <span class="gf" style="font-weight: bold">len</span>(y) else <span class="gf" style="font-weight: bold">len</span>(z)
-</span><span class="input-line" id="in9">
-Proof.</span><span class="output-line" id="out9">[goal&gt; Focused goal (1/1):
-System: default
-Variables: b:bool,y,z:message
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-<span class="gf" style="font-weight: bold">len</span>(if b then y else z) = if b then <span class="gf" style="font-weight: bold">len</span>(y) else <span class="gf" style="font-weight: bold">len</span>(z)
-
-</span><span class="input-line" id="in10"> 
-  case b;
-  try ((yesif; yesif) + (noif; noif)).</span><span class="output-line" id="out10">[&gt; Line 118: ((case b);(try ((yesif;yesif)+(noif;noif)))) 
-[goal&gt; Goal if_len is proved 
-</span><span class="input-line" id="in11">
-Qed.</span><span class="output-line" id="out11">Exiting proof mode.
-
-
-</span><span class="input-line" id="in12">
-
-(** 
-The anonymity property is expressed as an equivalence between the left side 
-(the one using `kA` and the right side (the one using `kAbis`) of the system.
-This property is expressed by the logic formula `forall t:timestamp, frame@t`
-where `frame@t` is a bi-frame.
-**)
-equiv anonymity.</span><span class="output-line" id="out12">Goal anonymity :
-  forall t:timestamp, <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
-</span><span class="input-line" id="in13">
-(**
-The high-level idea of the proof is as follows: we show that the message 
-outputted by the role B does not give any element to the attacker
-to distinguish the left side from the right side, relying on the fact that
-encryption satisfies key privacy and IND-CCA1 assumptions.
-**)
-Proof.</span><span class="output-line" id="out13">[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: t:timestamp
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
-
-
-</span><span class="input-line" id="in14">
-  (**
-  We start by adding to the frame the two public keys `pk(kA)`, `pk(kAbis)`
-  and `pk(kB)` since any execution starts by the action `O` outputting them.
-  This allows to simplify some cases in the proof below.
-  **)
-  enrich pk(kA), pk(kAbis), pk(kB).</span><span class="output-line" id="out14">[&gt; Line 140: (enrich pk(kA), pk(kAbis), pk(kB)) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: t:timestamp
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t
-
-
-</span><span class="input-line" id="in15">
-
-  induction t.</span><span class="output-line" id="out15">[&gt; Line 142: (induction t) 
-[goal&gt; Focused goal (1/4):
-Systems: default
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">O</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">O</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">O</span>
-
-
-</span><span class="input-line" id="in16">
-
-  (** Case where t = O.
-  This case is trivial thanks to the addition of `pk(kA)`, `pk(kAbis)`
-  and `pk(kB)` in the frame.
-  **)
-  expandall.</span><span class="output-line" id="out16">[&gt; Line 148: expandall 
-[goal&gt; Focused goal (1/4):
-Systems: default
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">O</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">O</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">O</span>),
-    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">O</span>) &amp;&amp; true),
-     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">O</span>) &amp;&amp; true) then &lt;&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)&gt;&gt;&gt;
-
-
-</span><span class="input-line" id="in17">
-  fa 3.</span><span class="output-line" id="out17">[&gt; Line 149: (fa 3) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">A(i)</span>
-
-
-</span><span class="input-line" id="in18">
-
-  (** Case where t = A(i).
-  The output of this action is the same on both sides. We show that this
-  output can be removed from the frame so that we can conclude by 
-  induction hypothesis.
-  We start by expanding all macros and splitting the pairs and function
-  applications. We are then left with the two names `n0(i)` and `r0(i)` 
-  used for the encryption. These names are fresh (_i.e._ does not appear
-  anywhere else in the frame) so we are able to remove them with the
-  `fresh` tactic.
-  **)
-  expandall.</span><span class="output-line" id="out18">[&gt; Line 161: expandall 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>),
-    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) &amp;&amp; true),
-     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) &amp;&amp; true) then <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gn" style="color: #AA5500">n0</span>(i)&gt;,<span class="gn" style="color: #AA5500">r0</span>(i),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))&gt;&gt;
-
-
-</span><span class="input-line" id="in19">
-  fa 3.</span><span class="output-line" id="out19">[&gt; Line 162: (fa 3) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) &amp;&amp; true),
-    if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) &amp;&amp; true) then <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gn" style="color: #AA5500">n0</span>(i)&gt;,<span class="gn" style="color: #AA5500">r0</span>(i),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))&gt;
-
-
-</span><span class="input-line" id="in20"> fa 4.</span><span class="output-line" id="out20">[&gt; Line 162: (fa 4) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) &amp;&amp; true) then <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gn" style="color: #AA5500">n0</span>(i)&gt;,<span class="gn" style="color: #AA5500">r0</span>(i),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))
-
-
-</span><span class="input-line" id="in21"> fa 4.</span><span class="output-line" id="out21">[&gt; Line 162: (fa 4) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gn" style="color: #AA5500">n0</span>(i)&gt;,<span class="gn" style="color: #AA5500">r0</span>(i),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))
-
-
-</span><span class="input-line" id="in22"> fa 4.</span><span class="output-line" id="out22">[&gt; Line 162: (fa 4) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: &lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gn" style="color: #AA5500">n0</span>(i)&gt;
-5: <span class="gn" style="color: #AA5500">r0</span>(i)
-
-
-</span><span class="input-line" id="in23"> fa 4.</span><span class="output-line" id="out23">[&gt; Line 162: (fa 4) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: <span class="gn" style="color: #AA5500">n0</span>(i)
-5: <span class="gn" style="color: #AA5500">r0</span>(i)
-
-
-</span><span class="input-line" id="in24"> 
-  fresh 5.</span><span class="output-line" id="out24">[&gt; Line 163: (fresh 5) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: <span class="gn" style="color: #AA5500">n0</span>(i)
-5: if (forall (i0:index), (<span class="ga" style="color: #00AA00">A(i0)</span> &lt; <span class="ga" style="color: #00AA00">A(i)</span> =&gt; i0 &lt;&gt; i)) then <span class="gf" style="font-weight: bold">zero</span> else <span class="gn" style="color: #AA5500">r0</span>(i)
-
-
-</span><span class="input-line" id="in25"> yesif 5.</span><span class="output-line" id="out25">[&gt; Line 163: (yesif 5) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: <span class="gn" style="color: #AA5500">n0</span>(i)
-
-
-</span><span class="input-line" id="in26">
-  fresh 4.</span><span class="output-line" id="out26">[&gt; Line 164: (fresh 4) 
-[goal&gt; Focused goal (1/3):
-Systems: default
-Variables: i:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)
-4: if (forall (i0:index), (<span class="ga" style="color: #00AA00">A(i0)</span> &lt; <span class="ga" style="color: #00AA00">A(i)</span> =&gt; i0 &lt;&gt; i)) then <span class="gf" style="font-weight: bold">zero</span> else <span class="gn" style="color: #AA5500">n0</span>(i)
-
-
-</span><span class="input-line" id="in27"> yesif 4.</span><span class="output-line" id="out27">[&gt; Line 164: (yesif 4) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">Abis(ibis)</span>
-
-
-</span><span class="input-line" id="in28">
-
-  (** Case where t = Abis(ibis).
-  Similar to the previous case.
-  **)
-  expandall.</span><span class="output-line" id="out28">[&gt; Line 169: expandall 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>),
-    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>) &amp;&amp; true),
-     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>) &amp;&amp; true) then
-       <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>),<span class="gn" style="color: #AA5500">n0bis</span>(ibis)&gt;,<span class="gn" style="color: #AA5500">r0bis</span>(ibis),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))&gt;&gt;
-
-
-</span><span class="input-line" id="in29">
-  fa 3.</span><span class="output-line" id="out29">[&gt; Line 170: (fa 3) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>) &amp;&amp; true),
-    if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>) &amp;&amp; true) then
-      <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>),<span class="gn" style="color: #AA5500">n0bis</span>(ibis)&gt;,<span class="gn" style="color: #AA5500">r0bis</span>(ibis),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))&gt;
-
-
-</span><span class="input-line" id="in30"> fa 4.</span><span class="output-line" id="out30">[&gt; Line 170: (fa 4) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>) &amp;&amp; true) then
-     <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>),<span class="gn" style="color: #AA5500">n0bis</span>(ibis)&gt;,<span class="gn" style="color: #AA5500">r0bis</span>(ibis),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))
-
-
-</span><span class="input-line" id="in31"> fa 4.</span><span class="output-line" id="out31">[&gt; Line 170: (fa 4) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>),<span class="gn" style="color: #AA5500">n0bis</span>(ibis)&gt;,<span class="gn" style="color: #AA5500">r0bis</span>(ibis),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))
-
-
-</span><span class="input-line" id="in32"> fa 4.</span><span class="output-line" id="out32">[&gt; Line 170: (fa 4) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: &lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>),<span class="gn" style="color: #AA5500">n0bis</span>(ibis)&gt;
-5: <span class="gn" style="color: #AA5500">r0bis</span>(ibis)
-
-
-</span><span class="input-line" id="in33"> fa 4.</span><span class="output-line" id="out33">[&gt; Line 170: (fa 4) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: <span class="gn" style="color: #AA5500">n0bis</span>(ibis)
-5: <span class="gn" style="color: #AA5500">r0bis</span>(ibis)
-
-
-</span><span class="input-line" id="in34"> 
-  fresh 5.</span><span class="output-line" id="out34">[&gt; Line 171: (fresh 5) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: <span class="gn" style="color: #AA5500">n0bis</span>(ibis)
-5: if (forall (ibis0:index), (<span class="ga" style="color: #00AA00">Abis(ibis0)</span> &lt; <span class="ga" style="color: #00AA00">Abis(ibis)</span> =&gt; ibis0 &lt;&gt; ibis))
-     then <span class="gf" style="font-weight: bold">zero</span> else <span class="gn" style="color: #AA5500">r0bis</span>(ibis)
-
-
-</span><span class="input-line" id="in35"> yesif 5.</span><span class="output-line" id="out35">[&gt; Line 171: (yesif 5) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: <span class="gn" style="color: #AA5500">n0bis</span>(ibis)
-
-
-</span><span class="input-line" id="in36">
-  fresh 4.</span><span class="output-line" id="out36">[&gt; Line 172: (fresh 4) 
-[goal&gt; Focused goal (1/2):
-Systems: default
-Variables: ibis:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)
-4: if (forall (ibis0:index), (<span class="ga" style="color: #00AA00">Abis(ibis0)</span> &lt; <span class="ga" style="color: #00AA00">Abis(ibis)</span> =&gt; ibis0 &lt;&gt; ibis))
-     then <span class="gf" style="font-weight: bold">zero</span> else <span class="gn" style="color: #AA5500">n0bis</span>(ibis)
-
-
-</span><span class="input-line" id="in37"> yesif 4.</span><span class="output-line" id="out37">[&gt; Line 172: (yesif 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">B(j)</span>
-
-
-</span><span class="input-line" id="in38">
-
-  (** Case where t = B(j). 
-  We have to show that the output message does not give any information
-  to the attacker to distinguish the left side from the right side.
-  **)
-  expand frame, output, exec, cond, dmess.</span><span class="output-line" id="out38">[&gt; Line 178: (expand frame, output, exec, cond, dmess) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),
-    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>) &amp;&amp; true),
-     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>) &amp;&amp; true) then
-       <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-               <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-             &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),
-       <span class="gf" style="font-weight: bold">pk</span>(diff(<span class="gn" style="color: #AA5500">kA</span>,<span class="gn" style="color: #AA5500">kAbis</span>)))&gt;&gt;
-
-
-</span><span class="input-line" id="in39">
-  fa 3.</span><span class="output-line" id="out39">[&gt; Line 179: (fa 3) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>) &amp;&amp; true),
-    if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>) &amp;&amp; true) then
-      <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-              <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-            &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),
-      <span class="gf" style="font-weight: bold">pk</span>(diff(<span class="gn" style="color: #AA5500">kA</span>,<span class="gn" style="color: #AA5500">kAbis</span>)))&gt;
-
-
-</span><span class="input-line" id="in40"> fa 4.</span><span class="output-line" id="out40">[&gt; Line 179: (fa 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>) &amp;&amp; true) then
-     <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-             <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-           &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),
-     <span class="gf" style="font-weight: bold">pk</span>(diff(<span class="gn" style="color: #AA5500">kA</span>,<span class="gn" style="color: #AA5500">kAbis</span>)))
-
-
-</span><span class="input-line" id="in41"> fa 4.</span><span class="output-line" id="out41">[&gt; Line 179: (fa 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-           <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-         &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),
-   <span class="gf" style="font-weight: bold">pk</span>(diff(<span class="gn" style="color: #AA5500">kA</span>,<span class="gn" style="color: #AA5500">kAbis</span>)))
-
-
-</span><span class="input-line" id="in42">
-  (**
-  We first use the key privacy assumption: knowing only a cipertext, it 
-  should not be possible to know which specific key was used.
-  The corresponding `enckp` tactic allows here to replace `kAbis` by `kA`
-  on the right side.
-  **)
-  enckp 4.</span><span class="output-line" id="out42">[&gt; Line 186: (enckp 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-           <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-         &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>))
-
-
-</span><span class="input-line" id="in43"> 
-  (**
-  We now use the ciphertext indistinguishability (IND-CCA1) assumption,
-  which requires to show that the lengths of the plaintexts on both sides
-  are equal.
-  **)
-  cca1 4.</span><span class="output-line" id="out43">[&gt; Line 192: (cca1 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: <span class="gf" style="font-weight: bold">len</span>(
-     if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-         <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-       &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;)
-
-
-</span><span class="input-line" id="in44">
-  (** We use the lemma `if_len` to push the conditional under len(_). **)
-  rewrite if_len length.</span><span class="output-line" id="out44">[&gt; Line 194: (rewrite ... ...) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-       <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-     <span class="gf" style="font-weight: bold">plus</span>(<span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))),<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) else <span class="gf" style="font-weight: bold">len</span>(&lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;)
-
-
-</span><span class="input-line" id="in45">
-  (** We use the `ifeq` tactic to replace `len(snd(dec(input@B(j),kB)))` 
-  by `len(n(j))` in the then branch since this equality is implied by 
-  the condition. **)  
-  ifeq 4, len(snd(dec(input@B(j),kB))), len(n(j)).</span><span class="output-line" id="out45">[&gt; Line 198: (ifeq 4, len(snd(dec(input@B(j),kB))), len(n(j))) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;
-       <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then
-     <span class="gf" style="font-weight: bold">plus</span>(<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)),<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) else <span class="gf" style="font-weight: bold">len</span>(&lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;)
-
-
-</span><span class="input-line" id="in46">
-  (** We now notice that the two branches of the conditional are equal,
-  we can thus simplify the term by keeping only the then branch.
-  Showing that the two branches are equal relies on the `length` axiom
-  defined above. **)
-  trivialif 4.</span><span class="output-line" id="out46">[&gt; Line 203: (trivialif 4) 
-[goal&gt; Focused goal (1/2):
-System: default
-Variables: j:index
-H: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-<span class="gf" style="font-weight: bold">plus</span>(<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)),<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) = <span class="gf" style="font-weight: bold">len</span>(&lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;)
-
-</span><span class="input-line" id="in47"> by rewrite length.</span><span class="output-line" id="out47">[&gt; Line 203: by (rewrite ...) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: <span class="gf" style="font-weight: bold">plus</span>(<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)),<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)))
-
-
-</span><span class="input-line" id="in48">
-  (** We conclude using the fact that `n(j)` is fresh. **)
-  fa 4.</span><span class="output-line" id="out48">[&gt; Line 205: (fa 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))
-
-
-</span><span class="input-line" id="in49"> fa 4.</span><span class="output-line" id="out49">[&gt; Line 205: (fa 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: <span class="gn" style="color: #AA5500">n</span>(j)
-
-
-</span><span class="input-line" id="in50">
-  fresh 4.</span><span class="output-line" id="out50">[&gt; Line 206: (fresh 4) 
-[goal&gt; Focused goal (1/1):
-Systems: default
-Variables: j:index
-H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]
-IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-<span class="sep" style="font-weight: bold">----------------------------------------</span>
-0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)
-1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)
-2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)
-3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)
-4: if (forall (j0:index), (<span class="ga" style="color: #00AA00">B(j0)</span> &lt; <span class="ga" style="color: #00AA00">B(j)</span> =&gt; j0 &lt;&gt; j)) then <span class="gf" style="font-weight: bold">zero</span> else <span class="gn" style="color: #AA5500">n</span>(j)
-
-
-</span><span class="input-line" id="in51"> yesif 4.</span><span class="output-line" id="out51">[&gt; Line 206: (yesif 4) 
-[goal&gt; Goal anonymity is proved 
-</span><span class="input-line" id="in52">
-Qed.</span><span class="output-line" id="out52">Exiting proof mode.
-
-
-</span></span>
-<h1 id="about-this-tutorial">Example</h1>
-<div class="example-left">
-  <div class="example-buttons">
-    <button type="button" class="command" onclick="goto_down()">-</button>
-    <button type="button" class="command" onclick="goto_selected()">=></button>
-    <button type="button" class="command" onclick="goto_up()">+</button>
-    <button type="button" class="command" style="float: right;">doc</button>
-  </div>
-  <div class="example-code" style="height: 650px;	border-style: none solid solid solid;"><span id="in-line"></span></div>
+<body onkeydown="key(event)">
+<span style="display: none;"><span class="squirrel-step" id="step0">
+<span class="input-line" id="in0">set postQuantumSound=true.</span>
+<span class="output-line" id="out0"></span>
+<span class="com-line" id="com0"><h1 id="private-authentication">PRIVATE AUTHENTICATION</h1>
+<p>The Private Authentication protocol as described in [F] involves an initiator A and a responder B.</p>
+<p>The initiator A sends a message <code>enc(&lt;pkA,n0&gt;,r0,pkB)</code> to the responder B, where <code>pkA</code> (respectively <code>pkB</code>) is the public key of A (respectively B). The responder B checks that the first projection of the decryption of the received message is equal to <code>pkA</code> and that the second projection of the decryption of the received message has a correct length. In that case, B sends back <code>enc(&lt;n0,n&gt;,r,pkA)</code>.</p>
+<p>The protocol is as follows:</p>
+<ul>
+<li>A -&gt; B : enc(&lt;pkA,n0&gt;,r0,pkB)</li>
+<li>B -&gt; A : enc(&lt;n0,n&gt;,r,pkA)</li>
+</ul>
+<p>This is a “light” model without the last check of A.</p>
+<p>In this file, we prove anonymity, <em>i.e.</em> that an attacker cannot tell whether a session is initiated by an identity A or by an identity Abis.</p>
+<p>[F] G. Bana and H. Comon-Lundh. A computationally complete symbolic attacker for equivalence properties. In 2014 ACM Conference on Computer and Communications Security, CCS ’14, pages 609–620. ACM, 2014</p>
+<hr />
+<p>When this option is set to <code>true</code>, Squirrel checks whether each tactic invoked for the proof is also sound for quantum attackers.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step1">
+<span class="input-line" id="in1"><br><br>set autoIntro=false.</span>
+<span class="output-line" id="out1"></span>
+</span>
+
+<span class="squirrel-step" id="step2">
+<span class="input-line" id="in2">channel cA<br>channel cAbis<br>channel cB<br>channel cO<br><br>aenc enc,dec,pk<br><br>name kA    : message<br>name kAbis : message<br>name kB : message<br><br>name n0 : index -&gt; message<br>name r0 : index -&gt; message<br>name n0bis : index -&gt; message<br>name r0bis : index -&gt; message<br><br>name n : index -&gt; message<br>name r : index -&gt; message.</span>
+<span class="output-line" id="out2"></span>
+<span class="com-line" id="com2"><p>We first declare the communication channels, the function symbols for the public encryption scheme as well as the several names used in the protocol’s messages.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step3">
+<span class="input-line" id="in3">abstract (++) : message -&gt; message -&gt; message.</span>
+<span class="output-line" id="out3"></span>
+<span class="com-line" id="com3"><p>We also declare a public function symbol <code>plus</code>, which we will use to model the addition of lengths of messages.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step4">
+<span class="input-line" id="in4">process A(i:index) =<br>  out(cA, enc(&lt;pk(kA),n0(i)&gt;,r0(i),pk(kB))).</span>
+<span class="output-line" id="out4"></span>
+<span class="com-line" id="com4"><p>The initiator A is indexed by <code>i</code> to represent an unbounded number of sessions and is defined by a single output.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step5">
+<span class="input-line" id="in5">process Abis(i:index) =<br>  out(cAbis, enc(&lt;pk(kAbis),n0bis(i)&gt;,r0bis(i),pk(kB))).</span>
+<span class="output-line" id="out5"></span>
+<span class="com-line" id="com5"><p>We define a similar process for the initiator Abis.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step6">
+<span class="input-line" id="in6">process B(j:index) =<br>  in(cB, mess);<br>  let dmess = dec(mess, kB) in<br>  out(cB,<br>    enc(<br>      (if fst(dmess) = diff(pk(kA),pk(kAbis)) &amp;&amp; len(snd(dmess)) = len(n(j)) then<br>         &lt;snd(dmess), n(j)&gt;<br>       else<br>         &lt;n(j), n(j)&gt;),<br>      r(j), pk(diff(kA,kAbis)))<br>  ).</span>
+<span class="output-line" id="out6"></span>
+<span class="com-line" id="com6"><p>The responder B is indexed by <code>j</code> to represent an unbounded number of sessions.</p>
+<p>In order to express anonymity using an equivalence property, we model two systems using the <code>diff</code> operator. On the left side, the key <code>kA</code> is used while the right side uses the key <code>kAbis</code>.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step7">
+<span class="input-line" id="in7">system O:<br>  out(cO,&lt;&lt;pk(kA),pk(kAbis)&gt;,pk(kB)&gt;);<br>  (!_i A(i) | !_ibis Abis(ibis) | !_j B(j)).</span>
+<span class="output-line" id="out7">Un-processed system:<br>  <br>  O:<br>  <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cO</span>,pair(pair(pk(kA),pk(kAbis)),pk(kB)));<br>  (!_i <span class="pn" style="font-weight:bold; color: #0000AA">A</span> i) | ((!_ibis <span class="pn" style="font-weight:bold; color: #0000AA">Abis</span> ibis) | (!_j <span class="pn" style="font-weight:bold; color: #0000AA">B</span> j))<br><br>Processed system:<br>  <br>  O:<br>  <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cO</span>,pair(pair(pk(kA),pk(kAbis)),pk(kB)));<br>  (!_i A: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cA</span>,enc(pair(pk(kA),n0(i)),r0(i),pk(kB))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |<br>  ((!_ibis<br>      Abis:<br>      <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cAbis</span>,enc(pair(pk(kAbis),n0bis(ibis)),r0bis(ibis),pk(kB))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |<br>   (!_j<br>      <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cB</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">mess</span>);<br>      <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">dmess</span> = dec(mess,kB) <span class="pk" style="font-weight: bold">in</span><br>      B:<br>      <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cB</span>,<br>      enc(<span>if</span><br>          (fst(dmess(j)) = <span>diff</span>(pk(kA),pk(kAbis)) &amp;&amp;<br>           len(snd(dmess(j))) = len(n(j)))<br>          <span>then</span> pair(snd(dmess(j)),n(j)) <span>else</span> pair(n(j),n(j)),r(j),<br>           pk(<span>diff</span>(kA,kAbis)))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>))<br><br>System default registered with actions (init,O,A,Abis,B).<br></span>
+<span class="com-line" id="com7"><p>The protocol is finally defined by a system where an unbounded number of sessions for A, Abis and B play in parallel, after having outputted the public keys of A, Abis and B.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step8">
+<span class="input-line" id="in8">include Basic.</span>
+<span class="output-line" id="out8">Goal eq_sym :<br>  x = y = y = x<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y = y = x<br><br>[goal&gt; Goal eq_sym is proved <br>Exiting proof mode.<br><br><br>Goal eq_refl :<br>  x = x = true<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = x = true<br><br>[goal&gt; Goal eq_refl is proved <br>Exiting proof mode.<br><br><br>Goal eq_refl_i :<br>  x = x = true<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = x = true<br><br>[goal&gt; Goal eq_refl_i is proved <br>Exiting proof mode.<br><br><br>Goal eq_refl_t :<br>  x = x = true<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = x = true<br><br>[goal&gt; Goal eq_refl_t is proved <br>Exiting proof mode.<br><br><br>Goal false_true :<br>  false = true = false<br>[goal&gt; Focused goal (1/1):<br>System: default<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false = true = false<br><br>[goal&gt; Goal false_true is proved <br>Exiting proof mode.<br><br><br>Goal not_not :<br>  not(not(b)) = b<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(not(b)) = b<br><br>[goal&gt; Goal not_not is proved <br>Exiting proof mode.<br><br><br>Goal not_eq :<br>  not(x = y) = x &lt;&gt; y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(x = y) = x &lt;&gt; y<br><br>[goal&gt; Goal not_eq is proved <br>Exiting proof mode.<br><br><br>Goal not_eq_i :<br>  not(x = y) = x &lt;&gt; y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(x = y) = x &lt;&gt; y<br><br>[goal&gt; Goal not_eq_i is proved <br>Exiting proof mode.<br><br><br>Goal not_eq_t :<br>  not(x = y) = x &lt;&gt; y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(x = y) = x &lt;&gt; y<br><br>[goal&gt; Goal not_eq_t is proved <br>Exiting proof mode.<br><br><br>Goal not_neq :<br>  not(x &lt;&gt; y) = x = y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(x &lt;&gt; y) = x = y<br><br>[goal&gt; Goal not_neq is proved <br>Exiting proof mode.<br><br><br>Goal not_neq_i :<br>  not(x &lt;&gt; y) = x = y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(x &lt;&gt; y) = x = y<br><br>[goal&gt; Goal not_neq_i is proved <br>Exiting proof mode.<br><br><br>Goal not_neq_t :<br>  not(x &lt;&gt; y) = x = y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(x &lt;&gt; y) = x = y<br><br>[goal&gt; Goal not_neq_t is proved <br>Exiting proof mode.<br><br><br>Goal eq_false :<br>  x = y = false = x &lt;&gt; y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y = false = x &lt;&gt; y<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y = false = not(x = y)<br><br>[goal&gt; Focused goal (1/2):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br>_: x = y<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>true = false = not(true)<br><br>[goal&gt; Focused goal (1/2):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br>_: x = y<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>true<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br>_: not(x = y)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false = false = not(false)<br><br>[goal&gt; Goal eq_false is proved <br>Exiting proof mode.<br><br><br>Goal eq_false_i :<br>  x = y = false = x &lt;&gt; y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y = false = x &lt;&gt; y<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y = false = not(x = y)<br><br>[goal&gt; Focused goal (1/2):<br>System: default<br>Variables: x:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>true = false = not(true)<br><br>[goal&gt; Focused goal (1/2):<br>System: default<br>Variables: x:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>true<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:index<br>_: not(x = y)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false = false = not(false)<br><br>[goal&gt; Goal eq_false_i is proved <br>Exiting proof mode.<br><br><br>Goal eq_false_t :<br>  x = y = false = x &lt;&gt; y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y = false = x &lt;&gt; y<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y = false = not(x = y)<br><br>[goal&gt; Focused goal (1/2):<br>System: default<br>Variables: x:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>true = false = not(true)<br><br>[goal&gt; Focused goal (1/2):<br>System: default<br>Variables: x:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>true<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:timestamp<br>_: not(x = y)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false = false = not(false)<br><br>[goal&gt; Goal eq_false_t is proved <br>Exiting proof mode.<br><br><br>Goal and_true_r :<br>  (b &amp;&amp; true) = b<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(b &amp;&amp; true) = b<br><br>[goal&gt; Goal and_true_r is proved <br>Exiting proof mode.<br><br><br>Goal and_false_r :<br>  (b &amp;&amp; false) = false<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(b &amp;&amp; false) = false<br><br>[goal&gt; Goal and_false_r is proved <br>Exiting proof mode.<br><br><br>Goal or_false_r :<br>  (b || false) = b<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(b || false) = b<br><br>[goal&gt; Goal or_false_r is proved <br>Exiting proof mode.<br><br><br>Goal or_true_r :<br>  (b || true) = true<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(b || true) = true<br><br>[goal&gt; Goal or_true_r is proved <br>Exiting proof mode.<br><br><br>Goal not_and :<br>  not((a &amp;&amp; b)) = (not(a) || not(b))<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: a,b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not((a &amp;&amp; b)) = (not(a) || not(b))<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: a,b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not((a &amp;&amp; b))<br>&lt;=&gt;<br>(not(a) || not(b))]<br><br>[goal&gt; Goal not_and is proved <br>Exiting proof mode.<br><br><br>Goal not_or :<br>  not((a || b)) = (not(a) &amp;&amp; not(b))<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: a,b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not((a || b)) = (not(a) &amp;&amp; not(b))<br><br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: a,b:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not((a || b))<br>&lt;=&gt;<br>(not(a) &amp;&amp; not(b))]<br><br>[goal&gt; Goal not_or is proved <br>Exiting proof mode.<br><br><br>Goal if_true :<br>  b =&gt; (if b then x else y) = x<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b:bool,x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>b =&gt; (if b then x else y) = x<br><br>[goal&gt; Goal if_true is proved <br>Exiting proof mode.<br><br><br>Goal if_true0 :<br>  (if true then x else y) = x<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(if true then x else y) = x<br><br>[goal&gt; Goal if_true0 is proved <br>Exiting proof mode.<br><br><br>Goal if_false :<br>  not(b) =&gt; (if b then x else y) = y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b:bool,x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>not(b) =&gt; (if b then x else y) = y<br><br>[goal&gt; Goal if_false is proved <br>Exiting proof mode.<br><br><br>Goal if_false0 :<br>  (if false then x else y) = y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(if false then x else y) = y<br><br>[goal&gt; Goal if_false0 is proved <br>Exiting proof mode.<br><br><br>Goal if_then_then :<br>  (if b then if b' then x else y else y) = if (b &amp;&amp; b') then x else y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b,b':bool,x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(if b then if b' then x else y else y) = if (b &amp;&amp; b') then x else y<br><br>[goal&gt; Goal if_then_then is proved <br>Exiting proof mode.<br><br><br>Goal if_same :<br>  (if b then x else x) = x<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b:bool,x:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(if b then x else x) = x<br><br>[goal&gt; Goal if_same is proved <br>Exiting proof mode.<br><br><br>Goal if_then :<br>  b = b' =&gt; (if b then if b' then x else y else z) = if b then x else z<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b,b':bool,x,y,z:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>b = b' =&gt; (if b then if b' then x else y else z) = if b then x else z<br><br>[goal&gt; Goal if_then is proved <br>Exiting proof mode.<br><br><br>Goal if_else :<br>  b = b' =&gt; (if b then x else if b' then y else z) = if b then x else z<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b,b':bool,x,y,z:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>b = b' =&gt; (if b then x else if b' then y else z) = if b then x else z<br><br>[goal&gt; Goal if_else is proved <br>Exiting proof mode.<br><br><br>Goal if_then_not :<br>  b = not(b') =&gt; (if b then if b' then x else y else z) = if b then y else z<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b,b':bool,x,y,z:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>b = not(b') =&gt; (if b then if b' then x else y else z) = if b then y else z<br><br>[goal&gt; Goal if_then_not is proved <br>Exiting proof mode.<br><br><br>Goal if_else_not :<br>  b = not(b') =&gt; (if b then x else if b' then y else z) = if b then x else y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: b,b':bool,x,y,z:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>b = not(b') =&gt; (if b then x else if b' then y else z) = if b then x else y<br><br>[goal&gt; Goal if_else_not is proved <br>Exiting proof mode.<br><br><br>Goal fst_pair :<br>  <span class="gf" style="font-weight: bold">fst</span>(&lt;x,y&gt;) = x<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:message<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gf" style="font-weight: bold">fst</span>(&lt;x,y&gt;) = x<br><br>[goal&gt; Goal fst_pair is proved <br>Exiting proof mode.<br><br><br>Goal snd_pair :<br>  <span class="gf" style="font-weight: bold">snd</span>(&lt;x,y&gt;) = y<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:message<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gf" style="font-weight: bold">snd</span>(&lt;x,y&gt;) = y<br><br>[goal&gt; Goal snd_pair is proved <br>Exiting proof mode.<br><br><br>Goal diff_eq :<br>  x = y =&gt; diff(x,y) = x<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>x = y =&gt; diff(x,y) = x<br><br>[goal&gt; Goal diff_eq is proved <br>Exiting proof mode.<br><br><br>Goal diff_diff_l :<br>  diff(diff(x,y),z) = diff(x,z)<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y,z:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>diff(diff(x,y),z) = diff(x,z)<br><br>[goal&gt; Goal diff_diff_l is proved <br>Exiting proof mode.<br><br><br>Goal diff_diff_r :<br>  diff(x,diff(y,z)) = diff(x,z)<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Type variables: 'a<br>Variables: x,y,z:'a<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>diff(x,diff(y,z)) = diff(x,z)<br><br>[goal&gt; Goal diff_diff_r is proved <br>Exiting proof mode.<br><br><br>Goal len_diff :<br>  <span class="gf" style="font-weight: bold">len</span>(diff(x,y)) = diff(<span class="gf" style="font-weight: bold">len</span>(x),<span class="gf" style="font-weight: bold">len</span>(y))<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:message<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gf" style="font-weight: bold">len</span>(diff(x,y)) = diff(<span class="gf" style="font-weight: bold">len</span>(x),<span class="gf" style="font-weight: bold">len</span>(y))<br><br>[goal&gt; Goal len_diff is proved <br>Exiting proof mode.<br><br><br>Goal iff_refl :<br>  (x &lt;=&gt; x]) = true<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(x &lt;=&gt; x]) = true<br><br>[goal&gt; Goal iff_refl is proved <br>Exiting proof mode.<br><br><br>Goal iff_sym :<br>  (x &lt;=&gt; y]) = (y &lt;=&gt; x])<br>[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: x,y:bool<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(x &lt;=&gt; y]) = (y &lt;=&gt; x])<br><br>[goal&gt; Goal iff_sym is proved <br>Exiting proof mode.<br><br><br>Goal true_iff_false :<br>  (true &lt;=&gt; false]) = false<br>[goal&gt; Focused goal (1/1):<br>System: default<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(true &lt;=&gt; false]) = false<br><br>[goal&gt; Goal true_iff_false is proved <br>Exiting proof mode.<br><br><br>Goal false_iff_true :<br>  (false &lt;=&gt; true]) = false<br>[goal&gt; Focused goal (1/1):<br>System: default<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(false &lt;=&gt; true]) = false<br><br>[goal&gt; Goal false_iff_true is proved <br>Exiting proof mode.<br><br><br>[warning&gt; loaded: Basic.sp  &lt;]<br></span>
+<span class="com-line" id="com8"><p>This axiom states that the length of a pair is equal to the sum of the lengths of each component of the pair.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step9">
+<span class="input-line" id="in9"><br><br>axiom length_pair (m1:message, m2:message): len(&lt;m1,m2&gt;) = len(m1) ++ len(m2).</span>
+<span class="output-line" id="out9"></span>
+</span>
+
+<span class="squirrel-step" id="step10">
+<span class="input-line" id="in10">goal if_len (b : boolean, y,z:message):<br>  len(if b then y else z) =<br>  (if b then len(y) else len(z)).</span>
+<span class="output-line" id="out10">Goal if_len :<br>  <span class="gf" style="font-weight: bold">len</span>(if b then y else z) = if b then <span class="gf" style="font-weight: bold">len</span>(y) else <span class="gf" style="font-weight: bold">len</span>(z)<br></span>
+<span class="com-line" id="com10"><p>Helper lemma for pushing conditionals under the <code>len(_)</code> function.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step11">
+<span class="input-line" id="in11"><br>Proof.</span>
+<span class="output-line" id="out11">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: b:bool,y,z:message<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gf" style="font-weight: bold">len</span>(if b then y else z) = if b then <span class="gf" style="font-weight: bold">len</span>(y) else <span class="gf" style="font-weight: bold">len</span>(z)<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step12">
+<span class="input-line" id="in12"><br>  by case b.</span>
+<span class="output-line" id="out12">[goal&gt; Goal if_len is proved <br></span>
+</span>
+
+<span class="squirrel-step" id="step13">
+<span class="input-line" id="in13"><br>Qed.</span>
+<span class="output-line" id="out13">Exiting proof mode.<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step14">
+<span class="input-line" id="in14"><br><br>(* Helper lemma *)<br>goal if_same_branch (x,y,z : message, b : boolean):<br>  (b =&gt; y = x) =&gt;<br>  (not b =&gt; z = x) =&gt;<br>  (if b then y else z) = x.</span>
+<span class="output-line" id="out14">Goal if_same_branch :<br>  (b =&gt; y = x) =&gt; (not(b) =&gt; z = x) =&gt; (if b then y else z) = x<br></span>
+</span>
+
+<span class="squirrel-step" id="step15">
+<span class="input-line" id="in15"><br>Proof.</span>
+<span class="output-line" id="out15">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: b:bool,x,y,z:message<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(b =&gt; y = x) =&gt; (not(b) =&gt; z = x) =&gt; (if b then y else z) = x<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step16">
+<span class="input-line" id="in16"><br>  by intro *; case b.</span>
+<span class="output-line" id="out16">[goal&gt; Goal if_same_branch is proved <br></span>
+</span>
+
+<span class="squirrel-step" id="step17">
+<span class="input-line" id="in17"><br>Qed.</span>
+<span class="output-line" id="out17">Exiting proof mode.<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step18">
+<span class="input-line" id="in18">equiv anonymity.</span>
+<span class="output-line" id="out18">Goal anonymity :<br>  forall t:timestamp, <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t<br></span>
+<span class="com-line" id="com18"><p>The anonymity property is expressed as an equivalence between the left side (the one using <code>kA</code> and the right side (the one using <code>kAbis</code>) of the system. This property is expressed by the logic formula <code>forall t:timestamp, frame@t</code> where <code>frame@t</code> is a bi-frame.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step19">
+<span class="input-line" id="in19">Proof.</span>
+<span class="output-line" id="out19">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: t:timestamp<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t<br><br><br></span>
+<span class="com-line" id="com19"><p>The high-level idea of the proof is as follows: we show that the message outputted by the role B does not give any element to the attacker to distinguish the left side from the right side, relying on the fact that encryption satisfies key privacy and IND-CCA1 assumptions.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step20">
+<span class="input-line" id="in20">  enrich pk(kA), pk(kAbis), pk(kB).</span>
+<span class="output-line" id="out20">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: t:timestamp<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(t)]<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@t<br><br><br></span>
+<span class="com-line" id="com20"><p>We start by adding to the frame the two public keys <code>pk(kA)</code>, <code>pk(kAbis)</code> and <code>pk(kB)</code> since any execution starts by the action <code>O</code> outputting them. This allows to simplify some cases in the proof below.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step21">
+<span class="input-line" id="in21"><br><br>  induction t.</span>
+<span class="output-line" id="out21">[goal&gt; Focused goal (1/5):<br>Systems: default<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">init</span>)]<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">init</span><br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step22">
+<span class="input-line" id="in22">  auto.</span>
+<span class="output-line" id="out22">[goal&gt; Focused goal (1/4):<br>Systems: default<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">O</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">O</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">O</span><br><br><br></span>
+<span class="com-line" id="com22"><p><strong>Case where t = 0:</strong><br />
+This case is trivial thanks to the addition of <code>pk(kA)</code>, <code>pk(kAbis)</code> and <code>pk(kB)</code> in the frame.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step23">
+<span class="input-line" id="in23"><br><br>  rewrite /*.</span>
+<span class="output-line" id="out23">[goal&gt; Focused goal (1/4):<br>Systems: default<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">O</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">O</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">O</span>),<br>    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">O</span>) &amp;&amp; true),<br>     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">O</span>) &amp;&amp; true) then &lt;&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)&gt;,<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)&gt;&gt;&gt;<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step24">
+<span class="input-line" id="in24"><br>  by apply IH.</span>
+<span class="output-line" id="out24">[goal&gt; Focused goal (1/3):<br>Systems: default<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">A(i)</span><br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step25">
+<span class="input-line" id="in25">  expandall.</span>
+<span class="output-line" id="out25">[goal&gt; Focused goal (1/3):<br>Systems: default<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>),<br>    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) &amp;&amp; true),<br>     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) &amp;&amp; true) then <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gn" style="color: #AA5500">n0</span>(i)&gt;,<span class="gn" style="color: #AA5500">r0</span>(i),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))&gt;&gt;<br><br><br></span>
+<span class="com-line" id="com25"><p><strong>Case where t = A(i):</strong><br />
+The output of this action is the same on both sides. We show that this output can be removed from the frame so that we can conclude by induction hypothesis. We start by expanding all macros and splitting the pairs and function applications. We are then left with the two names <code>n0(i)</code> and <code>r0(i)</code> used for the encryption. These names are fresh (<em>i.e.</em> does not appear anywhere else in the frame) so we are able to remove them with the <code>fresh</code> tactic.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step26">
+<span class="input-line" id="in26"><br>  fa 3; fa 4; fa 4; fa 4; fa 4.</span>
+<span class="output-line" id="out26">[goal&gt; Focused goal (1/3):<br>Systems: default<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)<br>4: <span class="gn" style="color: #AA5500">n0</span>(i)<br>5: <span class="gn" style="color: #AA5500">r0</span>(i)<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step27">
+<span class="input-line" id="in27"><br>  fresh 5; rewrite if_true //.</span>
+<span class="output-line" id="out27">[goal&gt; Focused goal (1/3):<br>Systems: default<br>Variables: i:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">A(i)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>)<br>4: <span class="gn" style="color: #AA5500">n0</span>(i)<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step28">
+<span class="input-line" id="in28"><br>  by fresh 4; rewrite if_true //.</span>
+<span class="output-line" id="out28">[goal&gt; Focused goal (1/2):<br>Systems: default<br>Variables: ibis:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">Abis(ibis)</span><br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step29">
+<span class="input-line" id="in29">  expandall.</span>
+<span class="output-line" id="out29">[goal&gt; Focused goal (1/2):<br>Systems: default<br>Variables: ibis:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>),<br>    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>) &amp;&amp; true),<br>     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>) &amp;&amp; true) then<br>       <span class="gf" style="font-weight: bold">enc</span>(&lt;<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>),<span class="gn" style="color: #AA5500">n0bis</span>(ibis)&gt;,<span class="gn" style="color: #AA5500">r0bis</span>(ibis),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>))&gt;&gt;<br><br><br></span>
+<span class="com-line" id="com29"><p><strong>Case where t = Abis(ibis):</strong><br />
+Similar to the previous case.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step30">
+<span class="input-line" id="in30"><br>  fa 3; fa 4; fa 4; fa 4; fa 4.</span>
+<span class="output-line" id="out30">[goal&gt; Focused goal (1/2):<br>Systems: default<br>Variables: ibis:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)<br>4: <span class="gn" style="color: #AA5500">n0bis</span>(ibis)<br>5: <span class="gn" style="color: #AA5500">r0bis</span>(ibis)<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step31">
+<span class="input-line" id="in31"><br>  fresh 5; rewrite if_true //.</span>
+<span class="output-line" id="out31">[goal&gt; Focused goal (1/2):<br>Systems: default<br>Variables: ibis:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">Abis(ibis)</span>)<br>4: <span class="gn" style="color: #AA5500">n0bis</span>(ibis)<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step32">
+<span class="input-line" id="in32"><br>  by fresh 4; rewrite if_true //.</span>
+<span class="output-line" id="out32">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@<span class="ga" style="color: #00AA00">B(j)</span><br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step33">
+<span class="input-line" id="in33">  expand frame, output, exec, cond, dmess.</span>
+<span class="output-line" id="out33">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<br>    &lt;<span class="gf" style="font-weight: bold">of_bool</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>) &amp;&amp; true),<br>     if (<span class="gm" style="font-weight: bold; color: #AA00AA">exec</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>) &amp;&amp; true) then<br>       <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;<br>               <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then<br>             &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),<br>       <span class="gf" style="font-weight: bold">pk</span>(diff(<span class="gn" style="color: #AA5500">kA</span>,<span class="gn" style="color: #AA5500">kAbis</span>)))&gt;&gt;<br><br><br></span>
+<span class="com-line" id="com33"><p><strong>Case where t = B(j):</strong><br />
+We have to show that the output message does not give any information to the attacker to distinguish the left side from the right side.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step34">
+<span class="input-line" id="in34"><br>  fa 3; fa 4; fa 4.</span>
+<span class="output-line" id="out34">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>4: <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;<br>           <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then<br>         &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),<br>   <span class="gf" style="font-weight: bold">pk</span>(diff(<span class="gn" style="color: #AA5500">kA</span>,<span class="gn" style="color: #AA5500">kAbis</span>)))<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step35">
+<span class="input-line" id="in35">  enckp 4; 1: auto.</span>
+<span class="output-line" id="out35">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>4: <span class="gf" style="font-weight: bold">enc</span>(if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;<br>           <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then<br>         &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;,<span class="gn" style="color: #AA5500">r</span>(j),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>))<br><br><br></span>
+<span class="com-line" id="com35"><p>We first use the key privacy assumption: knowing only a cipertext, it should not be possible to know which specific key was used. The corresponding <code>enckp</code> tactic allows here to replace <code>kAbis</code> by <code>kA</code> on the right side.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step36">
+<span class="input-line" id="in36">  cca1 4; 2: auto.</span>
+<span class="output-line" id="out36">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>4: <span class="gf" style="font-weight: bold">len</span>(<br>     if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;<br>         <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then<br>       &lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt; else &lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;)<br><br><br></span>
+<span class="com-line" id="com36"><p>We now use the ciphertext indistinguishability (IND-CCA1) assumption, which requires to show that the lengths of the plaintexts on both sides are equal.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step37">
+<span class="input-line" id="in37">  rewrite if_len.</span>
+<span class="output-line" id="out37">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>4: if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;<br>       <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then<br>     <span class="gf" style="font-weight: bold">len</span>(&lt;<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)),<span class="gn" style="color: #AA5500">n</span>(j)&gt;) else <span class="gf" style="font-weight: bold">len</span>(&lt;<span class="gn" style="color: #AA5500">n</span>(j),<span class="gn" style="color: #AA5500">n</span>(j)&gt;)<br><br><br></span>
+<span class="com-line" id="com37"><p>We use the lemma <code>if_len</code> to push the conditional under len(_).</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step38">
+<span class="input-line" id="in38"><br><br>  (* We use our axiom on the length of a pair.</span>
+<span class="output-line" id="out38">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>4: if (<span class="gf" style="font-weight: bold">fst</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>)) = diff(<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>),<span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)) &amp;&amp;<br>       <span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) = <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))) then<br>     (<span class="gf" style="font-weight: bold">len</span>(<span class="gf" style="font-weight: bold">snd</span>(<span class="gf" style="font-weight: bold">dec</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span>,<span class="gn" style="color: #AA5500">kB</span>))) ++ <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)))<br>   else (<span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)) ++ <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)))<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step39">
+<span class="input-line" id="in39"> *)<br>  rewrite !length_pair.</span>
+<span class="output-line" id="out39">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>4: <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j)) ++ <span class="gf" style="font-weight: bold">len</span>(<span class="gn" style="color: #AA5500">n</span>(j))<br><br><br></span>
+</span>
+
+<span class="squirrel-step" id="step40">
+<span class="input-line" id="in40">  rewrite (if_same_branch (len(n(j)) ++ len(n(j)))) //.</span>
+<span class="output-line" id="out40">[goal&gt; Focused goal (1/1):<br>Systems: default<br>Variables: j:index<br>H: [<span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)]<br>IH: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>), <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>), <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>0: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kB</span>)<br>1: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kAbis</span>)<br>2: <span class="gf" style="font-weight: bold">pk</span>(<span class="gn" style="color: #AA5500">kA</span>)<br>3: <span class="gm" style="font-weight: bold; color: #AA00AA">frame</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>4: <span class="gn" style="color: #AA5500">n</span>(j)<br><br><br></span>
+<span class="com-line" id="com40"><p>We use the <code>if_same_branch</code> helper lemma to simplify the conditional using the fact that both branches are identical.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step41">
+<span class="input-line" id="in41">  fa 4; fa 4.</span>
+<span class="output-line" id="out41">[goal&gt; Goal anonymity is proved <br></span>
+<span class="com-line" id="com41"><p>We conclude using the fact that <code>n(j)</code> is fresh.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step42">
+<span class="input-line" id="in42"><br>  by fresh 4; rewrite if_true //.</span>
+<span class="output-line" id="out42">Exiting proof mode.<br><br><br></span>
+</span>
+
+</span>
+<div class="page-header">
+  <img src="../logo-circular.png" class="logo">
+  <h1 class="project-tagline">Squirrel Prover</h1>
+  <a href="https://squirrel-prover.github.io/examples.html" class="header-button">
+    <button type="button" class="header-button">Exit</button>
+  </a>
+  <button type="button" class="header-button" onclick="help()" id="button-panel">Help</button>
 </div>
-<div class="example-left">
-  <div class="example-code" style="height: 300px;	border-style: solid solid double none;"><span>Previously:</span>
-<span id="prec-line"></span>
+
+<div class="help-panel" id="help-panel">
+  Press the left and right arrows to do and undo an instruction.
+  <br><br>
+  Alternatively, you can double-click or an instruction.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('in-zone')" onmouseleave="highlightOff('in-zone')">This zone</span> show a squirrel file. You can double-click on a commentary to collapse it for better readabilility.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('out-zone')" onmouseleave="highlightOff('out-zone')">This zone</span> show the output given by Squirrel.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('prec-zone')" onmouseleave="highlightOff('prec-zone')">This zone</span> show the output of the previous instruction to explicit the change caused by a tactic.
+</div>
+
+<div class="mainsection" id="main">
+  <div class="example-grid">
+    <div class="example-col example-col-left" id="in-zone">
+      <p class="example-code"><span id="in-line"></span></p>
+    </div>
+    <div class="example-col example-col-right">
+      <div class="example-code example-code-right" style="height: 45%;	border-bottom: 4px double #8B0000;" id="prec-zone"><span>Previously:</span><br><br><span id="prec-line"></span>
+      </div>
+      <div style="position: relative;">
+      <button type="button" class="prec-button" onclick="hidePrec()" id="prec-button" >Hide</button>
+      </div>
+      <div class="example-code example-code-right" style="height: 55%;" id="out-zone"><span id="out-line"></span>
+      </div>
+    </div>
   </div>
-  <div class="example-code" style="height: 400px;	border-style: none solid solid none;"><span id="out-line"></span></div>
 </div>
 
 <script src="script.js"></script>
