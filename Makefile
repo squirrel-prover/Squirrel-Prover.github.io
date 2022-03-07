@@ -17,23 +17,18 @@ all: index.html tutorial.html examples.html
 index.html: index_src.md
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\
-		--bibliography=biblio.bib\
-		--csl=ieee.csl\
+          --citeproc\
 	  -t html -o $@ $<
 
 tutorial.html: tutorial_src.md squirrel-prover/examples/tutorial/tutorial.sp tutorial_header.md
 	./tutorial.sh
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\
-		--bibliography=biblio.bib\
-		--csl=ieee.csl\
 	  -t html -o $@ $<
 
 examples.html: examples_src.md
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\
-		--bibliography=biblio.bib\
-		--csl=ieee.csl\
 	  -t html -o $@ $<
 
 clean:

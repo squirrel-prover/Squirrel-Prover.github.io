@@ -9,8 +9,10 @@
   prev_page:
   prev_page_url:
 
+  bibliography: biblio.bib
+  csl: ieee
   link-citations: true
-
+ 
   nocite: |
     @*
 ---
@@ -24,7 +26,7 @@ A 13 minutes introduction to the basic concepts and core ideas of the **Squirrel
 A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions.
 
 A [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it. 
-The technical details are inside the paper [1].
+The technical details are inside the paper original paper [@BDKJM-sp21].
 
 # Core Team
 
@@ -42,5 +44,3 @@ Public License v3.0. All source code is available
 [here](https://github.com/squirrel-prover/squirrel-prover/).
 
 # Publications
-
-<div id="refs"></div>
