@@ -28,6 +28,10 @@ A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides 
 A [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it. 
 The technical details are inside the paper original paper [@BDKJM-sp21].
 
+# News
+
+We are hiring: [join us as a engineer or postdoc](positions.pdf)!
+
 # Core Team
 
  * [David Baelde](http://www.lsv.fr/~baelde/), _ENS Rennes, Univ Rennes, CNRS, IRISA_;
