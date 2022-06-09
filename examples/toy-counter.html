@@ -10,7 +10,7 @@
 
 <body onkeydown="key(event)">
 <span style="display: none;"><span class="squirrel-step" id="step0">
-<span class="input-line" id="in0">set autoIntro = false.</span>
+<span class="input-line" id="in0">hash h<br><br>name secret : message<br>name key : message<br><br>abstract error : message<br>abstract myZero : message<br><br><br>mutable d : message = myZero<br><br>channel cA<br>channel cB.</span>
 <span class="output-line" id="out0"></span>
 <span class="com-line" id="com0"><h1 id="toy-counter">TOY-COUNTER</h1>
 <p>V. Cheval, V. Cortier, and M. Turuani,<br />
@@ -36,20 +36,14 @@ doi: 10.1109/CSF.2018.00032.</p>
 <li>monotonicity of the counter</li>
 <li>secrecy (as a reachability property)</li>
 </ul>
+<p>We declare here a mutable state symbol, initialized with the public constant <code>myZero</code>.</p>
 </span>
 </span>
 
 <span class="squirrel-step" id="step1">
-<span class="input-line" id="in1">hash h<br><br>name secret : message<br>name key : message<br><br>abstract error : message<br>abstract myZero : message<br><br><br>mutable d : message = myZero<br><br>channel cA<br>channel cB.</span>
+<span class="input-line" id="in1">abstract mySucc : message-&gt;message<br>abstract (~&lt;) : message -&gt; message -&gt; boolean.</span>
 <span class="output-line" id="out1"></span>
-<span class="com-line" id="com1"><p>We declare here a mutable state symbol, initialized with the public constant <code>myZero</code>.</p>
-</span>
-</span>
-
-<span class="squirrel-step" id="step2">
-<span class="input-line" id="in2">abstract mySucc : message-&gt;message<br>abstract (~&lt;) : message -&gt; message -&gt; boolean.</span>
-<span class="output-line" id="out2"></span>
-<span class="com-line" id="com2"><p>In order to model counter values, we use:</p>
+<span class="com-line" id="com1"><p>In order to model counter values, we use:</p>
 <ul>
 <li>a function <code>mySucc</code> modelling the successor of a value;</li>
 <li>an order relation <code>~&lt;</code> modelling the usual order on natural numbers.</li>
@@ -57,200 +51,190 @@ doi: 10.1109/CSF.2018.00032.</p>
 </span>
 </span>
 
-<span class="squirrel-step" id="step3">
-<span class="input-line" id="in3">process A =<br>  let m = h(&lt;d,secret&gt;,key) in<br>  d := mySucc(d);<br>  out(cA, m)<br><br>process B =<br>  in(cA,y);<br>  if y = h(&lt;d,secret&gt;,key) then<br>    d := mySucc(d);<br>    out(cB,secret)<br>  else<br>    d := mySucc(d);<br>    out(cB,error)<br><br>system ((!_i A) | (!_j B)).</span>
-<span class="output-line" id="out3">Un-processed system:<br>  <br>  (!_i <span class="pn" style="font-weight:bold; color: #0000AA">A</span> ) | (!_j <span class="pn" style="font-weight:bold; color: #0000AA">B</span> )<br><br>Processed system:<br>  <br>  (!_i <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">m</span> = h(pair(d,secret),key) <span class="pk" style="font-weight: bold">in</span><br>       d <span class="pk" style="font-weight: bold">:=</span> mySucc(d); A: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cA</span>,m(i)); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |<br>  (!_j<br>     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cA</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">y</span>);<br>     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> y = h(pair(d,secret),key) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span><br>       d <span class="pk" style="font-weight: bold">:=</span> mySucc(d); B: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cB</span>,secret); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span><br>       d <span class="pk" style="font-weight: bold">:=</span> mySucc(d); B1: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cB</span>,error); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>)<br><br>System default registered with actions (init,A,B,B1).<br></span>
-<span class="com-line" id="com3"><p>Processes A and B are defined as follows. They both access to the mutable state <code>d</code>.</p>
+<span class="squirrel-step" id="step2">
+<span class="input-line" id="in2">process A =<br>  let m = h(&lt;d,secret&gt;,key) in<br>  d := mySucc(d);<br>  out(cA, m)<br><br>process B =<br>  in(cA,y);<br>  if y = h(&lt;d,secret&gt;,key) then<br>    d := mySucc(d);<br>    out(cB,secret)<br>  else<br>    d := mySucc(d);<br>    out(cB,error)<br><br>system ((!_i A) | (!_j B)).</span>
+<span class="output-line" id="out2">System before processing:<br>  <br>  (!_i <span class="pn" style="font-weight:bold; color: #0000AA">A</span> ) | (!_j <span class="pn" style="font-weight:bold; color: #0000AA">B</span> )<br><br>System after processing:<br>  <br>  (!_i <span class="pk" style="font-weight: bold">let</span> <span class="pv" style="font-weight: bold; color: #AA00AA">m</span> = h(pair(d,secret),key) <span class="pk" style="font-weight: bold">in</span><br>       d <span class="pk" style="font-weight: bold">:=</span> mySucc(d); A: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cA</span>,m(i)); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |<br>  (!_j<br>     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cA</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">y</span>);<br>     <span class="pc" style="text-decoration: underline; color: #AA0000">if</span> (y = h(pair(d,secret),key)) <span class="pc" style="text-decoration: underline; color: #AA0000">then</span><br>       d <span class="pk" style="font-weight: bold">:=</span> mySucc(d); B: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cB</span>,secret); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span><br>       d <span class="pk" style="font-weight: bold">:=</span> mySucc(d); B1: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cB</span>,error); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>)<br><br>System default registered with actions (init,A,B,B1).<br></span>
+<span class="com-line" id="com2"><p>Processes A and B are defined as follows. They both access to the mutable state <code>d</code>.</p>
 </span>
 </span>
 
-<span class="squirrel-step" id="step4">
-<span class="input-line" id="in4">axiom orderSucc (n:message): n ~&lt; mySucc(n).</span>
-<span class="output-line" id="out4"></span>
-<span class="com-line" id="com4"><h4 id="axioms">AXIOMS</h4>
+<span class="squirrel-step" id="step3">
+<span class="input-line" id="in3">axiom orderSucc (n:message): n ~&lt; mySucc(n).</span>
+<span class="output-line" id="out3"></span>
+<span class="com-line" id="com3"><h4 id="axioms">AXIOMS</h4>
 <p>We now axiomatize the order relation <code>~&lt;</code> defined above in order to be able to reason on counter values.</p>
 </span>
 </span>
 
+<span class="squirrel-step" id="step4">
+<span class="input-line" id="in4"><br>axiom orderTrans (n1,n2,n3:message): n1 ~&lt; n2 &amp;&amp; n2 ~&lt; n3 =&gt; n1 ~&lt; n3.</span>
+<span class="output-line" id="out4"></span>
+</span>
+
 <span class="squirrel-step" id="step5">
-<span class="input-line" id="in5"><br>axiom orderTrans (n1,n2,n3:message): n1 ~&lt; n2 &amp;&amp; n2 ~&lt; n3 =&gt; n1 ~&lt; n3.</span>
+<span class="input-line" id="in5"><br>axiom orderStrict (n1,n2:message): n1 = n2 =&gt; n1 ~&lt; n2 =&gt; false.</span>
 <span class="output-line" id="out5"></span>
 </span>
 
 <span class="squirrel-step" id="step6">
-<span class="input-line" id="in6"><br>axiom orderStrict (n1,n2:message): n1 = n2 =&gt; n1 ~&lt; n2 =&gt; false.</span>
-<span class="output-line" id="out6"></span>
-</span>
-
-<span class="squirrel-step" id="step7">
-<span class="input-line" id="in7">goal counterIncreasePred (t:timestamp):<br>  t &gt; init =&gt; d@pred(t) ~&lt; d@t.</span>
-<span class="output-line" id="out7">Goal counterIncreasePred :<br>  t &gt; <span class="ga" style="color: #00AA00">init</span> =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t)<br></span>
-<span class="com-line" id="com7"><h4 id="security-properties">SECURITY PROPERTIES</h4>
+<span class="input-line" id="in6">goal counterIncreasePred (t:timestamp):<br>  t &gt; init =&gt; d@pred(t) ~&lt; d@t.</span>
+<span class="output-line" id="out6">Goal counterIncreasePred :<br>  t &gt; <span class="ga" style="color: #00AA00">init</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br></span>
+<span class="com-line" id="com6"><h4 id="security-properties">SECURITY PROPERTIES</h4>
 <p>We first show that the counter increases strictly at each update.</p>
 </span>
 </span>
 
+<span class="squirrel-step" id="step7">
+<span class="input-line" id="in7"><br>Proof.</span>
+<span class="output-line" id="out7">[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>t &gt; <span class="ga" style="color: #00AA00">init</span> =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+</span>
+
 <span class="squirrel-step" id="step8">
-<span class="input-line" id="in8"><br>Proof.</span>
-<span class="output-line" id="out8">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t:timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>t &gt; <span class="ga" style="color: #00AA00">init</span> =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t)<br><br></span>
+<span class="input-line" id="in8"><br>  intro Hc.</span>
+<span class="output-line" id="out8">[&gt; Line 93: (intro Hc) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t:timestamp<br>Hc: t &gt; <span class="ga" style="color: #00AA00">init</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step9">
-<span class="input-line" id="in9"><br>  intro Hc.</span>
-<span class="output-line" id="out9">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t:timestamp<br>Hc: t &gt; <span class="ga" style="color: #00AA00">init</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="input-line" id="in9"><br>  use orderSucc with d@pred(t).</span>
+<span class="output-line" id="out9">[&gt; Line 94: (have ... as ) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t:timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t) ~&lt; <span class="gf" style="font-weight: bold">mySucc</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t))<br>Hc: t &gt; <span class="ga" style="color: #00AA00">init</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step10">
-<span class="input-line" id="in10"><br>  use orderSucc with d@pred(t).</span>
-<span class="output-line" id="out10">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t:timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gf" style="font-weight: bold">mySucc</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t))<br>Hc: t &gt; <span class="ga" style="color: #00AA00">init</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="input-line" id="in10"><br>  case t =&gt; //.</span>
+<span class="output-line" id="out10">[&gt; Line 95: ((case t);(intro //)) <br>[goal&gt; Goal counterIncreasePred is proved <br></span>
 </span>
 
 <span class="squirrel-step" id="step11">
-<span class="input-line" id="in11"><br>  case t; 2,3,4: auto.</span>
-<span class="output-line" id="out11">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t:timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gf" style="font-weight: bold">mySucc</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t))<br>Hc: t &gt; <span class="ga" style="color: #00AA00">init</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>t = <span class="ga" style="color: #00AA00">init</span> =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">init</span>) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="ga" style="color: #00AA00">init</span>)<br><br></span>
+<span class="input-line" id="in11"><br>Qed.</span>
+<span class="output-line" id="out11">Exiting proof mode.<br><br><br></span>
 </span>
 
 <span class="squirrel-step" id="step12">
-<span class="input-line" id="in12"><br>  constraints.</span>
-<span class="output-line" id="out12">[goal&gt; Goal counterIncreasePred is proved <br></span>
-</span>
-
-<span class="squirrel-step" id="step13">
-<span class="input-line" id="in13"><br>Qed.</span>
-<span class="output-line" id="out13">Exiting proof mode.<br><br><br></span>
-</span>
-
-<span class="squirrel-step" id="step14">
-<span class="input-line" id="in14">goal counterIncrease (t,t':timestamp):<br>   t' &lt; t =&gt; d@t' ~&lt; d@t.</span>
-<span class="output-line" id="out14">Goal counterIncrease :<br>  t' &lt; t =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t)<br></span>
-<span class="com-line" id="com14"><p>We also show a more general result than counterIncreasePred, stating here that the counter strictly increases between two distinct timestamps.</p>
+<span class="input-line" id="in12">goal counterIncrease (t,t':timestamp):<br>   t' &lt; t =&gt; d@t' ~&lt; d@t.</span>
+<span class="output-line" id="out12">Goal counterIncrease :<br>  t' &lt; t =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br></span>
+<span class="com-line" id="com12"><p>We also show a more general result than counterIncreasePred, stating here that the counter strictly increases between two distinct timestamps.</p>
 <p>The proof is done by induction, and relies on the previous result counterIncreasePred.</p>
 </span>
 </span>
 
+<span class="squirrel-step" id="step13">
+<span class="input-line" id="in13"><br>Proof.</span>
+<span class="output-line" id="out13">[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>t' &lt; t =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step14">
+<span class="input-line" id="in14"><br>  induction t =&gt; t Hind Ht.</span>
+<span class="output-line" id="out14">[&gt; Line 108: ((induction t);(intro t Hind Ht)) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+</span>
+
 <span class="squirrel-step" id="step15">
-<span class="input-line" id="in15"><br>Proof.</span>
-<span class="output-line" id="out15">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t,t':timestamp<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>t' &lt; t =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t)<br><br></span>
+<span class="input-line" id="in15">  assert (t' &lt; pred(t) || t' &gt;= pred(t)) as H0 by case t.</span>
+<span class="output-line" id="out15">[&gt; Line 110: ((have ((t' &lt; pred(t)) || (t' &gt;= pred(t))), H0); 1: by (case t)) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>H0: t' &lt; <span class="gf" style="font-weight: bold">pred</span>(t) || t' &gt;= <span class="gf" style="font-weight: bold">pred</span>(t)<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="com-line" id="com15"><p>We use the <code>assert</code> tactic to introduce two cases.</p>
+</span>
 </span>
 
 <span class="squirrel-step" id="step16">
-<span class="input-line" id="in16"><br>  induction t =&gt; t Hind Ht.</span>
-<span class="output-line" id="out16">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t,t':timestamp<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="input-line" id="in16"><br>  case H0.</span>
+<span class="output-line" id="out16">[&gt; Line 111: (case H0) <br>[goal&gt; Focused goal (1/2):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>H0: t' &lt; <span class="gf" style="font-weight: bold">pred</span>(t)<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step17">
-<span class="input-line" id="in17">  assert (t' &lt; pred(t) || t' &gt;= pred(t)) as H0 by case t.</span>
-<span class="output-line" id="out17">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t,t':timestamp<br>H0: t' &lt; pred(t) || t' &gt;= pred(t)<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
-<span class="com-line" id="com17"><p>We use the <code>assert</code> tactic to introduce two cases.</p>
+<span class="input-line" id="in17">    +  apply Hind in H0 =&gt; //.</span>
+<span class="output-line" id="out17">[&gt; Line 118: ((apply ...  in H0);(intro //)) <br>[goal&gt; Focused goal (1/2):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t)<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="com-line" id="com17"><p><strong>Case where t’ &lt; pred(t):</strong> We first apply the induction hypothesis on <code>t'</code> to get <code>d@t' ~&lt; d@pred(t)</code>, then use the lemma counterIncreasePred with <code>t</code> to get <code>d@pred(t) ~&lt; d@t</code>. It then remains to conclude by transitivity (applying <code>orderTrans</code>).</p>
 </span>
 </span>
 
 <span class="squirrel-step" id="step18">
-<span class="input-line" id="in18"><br>  case H0.</span>
-<span class="output-line" id="out18">[goal&gt; Focused goal (1/2):<br>System: default<br>Variables: t,t':timestamp<br>H0: t' &lt; pred(t)<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="input-line" id="in18"><br>       use counterIncreasePred with t; 2: by constraints.</span>
+<span class="output-line" id="out18">[&gt; Line 119: ((have ... as ); 2: by constraints) <br>[goal&gt; Focused goal (1/2):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t)<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step19">
-<span class="input-line" id="in19">    apply Hind in H0 =&gt; //.</span>
-<span class="output-line" id="out19">[goal&gt; Focused goal (1/2):<br>System: default<br>Variables: t,t':timestamp<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t)<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
-<span class="com-line" id="com19"><p><strong>Case where t’ &lt; pred(t):</strong><br />
-We first apply the induction hypothesis on <code>t'</code> to get <code>d@t' ~&lt; d@pred(t)</code>,<br />
-then use the lemma counterIncreasePred with <code>t</code> to get <code>d@pred(t) ~&lt; d@t</code>.<br />
-It then remains to conclude by transitivity (applying <code>orderTrans</code>).</p>
-</span>
+<span class="input-line" id="in19"><br>       by apply orderTrans _ (d@pred(t)).</span>
+<span class="output-line" id="out19">[&gt; Line 120: by (apply ... ) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>H0: t' &gt;= <span class="gf" style="font-weight: bold">pred</span>(t)<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step20">
-<span class="input-line" id="in20"><br>    use counterIncreasePred with t; 2: by constraints.</span>
-<span class="output-line" id="out20">[goal&gt; Focused goal (1/2):<br>System: default<br>Variables: t,t':timestamp<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br>H0: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t)<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="input-line" id="in20">    +  assert t' = pred(t) as Ceq by constraints.</span>
+<span class="output-line" id="out20">[&gt; Line 126: ((have (t' = pred(t)), Ceq); 1: by constraints) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>Ceq: t' = <span class="gf" style="font-weight: bold">pred</span>(t)<br>H0: t' &gt;= <span class="gf" style="font-weight: bold">pred</span>(t)<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="com-line" id="com20"><p><strong>Case where t’ &gt;= pred(t).</strong> Since <code>t' &lt; t</code> we can deduce that <code>t' = pred(t)</code>. It is then directly a consequence of the counterIncreasePred lemma.</p>
+</span>
 </span>
 
 <span class="squirrel-step" id="step21">
-<span class="input-line" id="in21"><br>    by apply orderTrans _ (d@pred(t)).</span>
-<span class="output-line" id="out21">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t,t':timestamp<br>H0: t' &gt;= pred(t)<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="input-line" id="in21"><br>       use counterIncreasePred with t; 2: auto.</span>
+<span class="output-line" id="out21">[&gt; Line 127: ((have ... as ); 2: auto) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: t,t':timestamp<br>Ceq: t' = <span class="gf" style="font-weight: bold">pred</span>(t)<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br>H0: t' &gt;= <span class="gf" style="font-weight: bold">pred</span>(t)<br>Hind: forall (t0:timestamp), t0 &lt; t =&gt; t' &lt; t0 =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step22">
-<span class="input-line" id="in22">    assert t' = pred(t) as Ceq by constraints.</span>
-<span class="output-line" id="out22">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t,t':timestamp<br>Ceq: t' = pred(t)<br>H0: t' &gt;= pred(t)<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
-<span class="com-line" id="com22"><p><strong>Case where t’ &gt;= pred(t):</strong><br />
-Since <code>t' &lt; t</code> we can deduce that <code>t' = pred(t)</code>. It is then directly<br />
-a consequence of the counterIncreasePred lemma.</p>
-</span>
+<span class="input-line" id="in22"><br>       by rewrite Ceq; auto.</span>
+<span class="output-line" id="out22">[&gt; Line 128: by ((rewrite ...);auto) <br>[goal&gt; Goal counterIncrease is proved <br></span>
 </span>
 
 <span class="squirrel-step" id="step23">
-<span class="input-line" id="in23"><br>    use counterIncreasePred with t; 2: auto.</span>
-<span class="output-line" id="out23">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: t,t':timestamp<br>Ceq: t' = pred(t)<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(t) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br>H0: t' &gt;= pred(t)<br>Hind: forall (t0:timestamp), (t0 &lt; t =&gt; t' &lt; t0 =&gt; (<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t0))<br>Ht: t' &lt; t<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t' ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@t<br><br></span>
+<span class="input-line" id="in23"><br>Qed.</span>
+<span class="output-line" id="out23">Exiting proof mode.<br><br><br></span>
 </span>
 
 <span class="squirrel-step" id="step24">
-<span class="input-line" id="in24"><br>    by rewrite Ceq; auto.</span>
-<span class="output-line" id="out24">[goal&gt; Goal counterIncrease is proved <br></span>
-</span>
-
-<span class="squirrel-step" id="step25">
-<span class="input-line" id="in25"><br>Qed.</span>
-<span class="output-line" id="out25">Exiting proof mode.<br><br><br></span>
-</span>
-
-<span class="squirrel-step" id="step26">
-<span class="input-line" id="in26">goal secretReach (j:index):<br>  happens(B(j)) =&gt; cond@B(j) =&gt; false.</span>
-<span class="output-line" id="out26">Goal secretReach :<br>  <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>) =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">B(j)</span> =&gt; false<br></span>
-<span class="com-line" id="com26"><p>The following reachability property states that the secret s is never leaked (<em>i.e.</em> the condition of the action <code>B(j)</code> is never satisfied).</p>
+<span class="input-line" id="in24">goal secretReach (j:index):<br>  happens(B(j)) =&gt; cond@B(j) =&gt; false.</span>
+<span class="output-line" id="out24">Goal secretReach :<br>  <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>) =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">B(j)</span> =&gt; false<br></span>
+<span class="com-line" id="com24"><p>The following reachability property states that the secret s is never leaked (<em>i.e.</em> the condition of the action <code>B(j)</code> is never satisfied).</p>
 <p>The proof relies on the EUF assumption: if <code>cond@B(j)</code> is satisfied, it would mean that the attacker has been able to forge the message <code>h(&lt;d,secret&gt;,key)</code> with <code>d</code> corresponding to the value of the counter at timepoint <code>B(j)</code>, because all messages outputted so far correspond to older values of <code>d</code>.</p>
 </span>
 </span>
 
+<span class="squirrel-step" id="step25">
+<span class="input-line" id="in25"><br>Proof.</span>
+<span class="output-line" id="out25">[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: j:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>) =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">B(j)</span> =&gt; false<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step26">
+<span class="input-line" id="in26">  intro Hap Hcond.</span>
+<span class="output-line" id="out26">[&gt; Line 144: (intro Hap Hcond) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: j:index<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+<span class="com-line" id="com26"><p>We start by introducing the hypotheses and expanding the <code>cond</code> macro.</p>
+</span>
+</span>
+
 <span class="squirrel-step" id="step27">
-<span class="input-line" id="in27"><br>Proof.</span>
-<span class="output-line" id="out27">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: j:index<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br><span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>) =&gt; <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">B(j)</span> =&gt; false<br><br></span>
+<span class="input-line" id="in27"><br>  expand cond.</span>
+<span class="output-line" id="out27">[&gt; Line 145: (expand cond) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: j:index<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step28">
-<span class="input-line" id="in28">  intro Hap Hcond.</span>
-<span class="output-line" id="out28">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: j:index<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">cond</span>@<span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
-<span class="com-line" id="com28"><p>We start by introducing the hypotheses and expanding the <code>cond</code> macro.</p>
+<span class="input-line" id="in28">  euf Hcond =&gt; Ht Heq.</span>
+<span class="output-line" id="out28">[&gt; Line 147: ((euf Hcond);(intro Ht Heq)) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: i,j:index<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br>Heq: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">A(i)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt; = &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;<br>Ht: <span class="ga" style="color: #00AA00">A(i)</span> &lt; <span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+<span class="com-line" id="com28"><p>Applying the <code>euf</code> tactic generates two new hypotheses, <code>Ht</code> and <code>Heq</code>.</p>
 </span>
 </span>
 
 <span class="squirrel-step" id="step29">
-<span class="input-line" id="in29"><br>  expand cond.</span>
-<span class="output-line" id="out29">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: j:index<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+<span class="input-line" id="in29">  assert pred(A(i)) &lt; pred(B(j)) as H by constraints.</span>
+<span class="output-line" id="out29">[&gt; Line 150: ((have (pred(A(i)) &lt; pred(B(j))), H); 1: by constraints) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: i,j:index<br>H: <span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">A(i)</span>) &lt; <span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br>Heq: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">A(i)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt; = &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;<br>Ht: <span class="ga" style="color: #00AA00">A(i)</span> &lt; <span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
+<span class="com-line" id="com29"><p>We use here the counterIncrease lemma to show that the equality <code>Heq</code> is not possible.</p>
+</span>
 </span>
 
 <span class="squirrel-step" id="step30">
-<span class="input-line" id="in30">  euf Hcond =&gt; Ht Heq.</span>
-<span class="output-line" id="out30">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: i,j:index<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br>Heq: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt; = &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;<br>Ht: <span class="ga" style="color: #00AA00">A(i)</span> &lt; <span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
-<span class="com-line" id="com30"><p>Applying the <code>euf</code> tactic generates two new hypotheses, <code>Ht</code> and <code>Heq</code>.</p>
-</span>
+<span class="input-line" id="in30"><br>  apply counterIncrease in H.</span>
+<span class="output-line" id="out30">[&gt; Line 151: (apply ...  in H) <br>[goal&gt; Focused goal (1/1):<br>System: left:default/left, right:default/right<br>Variables: i,j:index<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">A(i)</span>) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br>Heq: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">A(i)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt; = &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@<span class="gf" style="font-weight: bold">pred</span>(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;<br>Ht: <span class="ga" style="color: #00AA00">A(i)</span> &lt; <span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
 </span>
 
 <span class="squirrel-step" id="step31">
-<span class="input-line" id="in31">  assert pred(A(i)) &lt; pred(B(j)) as H by constraints.</span>
-<span class="output-line" id="out31">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: i,j:index<br>H: pred(<span class="ga" style="color: #00AA00">A(i)</span>) &lt; pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br>Heq: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt; = &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;<br>Ht: <span class="ga" style="color: #00AA00">A(i)</span> &lt; <span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
-<span class="com-line" id="com31"><p>We use here the counterIncrease lemma to show that the equality <code>Heq</code> is not possible.</p>
-</span>
+<span class="input-line" id="in31"><br>  by apply orderStrict in H.</span>
+<span class="output-line" id="out31">[&gt; Line 152: by (apply ...  in H) <br>[goal&gt; Goal secretReach is proved <br></span>
 </span>
 
 <span class="squirrel-step" id="step32">
-<span class="input-line" id="in32"><br>  apply counterIncrease in H.</span>
-<span class="output-line" id="out32">[goal&gt; Focused goal (1/1):<br>System: default<br>Variables: i,j:index<br>H: <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>) ~&lt; <span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(<span class="ga" style="color: #00AA00">B(j)</span>)<br>Hcond: <span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">B(j)</span> = <span class="gf" style="font-weight: bold">h</span>(&lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;,<span class="gn" style="color: #AA5500">key</span>)<br>Heq: &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">A(i)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt; = &lt;<span class="gm" style="font-weight: bold; color: #AA00AA">d</span>@pred(<span class="ga" style="color: #00AA00">B(j)</span>),<span class="gn" style="color: #AA5500">secret</span>&gt;<br>Ht: <span class="ga" style="color: #00AA00">A(i)</span> &lt; <span class="ga" style="color: #00AA00">B(j)</span><br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>false<br><br></span>
-</span>
-
-<span class="squirrel-step" id="step33">
-<span class="input-line" id="in33"><br>  by apply orderStrict in H.</span>
-<span class="output-line" id="out33">[goal&gt; Goal secretReach is proved <br></span>
-</span>
-
-<span class="squirrel-step" id="step34">
-<span class="input-line" id="in34"><br>Qed.</span>
-<span class="output-line" id="out34">Exiting proof mode.<br><br><br></span>
+<span class="input-line" id="in32"><br>Qed.</span>
+<span class="output-line" id="out32">Exiting proof mode.<br><br><br></span>
 </span>
 
 </span>
 <div class="page-header">
-  <img src="../logo-circular.png" class="logo">
+  <img src="logo-circular.png" class="logo">
   <h1 class="project-tagline">Squirrel Prover</h1>
   <a href="https://squirrel-prover.github.io/examples.html" class="header-button">
     <button type="button" class="header-button">Exit</button>
@@ -261,13 +245,13 @@ a consequence of the counterIncreasePred lemma.</p>
 <div class="help-panel" id="help-panel">
   Press the left and right arrows to do and undo an instruction.
   <br><br>
-  Alternatively, you can double-click or an instruction.
+  Alternatively, you can double-click on an instruction.
   <br><br>
-  <span style="color: #8B0000;" onmouseenter="highlightOn('in-zone')" onmouseleave="highlightOff('in-zone')">This zone</span> show a squirrel file. You can double-click on a commentary to collapse it for better readabilility.
+  <span style="color: #8B0000;" onmouseenter="highlightOn('in-zone')" onmouseleave="highlightOff('in-zone')">This zone</span> shows a Squirrel file. You can double-click on a comment to collapse it for better readabilility.
   <br><br>
-  <span style="color: #8B0000;" onmouseenter="highlightOn('out-zone')" onmouseleave="highlightOff('out-zone')">This zone</span> show the output given by Squirrel.
+  <span style="color: #8B0000;" onmouseenter="highlightOn('out-zone')" onmouseleave="highlightOff('out-zone')">This zone</span> shows the output given by Squirrel.
   <br><br>
-  <span style="color: #8B0000;" onmouseenter="highlightOn('prec-zone')" onmouseleave="highlightOff('prec-zone')">This zone</span> show the output of the previous instruction to explicit the change caused by a tactic.
+  <span style="color: #8B0000;" onmouseenter="highlightOn('prec-zone')" onmouseleave="highlightOff('prec-zone')">This zone</span> shows the output of the previous instruction, to help identifying the change caused by the instruction.
 </div>
 
 <div class="mainsection" id="main">
