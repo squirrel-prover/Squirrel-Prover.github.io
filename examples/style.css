@@ -61,11 +61,11 @@ body {
 .help-panel {
   position: absolute;
   top: 0;
-  right: -20%;
+  right: 0;
   z-index: 2;
   height: 100%;
-  width: 20%;
-  padding: 3.5rem 0.5rem 0.5rem;
+  width: 0;
+  padding: 3.5rem 0 0.5rem;
 	border-style: none none none solid;
 	border-width: 4px;
 	border-color: #8B0000;
@@ -205,4 +205,34 @@ body {
 
 .comment ul{
   margin: 0;
+}
+
+.pn, .pv, .pio, .pk, .gm, .gf, .sep, .ht, .hf{
+  font-weight:bold;
+}
+.pc{
+  text-decoration: underline;
+}
+
+.pc, .ht, .g{
+  color: #AA0000;
+}
+.ga{
+  color: #00AA00;
+}
+.pn{
+  color: #0000AA;
+}
+.pv, .gm, .hf{
+  color: #AA00AA;
+}
+.gn{
+  color: #AA5500;
+}
+
+.test{
+  background-color: yellow;
+}
+.err{
+  background-color: red;
 }
