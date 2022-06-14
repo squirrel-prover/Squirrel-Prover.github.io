@@ -32,6 +32,11 @@ The technical details are inside the paper original paper [@BDKJM-sp21].
 
 We are hiring: [join us as an engineer or postdoc](positions.pdf)!
 
+# Event: MOVED
+
+Slides are available [here](movep.pdf).
+Example used for the presentation are [here](examples.html).
+
 # Core Team
 
  * [David Baelde](http://www.lsv.fr/~baelde/), _ENS Rennes, Univ Rennes, CNRS, IRISA_;
