@@ -32,10 +32,11 @@ The technical details are inside the paper original paper [@BDKJM-sp21].
 
 We are hiring: [join us as an engineer or postdoc](positions.pdf)!
 
-# Event: MOVED
+# Event: MOVEP
 
 Slides are available [here](movep.pdf).
-Example used for the presentation are [here](examples.html).
+
+Examples used for the presentation are [here](examples.html).
 
 # Core Team
 
