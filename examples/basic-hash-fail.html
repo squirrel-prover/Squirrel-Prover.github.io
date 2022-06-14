@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Squirrel Prover - Squirrel Prover</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body onkeydown="key(event)">
+<span style="display: none;"><span class="squirrel-step" id="step0">
+<span class="input-line" id="in0">hash h<br><br>abstract ok : message<br>abstract ko : message.</span>
+<span class="output-line" id="out0"></span>
+<span class="com-line" id="com0"><h1 id="basic-hash">BASIC HASH</h1>
+<p>The Basic Hash protocol as described in [A] is an RFID protocol involving:</p>
+<ul>
+<li>a tag associated to a secret key;</li>
+<li>generic readers having access to a database containing all these keys.</li>
+</ul>
+<p>The protocol is as follows:</p>
+<pre><code>T --&gt; R : &lt;nT, h(nT,key)&gt;
+R --&gt; T : ok</code></pre>
+<p>This file shows an incorrect attempt at proving unlinkability for Basic Hash. Unlinkability fails for the proposed system, for an irrelevant reason.</p>
+<p>[A] Mayla Brusò, Kostas Chatzikokolakis, and Jerry den Hartog. Formal Verification of Privacy for RFID Systems. pages 75–88, July 2010.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step1">
+<span class="input-line" id="in1"><br><br>(* In the single session system `tag(i,k)` will use `key'(i,k)`<br>   instead of `key(i)`. *)<br>name key  : index -&gt; message.</span>
+<span class="output-line" id="out1"></span>
+</span>
+
+<span class="squirrel-step" id="step2">
+<span class="input-line" id="in2"><br>name key' : index -&gt; index -&gt; message.</span>
+<span class="output-line" id="out2"></span>
+</span>
+
+<span class="squirrel-step" id="step3">
+<span class="input-line" id="in3"><br><br>channel cT<br>channel cR.</span>
+<span class="output-line" id="out3"></span>
+</span>
+
+<span class="squirrel-step" id="step4">
+<span class="input-line" id="in4">process tag(i:index,k:index) =<br>  new nT;<br>  out(cT, &lt;nT, h(nT,diff(key(i),key'(i,k)))&gt;).</span>
+<span class="output-line" id="out4"></span>
+<span class="com-line" id="com4"><p>Use <code>diff</code> operator to specify multiple session (left) and single session (right) roles simultaneously.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step5">
+<span class="input-line" id="in5">process reader(j:index) =<br>  in(cT,x);<br>  try find i,k such that snd(x) = h(fst(x),diff(key(i),key'(i,k))) in<br>    out(cR,ok)<br>  else<br>    out(cR,ko).</span>
+<span class="output-line" id="out5"></span>
+<span class="com-line" id="com5"><p>Session <code>j</code> of reader. For single-session version we need to find <code>k</code> in addition to <code>i</code>.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step6">
+<span class="input-line" id="in6"><br><br>system [BasicHash] ((!_j R: reader(j)) | (!_i !_k T: tag(i,k))).</span>
+<span class="output-line" id="out6">System before processing:<br>  <br>  (!_j R: <span class="pn" style="font-weight:bold; color: #0000AA">reader</span> j) | (!_i !_k T: <span class="pn" style="font-weight:bold; color: #0000AA">tag</span> i k)<br><br>System after processing:<br>  <br>  (!_j<br>     <span class="pio" style="font-weight: bold">in</span>(<span class="pc">cT</span>,<span class="pv" style="font-weight: bold; color: #AA00AA">x</span>);<br>     <span class="pc" style="text-decoration: underline; color: #AA0000">find</span> (i,k) <span class="pc" style="text-decoration: underline; color: #AA0000">such that</span> (snd(x) = h(fst(x),<span>diff</span>(key(i),key'(i,k)))) <span class="pc" style="text-decoration: underline; color: #AA0000">in</span><br>       R: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cR</span>,ok); <span class="pn" style="font-weight:bold; color: #0000AA">null</span> <span class="pc" style="text-decoration: underline; color: #AA0000">else</span> R1: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cR</span>,ko); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>) |<br>  (!_i !_k T: <span class="pio" style="font-weight: bold">out</span>(<span class="pc">cT</span>,pair(nT(i,k),h(nT(i,k),<span>diff</span>(key(i),key'(i,k))))); <span class="pn" style="font-weight:bold; color: #0000AA">null</span>)<br><br>System BasicHash registered with actions (init,R,R1,T).<br></span>
+</span>
+
+<span class="squirrel-step" id="step7">
+<span class="input-line" id="in7">print system [BasicHash].</span>
+<span class="output-line" id="out7">System [left:BasicHash/left, right:BasicHash/right]<br>Available actions:<br>  <br>  action name: <span class="ga" style="color: #00AA00">init</span><br>  condition: true<br>  output: <span class="gf" style="font-weight: bold">empty</span><br>  <br>  action name: <span class="ga" style="color: #00AA00">R(j,i,k)</span><br>  indices: j,i,k<br>  condition:<br>    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j,i,k)</span>) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R(j,i,k)</span>),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k)))<br>  output: <span class="gf" style="font-weight: bold">ok</span><br>  <br>  action name: <span class="ga" style="color: #00AA00">R1(j)</span><br>  indices: j<br>  condition:<br>    forall (i,k:index),<br>      not(<span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@<span class="ga" style="color: #00AA00">R1(j)</span>),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k))))<br>  output: <span class="gf" style="font-weight: bold">ko</span><br>  <br>  action name: <span class="ga" style="color: #00AA00">T(i,k)</span><br>  indices: i,k<br>  condition: true<br>  output: &lt;<span class="gn" style="color: #AA5500">nT</span>(i,k),<span class="gf" style="font-weight: bold">h</span>(<span class="gn" style="color: #AA5500">nT</span>(i,k),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k)))&gt;<br>  <br>  <br> <br><br><br></span>
+<span class="com-line" id="com7"><p>Show the set of actions obtained from above process.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step8">
+<span class="input-line" id="in8">goal [BasicHash] wa_R :<br>  forall (tau:timestamp),<br>    happens(tau) =&gt;<br>    ((exists (i,k:index),<br>       snd(input@tau) = h(fst(input@tau),diff(key(i),key'(i,k))))<br>     &lt;=&gt;<br>     (exists (i,k:index), T(i,k) &lt; tau &amp;&amp;<br>       fst(output@T(i,k)) = fst(input@tau) &amp;&amp;<br>       snd(output@T(i,k)) = snd(input@tau))).</span>
+<span class="output-line" id="out8">Goal wa_R :<br>  forall (tau:timestamp),<br>    <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(tau) =&gt;<br>    (exists (i,k:index),<br>       <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k))))<br>    &lt;=&gt;<br>    exists (i,k:index),<br>      <span class="ga" style="color: #00AA00">T(i,k)</span> &lt; tau &amp;&amp;<br>      <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) &amp;&amp;<br>      <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau)<br></span>
+<span class="com-line" id="com8"><p>Prove <code>wa_R</code> as in <code>basic-hash-wa.sp</code> slightly modified to also hold for single-session system. The statement (or rather, its projections) is proved for both the left and right projections of the <code>BasicHash</code> system.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step9">
+<span class="input-line" id="in9">Proof.</span>
+<span class="output-line" id="out9">[goal&gt; Focused goal (1/1):<br>System: left:BasicHash/left, right:BasicHash/right<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>forall (tau:timestamp),<br>  <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(tau) =&gt;<br>  (exists (i,k:index),<br>     <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k))))<br>  &lt;=&gt;<br>  exists (i,k:index),<br>    <span class="ga" style="color: #00AA00">T(i,k)</span> &lt; tau &amp;&amp;<br>    <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) &amp;&amp;<br>    <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau)<br><br></span>
+<span class="com-line" id="com9"><p>The high-level idea of the proof is to use the EUF cryptographic axiom: only the tag <code>T(i,k)</code> can forge <code>h(nT(i,k),key(i))</code> because the secret key is not known by the attacker. Therefore, any message accepted by the reader must come from a tag that has played before. The converse implication is trivial because any honest tag output is accepted by the reader.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step10">
+<span class="input-line" id="in10"><br>  intro tau Hap.</span>
+<span class="output-line" id="out10">[&gt; Line 81: (intro tau Hap) <br>[goal&gt; Focused goal (1/1):<br>System: left:BasicHash/left, right:BasicHash/right<br>Variables: tau:timestamp<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(tau)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>(exists (i,k:index),<br>   <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k))))<br>&lt;=&gt;<br>exists (i,k:index),<br>  <span class="ga" style="color: #00AA00">T(i,k)</span> &lt; tau &amp;&amp;<br>  <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) &amp;&amp; <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau)<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step11">
+<span class="input-line" id="in11"> split =&gt; [i k Meq].</span>
+<span class="output-line" id="out11">[&gt; Line 81: (split;(intro [i k Meq])) <br>[goal&gt; Focused goal (1/2):<br>System: left:BasicHash/left, right:BasicHash/right<br>Variables: i,k:index,tau:timestamp<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(tau)<br>Meq: <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k)))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (i,k:index),<br>  <span class="ga" style="color: #00AA00">T(i,k)</span> &lt; tau &amp;&amp;<br>  <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) &amp;&amp; <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau)<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step12">
+<span class="input-line" id="in12"><br>  + project.</span>
+<span class="output-line" id="out12">[&gt; Line 82: project <br>[goal&gt; Focused goal (1/3):<br>System: left:BasicHash/left<br>Variables: i,k:index,tau:timestamp<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(tau)<br>Meq: <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau),<span class="gn" style="color: #AA5500">key</span>(i))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (i,k:index),<br>  <span class="ga" style="color: #00AA00">T(i,k)</span> &lt; tau &amp;&amp;<br>  <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) &amp;&amp; <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau)<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step13">
+<span class="input-line" id="in13"> (* Here we need to separate the proof for each projection. *)<br>    ++ euf Meq =&gt; *; by exists i,k0.</span>
+<span class="output-line" id="out13">[&gt; Line 83: (((euf Meq);(intro *));by (exists i, k0)) <br>[goal&gt; Focused goal (1/2):<br>System: right:BasicHash/right<br>Variables: i,k:index,tau:timestamp<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(tau)<br>Meq: <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau),<span class="gn" style="color: #AA5500">key'</span>(i,k))<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (i,k:index),<br>  <span class="ga" style="color: #00AA00">T(i,k)</span> &lt; tau &amp;&amp;<br>  <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) &amp;&amp; <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau)<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step14">
+<span class="input-line" id="in14"><br>    ++ euf Meq =&gt; *; by exists i,k.</span>
+<span class="output-line" id="out14">[&gt; Line 84: (((euf Meq);(intro *));by (exists i, k)) <br>[goal&gt; Focused goal (1/1):<br>System: left:BasicHash/left, right:BasicHash/right<br>Variables: i,k:index,tau:timestamp<br>Hap: <span class="gm" style="font-weight: bold; color: #AA00AA">happens</span>(tau)<br>Meq: <span class="ga" style="color: #00AA00">T(i,k)</span> &lt; tau &amp;&amp;<br>     <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) &amp;&amp;<br>     <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">output</span>@<span class="ga" style="color: #00AA00">T(i,k)</span>) = <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau)<br><span class="sep" style="font-weight: bold">----------------------------------------</span><br>exists (i,k:index),<br>  <span class="gf" style="font-weight: bold">snd</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau) = <span class="gf" style="font-weight: bold">h</span>(<span class="gf" style="font-weight: bold">fst</span>(<span class="gm" style="font-weight: bold; color: #AA00AA">input</span>@tau),diff(<span class="gn" style="color: #AA5500">key</span>(i), <span class="gn" style="color: #AA5500">key'</span>(i,k)))<br><br></span>
+</span>
+
+<span class="squirrel-step" id="step15">
+<span class="input-line" id="in15">  + by exists i,k.</span>
+<span class="output-line" id="out15">[&gt; Line 87: by (exists i, k) <br>[goal&gt; Goal wa_R is proved <br></span>
+<span class="com-line" id="com15"><p>For the second implication (&lt;=), the conclusion of the goal can directly be obtained from the hypotheses.</p>
+</span>
+</span>
+
+<span class="squirrel-step" id="step16">
+<span class="input-line" id="in16"><br>Qed.</span>
+<span class="output-line" id="out16">Exiting proof mode.<br><br><br></span>
+</span>
+
+</span>
+<div class="page-header">
+  <img src="logo-circular.png" class="logo">
+  <h1 class="project-tagline">Squirrel Prover</h1>
+  <a href="https://squirrel-prover.github.io/examples.html" class="header-button">
+    <button type="button" class="header-button">Exit</button>
+  </a>
+  <button type="button" class="header-button" onclick="help()" id="button-panel">Help</button>
+</div>
+
+<div class="help-panel" id="help-panel">
+  Press the left and right arrows to do and undo an instruction.
+  <br><br>
+  Alternatively, you can double-click on an instruction.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('in-zone')" onmouseleave="highlightOff('in-zone')">This zone</span> shows a Squirrel file. You can double-click on a comment to collapse it for better readabilility.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('out-zone')" onmouseleave="highlightOff('out-zone')">This zone</span> shows the output given by Squirrel.
+  <br><br>
+  <span style="color: #8B0000;" onmouseenter="highlightOn('prec-zone')" onmouseleave="highlightOff('prec-zone')">This zone</span> shows the output of the previous instruction, to help identifying the change caused by the instruction.
+</div>
+
+<div class="mainsection" id="main">
+  <div class="example-grid">
+    <div class="example-col example-col-left" id="in-zone">
+      <p class="example-code"><span id="in-line"></span></p>
+    </div>
+    <div class="example-col example-col-right">
+      <div class="example-code example-code-right" style="height: 45%;	border-bottom: 4px double #8B0000;" id="prec-zone"><span>Previously:</span><br><br><span id="prec-line"></span>
+      </div>
+      <div style="position: relative;">
+      <button type="button" class="prec-button" onclick="hidePrec()" id="prec-button" >Hide</button>
+      </div>
+      <div class="example-code example-code-right" style="height: 55%;" id="out-zone"><span id="out-line"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
