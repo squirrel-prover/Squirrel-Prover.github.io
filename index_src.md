@@ -30,7 +30,7 @@ The technical details are inside the paper original paper [@BDKJM-sp21].
 
 # News
 
-We are hiring: [join us as a engineer or postdoc](positions.pdf)!
+We are hiring: [join us as an engineer or postdoc](positions.pdf)!
 
 # Core Team
 
