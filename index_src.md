@@ -32,6 +32,21 @@ The technical details are inside the paper original paper [@BDKJM-sp21].
 
 We are hiring: [join us as an engineer or postdoc](positions.pdf)!
 
+
+# Event: Cyber in Nancy
+
+Documentation is available [here](doc-nancy.html).
+
+Exercises for the summer school:
+
+- [0-logic](files/0-logic.sp)
+- [1-crypto-hash](files/1-crypto-hash.sp)
+- [2-crypto-enc](files/2-crypto-enc.sp)
+- [3-hash-lock-auth](files/3-hash-lock-auth.sp)
+- [4-hash-lock-unlink](files/4-hash-lock-unlink.sp)
+- [5-stateful](files/5-stateful.sp)
+- [6-key-establishment](files/6-key-establishment.sp)
+
 # Event: MOVEP
 
 Slides are available [here](movep.pdf).

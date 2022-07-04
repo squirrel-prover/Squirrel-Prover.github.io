@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Begin Jekyll SEO tag v2.3.0 -->
+  <title>Squirrel Prover - Documentation</title>
+
+  <!--  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'> -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+<style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+
+</head>
+
+<body>
+  <a id="anchor-top"></a>
+  <section class="page-header">
+    <div class="logo-container"> <img src="logo-circular.png" class="logo" > </div>
+    <div class="title-buttons">
+    <a href="index.html"><h1 class="project-tagline">Squirrel Prover</h2></a>
+    <a class="btn" href="https://github.com/squirrel-prover/squirrel-prover/#readme"><i class="fa fa-laptop"></i> Install</a>
+    <a class="btn" href="tutorial.html"><i class="fa fa-graduation-cap"></i> Tutorial</a>
+    <a class="btn" href="examples.html"><i class="fa fa-cogs"></i> Examples</a>
+    <a class="btn" href="https://github.com/squirrel-prover/squirrel-prover/"><i class="fa fa-file-code-o"></i> Source code</a>
+    <a class="btn" href="index.html#refs"><i class="fa fa-file-o"></i> Publications</a>
+        </div>
+  </section>
+
+  <div>
+    <section class="main-content">
+
+      <h1></h1>
+
+<!-- do not indent this line, may cause indentation problems in fenced code blocks! -->
+<ul>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#terms" id="toc-terms">Terms</a>
+<ul>
+<li><a href="#timestamps" id="toc-timestamps">Timestamps</a></li>
+<li><a href="#macros" id="toc-macros">Macros</a></li>
+</ul></li>
+<li><a href="#declarations" id="toc-declarations">Declarations</a>
+<ul>
+<li><a href="#nonces" id="toc-nonces">Nonces</a></li>
+<li><a href="#functions-and-constants"
+id="toc-functions-and-constants">Functions and constants</a></li>
+<li><a href="#mutable-states" id="toc-mutable-states">Mutable
+states</a></li>
+<li><a href="#channels" id="toc-channels">Channels</a></li>
+<li><a href="#processes" id="toc-processes">Processes</a></li>
+</ul></li>
+<li><a href="#systems" id="toc-systems">Systems</a></li>
+<li><a href="#logic" id="toc-logic">Logic</a>
+<ul>
+<li><a href="#formulas" id="toc-formulas">Formulas</a></li>
+<li><a href="#goals" id="toc-goals">Goals</a></li>
+</ul></li>
+<li><a href="#proofs" id="toc-proofs">Proofs</a></li>
+</ul>
+
+<h1 id="introduction">Introduction</h1>
+<p>A Squirrel file begin with a series of declarations. They define
+nonces, functions and, ultimately, systems built with them. Then we can
+define properties of such systems as goals that we will prove. The proof
+is a sequence of tactics placed between keywords <code>Proof</code> and
+<code>Qed</code>.</p>
+<h1 id="terms">Terms</h1>
+<p>Terms can be of type <code>message</code>, <code>boolean</code>,
+<code>index</code> and <code>timestamp</code>. The first two are message
+kinds, respectively corresponding to a bitstring and a single bit.
+Indices are used to have infinite collections of objects, and timestamps
+are used to represent points in an execution trace.</p>
+<p>Some functions are built-ins. For example:</p>
+<ul>
+<li><code>&lt;m1, m2&gt;</code> is a message containing the pair of
+messages <code>m1</code> and <code>m2</code>;</li>
+<li><code>fst(m)</code> and <code>snd(m)</code> are projections of a
+pair <code>m</code>.</li>
+</ul>
+<h2 id="timestamps">Timestamps</h2>
+<p>A timestamp denotes an action that may belong to the execution. The
+syntax for timestamps is as follows:</p>
+<ul>
+<li><code>〈action〉(〈indices〉)</code></li>
+<li><code>pred(〈timestamp〉)</code> denotes the previous action during
+the execution.</li>
+<li><code>〈variable〉</code></li>
+</ul>
+<h2 id="macros">Macros</h2>
+<p>Terms may contain macros, describing data relative to the protocol
+under study.</p>
+<p><code>input@t</code> and <code>output@t</code> are the input and
+output of the action denoted by <code>t</code>.</p>
+<p><code>cond@t</code> is the individual execution condition of
+<code>t</code>, and <code>exec@t</code> is the conjunction of all
+conditions up until <code>t</code> (included).</p>
+<p><code>frame@t</code> is the knowledge gathered by the attacker at
+<code>t</code>. It contained the status of the execution at each step
+and all the outputted messages. When <code>pred(tau)</code> is defined,
+<code>frame@tau</code> is equal to
+<code>&lt;frame@pred(tau), &lt;exec@tau, if exec@tau then output@tau&gt;&gt;</code>.</p>
+<p>Macros are also used to model mutable states: if <code>s</code> is a
+mutable state, then <code>s(〈indices〉)@t</code> is the contents of
+<code>s</code> after <code>t</code>.</p>
+<h1 id="declarations">Declarations</h1>
+<p>Before we declare systems, we need to declare element used to build
+these systems.</p>
+<h2 id="nonces">Nonces</h2>
+<pre><code>name n : 〈indices〉 -&gt; message</code></pre>
+<p><code>name</code> allows to create nonces, i.e. random samplings of
+length the security parameter. Names can be indexed, which allows to
+model unbounded collections of nonces, which is typically used to model
+protocols with an unbounded number of sessions, each one using its own
+nonce.</p>
+<p><em>Examples :</em></p>
+<ul>
+<li><code>name k : message</code></li>
+<li><code>name n : index -&gt; index -&gt; message</code></li>
+</ul>
+<h2 id="functions-and-constants">Functions and constants</h2>
+<pre><code>abstract f : 〈indices〉 -&gt; 〈message_types〉 -&gt; 〈message_type〉</code></pre>
+<p><code>abstract</code> declares a function <code>f</code>. The
+behaviour of <code>f</code> is not specified but can be constrained
+later by axioms. This function can be declared with an arbitrary number
+of indices and arguments. If there is no argument, <code>f</code>
+corresponds to a constant. If there are only index arguments, then
+<code>f</code> can be seen as an unbounded collection of constants, used
+e.g. to model identities.</p>
+<p><em>Examples :</em></p>
+<ul>
+<li><code>abstract ok : message</code></li>
+<li><code>abstract mySucc : message -&gt; message</code></li>
+<li><code>abstract id : index -&gt; message</code></li>
+<li><code>abstract (~&lt;): message -&gt; message -&gt; boolean</code></li>
+</ul>
+<p>In the last example, the function symbol will be used with infix
+notation, i.e. we will write <code>u ~&lt; v</code>.</p>
+<pre><code>hash h</code></pre>
+<p>Declares a function <code>h</code>. This function will correspond to
+a hash function and therefore is subject to some cryptographic tactics.
+Its type is <code>message -&gt; message -&gt; message</code>.</p>
+<h2 id="mutable-states">Mutable states</h2>
+<pre><code>mutable s(〈indices〉) : 〈message_type〉 = 〈term〉</code></pre>
+<p>Defines a new mutable state and set its initial value.</p>
+<h2 id="channels">Channels</h2>
+<pre><code>channel c</code></pre>
+<p>Declare a new channel <code>c</code>.</p>
+<h2 id="processes">Processes</h2>
+<p>Processes can be declared using
+<code>process 〈identifier〉p(〈args〉) = 〈process〉</code>.</p>
+<p>A process is a built from the following constructs:</p>
+<ul>
+<li><code>in(〈channel〉, 〈variable〉)</code> receive a message from
+channel and store it in a variable. The attacker is able to choose all
+inputed messages wrt. the messages they already knows.</li>
+<li><code>out(〈channel〉, 〈message〉)</code> output a message into
+channel. The message is added to the knowledge of the attacker.</li>
+<li><code>〈process〉 | 〈process〉</code> create two parallel
+processes</li>
+<li><code>!_〈index〉 〈process〉</code> create a non-bounded number of
+parallel processes. Each of them is identified by the value of its
+index.</li>
+<li><code>if 〈boolean〉 then 〈process〉 else 〈process〉</code></li>
+<li><code>try find 〈indices〉 such that 〈boolean〉 in 〈process〉 else 〈process〉</code>
+execute the first process with indices checking the boolean or the
+second process if there are none.</li>
+<li><code>new 〈name〉</code> create a new nonce</li>
+<li><code>〈mutable_state〉(〈indices〉) := 〈term〉</code></li>
+<li><code>null</code> process that does nothing</li>
+</ul>
+<p>The <code>diff</code> operator can be used inside processes, so they
+are actually biprocesses. A biprocess corresponds to two processes: the
+left one obtained by projecting each occurrence of
+<code>diff(t1,t2)</code> to <code>t1</code>, and the right one obtained
+by performing right projections.</p>
+<p><em>Example:</em></p>
+<pre><code>process tag(i:index,k:index) =
+  new nT;
+  out(cT, &lt;nT, h(nT,diff(key(i),key&#39;(i,k)))&gt;)
+
+process reader(j:index) =
+  in(cT,x);
+  if exists (i,k:index), snd(x) = h(fst(x),diff(key(i),key&#39;(i,k))) then
+    out(cR,ok)
+  else
+    out(cR,ko)</code></pre>
+<h1 id="systems">Systems</h1>
+<p>A system is declared from a process using the following syntax:</p>
+<pre><code>system [name] 〈process〉</code></pre>
+<p>This will actually declare name/left and name/right, the two
+projections of the biprocess.</p>
+<p><em>Example:</em></p>
+<pre><code>system [BasicHash] ((!_j R: reader(j)) | (!_i !_k T: tag(i,k))).</code></pre>
+<p>When a system is declared, Squirrel transforms the process into a set
+of actions (with sequential dependencies on actions). Squirrel will
+group elements of the process to put inside one action:</p>
+<ul>
+<li>an input;</li>
+<li>some codition;</li>
+<li>some mutable state modifications;</li>
+<li>an output.</li>
+</ul>
+<p>Some of these fields may be empty.</p>
+<p>Each of these actions will have an number of indices (corresponding
+to indices created by unbounded replications) and a name.</p>
+<p>After this, Squirrel returns the set of name of these actions with
+the sentence:</p>
+<pre><code>System 〈system_name〉 registered with actions 〈list_of_action〉.</code></pre>
+<p>It is possible to obtain a full description of these actions using
+the following command:</p>
+<pre><code>print system [system_name].</code></pre>
+<p>To have clearer names for your action, you can use aliases. These are
+naming hints added in the system to guide the naming of actions. The
+syntax is: <code>〈alias〉 : process</code></p>
+<p><em>Example :</em> <code>system (out(c,ok) | out(c,ko))</code>
+becomes <code>system (A: out(c,ok) | B: out(c,ko))</code>.</p>
+<h1 id="logic">Logic</h1>
+<h2 id="formulas">Formulas</h2>
+<p>A local formula is formed with:</p>
+<ul>
+<li><code>〈term〉 = 〈term〉</code></li>
+<li><code>happens(〈timestamp〉)</code>: does the timestamp appears in
+the execution</li>
+<li><code>〈timestamp〉 &lt; 〈timestamp〉</code> and
+<code>〈timestamp〉 &lt;= 〈timestamp〉</code>: order of timestamps</li>
+<li><code>〈formula〉 &amp;&amp; 〈formula〉</code>,
+<code>〈formula〉 || 〈formula〉</code>,
+<code>〈formula〉 =&gt; 〈formula〉</code>and
+<code>〈formula〉 &lt;=&gt; 〈formula〉</code></li>
+<li><code>forall (i:index), 〈formula〉</code> and
+<code>exists (i:index), 〈formula〉</code>: quantifier over indices</li>
+<li><code>forall (tau:timestamp), 〈formula〉</code> and
+<code>exists (tau:timestamp), 〈formula〉</code>: quantifier over
+timestamps</li>
+</ul>
+<p>Quantifiers can be grouped, as in
+<code>forall (i:index,t,t':timestamp), input@t = &lt;n(i),output@t'&gt;</code>.</p>
+<p>Global formulas are written with the same quantifiers, but logical
+connectives are noted <code>-&gt;</code>, <code>/\</code> and
+<code>\/</code>. Atoms of global formulas are of the form
+<code>[phi]</code> (where <code>phi</code> is a local formula) and
+<code>equiv(u1,...,uN)</code> (where the <code>uI</code> are
+bi-terms).</p>
+<h2 id="goals">Goals</h2>
+<p>Goals (i.e. lemmas) are declared as follows:</p>
+<pre><code>local goal [〈system_annotation〉] 〈goal_name〉 : 〈local formula〉.
+global goal [〈system_annotation〉] 〈goal_name〉 : 〈global formula〉.</code></pre>
+<p>The keyword <code>local</code> can be omitted in the first
+declaration: goals are local by default. A blank name <code>_</code> can
+be used if there is no need to name a goal.</p>
+<p>The system annotation indicates with respect to which systems macros
+should be understood. We first describe the common use:</p>
+<ul>
+<li>A local goal comes with a system annotation that lists systems: it
+means that the formula is true for each of these systems. Including a
+bisystem in the list is equivalent to including its two
+projections.</li>
+<li>For a global goal, the annotation describes the two systems
+necessary to interpret equivalences: the user must specify a bisystem or
+two single systems. The local formulas that might appear inside the
+global formula are then interpreted with respect to the same two
+systems: they must be true for both of them.</li>
+</ul>
+<p>It is sometimes useful to specify separately the systems for
+interpreting local formulas and equivalences. The full syntax is
+<code>[set: &lt;system list&gt;; equiv: &lt;system pair&gt;]</code>
+where the first component is used for local formulas and the second one
+for equivalences.</p>
+<h1 id="proofs">Proofs</h1>
+<p>After the declaration of a goal, the proof begins with
+<code>Proof</code> and ends with <code>Qed</code>.</p>
+<p>A proof starts with the initial goal specified by the user. This goal
+is reduced to subgoals by successive applications of <em>tactics</em>.
+If no new subgoal is generated, then the goal is proved. When all goals
+are proved, the proof is complete. Tactics are documented in a separate
+file.</p>
+<p>It is always possible to write proofs as sequences of tactics, but it
+is useful (for readability and maintainability) to structure proofs as
+trees, following the goal-subgoal relationship. To this effect, one can
+use <em>bullets</em>. A bullet is simply a marker, formed by a
+combination of the signs <code>+-*</code>, that shows where a branch
+starts. It is used as follows (indentation is not mandatory, and
+actually ignored by the tool, but recommended):</p>
+<pre><code>(* Suppose this first tactic reduces the current goal to two subgoals. *)
+tac1.
+(* Each bullet + below marks the beginning of the proof of each subgoal. *)
++ tac2. tac3.
++ tac4.</code></pre>
+<p>When a bullet is used for one subgoal, it must be used for all
+siblings, i.e. all subgoals generated from the same original goal.
+Bullets can be nested. It is possible to use bullets in parts of the
+proof but not others.</p>
+
+      <hr>
+      <div class="footer-nav">
+        <div class="footer-nav-Body">
+          <div class="footer-nav-Row">
+            <div class="footer-nav-Left">&nbsp;</div>
+            <div class="footer-nav-Mid"><a href="#anchor-top">Top</a></div>
+            <div class="footer-nav-Right">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+</body>
