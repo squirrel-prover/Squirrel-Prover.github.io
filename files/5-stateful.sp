@@ -105,30 +105,15 @@ goal authentication_R (j, i : index) :
     output@T(i,k) = input@R(j,i) &&
     Rcpt(i)@pred(R(j,i)) ~< cpt(i)@T(i,k).
 Proof.
-  intro Hap.
-  rewrite /cond.
-  split.
-
-  + intro [H1 H2].
-    rewrite /cI in H1.
-    intctxt H1 => // Ht Eq _. 
-    rewrite /cI /c -Eq dec_enc in H2. 
-    by exists k. 
-
-  + intro [k [Ht Eq Hc]].
-    rewrite /cI -Eq dec_enc //=. 
-    rewrite /cpt => V.
-    by apply incr_ne_fail in V. 
+  admit. (* TODO *)
 Qed.
 
-(* TODO: do not ask to prove both of the following lemmas *)
 goal counter_increase (tau1, tau2 : timestamp, i,k : index):
   tau1 < T(i,k) => 
   T(i,k) <= tau2 =>
   cpt(i)@tau1 ~< cpt(i)@tau2.
 Proof.
-  (* induction tau2 => tau2 IH k1 k2. Eq1 Eq2. *)
-  admit.
+  admit. (* TODO *)
 Qed.
 
 goal counter_increaseR (i : index, tau1, tau2 : timestamp):
@@ -136,34 +121,7 @@ goal counter_increaseR (i : index, tau1, tau2 : timestamp):
   exec@tau2 =>
   (Rcpt(i)@tau1 ~~< Rcpt(i)@tau2).
 Proof. 
-  induction tau2 => tau2 IH Le E.
-  case tau2 => //. 
-
-  + intro ?.
-    have ?: tau1 = init by auto. 
-    by rewrite le_def; right. 
-
-  + intro [j i0 Eq].
-    rewrite /Rcpt.
-    case (tau1 = tau2) => ?; 1: by rewrite le_def; right.
-    case (i = i0) => ? //=; 2: by apply IH.
-    rewrite /exec /cond /c in E. 
-    apply le_trans _ (Rcpt(i)@pred(tau2)) => //.
-    - by apply IH.        
-    - by rewrite le_def; left. 
-  + intro [j i0 Eq].
-    rewrite /Rcpt.
-    case (tau1 = tau2) => ?; 1: by rewrite le_def; right.
-    case (i = i0) => ? //=; 2: by apply IH.
-    rewrite /exec /cond /c in E. 
-    apply le_trans _ (Rcpt(i)@pred(tau2)) => //.
-    - by apply IH.        
-    - by rewrite le_def; right. 
-
-  + intro [j0 k Eq].
-    rewrite /Rcpt.
-    case (tau1 = tau2) => ?; 1: by rewrite le_def; right.
-    by apply IH => //.
+  admit. (* TODO *)
 Qed.
 
 goal _ (j, i, j1, i1 : index) :
@@ -173,51 +131,5 @@ goal _ (j, i, j1, i1 : index) :
   input@R(j,i) = input@R(j1,i1) =>
   i = i1 && j = j1.
 Proof.
-  intro Hap. 
-  intro S1 S2.
-  have H1 : cond@R(j,i) by auto.
-  have H2 : cond@R(j1,i1) by auto.
-  revert H2 H1.
-  rewrite !authentication_R //=.
-  intro [k [H1 H2 H3]] [k1 [G1 G2 G3]] U.
-  rewrite U -G2 /output in H2.
-
-  (* TODO: isolate this in a separated lemma *)
-  have ?: i = i1. {
-    have V:
-      cpt(i)@T(i,k) =
-      dec(enc(cpt(i1)@T(i1,k1),n(i1,k1),key(i1)), key(i)) by auto.
-    by intctxt V.
-  }.
-  simpl.
-  have Eq: cpt(i)@T(i,k) = cpt(i)@T(i,k1) by auto.
-
-  (* consequence of counter_increase *)
-  (* TODO: isolate in a separate lemma *)
-  have ?: k = k1. { 
-    have A : T(i,k) < T(i,k1) || T(i,k) > T(i,k1) || k = k1 by auto.
-    case A => //.
-    - have Xa := counter_increase (T(i,k)) (T(i,k1)) i k1. 
-      by apply order_strict in Xa. 
-    - have Xa := counter_increase (T(i,k1)) (T(i,k)) i k. 
-      by apply order_strict in Xa. 
-  }.
-
-  have L: forall (t,t' : timestamp), t < t' => t <= pred(t') by auto.
-  have O := L _ _ Hap. 
-  clear L.
-  
-  have P : exec@pred(R(j1,i)) by auto.
-  have B :=  counter_increaseR i _ _ O P.  
-  clear O.
-  have A : Rcpt(i)@R(j,i) = cpt(i)@T(i,k) by auto.
-  clear S1 S2 U G2. 
-  clear H3 G1 H1 Hap.
-  rewrite le_def in B. 
-  case B.
-  + rewrite -A in G3.
-    have U := order_trans _ _ _ B G3.
-    by apply order_strict in U.
-  + rewrite -A B in G3.
-    by apply order_strict in G3.
+  admit. (* TODO *)
 Qed.
