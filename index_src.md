@@ -35,7 +35,9 @@ We are hiring: [join us as an engineer or postdoc](positions.pdf)!
 
 # Event: Cyber in Nancy
 
-Syntax documentation is available [here](doc-nancy.html). Tactics are documented [here](tactics.html).
+Slides are available [here](nancy22.pdf).
+
+You can also find some syntax documentation [here](doc-nancy.html), and tactics documentation [there](tactics.html).
 
 Exercises for the summer school:
 
