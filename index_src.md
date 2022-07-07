@@ -25,8 +25,30 @@ A 13 minutes introduction to the basic concepts and core ideas of the **Squirrel
 
 A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions.
 
-A [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it. 
+A basic [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it. 
 The technical details are inside the paper original paper [@BDKJM-sp21].
+
+# Detailed Tutorial
+
+A more complete tutorial is available in
+```
+examples/tutorial/
+```
+
+This tutorial consists in a series of exercises of increasing
+difficulty, and covers the basic logical constructs and tactics
+manipulating them, several cryptographic assumptions, accessibility
+properties (authentication, injective authentication), equivalence
+properties (unlinkability), stateful protocol, and protocol
+composition.
+
+- [0-logic](files/0-logic.sp)
+- [1-crypto-hash](files/1-crypto-hash.sp)
+- [2-crypto-enc](files/2-crypto-enc.sp)
+- [3-hash-lock-auth](files/3-hash-lock-auth.sp)
+- [4-hash-lock-unlink](files/4-hash-lock-unlink.sp)
+- [5-stateful](files/5-stateful.sp)
+- [6-key-establishment](files/6-key-establishment.sp)
 
 # News
 
