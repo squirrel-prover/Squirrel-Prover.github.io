@@ -26,7 +26,7 @@ A 13 minutes introduction to the basic concepts and core ideas of the **Squirrel
 A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions.
 
 A basic [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it. 
-The technical details are inside the paper original paper [@BDKJM-sp21].
+The technical details are inside the original paper [@BDKJM-sp21].
 
 # Detailed Tutorial
 
