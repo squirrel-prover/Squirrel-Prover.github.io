@@ -102,9 +102,10 @@
       <h1></h1>
 
 <!-- do not indent this line, may cause indentation problems in fenced code blocks! -->
-<p>The <strong>Squirrel Prover</strong> is a proof assistant for
-protocols. It is based on first-order logic and provides guarantees in
-the computational model.</p>
+<p>The <strong>Squirrel Prover</strong> is a proof assistant dedicated
+to cryptographic protocols. It relies on a higher-order logic following
+the <em>computationnally complete symbolic attacker</em> approach. It
+thus provides guarantees in the computational model.</p>
 <h1 id="getting-started">Getting started</h1>
 <p>A 13 minutes introduction to the basic concepts and core ideas of the
 <strong>Squirrel Prover</strong> can be found <a
@@ -113,37 +114,50 @@ href="https://www.youtube.com/watch?v=n-s_lGe44EM">here</a>.</p>
 href="https://github.com/squirrel-prover/squirrel-prover/#readme">README</a>
 provides installation instructions.</p>
 <p>A basic <a href="tutorial.html">tutorial</a> and some commented <a
-href="examples.html">examples</a> allow to start discovering it. The
-technical details are inside the original paper <span class="citation"
-data-cites="BDKJM-sp21"><a href="#ref-BDKJM-sp21"
-role="doc-biblioref">[1]</a></span>.</p>
-<h1 id="detailed-tutorial">Detailed Tutorial</h1>
-<p>A more complete tutorial is available in</p>
-<pre><code>examples/tutorial/</code></pre>
-<p>This tutorial consists in a series of exercises of increasing
-difficulty, and covers the basic logical constructs and tactics
-manipulating them, several cryptographic assumptions, accessibility
-properties (authentication, injective authentication), equivalence
-properties (unlinkability), stateful protocol, and protocol
-composition.</p>
+href="examples.html">examples</a> allow to start discovering it. A more
+complete tutorial has been prepared on the occasion of the Cyber in
+Nancy summer school; see below.</p>
+<p>The technical details are inside the research papers:</p>
 <ul>
-<li><a href="files/0-logic.sp">0-logic</a></li>
-<li><a href="files/1-crypto-hash.sp">1-crypto-hash</a></li>
-<li><a href="files/2-crypto-enc.sp">2-crypto-enc</a></li>
-<li><a href="files/3-hash-lock-auth.sp">3-hash-lock-auth</a></li>
-<li><a href="files/4-hash-lock-unlink.sp">4-hash-lock-unlink</a></li>
-<li><a href="files/5-stateful.sp">5-stateful</a></li>
-<li><a href="files/6-key-establishment.sp">6-key-establishment</a></li>
+<li>the computationnally complete symbolic attacker was proposed in
+<span class="citation" data-cites="BC14"><a href="#ref-BC14"
+role="doc-biblioref">[1]</a></span>;</li>
+<li>the tool Squirrel was introduced in <span class="citation"
+data-cites="BDKJM-sp21"><a href="#ref-BDKJM-sp21"
+role="doc-biblioref">[2]</a></span> as a proof assistant for a
+meta-logic on top of the logic of <span class="citation"
+data-cites="BC14"><a href="#ref-BC14"
+role="doc-biblioref">[1]</a></span>;</li>
+<li>the meta-logic was later adapted to support protocols with mutable
+state <span class="citation" data-cites="BDKM-csf22"><a
+href="#ref-BDKM-csf22" role="doc-biblioref">[3]</a></span>;</li>
+<li>a post-quantum sound variant of the logic, meta-logic and tool have
+been given in <span class="citation" data-cites="CFJ-sp22"><a
+href="#ref-CFJ-sp22" role="doc-biblioref">[4]</a></span>;</li>
+<li>recently, the meta-logic approach has been abandonned in favor of a
+self-contained higher-order logic <span class="citation"
+data-cites="BKL23"><a href="#ref-BKL23"
+role="doc-biblioref">[5]</a></span>.</li>
 </ul>
-<h1 id="news">News</h1>
-<p>We are hiring: <a href="positions.pdf">join us as an engineer or
-postdoc</a>!</p>
 <h1 id="event-cyber-in-nancy">Event: Cyber in Nancy</h1>
 <p>Slides are available <a href="nancy22.pdf">here</a>.</p>
-<p>You can also find some syntax documentation <a
-href="doc-nancy.html">here</a>, and tactics documentation <a
-href="tactics.html">there</a>.</p>
-<p>Exercises for the summer school:</p>
+<p>The school featured a Squirrel tutorial, consisting of a series of
+exercises of increasing difficulty, covering:</p>
+<ul>
+<li>the basic logical constructs and tactics manipulating them,</li>
+<li>several cryptographic assumptions,</li>
+<li>accessibility properties (authentication, injective
+authentication),</li>
+<li>equivalence properties (unlinkability),</li>
+<li>stateful protocol, and</li>
+<li>protocol composition.</li>
+</ul>
+<p>As support material to go through the exercises, we provide syntax
+documentation <a href="doc-nancy.html">here</a>, and tactics
+documentation <a href="tactics.html">there</a>.</p>
+<p>The files of the tutorial are now part of the official Squirrel
+distribution, under the <code>examples/tutorial/</code> directory. They
+are also accessible directly below:</p>
 <ul>
 <li><a href="files/0-logic.sp">0-logic</a></li>
 <li><a href="files/1-crypto-hash.sp">1-crypto-hash</a></li>
@@ -157,29 +171,52 @@ href="tactics.html">there</a>.</p>
 <p>Slides are available <a href="movep.pdf">here</a>.</p>
 <p>Examples used for the presentation are <a
 href="examples.html">here</a>.</p>
-<h1 id="core-team">Core Team</h1>
+<h1 id="team">Team</h1>
 <ul>
 <li><a href="http://www.lsv.fr/~baelde/">David Baelde</a>, <em>ENS
-Rennes, Univ Rennes, CNRS, IRISA</em>;</li>
+Rennes, Univ Rennes, CNRS, IRISA</em></li>
 <li><a href="http://people.irisa.fr/Stephanie.Delaune/">Stéphanie
-Delaune</a>, <em>Univ Rennes, CNRS, IRISA</em>;</li>
+Delaune</a>, <em>Univ Rennes, CNRS, IRISA</em></li>
+<li><a href="http://www.lsv.fr/~fontaine/index.html.fr">Caroline
+Fontaine</a>, <em>Université Paris-Saclay, CNRS, LMF</em></li>
 <li><a href="https://charlie.jacomme.fr">Charlie Jacomme</a>, <em>Inria
-Paris</em>;</li>
+Paris</em></li>
 <li><a href="https://adrienkoutsos.fr/">Adrien Koutsos</a>, <em>Inria
-    Paris</em>;</li>
-<li><a href="https://people.irisa.fr/Joseph.Lallemand/">Joseph Lallemand</a>, <em>
-Univ Rennes, CNRS, IRISA</em>;</li>
-<li><a href="https://pages.saclay.inria.fr/toccata/solene.moreau/">Solène Moreau</a>,
-<em>Inria Saclay</em>;</li>
+Paris</em></li>
+<li><a href="https://people.irisa.fr/Joseph.Lallemand/">Joseph
+Lallemand</a>, <em>Univ Rennes, CNRS, IRISA</em></li>
+<li><a href="https://people.irisa.fr/Thomas.Rubiano/">Thomas
+Rubiano</a>, <em>Univ Rennes, CNRS, IRISA</em></li>
+<li><a href="https://people.irisa.fr/Clement.Herouard/">Clément
+Herouard</a>, <em>Univ Rennes, CNRS, IRISA</em></li>
+<li><a
+href="https://fr.linkedin.com/in/justine-sauvage-a05b35179">Justine
+Sauvage</a>, <em>Inria Paris</em></li>
+</ul>
+<p>Former members:</p>
+<ul>
+<li><a href="https://nguyentito.eu/">Tito Nguyen</a>, <em>formerly
+IRISA, now at ENS Lyon</em></li>
+<li><a
+href="https://pages.saclay.inria.fr/toccata/solene.moreau/">Solène
+Moreau</a>, <em>formerly IRISA, now at AdaCore</em></li>
 </ul>
 <h1 id="source-code">Source code</h1>
 <p><strong>Squirrel</strong> is an open source project, licensed under
 the GNU General Public License v3.0. All source code is available <a
 href="https://github.com/squirrel-prover/squirrel-prover/">here</a>.</p>
 <h1 class="unnumbered" id="publications">Publications</h1>
-<div id="refs" class="references csl-bib-body" role="doc-bibliography">
-<div id="ref-BDKJM-sp21" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D.
+<div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-BC14" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">G.
+Bana and H. Comon-Lundh, <span>“<span class="nocase">A Computationally
+Complete Symbolic Attacker for Equivalence Properties</span>,”</span> in
+<em><span class="nocase">2014 ACM SIGSAC Conference on Computer and
+Communications Security</span></em>, 2014, pp. 609–620, <a
+href="https://hal.inria.fr/hal-01102216">https://hal.inria.fr/hal-01102216</a>.</div>
+</div>
+<div id="ref-BDKJM-sp21" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">D.
 Baelde, S. Delaune, A. Koutsos, C. Jacomme, and S. Moreau, <span>“An
 <span>Interactive</span> <span>Prover</span> for <span>Protocol</span>
 <span>Verification</span> in the <span>Computational</span>
@@ -189,16 +226,16 @@ Baelde, S. Delaune, A. Koutsos, C. Jacomme, and S. Moreau, <span>“An
 <a
 href="https://hal.inria.fr/hal-03172119">https://hal.inria.fr/hal-03172119</a>.</div>
 </div>
-<div id="ref-BDKM-csf22" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">D.
+<div id="ref-BDKM-csf22" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">D.
 Baelde, S. Delaune, A. Koutsos, and S. Moreau, <span>“<span
 class="nocase">Cracking the Stateful Nut</span>,”</span> in
 <em><span>CSF 2022 - 35th IEEE Computer Security Foundations
 Symposium</span></em>, 2022, <a
 href="https://hal.archives-ouvertes.fr/hal-03500056">https://hal.archives-ouvertes.fr/hal-03500056</a>.</div>
 </div>
-<div id="ref-CFJ-sp22" class="csl-entry" role="doc-biblioentry">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">C.
+<div id="ref-CFJ-sp22" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">C.
 Cremers, C. Fontaine, and C. Jacomme, <span>“A <span>Logic</span> and an
 <span>Interactive</span> <span>Prover</span> for the
 <span>Computational</span> <span>Post-Quantum</span>
@@ -207,6 +244,13 @@ Cremers, C. Fontaine, and C. Jacomme, <span>“A <span>Logic</span> and an
 <span>Symposium</span> on <span>Security</span> and <span>Privacy</span>
 (<span>S</span>&amp;<span>P</span>’22)</em>, 2022, <a
 href="https://hal.inria.fr/hal-03620358">https://hal.inria.fr/hal-03620358</a>.</div>
+</div>
+<div id="ref-BKL23" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">D.
+Baelde, A. Koutsos, and J. Lallemand, <span>“<a
+href="https://hal.inria.fr/hal-03981949"><span class="nocase">A
+Higher-Order Indistinguishability Logic for Cryptographic
+Reasoning</span></a>,”</span> 2023.</div>
 </div>
 </div>
 

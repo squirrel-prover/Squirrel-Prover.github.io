@@ -17,7 +17,11 @@
     @*
 ---
 
-The **Squirrel Prover** is a proof assistant for protocols. It is based on first-order logic and provides guarantees in the computational model.
+The **Squirrel Prover** is a proof assistant dedicated to
+cryptographic protocols.
+It relies on a higher-order logic
+following the *computationnally complete symbolic attacker* approach.
+It thus provides guarantees in the computational model.
 
 # Getting started
 
@@ -25,43 +29,43 @@ A 13 minutes introduction to the basic concepts and core ideas of the **Squirrel
 
 A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions.
 
-A basic [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it. 
-The technical details are inside the original paper [@BDKJM-sp21].
+A basic [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it.
+A more complete tutorial has been prepared on the occasion of the
+Cyber in Nancy summer school; see below.
 
-# Detailed Tutorial
+The technical details are inside the research papers:
 
-A more complete tutorial is available in
-```
-examples/tutorial/
-```
-
-This tutorial consists in a series of exercises of increasing
-difficulty, and covers the basic logical constructs and tactics
-manipulating them, several cryptographic assumptions, accessibility
-properties (authentication, injective authentication), equivalence
-properties (unlinkability), stateful protocol, and protocol
-composition.
-
-- [0-logic](files/0-logic.sp)
-- [1-crypto-hash](files/1-crypto-hash.sp)
-- [2-crypto-enc](files/2-crypto-enc.sp)
-- [3-hash-lock-auth](files/3-hash-lock-auth.sp)
-- [4-hash-lock-unlink](files/4-hash-lock-unlink.sp)
-- [5-stateful](files/5-stateful.sp)
-- [6-key-establishment](files/6-key-establishment.sp)
-
-# News
-
-We are hiring: [join us as an engineer or postdoc](positions.pdf)!
-
+* the computationnally complete symbolic attacker was proposed in [@BC14];
+* the tool Squirrel was introduced in [@BDKJM-sp21] as a proof assistant for
+a meta-logic on top of the logic of [@BC14];
+* the meta-logic was later adapted
+  to support protocols with mutable state [@BDKM-csf22];
+* a post-quantum sound variant of the logic, meta-logic and tool have been
+  given in [@CFJ-sp22];
+* recently, the meta-logic approach has been abandonned in favor of
+  a self-contained higher-order logic [@BKL23].
 
 # Event: Cyber in Nancy
 
 Slides are available [here](nancy22.pdf).
 
-You can also find some syntax documentation [here](doc-nancy.html), and tactics documentation [there](tactics.html).
+The school featured a Squirrel tutorial, consisting of a series of
+exercises of increasing difficulty, covering:
 
-Exercises for the summer school:
+* the basic logical constructs and tactics manipulating them,
+* several cryptographic assumptions,
+* accessibility properties (authentication, injective authentication),
+* equivalence properties (unlinkability),
+* stateful protocol, and
+* protocol composition.
+
+As support material to go through the exercises, we provide
+syntax documentation [here](doc-nancy.html),
+and tactics documentation [there](tactics.html).
+
+The files of the tutorial are now part of the official Squirrel
+distribution, under the `examples/tutorial/` directory.
+They are also accessible directly below:
 
 - [0-logic](files/0-logic.sp)
 - [1-crypto-hash](files/1-crypto-hash.sp)
@@ -77,13 +81,22 @@ Slides are available [here](movep.pdf).
 
 Examples used for the presentation are [here](examples.html).
 
-# Core Team
+# Team
 
- * [David Baelde](http://www.lsv.fr/~baelde/), _ENS Rennes, Univ Rennes, CNRS, IRISA_;
- * [Stéphanie Delaune](http://people.irisa.fr/Stephanie.Delaune/), _Univ Rennes, CNRS, IRISA_;
- * [Charlie Jacomme](https://charlie.jacomme.fr), _CISPA Helmholtz Center for Information Security_;
- * [Adrien Koutsos](https://adrienkoutsos.fr/), _Inria Paris_;
- * [Solène Moreau](https://people.irisa.fr/Solene.Moreau/), _Univ Rennes, CNRS, IRISA_;
+ * [David Baelde](http://www.lsv.fr/~baelde/), _ENS Rennes, Univ Rennes, CNRS, IRISA_
+ * [Stéphanie Delaune](http://people.irisa.fr/Stephanie.Delaune/), _Univ Rennes, CNRS, IRISA_
+ * [Caroline Fontaine](http://www.lsv.fr/~fontaine/index.html.fr), _Université Paris-Saclay, CNRS, LMF_
+ * [Charlie Jacomme](https://charlie.jacomme.fr), _Inria Paris_
+ * [Adrien Koutsos](https://adrienkoutsos.fr/), _Inria Paris_
+ * [Joseph Lallemand](https://people.irisa.fr/Joseph.Lallemand/), _Univ Rennes, CNRS, IRISA_
+ * [Thomas Rubiano](https://people.irisa.fr/Thomas.Rubiano/), _Univ Rennes, CNRS, IRISA_
+ * [Clément Herouard](https://people.irisa.fr/Clement.Herouard/), _Univ Rennes, CNRS, IRISA_
+ * [Justine Sauvage](https://fr.linkedin.com/in/justine-sauvage-a05b35179), _Inria Paris_
+
+Former members:
+
+ * [Tito Nguyen](https://nguyentito.eu/), _formerly IRISA, now at ENS Lyon_
+ * [Solène Moreau](https://pages.saclay.inria.fr/toccata/solene.moreau/), _formerly IRISA, now at AdaCore_
 
 
 # Source code
