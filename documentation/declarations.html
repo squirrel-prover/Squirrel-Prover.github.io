@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Declarations &mdash; Squirrel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/ansi.css" />
+    <link rel="stylesheet" type="text/css" href="_static/notations.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pre-text.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/notations.js"></script>
+        <script src="_static/js/rtd_search_config.js"></script>
+        <script src="_static/js/rtd_sphinx_search.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Proofs" href="proofs.html" />
+    <link rel="prev" title="Logic" href="logic.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Squirrel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference manual</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="reference-intro.html">Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference-intro.html#lexical-conventions">Lexical conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference-intro.html#infix-operators">Infix operators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#types">Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#base-types">Base types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#type-variables-and-polymorphism">Type variables and polymorphism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#general-types">General types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#binders-and-tags">Binders and tags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#terms-with-binders">Terms with binders</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#multi-terms">Multi-terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#diff-terms">Diff-terms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#macros">Macros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#formulas">Formulas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#local-formulas">Local formulas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#global-formulas">Global formulas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Declarations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#names">Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#abstract-functions">Abstract functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operators">Operators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#built-ins">Built-ins</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#cryptographic-functions">Cryptographic functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#processes">Processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#channels">Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-cells">Memory cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#systems-and-actions">Systems and actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#system-defined-macros">System-defined macros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-expressions">System expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-contexts">System contexts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#axioms-and-lemmas">Axioms and Lemmas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="proofs.html">Proofs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#judgements">Judgements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#logical-variables">Logical variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#hypotheses">Hypotheses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#local-judgement">Local judgement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#global-judgement">Global judgement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#generalities">Generalities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactic-arguments">Tactic arguments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#intro-patterns">Intro patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#proof-terms">Proof terms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#proof-term-resolution">Proof-term resolution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#reduction">Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#automatic-simplification-tactics">Automatic simplification tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactics">Tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#common-errors">Common errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#id4">Tactics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#generic-tactics">Generic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#common-tactics">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#local-tactics">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#global-tactics">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id12">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id15">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id18">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id28">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#reachability-properties">Reachability properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#macros">Macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#formulas">Formulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#equivalence-properties">Equivalence properties</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/indexes/index.html">Indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="std-glossindex.html">Glossary index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-declindex.html">Declaration index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-cmdindex.html">Command index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-tacindex.html">Tactic index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-exnindex.html">Errors and warnings index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc-writing.html">Documenting Squirrel with Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#todo-list-generation">TODO list generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-objects">Squirrel objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#notations">Notations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#objects">Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-directives">Squirrel directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-roles">Squirrel roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#common-mistakes">Common mistakes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#improper-nesting">Improper nesting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-token">Overusing <code class="docutils literal notranslate"><span class="pre">:token:</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#omitting-annotations">Omitting annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#using-the-squirreltop-directive-for-syntax-highlighting">Using the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">squirreltop::</span></code> directive for syntax highlighting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-plain-quotes">Overusing plain quotes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-the-example-directive">Overusing the <code class="docutils literal notranslate"><span class="pre">example</span></code> directive</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#tips-and-tricks">Tips and tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#nested-lemmas">Nested lemmas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#abbreviations-and-macros">Abbreviations and macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#advanced-uses-of-notations">Advanced uses of notations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Squirrel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Declarations</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/squirrel-prover/squirrel-prover/blob/master/documentation/sphinx/declarations.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="math-preamble math notranslate nohighlight">
+\[\begin{split}\newcommand{\as}{\kw{as}}
+\newcommand{\case}{\kw{case}}
+\newcommand{\cons}{\textsf{cons}}
+\newcommand{\consf}{\textsf{consf}}
+\newcommand{\emptyf}{\textsf{emptyf}}
+\newcommand{\End}{\kw{End}}
+\newcommand{\kwend}{\kw{end}}
+\newcommand{\even}{\textsf{even}}
+\newcommand{\evenO}{\textsf{even}_\textsf{O}}
+\newcommand{\evenS}{\textsf{even}_\textsf{S}}
+\newcommand{\Fix}{\kw{Fix}}
+\newcommand{\fix}{\kw{fix}}
+\newcommand{\for}{\textsf{for}}
+\newcommand{\forest}{\textsf{forest}}
+\newcommand{\Functor}{\kw{Functor}}
+\newcommand{\In}{\kw{in}}
+\newcommand{\ind}[3]{\kw{Ind}~[#1]\left(#2\mathrm{~:=~}#3\right)}
+\newcommand{\Indp}[4]{\kw{Ind}_{#4}[#1](#2:=#3)}
+\newcommand{\Indpstr}[5]{\kw{Ind}_{#4}[#1](#2:=#3)/{#5}}
+\newcommand{\injective}{\kw{injective}}
+\newcommand{\kw}[1]{\textsf{#1}}
+\newcommand{\length}{\textsf{length}}
+\newcommand{\letin}[3]{\kw{let}~#1:=#2~\kw{in}~#3}
+\newcommand{\List}{\textsf{list}}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\Match}{\kw{match}}
+\newcommand{\Mod}[3]{{\kw{Mod}}({#1}:{#2}\,\zeroone{:={#3}})}
+\newcommand{\ModImp}[3]{{\kw{Mod}}({#1}:{#2}:={#3})}
+\newcommand{\ModA}[2]{{\kw{ModA}}({#1}=={#2})}
+\newcommand{\ModS}[2]{{\kw{Mod}}({#1}:{#2})}
+\newcommand{\ModType}[2]{{\kw{ModType}}({#1}:={#2})}
+\newcommand{\mto}{.\;}
+\newcommand{\nat}{\textsf{nat}}
+\newcommand{\Nil}{\textsf{nil}}
+\newcommand{\nilhl}{\textsf{nil\_hl}}
+\newcommand{\nO}{\textsf{O}}
+\newcommand{\node}{\textsf{node}}
+\newcommand{\nS}{\textsf{S}}
+\newcommand{\odd}{\textsf{odd}}
+\newcommand{\oddS}{\textsf{odd}_\textsf{S}}
+\newcommand{\ovl}[1]{\overline{#1}}
+\newcommand{\Pair}{\textsf{pair}}
+\newcommand{\plus}{\mathsf{plus}}
+\newcommand{\SProp}{\textsf{SProp}}
+\newcommand{\Prop}{\textsf{Prop}}
+\newcommand{\return}{\kw{return}}
+\newcommand{\Set}{\textsf{Set}}
+\newcommand{\Sort}{\mathcal{S}}
+\newcommand{\Str}{\textsf{Stream}}
+\newcommand{\Struct}{\kw{Struct}}
+\newcommand{\subst}[3]{#1\{#2/#3\}}
+\newcommand{\tl}{\textsf{tl}}
+\newcommand{\tree}{\textsf{tree}}
+\newcommand{\trii}{\triangleright_\iota}
+\newcommand{\Type}{\textsf{Type}}
+\newcommand{\WEV}[3]{\mbox{$#1[] \vdash #2 \lra  #3$}}
+\newcommand{\WEVT}[3]{\mbox{$#1[] \vdash #2 \lra$}\\ \mbox{$ #3$}}
+\newcommand{\WF}[2]{{\mathcal{W\!F}}(#1)[#2]}
+\newcommand{\WFE}[1]{\WF{E}{#1}}
+\newcommand{\WFT}[2]{#1[] \vdash {\mathcal{W\!F}}(#2)}
+\newcommand{\WFTWOLINES}[2]{{\mathcal{W\!F}}\begin{array}{l}(#1)\\\mbox{}[{#2}]\end{array}}
+\newcommand{\with}{\kw{with}}
+\newcommand{\WS}[3]{#1[] \vdash #2 &lt;: #3}
+\newcommand{\WSE}[2]{\WS{E}{#1}{#2}}
+\newcommand{\WT}[4]{#1[#2] \vdash #3 : #4}
+\newcommand{\WTE}[3]{\WT{E}{#1}{#2}{#3}}
+\newcommand{\WTEG}[2]{\WTE{\Gamma}{#1}{#2}}
+\newcommand{\WTM}[3]{\WT{#1}{}{#2}{#3}}
+\newcommand{\zeroone}[1]{[{#1}]}
+\end{split}\]</div>
+<section id="declarations">
+<span id="section-declarations"></span><h1>Declarations<a class="headerlink" href="#declarations" title="Permalink to this heading">¶</a></h1>
+<p>Declarations allow to introduce the various kinds of objects
+that are used to model protocols and security properties in Squirrel.
+Declared objects may be purely abstract, carry assumptions,
+or have a concrete, explicit meaning.</p>
+<section id="terms">
+<h2>Terms<a class="headerlink" href="#terms" title="Permalink to this heading">¶</a></h2>
+<section id="names">
+<h3>Names<a class="headerlink" href="#names" title="Permalink to this heading">¶</a></h3>
+<p>Names are used to model random samplings.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-name_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-name_id"><span class="hole">name_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.name">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">name</span></span></span> <a class="reference internal" href="#grammar-token-name_id"><span class="hole"><span class="pre">name_id</span></span></a> <span><span><span class="pre">:</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a> <span><span><span class="pre">-&gt;</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A name declaration <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">name</span></span></span> <a class="reference internal" href="#grammar-token-name_id"><span class="hole"><span class="pre">name_id</span></span></a> <span><span><span class="pre">:</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">i</span></sub></span></a> <span><span><span class="pre">-&gt;</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">s</span></sub></span></a></span></code> introduces
+a new name symbol <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-name_id"><span class="hole"><span class="pre">name_id</span></span></a></span></code> optionally indexed by <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">i</span></sub></span></a></span></code> and
+sampling values of type <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">s</span></sub></span></a></span></code>.</p>
+<p>Whenever a name <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code> is defined, a corresponding
+<span class="term-defn"><span class="target" id="term-namelength-axiom"></span>namelength axiom</span> is declared as:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">axiom</span><span> [</span><span class="ansi-fg-light-blue">any</span><span>] namelength_n : [</span><span class="ansi-fg-light-green">len</span><span> (n) = namelength_message]
+</span></dt></dl>
+</div>
+<p>It states that all names have the same length, given by a constant.</p>
+<p>It is required that the indexing type <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">i</span></sub></span></a></span></code> is a
+<a class="reference internal" href="logic.html#term-finite"><span class="xref std std-term">finite</span></a> type, but there are no restrictions over the sampling type
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">s</span></sub></span></a></span></code>.</p>
+<p>The sampling <em>distribution</em> used over the sampling type <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">s</span></sub></span></a></span></code>
+is usually arbitrary — though it can be restricted using
+<a class="reference internal" href="logic.html#term-type-tag"><span class="xref std std-term">type tags</span></a>.</p>
+</dd></dl>
+
+<p>Two distinct applied name symbols, or the same name symbol applied to
+two different index values, denote <strong>independent</strong> random samplings
+(using the same distribution).
+This is reflected by the <a class="reference internal" href="proofs.html#squirrel:tacn.fresh" title="fresh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">fresh</span></code></a> tactic.</p>
+</section>
+<section id="abstract-functions">
+<h3>Abstract functions<a class="headerlink" href="#abstract-functions" title="Permalink to this heading">¶</a></h3>
+<p><span class="term-defn"><span class="target" id="term-abstract_fun"></span>Abstract functions</span> model
+arbitrary functions over which no assumptions are made,
+apart from the fact that
+they are <em>deterministic</em> and <em>polynomial-time computable</em>.
+In other words, their implementation cannot depend on the random
+tapes, but it may still depend on the security parameter <span class="math notranslate nohighlight">\(\eta\)</span>.
+If needed, their behaviour can be restricted further through
+<a class="reference internal" href="#term-axiom"><span class="xref std std-term">axioms</span></a>.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-fun_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-fun_id"><span class="hole">fun_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a> | <span><span>(</span></span><a class="reference internal" href="reference-intro.html#grammar-token-infix_op"><span class="hole">infix_op</span></a><span><span>)</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.abstract">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">abstract</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">[</span></span></span><a class="reference internal" href="logic.html#grammar-token-tvar_params"><span class="hole"><span class="pre">tvar_params</span></span></a><span><span><span class="pre">]</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span><span><span class="pre">:</span></span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.abstract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a deterministic and polynomial-time computable abstract
+function of type <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code> and named <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a></span></code>.</p>
+<p>The function can be <a class="reference internal" href="logic.html#section-polymorphism"><span class="std std-ref">polymorphic</span></a>
+through the optional <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-tvar_params"><span class="hole"><span class="pre">tvar_params</span></span></a></span></code> type variable parameters.</p>
+</dd></dl>
+
+<p>An abstract function must be used in prefix notation if its name is an
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></code>, and in infix notation if its name is an
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-infix_op"><span class="hole"><span class="pre">infix_op</span></span></a></span></code> (note the parentheses around <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">(</span></span></span><a class="reference internal" href="reference-intro.html#grammar-token-infix_op"><span class="hole"><span class="pre">infix_op</span></span></a><span><span><span class="pre">)</span></span></span></span></code> in the
+declaration).</p>
+<div class="admonition note">
+<p class="admonition-title">Example</p>
+<p>Equality is defined in Squirrel as an axiomatized polymorphic
+abstract function:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">abstract</span><span> (=) [</span><span class="ansi-fg-light-blue">’</span><span>a] : </span><span class="ansi-fg-light-blue">‘</span><span>a -&gt; </span><span class="ansi-fg-light-blue">‘</span><span>a -&gt; </span><span class="ansi-fg-light-cyan">bool</span><span>
+</span></dt></dl>
+</div>
+</div>
+</section>
+<section id="operators">
+<h3>Operators<a class="headerlink" href="#operators" title="Permalink to this heading">¶</a></h3>
+<p>Operators are function symbols with a concrete user-defined semantics.
+An operator’s semantics must be <em>deterministic</em>.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-operator_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-operator_id"><span class="hole">operator_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a> | <span><span>(</span></span><a class="reference internal" href="reference-intro.html#grammar-token-infix_op"><span class="hole">infix_op</span></a><span><span>)</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.op">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">op</span></span></span> <a class="reference internal" href="#grammar-token-operator_id"><span class="hole"><span class="pre">operator_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">[</span></span></span><a class="reference internal" href="logic.html#grammar-token-tvar_params"><span class="hole"><span class="pre">tvar_params</span></span></a><span><span><span class="pre">]</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">:</span></span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span><span><span class="pre">=</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.op" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares an operator named <code class="docutils literal notranslate"><span class="notation"><span class="hole"><span class="pre">op_id</span></span></span></code>, with arguments <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a></span></code> and
+returning <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code>.</p>
+<p>The return type <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code> can be provided, or left to be
+automatically inferred by Squirrel.</p>
+<p>Operator declarations can be <a class="reference internal" href="logic.html#section-polymorphism"><span class="std std-ref">polymorphic</span></a> through
+the optional <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-tvar_params"><span class="hole"><span class="pre">tvar_params</span></span></a></span></code> type variable parameters.</p>
+<p>An operator declaration <em>fails</em> if Squirrel cannot syntactically check
+that its body represents a deterministic value.</p>
+</dd></dl>
+
+<p>An operator must be used in prefix notation if its name is an
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></code>, and in infix notation if its name is an
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-infix_op"><span class="hole"><span class="pre">infix_op</span></span></a></span></code> (note the parentheses around <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">(</span></span></span><a class="reference internal" href="reference-intro.html#grammar-token-infix_op"><span class="hole"><span class="pre">infix_op</span></span></a><span><span><span class="pre">)</span></span></span></span></code> in the
+declaration).</p>
+<section id="built-ins">
+<h4>Built-ins<a class="headerlink" href="#built-ins" title="Permalink to this heading">¶</a></h4>
+<p>Squirrel features several <span class="term-defn"><span class="target" id="term-built-in"></span>built-in</span> function symbols
+with built-in axiomatizations.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">if</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a> <span><span><span class="pre">then</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a> <span><span><span class="pre">else</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code>,
+used in <a class="reference internal" href="logic.html#term-term"><span class="xref std std-term">terms</span></a>, may theoretically be viewed
+as a built-in.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">happens(</span></span></span><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">)</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">pred(</span></span></span><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">)</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">init</span></span></span></span></code> are three
+function symbols dealing with the <a class="reference internal" href="logic.html#term-timestamp"><span class="xref std std-term">timestamp</span></a> type. Each model
+instantiates the set of timestamps by specifying which ones actually happen
+on the given trace, and for all the ones that happen, their total
+ordering, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">init</span></span></span></span></code> refering to a fixed first timestamp and
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">pred</span></span></span></span></code> being the predecessor function.</p></li>
+<li><p>The boolean connectors of <a class="reference internal" href="logic.html#term-local-formula"><span class="xref std std-term">local formulas</span></a> are built-ins:
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">true</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">false</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&amp;&amp;</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span class="pre">|</span><span class="pre">|</span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">=&gt;</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&lt;=&gt;</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">not</span></span></span></span></code>.</p></li>
+<li><p>Comparison functions <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">=</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&lt;&gt;</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&lt;=</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&lt;</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&gt;=</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&gt;</span></span></span></span></code>.</p></li>
+<li><p>A witness function <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">witness</span></span></span></span></code>.</p></li>
+<li><p>A dedicated <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">xor</span></span></span></span></code> symbol along with its <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">zero</span></span></span></span></code>.</p></li>
+<li><p>A conversion function from <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">bool</span></span></code> to <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">message</span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">of</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">bool</span></span></span></span></code>.</p></li>
+<li><p>Utility constants for failure, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">fail</span></span></span></span></code>, and an empty message, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">empty</span></span></span></span></code>.</p></li>
+<li><p>The successor function over natural numbers <cite>succ</cite>.</p></li>
+<li><p>The pairing function <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">pair</span></span></span></span></code> (also noted <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">&lt;x,y&gt;</span></span></span></span></code>) with
+its projection functions <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">fst</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">snd</span></span></span></span></code>.</p></li>
+<li><p>A length function for the number of bits in a message, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">len</span></span></span></span></code>, as well as a function producing a bitstring of zeroes of the same length as its input, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">zeroes</span></span></span></span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="cryptographic-functions">
+<h3>Cryptographic functions<a class="headerlink" href="#cryptographic-functions" title="Permalink to this heading">¶</a></h3>
+<p>Squirrel allows to declare functions modelling standard
+<span class="term-defn"><span class="target" id="term-cryptographic-function"></span>cryptographic functions</span> with
+associated cryptographic assumptions.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-crypto_ty_arg"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole">crypto_ty_arg</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a> <span><span>:</span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole">type</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>Types over which the cryptographic functions operate can be specified
+using <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span></code>, where <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a><span><span><span class="pre">:</span></span></span><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code> states that the argument
+named <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></code> is of type <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code>. See the declarations below for
+a description of which argument names can be provided for each tactic.
+If no argument is provided for <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></code>, <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code> default to <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">message</span></span></code>.</p>
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.hash">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">hash</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">where</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:decl.hash" title="Permalink to this definition">¶</a></dt>
+<dd><div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">hash</span><span> h </span><span class="ansi-fg-light-blue">where</span><span> m:tym h:tyh k:tyk
+</span></dt></dl>
+</div>
+<p>declares a keyed <span class="term-defn"><span class="target" id="term-hash-function"></span>hash function</span> with types
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyk</span></span></code> for keys, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tym</span></span></code> for messages and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyh</span></span></code> for hash
+digests.
+It is assumed to satisfy the PRF and known-key collision
+resistance assumptions.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tace.prf" title="prf"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">prf</span></code></a>, <a class="reference internal" href="proofs.html#squirrel:tact.euf" title="euf"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">euf</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tact.collision" title="collision"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">collision</span></code></a>.</p>
+</dd></dl>
+
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.signature">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">signature</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">where</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:decl.signature" title="Permalink to this definition">¶</a></dt>
+<dd><div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">signature</span><span> sig, ver, pk </span><span class="ansi-fg-light-blue">where</span><span> m:tym sig:tysig sk:tysk pk:typk
+</span></dt></dl>
+</div>
+<p>declares a <span class="term-defn"><span class="target" id="term-signature-scheme"></span>signature scheme</span> with types <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tym</span></span></code> for
+messages to be signed, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tysig</span></span></code> for signatures, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tysk</span></span></code> for
+secret signing keys and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">typk</span></span></code> for public verification keys.
+It is assumed unforgeable against
+chosen message attacks (EUF-CMA) and satisfying the equation
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">ver(sig(m,sk),m,pk(sk))</span> <span class="pre">=</span> </span><span class="ansi-fg-light-cyan"><span class="pre">true</span></span></code>.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tact.euf" title="euf"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">euf</span></code></a>.</p>
+</dd></dl>
+
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.aenc">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">aenc</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">where</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:decl.aenc" title="Permalink to this definition">¶</a></dt>
+<dd><div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">aenc</span><span> enc, dec, pk </span><span class="ansi-fg-light-blue">where</span><span> ptxt:typtxt ctxt:tyctxt rnd:tyrnd sk:tysk pk:typk
+</span></dt></dl>
+</div>
+<p>declares an <span class="term-defn"><span class="target" id="term-asymmetric-encryption"></span>asymmetric encryption</span> scheme with types
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">typtxt</span></span></code> for plain-texts, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyctxt</span></span></code> for cipher-texts,
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyrnd</span></span></code> for encryption randomness, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tysk</span></span></code> for secret decryption keys and
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">typk</span></span></code> for public encryption keys.
+It is assumed IND-CCA1 and ENC-KP, and satisfying the equation
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">dec(enc(m,pk(sk)),sk)</span> <span class="pre">=</span> <span class="pre">m</span></span></code>.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tace.cca1" title="cca1"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cca1</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tace.enckp" title="enckp"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">enckp</span></code></a>.</p>
+</dd></dl>
+
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.senc">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">senc</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">where</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:decl.senc" title="Permalink to this definition">¶</a></dt>
+<dd><div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">senc</span><span> enc, dec </span><span class="ansi-fg-light-blue">where</span><span> ptxt:typtxt ctxt:tyctxt rnd:tyrnd k:tyk
+</span></dt></dl>
+</div>
+<p>declares a <span class="term-defn"><span class="target" id="term-symmetric-encryption"></span>symmetric encryption</span> scheme with types
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">typtxt</span></span></code> for plain-texts, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyctxt</span></span></code> for cipher-texts,
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyrnd</span></span></code> for encryption randomness and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyk</span></span></code> for keys.
+It is assumed IND-CPA and INT-CTXT, and satisfying the equation
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">dec(enc(m,sk),sk)</span> <span class="pre">=</span> <span class="pre">m</span></span></code>.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tace.cca1" title="cca1"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cca1</span></code></a>, <a class="reference internal" href="proofs.html#squirrel:tact.intctxt" title="intctxt"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">intctxt</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tace.enckp" title="enckp"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">enckp</span></code></a>.</p>
+</dd></dl>
+
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span class="alternative"><span class="alternative-block"><span><span><span class="pre">ddh</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">cdh</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">gdh</span></span></span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span><a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">where</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span></dt>
+<dd><p>The <span class="term-defn"><span class="target" id="term-group-declaration"></span>group declaration</span>:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">ddh</span><span> g, (^), ( ** ) </span><span class="ansi-fg-light-blue">where</span><span> group:tyg exponents:tye
+</span></dt></dl>
+</div>
+<p>declares a group with generator <code class="squirrelinline docutils literal notranslate"><span><span class="pre">g</span></span></code>, exponentation <code class="squirrelinline docutils literal notranslate"><span><span class="pre">(^)</span></span></code> and
+exponent multiplication <code class="squirrelinline docutils literal notranslate"><span><span class="pre">(</span> <span class="pre">**</span> <span class="pre">)</span></span></code>.  The group is assumed to
+satisfy the DDH assumption when declared with <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">ddh</span></span></code>, the CDH
+assumption with <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cdh</span></span></code>, and the Gap-DH assumption with g:<cite>gdh</cite>.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tact.cdh" title="cdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cdh</span></code></a>, <a class="reference internal" href="proofs.html#squirrel:tact.gdh" title="gdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">gdh</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tace.ddh" title="ddh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">ddh</span></code></a>.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="processes">
+<span id="section-processes"></span><h2>Processes<a class="headerlink" href="#processes" title="Permalink to this heading">¶</a></h2>
+<p>Protocols are modelled as systems, which provide a meaning to macros
+(e.g., <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">output</span></span></code>, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">cond</span></span></code>) used in our logic. Systems are themselves
+defined through processes written in a dialect of the applied pi-calculus.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first presentations of Squirrel’s logic relied explicitly on
+notions of systems, first without state <span id="id1">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span> and then
+with state <span id="id2">[<a class="reference internal" href="bibliography.html#id4" title="David Baelde, Stéphanie Delaune, Adrien Koutsos, and Solène Moreau. Cracking the Stateful Nut. In CSF 2022 - 35th IEEE Computer Security Foundations Symposium. Haifa, Israel, August 2022. URL: https://hal.science/hal-03500056.">BDKM22</a>]</span>. The latest presentation
+<span id="id3">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. working paper or preprint, 2023. URL: https://hal.inria.fr/hal-03981949.">BKL23</a>]</span> does not feature a notion of system, but
+allows to encode systems through a more expressive logic.
+So far, the translation from processes to systems has not been
+formally defined in the literature.</p>
+</div>
+<section id="channels">
+<span id="section-channel"></span><h3>Channels<a class="headerlink" href="#channels" title="Permalink to this heading">¶</a></h3>
+<p>Communications over the network are performed over public channels, identified by a name.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-channel_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-channel_id"><span class="hole">channel_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.channel">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">channel</span></span></span> <a class="reference internal" href="#grammar-token-channel_id"><span class="hole"><span class="pre">channel_id</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.channel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a channel named <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-channel_id"><span class="hole"><span class="pre">channel_id</span></span></a></span></code>.</p>
+</dd></dl>
+
+</section>
+<section id="memory-cells">
+<span id="section-mutable-state"></span><h3>Memory cells<a class="headerlink" href="#memory-cells" title="Permalink to this heading">¶</a></h3>
+<p>Processes in Squirrel can use mutable states.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-state_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-state_id"><span class="hole">state_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.mutable">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">mutable</span></span></span> <a class="reference internal" href="#grammar-token-state_id"><span class="hole"><span class="pre">state_id</span></span></a> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">:</span></span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span><span><span class="pre">=</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.mutable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a memory cell named <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">state</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">id</span></span></span></span></code> indexed by arguments
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a></span></code> and initialized to <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">term</span></span></span></span></code>.
+Due to technical limitations, Squirrel currently only supports
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a></span></code> of <a class="reference internal" href="logic.html#term-finite"><span class="xref std std-term">finite</span></a> type.</p>
+<p>The return type <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code> can be provided, or left to be
+automatically inferred by Squirrel.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Example: State counter</p>
+<p>A set of mutable counters indexed by <code class="squirrelinline docutils literal notranslate"><span><span class="pre">i,j,k</span></span></code>, all initialized
+to <code class="squirrelinline docutils literal notranslate"><span><span class="pre">zero</span></span></code>, may be declared as follows:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">mutable</span><span> counter (i,j,k:</span><span class="ansi-fg-light-cyan">index</span><span>) : </span><span class="ansi-fg-light-cyan">message</span><span> = zero
+</span></dt></dl>
+</div>
+<p>With this declaration, the following formula is valid:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">forall</span><span> i j k, counter (i,j,k) &#64; init = zero
+</span></dt></dl>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Processes<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h3>
+<p>We first introduce process prefixes, which correspond to basic operations
+performed by processes:</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-process_prefix"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-process_prefix"><span class="hole">process_prefix</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>new</span></span> <a class="reference internal" href="#grammar-token-name_id"><span class="hole">name_id</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-state_id"><span class="hole">state_id</span></a> <span class="repeat-wrapper"><span class="repeat"><span><span>(</span></span><span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a></span><span class="notation-sup">*</span><span class="notation-sub">,</span></span><span><span>)</span></span></span><span class="notation-sup">?</span></span> <span><span>:=</span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>out(</span></span><span class="hole">channel</span><span><span>,</span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a><span><span>)</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>in(</span></span><span class="hole">channel</span><span><span>,</span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a><span><span>)</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>The last three prefixes correspond to the update of a
+<a class="reference internal" href="#section-mutable-state"><span class="std std-ref">memory cell</span></a>, and input and
+asynchronous output over a <a class="reference internal" href="#section-channel"><span class="std std-ref">channel</span></a>.
+Their semantics is straightforward.</p>
+<p>From a process semantics viewpoint, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">new</span></span><span> </span><span class="ansi-fg-light-blue"><span class="pre">name</span></span></code> samples a new
+random value. From a logical viewpoint, this is reflected by
+declaring a new name, indexed by the current replication indices. This
+is syntactic sugar that can be avoided by manually declaring the
+needed name symbols with the appropriate arities before the process
+declaration.</p>
+<p>Processes are then built from prefixes using parallel composition,
+(indexed) replication and conditionals, as well as other common
+constructs:</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-process_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-process_id"><span class="hole">process_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-alias"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-alias"><span class="hole">alias</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-process"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>null</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-process_prefix"><span class="hole">process_prefix</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-process_prefix"><span class="hole">process_prefix</span></a><span><span>;</span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a> | <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>if</span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a> <span><span>then</span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a> <span class="repeat-wrapper"><span class="repeat"><span><span>else</span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span><span class="notation-sup">?</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>try</span></span> <span><span>find</span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole">binders</span></a> <span><span>such</span></span> <span><span>that</span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a> <span><span>in</span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a> <span class="repeat-wrapper"><span class="repeat"><span><span>else</span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span><span class="notation-sup">?</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>let</span></span> <a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a> <span><span>=</span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a> <span><span>in</span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>!</span></span><span><span>_</span></span><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-process_id"><span class="hole">process_id</span></a> <span class="repeat-wrapper"><span class="repeat"><span><span>(</span></span><span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole">term</span></a></span><span class="notation-sup">*</span><span class="notation-sub">,</span></span><span><span>)</span></span></span><span class="notation-sup">?</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-alias"><span class="hole">alias</span></a> <span><span>:</span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole">process</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>The construct <code class="squirrelinline docutils literal notranslate"><span><span class="pre">A</span> <span class="pre">:</span> <span class="pre">proc</span></span></code> does not have any semantic impact: it is
+only used to give an alias to this location in the process.</p>
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.process">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">process</span></span></span> <a class="reference internal" href="#grammar-token-process_id"><span class="hole"><span class="pre">process_id</span></span></a> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span><span><span class="pre">=</span></span></span> <span class="hole"><span class="pre">proc</span></span></span></span><a class="headerlink" href="#squirrel:decl.process" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a new process named <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-process_id"><span class="hole"><span class="pre">process_id</span></span></a></span></code> with arguments <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a></span></code>
+and body <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-process"><span class="hole"><span class="pre">process</span></span></a></span></code>.</p>
+</dd></dl>
+
+</section>
+<section id="systems-and-actions">
+<h3>Systems and actions<a class="headerlink" href="#systems-and-actions" title="Permalink to this heading">¶</a></h3>
+<p>Squirrel’s logic only deals with systems, which are obtained
+by translating protocols. Systems are (partially ordered) sets of actions,
+which correspond to atomic execution steps of a protocol comprising:</p>
+<ul class="simple">
+<li><p>the reception of a message input from the (malicious) network;</p></li>
+<li><p>the verification of an executability condition;</p></li>
+<li><p>and, if the action is executable, the output of a message to the network.</p></li>
+</ul>
+<p>A system can currently only be defined from a process.
+For the same reasons that make <a class="reference internal" href="logic.html#term-multi-term"><span class="xref std std-term">multi-terms</span></a> useful,
+it is useful to define multiple systems at once (i.e., a multi-system)
+using a process featuring multi-terms.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-system_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole">system_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.system">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">system</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">[</span></span></span><a class="reference internal" href="#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a><span><span><span class="pre">]</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <a class="reference internal" href="#grammar-token-process"><span class="hole"><span class="pre">process</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declare a <span class="term-defn"><span class="target" id="term-bi-system"></span>bi-system</span> whose actions are obtained by
+translating <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-process"><span class="hole"><span class="pre">process</span></span></a></span></code>, which may use bi-terms.
+The obtained <span class="term-defn"><span class="target" id="term-single-system"></span>single systems</span> can be referred to as
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">system_id/</span></span><span class="ansi-fg-light-blue"><span class="pre">left</span></span></code> and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">system_id/</span></span><span class="ansi-fg-light-blue"><span class="pre">right</span></span></code>.
+The left (resp. right) single system corresponds to the process
+obtained by taking the left (resp. right) projections of all bi-terms
+appearing in <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-process"><span class="hole"><span class="pre">process</span></span></a></span></code>.</p>
+<p>The system name <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span></code> defaults to <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">default</span></span></span></span></code> when no
+identifier is specified.</p>
+</dd></dl>
+
+<p>Actions are referred to through identifiers:</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-action_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-action_id"><span class="hole">action_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>When translating processes into sets of actions, fresh action
+identifiers are automatically generated to name created
+actions. Alternatively, the user can give a naming hint using the
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-alias"><span class="hole"><span class="pre">alias</span></span></a></span></code> process construct. Note however that Squirrel may not
+respect such naming hints.</p>
+<p>Internally, an action is defined by:</p>
+<ul class="simple">
+<li><p>an <span class="term-defn"><span class="target" id="term-action-constructor"></span>action identifier or constructor</span> <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-action_id"><span class="hole"><span class="pre">action_id</span></span></a></span></code>;</p></li>
+<li><p>a list of <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">index</span></span></code> variables corresponding to surrounding replications
+and <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">try</span> <span class="pre">find</span></span></code> constructs;</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code> of type <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">bool</span></span></code> representing the action executability condition;</p></li>
+<li><p>a term of type <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">message</span></span></code> representing the action output.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Example: Actions corresponding to a process definition</p>
+<p>Consider the following system declaration:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">abstract</span><span> one : </span><span class="ansi-fg-light-cyan">message</span><span>.
+</span></dt><dt class="in"><span class="ansi-fg-light-blue">name</span><span> n : </span><span class="ansi-fg-light-cyan">index</span><span> -&gt; </span><span class="ansi-fg-light-cyan">message</span><span>.
+</span></dt><dt class="in"><span class="ansi-fg-light-blue">channel</span><span> c.
+</span></dt><dt class="in"><span>
+</span></dt><dt class="in"><span class="ansi-fg-light-blue">system</span><span>
+</span></dt><dt class="in"><span>  (!_i (</span><span class="ansi-fg-light-blue">in</span><span>(c,x);
+</span></dt><dt class="in"><span>        </span><span class="ansi-fg-light-blue">if</span><span> x=zero </span><span class="ansi-fg-light-blue">then</span><span>
+</span></dt><dt class="in"><span>          A: </span><span class="ansi-fg-light-blue">out</span><span>(c,n(i))
+</span></dt><dt class="in"><span>        </span><span class="ansi-fg-light-blue">else</span><span>
+</span></dt><dt class="in"><span>          B: </span><span class="ansi-fg-light-blue">out</span><span>(c,x)
+</span></dt><dt class="in"><span>  ) | </span><span class="ansi-fg-light-blue">in</span><span>(c,x); </span><span class="ansi-fg-light-blue">out</span><span>(c,empty)).
+</span></dt></dl>
+</div>
+<p>The provided process yields a system with three actions:</p>
+<ul class="simple">
+<li><p>action <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">A[i]</span></span></span></span></code>, which on input <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code> checks whether <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x=zero</span></span></code> and outputs <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n(i)</span></span></code>;</p></li>
+<li><p>action <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">B[i]</span></span></span></span></code>,  which on input <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code> checks whether <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x&lt;&gt;zero</span></span></code> and outputs <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code>;</p></li>
+<li><p>and action <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">A1</span></span></span></span></code> (automatically named) which checks whether <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">true</span></span></code> and outputs <code class="squirrelinline docutils literal notranslate"><span><span class="pre">empty</span></span></code>.</p></li>
+</ul>
+</div>
+<section id="system-defined-macros">
+<span id="section-system-macros"></span><h4>System-defined macros<a class="headerlink" href="#system-defined-macros" title="Permalink to this heading">¶</a></h4>
+<p>Declaring a system provides a meaning to several macros for the
+system’s actions. Given an action <code class="squirrelinline docutils literal notranslate"><span><span class="pre">A(indices)</span></span></code>
+with output value <code class="squirrelinline docutils literal notranslate"><span><span class="pre">o(x)</span></span></code> and condition <code class="squirrelinline docutils literal notranslate"><span><span class="pre">c(x)</span></span></code> over the input <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code>,
+the following holds:</p>
+<ul class="simple">
+<li><p><code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">output</span></span><span><span class="pre">&#64;A(indices)</span> <span class="pre">=</span> <span class="pre">o(</span></span><span class="ansi-fg-light-green"><span class="pre">input</span></span><span><span class="pre">&#64;A(indices))</span></span></code>;</p></li>
+<li><p><code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">cond</span></span><span><span class="pre">&#64;A(indices)</span> <span class="pre">=</span> <span class="pre">c(</span></span><span class="ansi-fg-light-green"><span class="pre">input</span></span><span><span class="pre">&#64;A(indices))</span></span></code>;</p></li>
+<li><p><code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">input</span></span><span><span class="pre">&#64;A[indices]</span> <span class="pre">=</span> <span class="pre">att(</span></span><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">&#64;pred(A(indices)))</span></span></code>.</p></li>
+</ul>
+<p>Other macros have a meaning that does not depend on the specific
+action:</p>
+<ul class="simple">
+<li><p><code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">&#64;tau</span> <span class="pre">=</span> <span class="pre">&lt;</span></span><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">&#64;(pred</span> <span class="pre">tau),</span> </span><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;tau,</span> </span><span class="ansi-fg-light-blue"><span class="pre">if</span></span><span> </span><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;tau</span> </span><span class="ansi-fg-light-blue"><span class="pre">then</span></span><span> </span><span class="ansi-fg-light-green"><span class="pre">output</span></span><span><span class="pre">&#64;tau&gt;</span></span></code>
+provided that <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tau</span></span></code> happens and is not the initial timestamp
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">init</span></span></code> (otherwise, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">&#64;tau</span></span></code> is <code class="squirrelinline docutils literal notranslate"><span><span class="pre">empty</span></span></code>);</p></li>
+<li><p><code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;tau</span> <span class="pre">=</span> </span><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;(pred</span> <span class="pre">tau)</span> <span class="pre">&amp;&amp;</span> </span><span class="ansi-fg-light-green"><span class="pre">cond</span></span><span><span class="pre">&#64;tau&gt;</span></span></code> provided that
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">tau</span></span></code> happens and is not the initial timestamp
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">init</span></span></code> (otherwise, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;init</span></span></code> is <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">true</span></span></code>).</p></li>
+</ul>
+</section>
+<section id="system-expressions">
+<h4>System expressions<a class="headerlink" href="#system-expressions" title="Permalink to this heading">¶</a></h4>
+<p><span class="term-defn"><span class="target" id="term-system-expression"></span>System expressions</span> describe one or several systems.
+We first introduce single system expressions:</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-single_system_expr"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-single_system_expr"><span class="hole">single_system_expr</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole">system_id</span></a><span><span>/left</span></span> | <a class="reference internal" href="#grammar-token-system_id"><span class="hole">system_id</span></a><span><span>/right</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>Here, <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a><span><span><span class="pre">/proj</span></span></span></span></code> is an unlabelled single system
+representing the left (if <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">proj</span></span></span> <span><span><span class="pre">=</span></span></span> <span><span><span class="pre">left</span></span></span></span></code>) or right (if <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">proj</span></span></span> <span><span><span class="pre">=</span></span></span> <span><span><span class="pre">right</span></span></span></span></code>)
+component of the <a class="reference internal" href="#term-bi-system"><span class="xref std std-term">bi-system</span></a> named <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span></code>.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-system_expr"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-system_expr"><span class="hole">system_expr</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>any</span></span> | <a class="reference internal" href="#grammar-token-system_id"><span class="hole">system_id</span></a> | <span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="#grammar-token-single_system_expr"><span class="hole">single_system_expr</span></a></span><span class="notation-sup">*</span><span class="notation-sub">,</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>A system expression may be generic (<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">any</span></span></code>, corresponding to any system,
+already declared or not) or specify a fixed list of systems, each
+of them coming with a label identifying it.
+When <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span></code> is a <span class="term-defn"><span class="target" id="term-multi-system"></span>multi-system</span>,
+the system expression <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span></code> corresponds to the list of
+its single systems, with the labels that they carry in this multi-system.
+A system expression can also be explicitly formed as
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-single_system_expr"><span class="hole"><span class="pre">single_system_expr</span><sub><span class="pre">1</span></sub></span></a><span><span><span class="pre">,...,</span></span></span><a class="reference internal" href="#grammar-token-single_system_expr"><span class="hole"><span class="pre">single_system_expr</span><sub><span class="pre">n</span></sub></span></a></span></code>.
+In this case, the labels are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>ε if <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">n</span></span></span> <span><span><span class="pre">=</span></span></span> <span><span><span class="pre">1</span></span></span></span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">left</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">right</span></span></span></span></code> if <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">n</span></span></span> <span><span><span class="pre">=</span></span></span> <span><span><span class="pre">2</span></span></span></span></code>;</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">n</span></span></span></span></code> first positive integers otherwise.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="system-contexts">
+<h4>System contexts<a class="headerlink" href="#system-contexts" title="Permalink to this heading">¶</a></h4>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-system_context"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-system_context"><span class="hole">system_context</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>set:</span></span> <a class="reference internal" href="#grammar-token-system_expr"><span class="hole">system_expr</span></a><span><span>;</span></span> <span><span>equiv:</span></span> <a class="reference internal" href="#grammar-token-system_expr"><span class="hole">system_expr</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole">system_id</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>A <em>concrete system context</em> <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">set</span></span><span><span class="pre">:S;</span> </span><span class="ansi-fg-light-blue"><span class="pre">equiv</span></span><span><span class="pre">:P</span></span></code> comprises:</p>
+<ul class="simple">
+<li><p>a multi-system specified by <code class="squirrelinline docutils literal notranslate"><span><span class="pre">S</span></span></code> used to interpret
+<a class="reference internal" href="logic.html#term-reachability-atom"><span class="xref std std-term">reachability atoms</span></a>;</p></li>
+<li><p>a pair of systems (i.e. a multi-system with two elements) <code class="squirrelinline docutils literal notranslate"><span><span class="pre">P</span></span></code>
+used to interpret <a class="reference internal" href="logic.html#term-equivalence-atom"><span class="xref std std-term">equivalence atoms</span></a>.</p></li>
+</ul>
+<p>A <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span></code> <code class="squirrelinline docutils literal notranslate"><span><span class="pre">S</span></span></code> can also be used as a system context:
+it stands for <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">set</span></span><span><span class="pre">:S;</span> </span><span class="ansi-fg-light-blue"><span class="pre">equiv</span></span><span><span class="pre">:S/</span></span><span class="ansi-fg-light-blue"><span class="pre">left</span></span><span><span class="pre">,S/</span></span><span class="ansi-fg-light-blue"><span class="pre">right</span></span></code>.</p>
+</section>
+</section>
+</section>
+<section id="axioms-and-lemmas">
+<h2>Axioms and Lemmas<a class="headerlink" href="#axioms-and-lemmas" title="Permalink to this heading">¶</a></h2>
+<p>Squirrel supports two kinds of <span class="term-defn"><span class="target" id="term-lemma"></span>lemmas</span>, one for each kind of formulas:
+<span class="term-defn"><span class="target" id="term-local-lemma"></span>local lemmas</span> for <a class="reference internal" href="logic.html#term-local-formula"><span class="xref std std-term">local formulas</span></a> and
+<span class="term-defn"><span class="target" id="term-global-lemma"></span>global lemmas</span> for <a class="reference internal" href="logic.html#term-global-formula"><span class="xref std std-term">global formulas</span></a>.
+Similarly, there are local and global
+<span class="term-defn"><span class="target" id="term-axiom"></span>axioms</span>. The only difference between a lemma and an axiom
+declaration is that the former creates a proof-obligation that must be
+discharged by the user through a <a class="reference internal" href="proofs.html#section-proofs"><span class="std std-ref">proof</span></a>.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-statement_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-statement_id"><span class="hole">statement_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-local_statement"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-local_statement"><span class="hole">local_statement</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span><span>[</span></span><a class="reference internal" href="#grammar-token-system_expr"><span class="hole">system_expr</span></a><span><span>]</span></span></span><span class="notation-sup">?</span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-statement_id"><span class="hole">statement_id</span></a></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>_</span></span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span>[</span></span><a class="reference internal" href="logic.html#grammar-token-tvar_params"><span class="hole">tvar_params</span></a><span><span>]</span></span></span><span class="notation-sup">?</span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole">binders</span></a> <span><span>:</span></span> <span class="hole">formula</span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-global_statement"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-global_statement"><span class="hole">global_statement</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span><span>[</span></span><a class="reference internal" href="#grammar-token-system_context"><span class="hole">system_context</span></a><span><span>]</span></span></span><span class="notation-sup">?</span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-statement_id"><span class="hole">statement_id</span></a></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>_</span></span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span>[</span></span><a class="reference internal" href="logic.html#grammar-token-tvar_params"><span class="hole">tvar_params</span></a><span><span>]</span></span></span><span class="notation-sup">?</span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole">binders</span></a> <span><span>:</span></span> <a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole">global_formula</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>A local statement as described above expresses that
+the local formula <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">forall</span></span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a><span><span><span class="pre">,</span></span></span> <span class="hole"><span class="pre">formula</span></span></span></code> holds
+in the context <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[</span></span></span><a class="reference internal" href="#grammar-token-system_expr"><span class="hole"><span class="pre">system_expr</span></span></a><span><span><span class="pre">]</span></span></span></span></code> (which
+defaults to <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[default]</span></span></span></span></code>).
+The statement is named <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-statement_id"><span class="hole"><span class="pre">statement_id</span></span></a></span></code> for future reference.</p>
+<p>Similarly,
+a global statement expresses that
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Forall</span></span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></code> holds in the context
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[</span></span></span><a class="reference internal" href="#grammar-token-system_context"><span class="hole"><span class="pre">system_context</span></span></a><span><span><span class="pre">]</span></span></span></span></code> (which defaults to <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[default]</span></span></span></span></code>).</p>
+<p>Local and global statements can be
+<a class="reference internal" href="logic.html#section-polymorphism"><span class="std std-ref">polymorphic</span></a> through the optional
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-tvar_params"><span class="hole"><span class="pre">tvar_params</span></span></a></span></code> type variable parameters (they hold for all
+instances of the given type variables).</p>
+<p>Unnamed (local and global) statements can be declared using an
+underscore <code class="squirrelinline docutils literal notranslate"><span><span class="pre">_</span></span></code> instead of a statement identifier
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-statement_id"><span class="hole"><span class="pre">statement_id</span></span></a></span></code>.</p>
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.lemma">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">local</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="alternative"><span class="alternative-block"><span><span><span class="pre">lemma</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">axiom</span></span></span></span></span> <a class="reference internal" href="#grammar-token-local_statement"><span class="hole"><span class="pre">local_statement</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.lemma" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a new local <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">lemma</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">axiom</span></span></code>.</p>
+</dd></dl>
+
+<dl class="squirrel decl">
+<dt class="sig sig-object squirrel" id="squirrel:decl.global">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">global</span></span></span> <span class="alternative"><span class="alternative-block"><span><span><span class="pre">lemma</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">axiom</span></span></span></span></span> <a class="reference internal" href="#grammar-token-global_statement"><span class="hole"><span class="pre">global_statement</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.global" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a new global <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">lemma</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">axiom</span></span></code>.</p>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Example: Local axioms and lemmas</p>
+<p>We declare an axiom stating
+that in any system, a pair has a negligible probability of
+being equal to the constant <code class="squirrelinline docutils literal notranslate"><span><span class="pre">fail</span></span></code>.</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">axiom</span><span> [</span><span class="ansi-fg-light-blue">any</span><span>] fail_not_pair (x,y:</span><span class="ansi-fg-light-cyan">message</span><span>): &lt;x,y&gt; &lt;&gt; fail
+</span></dt></dl>
+</div>
+<p>Next, we state that in system <code class="squirrelinline docutils literal notranslate"><span><span class="pre">[default]</span></span></code>,
+the adversary never sends the same message twice.</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">axiom</span><span> no_repeat t t’ : </span><span class="ansi-fg-light-green">happens</span><span>(t,t’) =&gt; t &lt;&gt; t’ =&gt; </span><span class="ansi-fg-light-green">input</span><span>&#64;t &lt;&gt; </span><span class="ansi-fg-light-green">input</span><span>&#64;t’
+</span></dt></dl>
+</div>
+<p>Finally, the following unnammed local lemma states that, for the
+single system <code class="squirrelinline docutils literal notranslate"><span><span class="pre">myProtocol/</span></span><span class="ansi-fg-light-blue"><span class="pre">left</span></span></code>,
+action <code class="squirrelinline docutils literal notranslate"><span><span class="pre">A2</span></span></code> can execute only if the adversary sends the message
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">ok</span></span></code> at time-point <cite>A1</cite>:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>] _ : </span><span class="ansi-fg-light-green">cond</span><span>&#64;A2 =&gt; </span><span class="ansi-fg-light-green">input</span><span>&#64;A1 = ok
+</span></dt></dl>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Example: Global lemmas</p>
+<p>The next (typical) global lemma states that the two projections
+of the bi-system <code class="squirrelinline docutils literal notranslate"><span><span class="pre">myProtocol</span></span></code> are observationally equivalent:</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol] obs_equiv (t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[</span><span class="ansi-fg-light-blue">const</span><span>]) : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t)
+</span></dt></dl>
+</div>
+<p>As a slight variant,
+we now state that <code class="squirrelinline docutils literal notranslate"><span><span class="pre">real/</span></span><span class="ansi-fg-light-blue"><span class="pre">left</span></span></code> and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">ideal/</span></span><span class="ansi-fg-light-blue"><span class="pre">right</span></span></code>
+are observationally equivalent, this time using only <code class="squirrelinline docutils literal notranslate"><span><span class="pre">real/</span></span><span class="ansi-fg-light-blue"><span class="pre">left</span></span></code>
+to interpret <code class="squirrelinline docutils literal notranslate"><span><span class="pre">[_]</span></span></code> atoms (which does not change anything in that
+case since <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">happens</span></span><span><span class="pre">(_)</span></span></code> does not depend on the details of system
+actions):</p>
+<div class="squirreltop literal-block docutils container">
+<dl class="simple">
+<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [</span><span class="ansi-fg-light-blue">set</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>; </span><span class="ansi-fg-light-blue">equiv</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>,ideal/</span><span class="ansi-fg-light-blue">right</span><span>] ideal_real_equiv :
+</span></dt><dt class="in"><span>  </span><span class="ansi-fg-light-blue">Forall</span><span> (tau:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[</span><span class="ansi-fg-light-blue">const</span><span>]), [</span><span class="ansi-fg-light-green">happens</span><span>(tau)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;tau)
+</span></dt></dl>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="logic.html" class="btn btn-neutral float-left" title="Logic" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="proofs.html" class="btn btn-neutral float-right" title="Proofs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Squirrel developpers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

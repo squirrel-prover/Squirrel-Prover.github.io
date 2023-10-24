@@ -31,5 +31,15 @@ examples.html: examples_src.md
 	  --template $(TEMPLATE_HTML)\
 	  -t html -o $@ $<
 
+doc: 
+	cd squirrel-prover && \
+	make refman-html
+	cp -r squirrel-prover/_build/default/documentation/sphinx/public documentation
+
+jsquirrel: doc
+	cd squirrel-prover && \
+	make zipsquirrel
+	cp -r squirrel-prover/_build/default/app/www jsquirrel
+
 clean:
 	-rm -f *.html

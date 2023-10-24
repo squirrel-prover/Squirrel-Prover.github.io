@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notations &mdash; Squirrel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/ansi.css" />
+    <link rel="stylesheet" type="text/css" href="_static/notations.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pre-text.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/notations.js"></script>
+        <script src="_static/js/rtd_search_config.js"></script>
+        <script src="_static/js/rtd_sphinx_search.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Logic" href="logic.html" />
+    <link rel="prev" title="Introduction" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Squirrel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference manual</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lexical-conventions">Lexical conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#infix-operators">Infix operators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#types">Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#base-types">Base types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#type-variables-and-polymorphism">Type variables and polymorphism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#general-types">General types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#binders-and-tags">Binders and tags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#terms-with-binders">Terms with binders</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#multi-terms">Multi-terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#diff-terms">Diff-terms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#macros">Macros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#formulas">Formulas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#local-formulas">Local formulas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#global-formulas">Global formulas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="declarations.html">Declarations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#names">Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#abstract-functions">Abstract functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#operators">Operators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#built-ins">Built-ins</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#cryptographic-functions">Cryptographic functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#processes">Processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#channels">Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#memory-cells">Memory cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#id4">Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#systems-and-actions">Systems and actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-defined-macros">System-defined macros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-expressions">System expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-contexts">System contexts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#axioms-and-lemmas">Axioms and Lemmas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="proofs.html">Proofs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#judgements">Judgements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#logical-variables">Logical variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#hypotheses">Hypotheses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#local-judgement">Local judgement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#global-judgement">Global judgement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#generalities">Generalities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactic-arguments">Tactic arguments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#intro-patterns">Intro patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#proof-terms">Proof terms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#proof-term-resolution">Proof-term resolution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#reduction">Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#automatic-simplification-tactics">Automatic simplification tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactics">Tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#common-errors">Common errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#id4">Tactics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#generic-tactics">Generic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#common-tactics">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#local-tactics">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#global-tactics">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id12">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id15">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id18">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id28">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#reachability-properties">Reachability properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#macros">Macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#formulas">Formulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#equivalence-properties">Equivalence properties</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/indexes/index.html">Indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="std-glossindex.html">Glossary index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-declindex.html">Declaration index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-cmdindex.html">Command index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-tacindex.html">Tactic index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-exnindex.html">Errors and warnings index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc-writing.html">Documenting Squirrel with Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#todo-list-generation">TODO list generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-objects">Squirrel objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#notations">Notations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#objects">Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-directives">Squirrel directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-roles">Squirrel roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#common-mistakes">Common mistakes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#improper-nesting">Improper nesting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-token">Overusing <code class="docutils literal notranslate"><span class="pre">:token:</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#omitting-annotations">Omitting annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#using-the-squirreltop-directive-for-syntax-highlighting">Using the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">squirreltop::</span></code> directive for syntax highlighting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-plain-quotes">Overusing plain quotes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-the-example-directive">Overusing the <code class="docutils literal notranslate"><span class="pre">example</span></code> directive</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#tips-and-tricks">Tips and tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#nested-lemmas">Nested lemmas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#abbreviations-and-macros">Abbreviations and macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#advanced-uses-of-notations">Advanced uses of notations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Squirrel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Notations</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/squirrel-prover/squirrel-prover/blob/master/documentation/sphinx/reference-intro.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="math-preamble math notranslate nohighlight">
+\[\begin{split}\newcommand{\as}{\kw{as}}
+\newcommand{\case}{\kw{case}}
+\newcommand{\cons}{\textsf{cons}}
+\newcommand{\consf}{\textsf{consf}}
+\newcommand{\emptyf}{\textsf{emptyf}}
+\newcommand{\End}{\kw{End}}
+\newcommand{\kwend}{\kw{end}}
+\newcommand{\even}{\textsf{even}}
+\newcommand{\evenO}{\textsf{even}_\textsf{O}}
+\newcommand{\evenS}{\textsf{even}_\textsf{S}}
+\newcommand{\Fix}{\kw{Fix}}
+\newcommand{\fix}{\kw{fix}}
+\newcommand{\for}{\textsf{for}}
+\newcommand{\forest}{\textsf{forest}}
+\newcommand{\Functor}{\kw{Functor}}
+\newcommand{\In}{\kw{in}}
+\newcommand{\ind}[3]{\kw{Ind}~[#1]\left(#2\mathrm{~:=~}#3\right)}
+\newcommand{\Indp}[4]{\kw{Ind}_{#4}[#1](#2:=#3)}
+\newcommand{\Indpstr}[5]{\kw{Ind}_{#4}[#1](#2:=#3)/{#5}}
+\newcommand{\injective}{\kw{injective}}
+\newcommand{\kw}[1]{\textsf{#1}}
+\newcommand{\length}{\textsf{length}}
+\newcommand{\letin}[3]{\kw{let}~#1:=#2~\kw{in}~#3}
+\newcommand{\List}{\textsf{list}}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\Match}{\kw{match}}
+\newcommand{\Mod}[3]{{\kw{Mod}}({#1}:{#2}\,\zeroone{:={#3}})}
+\newcommand{\ModImp}[3]{{\kw{Mod}}({#1}:{#2}:={#3})}
+\newcommand{\ModA}[2]{{\kw{ModA}}({#1}=={#2})}
+\newcommand{\ModS}[2]{{\kw{Mod}}({#1}:{#2})}
+\newcommand{\ModType}[2]{{\kw{ModType}}({#1}:={#2})}
+\newcommand{\mto}{.\;}
+\newcommand{\nat}{\textsf{nat}}
+\newcommand{\Nil}{\textsf{nil}}
+\newcommand{\nilhl}{\textsf{nil\_hl}}
+\newcommand{\nO}{\textsf{O}}
+\newcommand{\node}{\textsf{node}}
+\newcommand{\nS}{\textsf{S}}
+\newcommand{\odd}{\textsf{odd}}
+\newcommand{\oddS}{\textsf{odd}_\textsf{S}}
+\newcommand{\ovl}[1]{\overline{#1}}
+\newcommand{\Pair}{\textsf{pair}}
+\newcommand{\plus}{\mathsf{plus}}
+\newcommand{\SProp}{\textsf{SProp}}
+\newcommand{\Prop}{\textsf{Prop}}
+\newcommand{\return}{\kw{return}}
+\newcommand{\Set}{\textsf{Set}}
+\newcommand{\Sort}{\mathcal{S}}
+\newcommand{\Str}{\textsf{Stream}}
+\newcommand{\Struct}{\kw{Struct}}
+\newcommand{\subst}[3]{#1\{#2/#3\}}
+\newcommand{\tl}{\textsf{tl}}
+\newcommand{\tree}{\textsf{tree}}
+\newcommand{\trii}{\triangleright_\iota}
+\newcommand{\Type}{\textsf{Type}}
+\newcommand{\WEV}[3]{\mbox{$#1[] \vdash #2 \lra  #3$}}
+\newcommand{\WEVT}[3]{\mbox{$#1[] \vdash #2 \lra$}\\ \mbox{$ #3$}}
+\newcommand{\WF}[2]{{\mathcal{W\!F}}(#1)[#2]}
+\newcommand{\WFE}[1]{\WF{E}{#1}}
+\newcommand{\WFT}[2]{#1[] \vdash {\mathcal{W\!F}}(#2)}
+\newcommand{\WFTWOLINES}[2]{{\mathcal{W\!F}}\begin{array}{l}(#1)\\\mbox{}[{#2}]\end{array}}
+\newcommand{\with}{\kw{with}}
+\newcommand{\WS}[3]{#1[] \vdash #2 &lt;: #3}
+\newcommand{\WSE}[2]{\WS{E}{#1}{#2}}
+\newcommand{\WT}[4]{#1[#2] \vdash #3 : #4}
+\newcommand{\WTE}[3]{\WT{E}{#1}{#2}{#3}}
+\newcommand{\WTEG}[2]{\WTE{\Gamma}{#1}{#2}}
+\newcommand{\WTM}[3]{\WT{#1}{}{#2}{#3}}
+\newcommand{\zeroone}[1]{[{#1}]}
+\end{split}\]</div>
+<section id="notations">
+<h1>Notations<a class="headerlink" href="#notations" title="Permalink to this heading">¶</a></h1>
+<p>Thourghout this documention, we rely on the classical <a class="reference external" href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form">EBNF notations</a> for presenting Squirrel’s syntax, with the following conventions.</p>
+<section id="lexical-conventions">
+<h2>Lexical conventions<a class="headerlink" href="#lexical-conventions" title="Permalink to this heading">¶</a></h2>
+<p>Throughout the documentation we use the following lexical units:</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-natural"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-natural"><span class="hole">natural</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span><span>0</span></span> <span><span>..</span></span> <span><span>9</span></span></span><span class="notation-sup">+</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-ident"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="alternative"><span class="alternative-block"><span><span>a</span></span> <span><span>..</span></span> <span><span>z</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>A</span></span> <span><span>..</span></span> <span><span>Z</span></span></span></span> <span class="repeat-wrapper"><span class="repeat"><span class="repeated-alternative"><span class="alternative-block"><span><span>a</span></span> <span><span>..</span></span> <span><span>z</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>A</span></span> <span><span>..</span></span> <span><span>Z</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>0</span></span> <span><span>..</span></span> <span><span>9</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span>'</span></span></span></span><span class="notation-sup">*</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><section id="infix-operators">
+<h3>Infix operators<a class="headerlink" href="#infix-operators" title="Permalink to this heading">¶</a></h3>
+<p>Squirrel supports the following syntax for infix operators</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-infix_op"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-infix_op"><span class="hole">infix_op</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>&amp;&amp;</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>|</span></span><span><span>|</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>xor</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>=&gt;</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>&lt;=&gt;</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-left_infix_op"><span class="hole">left_infix_op</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-right_infix_op"><span class="hole">right_infix_op</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-left_infix_op"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-left_infix_op"><span class="hole">left_infix_op</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>^</span></span> <span class="curlies">{ <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-infix_char"><span class="hole">infix_char</span></a></span><span class="notation-sup">*</span></span> | <span class="repeat-wrapper"><span class="repeat"><span><span>0</span></span> <span><span>..</span></span> <span><span>9</span></span></span><span class="notation-sup">*</span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-infix_char"><span class="hole">infix_char</span></a></span><span class="notation-sup">+</span></span> }</span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-right_infix_op"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-right_infix_op"><span class="hole">right_infix_op</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="alternative"><span class="alternative-block"><span><span>+</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>-</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>*</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>|</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>&amp;</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>~</span></span></span></span> <span class="curlies">{ <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-infix_char"><span class="hole">infix_char</span></a></span><span class="notation-sup">*</span></span> | <span class="repeat-wrapper"><span class="repeat"><span><span>0</span></span> <span><span>..</span></span> <span><span>9</span></span></span><span class="notation-sup">*</span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-infix_char"><span class="hole">infix_char</span></a></span><span class="notation-sup">+</span></span> }</span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-infix_char"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-infix_char"><span class="hole">infix_char</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="alternative"><span class="alternative-block"><span><span>^</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>+</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>-</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>*</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>|</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>&amp;</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>~</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>&lt;</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>&gt;</span></span></span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span></section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="logic.html" class="btn btn-neutral float-right" title="Logic" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Squirrel developpers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

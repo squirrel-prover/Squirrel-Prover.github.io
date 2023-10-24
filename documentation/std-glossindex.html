@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Glossary &mdash; Squirrel  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/ansi.css" />
+    <link rel="stylesheet" type="text/css" href="_static/notations.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pre-text.css" />
+    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/notations.js"></script>
+        <script src="_static/tabs.js"></script>
+        <script src="_static/js/rtd_search_config.js"></script>
+        <script src="_static/js/rtd_sphinx_search.min.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Squirrel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference-intro.html">Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference-intro.html#lexical-conventions">Lexical conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference-intro.html#infix-operators">Infix operators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#types">Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#base-types">Base types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#type-variables-and-polymorphism">Type variables and polymorphism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#general-types">General types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#binders-and-tags">Binders and tags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#terms-with-binders">Terms with binders</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#multi-terms">Multi-terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#diff-terms">Diff-terms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#macros">Macros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#formulas">Formulas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#local-formulas">Local formulas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#global-formulas">Global formulas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="declarations.html">Declarations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#names">Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#abstract-functions">Abstract functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#operators">Operators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#built-ins">Built-ins</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#cryptographic-functions">Cryptographic functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#processes">Processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#channels">Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#memory-cells">Memory cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#id4">Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#systems-and-actions">Systems and actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-defined-macros">System-defined macros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-expressions">System expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-contexts">System contexts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#axioms-and-lemmas">Axioms and Lemmas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="proofs.html">Proofs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#judgements">Judgements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#logical-variables">Logical variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#hypotheses">Hypotheses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#local-judgement">Local judgement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#global-judgement">Global judgement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#generalities">Generalities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactic-arguments">Tactic arguments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#intro-patterns">Intro patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#proof-terms">Proof terms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#proof-term-resolution">Proof-term resolution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#reduction">Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#automatic-simplification-tactics">Automatic simplification tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactics">Tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#common-errors">Common errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#id4">Tactics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#generic-tactics">Generic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#common-tactics">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#local-tactics">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#global-tactics">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id12">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id15">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id18">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id28">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#reachability-properties">Reachability properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#macros">Macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#formulas">Formulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#equivalence-properties">Equivalence properties</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="appendix/indexes/index.html">Indexes</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Glossary index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-declindex.html">Declaration index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-cmdindex.html">Command index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-tacindex.html">Tactic index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-exnindex.html">Errors and warnings index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc-writing.html">Documenting Squirrel with Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#todo-list-generation">TODO list generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-objects">Squirrel objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#notations">Notations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#objects">Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-directives">Squirrel directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-roles">Squirrel roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#common-mistakes">Common mistakes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#improper-nesting">Improper nesting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-token">Overusing <code class="docutils literal notranslate"><span class="pre">:token:</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#omitting-annotations">Omitting annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#using-the-squirreltop-directive-for-syntax-highlighting">Using the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">squirreltop::</span></code> directive for syntax highlighting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-plain-quotes">Overusing plain quotes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-the-example-directive">Overusing the <code class="docutils literal notranslate"><span class="pre">example</span></code> directive</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#tips-and-tricks">Tips and tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#nested-lemmas">Nested lemmas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#abbreviations-and-macros">Abbreviations and macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#advanced-uses-of-notations">Advanced uses of notations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Squirrel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Glossary</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/squirrel-prover/squirrel-prover/blob/master/documentation/sphinx/std-glossindex" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+   <h1>Glossary</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-a"><strong>a</strong></a> | 
+   <a href="#cap-b"><strong>b</strong></a> | 
+   <a href="#cap-c"><strong>c</strong></a> | 
+   <a href="#cap-d"><strong>d</strong></a> | 
+   <a href="#cap-e"><strong>e</strong></a> | 
+   <a href="#cap-f"><strong>f</strong></a> | 
+   <a href="#cap-g"><strong>g</strong></a> | 
+   <a href="#cap-h"><strong>h</strong></a> | 
+   <a href="#cap-i"><strong>i</strong></a> | 
+   <a href="#cap-l"><strong>l</strong></a> | 
+   <a href="#cap-m"><strong>m</strong></a> | 
+   <a href="#cap-n"><strong>n</strong></a> | 
+   <a href="#cap-o"><strong>o</strong></a> | 
+   <a href="#cap-p"><strong>p</strong></a> | 
+   <a href="#cap-r"><strong>r</strong></a> | 
+   <a href="#cap-s"><strong>s</strong></a> | 
+   <a href="#cap-t"><strong>t</strong></a> | 
+   <a href="#cap-w"><strong>w</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-a"><td></td><td>
+       <strong>a</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-abstract_fun"><code class="xref">abstract_fun</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-abstraction"><code class="xref">abstraction</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-action-constructor"><code class="xref">action constructor</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-adv"><code class="xref">adv</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-and-or-ip"><code class="xref">and or ip</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-asymmetric-encryption"><code class="xref">asymmetric encryption</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-axiom"><code class="xref">axiom</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-b"><td></td><td>
+       <strong>b</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-bi-system"><code class="xref">bi-system</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-bi-term"><code class="xref">bi-term</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-bool"><code class="xref">bool</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-built-in"><code class="xref">built-in</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-c"><td></td><td>
+       <strong>c</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-clear-switch"><code class="xref">clear switch</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="doc-writing.html#term-composite"><code class="xref">composite</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-const"><code class="xref">const</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-cryptographic-function"><code class="xref">cryptographic function</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-custom-types"><code class="xref">custom types</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-d"><td></td><td>
+       <strong>d</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-diff-term"><code class="xref">diff-term</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-e"><td></td><td>
+       <strong>e</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-equivalence-atom"><code class="xref">equivalence atom</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-expansion-item"><code class="xref">expansion item</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-f"><td></td><td>
+       <strong>f</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-finite"><code class="xref">finite</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-fixed"><code class="xref">fixed</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-g"><td></td><td>
+       <strong>g</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-glob"><code class="xref">glob</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-global-formula"><code class="xref">global formula</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-global-lemma"><code class="xref">global lemma</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-group-declaration"><code class="xref">group declaration</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-h"><td></td><td>
+       <strong>h</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-happens"><code class="xref">happens</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-hash-function"><code class="xref">hash function</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-i"><td></td><td>
+       <strong>i</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-index"><code class="xref">index</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-l"><td></td><td>
+       <strong>l</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-large"><code class="xref">large</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-lemma"><code class="xref">lemma</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-local-formula"><code class="xref">local formula</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-local-lemma"><code class="xref">local lemma</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-logical_var"><code class="xref">logical_var</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-m"><td></td><td>
+       <strong>m</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-macro"><code class="xref">macro</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-message"><code class="xref">message</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-multi-system"><code class="xref">multi-system</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-multi-term"><code class="xref">multi-term</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-n"><td></td><td>
+       <strong>n</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-name_fixed_length"><code class="xref">name_fixed_length</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-namelength-axiom"><code class="xref">namelength axiom</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-naming-ip"><code class="xref">naming ip</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-o"><td></td><td>
+       <strong>o</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-occurrence-formula"><code class="xref">occurrence formula</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="commands.html#term-option"><code class="xref">option</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-p"><td></td><td>
+       <strong>p</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-pattern"><code class="xref">pattern</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-polymorphism"><code class="xref">polymorphism</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="doc-writing.html#term-prime"><code class="xref">prime</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-projection"><code class="xref">projection</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-r"><td></td><td>
+       <strong>r</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-reachability-atom"><code class="xref">reachability atom</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-rewrite-ip-item"><code class="xref">rewrite ip item</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-rewrite-item"><code class="xref">rewrite item</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-s"><td></td><td>
+       <strong>s</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-signature-scheme"><code class="xref">signature scheme</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="proofs.html#term-simplification-item"><code class="xref">simplification item</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-single-system"><code class="xref">single system</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-symmetric-encryption"><code class="xref">symmetric encryption</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="declarations.html#term-system-expression"><code class="xref">system expression</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-t"><td></td><td>
+       <strong>t</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-tag"><code class="xref">tag</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-term"><code class="xref">term</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-timestamp"><code class="xref">timestamp</code></a></td><td>
+       <em></em></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-type-tag"><code class="xref">type tag</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-w"><td></td><td>
+       <strong>w</strong></td><td></td></tr>
+     <tr>
+       <td></td>
+       <td>
+       <a href="logic.html#term-well-founded"><code class="xref">well-founded</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Squirrel developpers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

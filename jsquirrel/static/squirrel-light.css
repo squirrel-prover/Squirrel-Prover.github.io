@@ -1,0 +1,176 @@
+/* adapted from jscoq <3 */
+
+/* Light mode */
+
+/* Panel/body settings */
+
+body.jssquirrel-main {
+  background: #e4e4e4;
+}
+
+body.jssquirrel-main #document {
+  background: #fff;
+}
+
+.jssquirrel-theme-light#panel-wrapper,
+.jssquirrel-theme-light #panel-wrapper {
+  background: #fff;
+  color: #000;
+  border-left: 1px solid #999;
+}
+
+.jssquirrel-theme-light .flex-panel {
+  border-top: 1px solid #9f9f9f;
+}
+
+.jssquirrel-theme-light .flex-panel > .caption {
+  background: #c4c4c4;
+}
+
+.jssquirrel-theme-light #vsep,
+.jssquirrel-theme-light #hsep {
+  background: #ddd;
+}
+
+.jssquirrel-theme-light a,
+.jssquirrel-theme-light a:link,
+.jssquirrel-theme-light a:visited,
+.jssquirrel-theme-light a:active {
+  color: #22f;
+}
+
+.jssquirrel-theme-light a:hover {
+  color: #5af;
+}
+
+.jssquirrel-theme-light #toolbar {
+  border-bottom: 1px solid #999;
+}
+
+.jssquirrel-theme-light #goal-panel p.system {
+  color: #555;
+}
+
+/* squirrel settings */
+
+.squirrel-eval-ok {
+  background-color: #ddd;
+}
+
+.squirrel-eval-ok.coq-highlight {
+  background-color: #ebeebd;
+}
+  
+.squirrel-eval-pending {
+  background-color: #fc6;
+}
+
+.squirrel-eval-ok .squirrel-focus-goal {
+  background-color: #88bd8a !important;
+}
+
+.squirrel-focus-goal .squirrel-eval-ok {
+  background-color: #88bd8a !important;
+}
+
+.squirrel-eval-failed {
+  background-color: rgba(255, 00, 50, 0.2);
+}
+
+.squirrel-syntax-error {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: red;
+}
+
+.squirrel-eval-ok.cm-focused,
+.squirrel-eval-pending.cm-focused,
+.squirrel-eval-failed.cm-focused {
+  background-color: none;
+}
+
+.squirrel-eval-ok.coq-highlight.CodeMirror-selectedtext {
+  background-color: #bbe; 
+}
+
+.squirrel-hover {
+  background-color: #bbe; 
+}
+
+/* Normal theme settings */
+
+.CodeMirror.cm-s-default {
+  background: #f1f1f1;
+}
+
+.cm-s-default .CodeMirror-dialog {
+  border-bottom: 1px solid #bbb;
+  box-shadow: 0px 1px 5px 0px #00000059;
+}
+
+a.fileLink {
+  color: #22f;
+}
+
+a.fileLink:active {
+  color: #228;
+}
+
+/* Vernaculars */
+.cm-builtin {
+  color: #00FFFF;
+}
+
+.cm-comment {
+  color: #a50;
+}
+
+.cm-variable {
+  color: #000;
+}
+
+.cm-operator {
+  color: #000;
+}
+
+/* Tactics */
+.cm-keyword {
+  color: #98FB98;
+}
+
+.cm-tactic {
+  color: #0011FF;
+}
+
+.cm-terminator {
+  color: #FF0000;
+}
+
+.cm-s-default .cm-bullet,
+.cm-s-default .cm-brace,
+.cm-s-default .cm-bracket {
+  /* background: bisque; */
+  color: red;
+}
+
+.cm-s-default .cm-squirrel-bullet {
+  color: #448252;
+  font-weight: bold;
+}
+
+.cm-s-default .cm-squirrel-focus {
+  color: #777;
+}
+
+/*  */
+.cm-statementend {
+  /* background: #6C64FE; */
+}
+
+.contextual-focus {
+    background: rgba(80,100,0,0.15);
+}
+
+.contextual-info .message {
+    color: #888;
+}
