@@ -32,6 +32,7 @@ examples.html: examples_src.md
 	  -t html -o $@ $<
 
 doc: 
+	rm -rf documentation
 	cd squirrel-prover && \
 	make refman-html
 	cp -r squirrel-prover/_build/default/documentation/sphinx/public documentation
