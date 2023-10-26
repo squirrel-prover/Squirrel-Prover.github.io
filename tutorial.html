@@ -123,10 +123,10 @@ provided bellow will be executable.</p>
 <p>In <strong>Squirrel</strong>, a function symbol without any
 assumption can be defined with:</p>
 <div class="sourceCode" id="cb1"><pre
-class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">abstract</span> ok : message</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">abstract</span> ko : message</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">abstract</span> f1 : message -&gt; message</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">abstract</span> f2 : message -&gt; message -&gt; message.</span></code></pre></div>
+class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> ok : message</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> ko : message</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> f1 : message -&gt; message</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> f2 : message * message -&gt; message.</span></code></pre></div>
 <p><code>ok</code> and <code>ko</code> are constants, and
 <code>f1</code> is a function that expects a message, and then return a
 message. <code>f2</code> is then a function symbol of arity two, and
@@ -140,9 +140,9 @@ any number of indices.</p>
 <p>In the tool, one can declare names and indexed names with the
 following.</p>
 <div class="sourceCode" id="cb2"><pre
-class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">name</span> n : message</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">name</span> n1 : index -&gt; message</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">name</span> n2 : index -&gt; index -&gt; message.</span></code></pre></div>
+class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">name</span> n : message</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">name</span> n1 : index -&gt; message</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">name</span> n2 : index * index -&gt; message.</span></code></pre></div>
 <p>To model a setting where multiple people each have their own secret
 key, one could declare an indexed name as follows.</p>
 <div class="sourceCode" id="cb3"><pre
@@ -251,12 +251,13 @@ implies some authentication property, in the sense that there must
 exists an action T(i,k) that was executed before the reader, and such
 the input of the reader corresonds to the name of T(i,k).</p>
 <div class="sourceCode" id="cb11"><pre
-class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">goal</span> wa :</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">forall</span> (i:index, j:index),</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  happens(R(j,i)) =&gt;</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>     cond@R(j,i) =&gt;</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="kw">exists</span> (k:index),</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>              T(i,k) &lt;= R(j,i) &amp;&amp; fst(input@R(j,i)) = nT(i,k).</span></code></pre></div>
+class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lemma wa :</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">forall</span> (i:index, j:index),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  happens(R(j,i)) =&gt;</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>     cond@R(j,i) =&gt;</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>         <span class="kw">exists</span> (k:index),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>              T(i,k) &lt;= R(j,i) &amp;&amp; fst(input@R(j,i)) = nT(i,k).</span></code></pre></div>
 <p>We write bellow the simple proof of this statement. Once inside a
 proof context, delimited by <code>Proof.</code> and <code>Qed.</code>,
 it is possible to get the list of available tactics by typing
@@ -264,14 +265,13 @@ it is possible to get the list of available tactics by typing
 <code>help tacticname.</code></p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode squirrel"><code class="sourceCode squirrel"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">Proof</span>.</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span>.</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">help</span> <span class="kw">simpl</span>.</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">simpl</span>.</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">expand</span> cond@R(j,i).</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">euf</span> H.</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>by <span class="kw">exists</span> k.</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="kw">Qed</span>.</span></code></pre></div>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">help</span>.</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">help</span> <span class="kw">intro</span>.</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">intro</span> i j Hh Hc.</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">expand</span> cond.</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">euf</span> Hc.</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="kw">intro</span> [k _]; by <span class="kw">exists</span> k.</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">Qed</span>.</span></code></pre></div>
 <h1 id="indistinguishability-properties">Indistinguishability
 properties</h1>
 <p>WIP</p>

@@ -27,7 +27,17 @@ It thus provides guarantees in the computational model.
 
 A 13 minutes introduction to the basic concepts and core ideas of the **Squirrel Prover** can be found [here](https://www.youtube.com/watch?v=n-s_lGe44EM).
 
-A [README](https://github.com/squirrel-prover/squirrel-prover/#readme) provides installation instructions.
+A [README](https://github.com/squirrel-prover/squirrel-prover/#readme)
+provides installation instructions.
+You can also try our online version
+[here](https://squirrel-prover.github.io/jsquirrel/?open=0-logic.sp).
+
+# Reference Manual
+
+A complete reference manual can be found
+[here](https://squirrel-prover.github.io/documentation/).
+
+# Tutorial
 
 A basic [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it.
 A more complete tutorial has been prepared on the occasion of the
@@ -75,6 +85,8 @@ They are also accessible directly below:
 - [5-stateful](files/5-stateful.sp)
 - [6-key-establishment](files/6-key-establishment.sp)
 
+Those, again, are available on our online version [here](https://squirrel-prover.github.io/jsquirrel/?open=0-logic.sp)
+
 # Event: MOVEP
 
 Slides are available [here](movep.pdf).
@@ -101,8 +113,8 @@ Former members:
 
 # Source code
 
-**Squirrel** is an open source project, licensed under the GNU General
-Public License v3.0. All source code is available
+**Squirrel** is an open source project, licensed under the MIT
+License. All source code is available
 [here](https://github.com/squirrel-prover/squirrel-prover/).
 
 # Publications

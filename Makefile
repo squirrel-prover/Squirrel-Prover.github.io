@@ -20,7 +20,7 @@ index.html: index_src.md
           --citeproc\
 	  -t html -o $@ $<
 
-tutorial.html: tutorial_src.md squirrel-prover/examples/tutorial/tutorial.sp tutorial_header.md
+tutorial.html: tutorial_src.md squirrel-prover/examples/basic-tutorial/tutorial.sp tutorial_header.md
 	./tutorial.sh
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\

@@ -4,7 +4,7 @@ headerfile="tutorial_header.md"
 
 outfile="tutorial_src.md"
 
-infile="squirrel-prover/examples/tutorial/tutorial.sp"
+infile="squirrel-prover/examples/basic-tutorial/tutorial.sp"
 
 
 if [ -f "$outfile" ]; then
