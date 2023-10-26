@@ -551,10 +551,6 @@ checks that the term unification variables can all be inferred,
 generalizes the term unification variables that remain, or leaves
 the term unification environment unclosed.</p></li>
 </ul>
-<div class="admonition-todo admonition" id="id1">
-<p class="admonition-title">Todo</p>
-<p>Charlie: need example</p>
-</div>
 <p>In practice, the application of a proof-term argument is more complex
 than described above, for several reasons:</p>
 <ul class="simple">
@@ -1206,11 +1202,6 @@ given simple introduction pattern <code class="docutils literal notranslate"><sp
 <em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">memseq</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.memseq" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Prove that a bi-frame element appears in a sequence of the bi-frame.</p>
-<div class="admonition-todo admonition" id="id7">
-<p class="admonition-title">Todo</p>
-<p>Charlie: hum. There are no examples nor test for this function.
-It should be tested before being documented (don’t know who did it)</p>
-</div>
 </div></blockquote>
 </dd></dl>
 
@@ -1237,10 +1228,6 @@ behaviours.</p>
 <em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">trans</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.trans" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Prove an equivalence by transitivity.</p>
-<div class="admonition-todo admonition" id="id8">
-<p class="admonition-title">Todo</p>
-<p>Adrien: this deserves an explanation, the tactic actually does a lot.</p>
-</div>
 </div></blockquote>
 </dd></dl>
 
@@ -1343,12 +1330,6 @@ as possible, including 0.</p></li>
 <li><p><code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fa</span></span><span> <span class="pre">arg1,</span> <span class="pre">arg2,</span> <span class="pre">...</span></span></code> is syntactic sugar for
 <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fa</span></span><span> <span class="pre">arg1;</span> </span><span class="ansi-fg-light-blue"><span class="pre">fa</span></span><span> <span class="pre">arg2;</span> <span class="pre">...</span></span></code>.</p></li>
 </ul>
-<div class="admonition-todo admonition" id="id10">
-<p class="admonition-title">Todo</p>
-<p><cite>fa</cite> reachability does not behave as described. Also, it seems
-useless to me now, except for <cite>try find</cite> constructs.
-Finally, <cite>fa</cite> reach takes no arguments.</p>
-</div>
 </dd></dl>
 
 <dl class="squirrel tacn">
@@ -1560,12 +1541,6 @@ macros are automatically exploited, e.g. that for any
 timestamp <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code>, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">&#64;pred(t)</span></span></code> allows to deduce
 <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">input</span></span><span><span class="pre">&#64;t</span></span></code>, all <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">&#64;t'</span></span></code> for <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t'</span> <span class="pre">&lt;</span> <span class="pre">pred(t)</span></span></code>, as well as
 the <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">output</span></span><span><span class="pre">&#64;t'</span></span></code> for whenever <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;t'</span></span></code> is true.</p>
-<div class="admonition-todo admonition" id="id13">
-<p class="admonition-title">Todo</p>
-<p>Charlie: do we want an exhaustive description of the deduce algo?</p>
-<p>Adrien: without arguments, it removes all elements that can be
-dropped I think.</p>
-</div>
 </dd></dl>
 
 <dl class="squirrel tace">
@@ -1683,16 +1658,6 @@ an occurrence of <code class="squirrelinline docutils literal notranslate"><span
 <p>We also generalize occur to allow for collecting multiple name
 occurrences at once, which is useful when we want to allow patterns depending on
 two names at once (see e.g. <a class="reference internal" href="#squirrel:tact.gdh" title="gdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">gdh</span></code></a> or <a class="reference internal" href="#squirrel:tace.ddh" title="ddh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">ddh</span></code></a>).</p>
-<div class="admonition-todo admonition" id="id14">
-<p class="admonition-title">Todo</p>
-<p>Adrien: how name occurrences are computed is quite complicated, and
-more involved than what is described here I think (conditions,
-source terms, occurrences below bound variables, fold-macro-support
-shenanigans and tomfoolery, …)</p>
-<p>I think we need to settle ourselves for an intuitive description
-with examples, while making clear that this is a partial
-description.</p>
-</div>
 </section>
 <section id="id15">
 <h4>Common tactics<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h4>
@@ -1704,11 +1669,6 @@ fact that names represent independent random samplings. This can be
 exploited in two ways: i) to remove a fresh name from an
 equivalence; or ii) to obtain that a term has a negligible
 probability of being equal to a fresh name.</p>
-<div class="admonition-todo admonition" id="id16">
-<p class="admonition-title">Todo</p>
-<p>Adrien: could not finish reading. A note:
-I see no mention of the <cite>large</cite> assumption on types.</p>
-</div>
 <p>In a local goal with conclusion <code class="squirrelinline docutils literal notranslate"><span><span class="pre">phi</span></span></code>,
 the tactic may be called on a hypothesis of the form <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t=n</span></span></code> for
 some name <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code> sampled over a type with tag <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">large</span></span></code>.
