@@ -1,0 +1,735 @@
+/* adapted from jscoq <3 */
+/*!
+ * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+.iframeSnip {
+  position:relative;
+  height: 100%;
+  width: 100%;
+}
+
+.iframeClass {
+  -ms-zoom: 0.75;
+  -moz-transform: scale(0.75);
+  -moz-transform-origin: 0 0;
+  -o-transform: scale(0.75);
+  -o-transform-origin: 0 0;
+  -webkit-transform: scale(0.75);
+  -webkit-transform-origin: 0 0;
+  width: 40em;
+  height: 25em;
+}
+
+.cm-tooltip.cm-completionInfo {
+  height: 100% !important;
+  position: absolute;
+  padding: 0 !important;
+  width: 100%;
+  max-width: 100%;
+}
+
+ /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 4; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Toggle Styles */
+
+body.jsquirrel-main * {
+  box-sizing: border-box;
+}
+
+body.jsquirrel-main {
+  margin: 0;
+  padding: 0;
+  font-family: Helvetica, Geneva, Swiss, Arial, SunSans-Regular, sans-serif;
+  font-size: 11pt;
+  overscroll-behavior-y: none;
+}
+
+a, a:link, a:visited, a:active {
+  text-decoration: none;
+}
+
+#ide-wrapper {
+  height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
+  overscroll-behavior: none;
+  --base-font-size: 10pt;
+}
+
+#ide-wrapper.layout-fixed {
+  padding-right: 45%;
+  transition: padding 0.5s ease;
+}
+
+#ide-wrapper.layout-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#ide-wrapper.layout-fixed.toggled {
+  padding-right: 0px;
+}
+
+#ide-wrapper.layout-flex > * {
+  overflow-x: hidden;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+#ide-wrapper.layout-flex > #panel-wrapper {
+  overflow-x: visible;  /* needed for power button to be visible */
+}
+
+#ide-wrapper.layout-flex > *:not(#panel-wrapper):not(#outline-pane):not(.CodeMirror-hints) {
+  flex-grow: 1; /* take all remaining space */
+  width: 1px;   /* this provides better perf than width:100%; flex-shrink:1 */
+}
+
+#ide-wrapper #document {
+  max-width: 51em;
+}
+
+.on-hold * {
+  cursor: progress !important;
+}
+
+/* span.jsquirrel-hover { */
+/*   background-color: #bbe */
+/* } */
+
+/* span.jsquirrel-ok { */
+/*   background-color: #ddd; */
+/* } */
+
+/* span.jsquirrel-eval-pending { */
+/*   background-color: #fc6; */
+/* } */
+
+
+a.fileLink {
+  cursor: pointer;
+  text-decoration: underline;
+  font-family: sans-serif;
+  font-size: 80%;
+  padding-left: 2em;
+}
+
+/*
+ * This is here for the time interval between document load and creation of
+ * the CodeMirror editors from textareas.
+ */
+#ide-wrapper textarea {
+  width: 100%;
+  height: auto;
+  padding: 4px;
+  margin-bottom: .5em;
+  border: 1px dashed #888;
+  font-family: monospace, times, 'Arial Unicode MS';
+  font-size: 80%;
+}
+
+/* Panel and sub-panels */
+
+#panel-wrapper {
+  padding: 0;
+  width: 80em !important;
+  height: 100%;
+  transition: width 0.5s ease;
+  z-index: 20;  /* notice: CodeMirror-dialog is at index 15 */
+
+  font-family: Helvetica, Geneva, Swiss, Arial, SunSans-Regular, sans-serif;
+  font-size: var(--base-font-size);
+}
+
+#panel-wrapper * {
+  box-sizing: border-box;
+}
+
+#ide-wrapper.layout-fixed #panel-wrapper {
+  top: 0;
+  right: 0;
+  position: fixed;
+}
+
+#ide-wrapper.layout-flex #panel-wrapper {
+  position: relative; /* for the power button */
+  max-width: 48em;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+#ide-wrapper.toggled #panel-wrapper {
+  width: 0px;
+  /* overflow: auto; */
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 45px);  /* 36px = height of toolbar */
+  overflow: hidden;
+}
+
+.flex-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1000 0 20px;
+  justify-content: flex-end;
+  overflow: hidden;
+  transition: flex-grow 0.5s ease-in-out;
+}
+
+.run {
+  flex: auto;
+}
+
+.visu {
+  margin: auto;
+  flex: auto;
+}
+
+.flex-panel > .caption {
+  flex: 0 0 20px;
+  font-size: 11px;
+  line-height: 1;
+  padding: 4px 10px 0 10px;
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  cursor: pointer;
+}
+
+.flex-panel > .caption:after {
+  /* css arrow */
+  position: absolute;
+  content: "";
+  border-top: 8px solid transparent;
+  border-right: 8px solid #565656;
+  border-bottom: 8px solid transparent;
+  top: 2px;
+  right: 7px;
+  transform: rotate(-90deg);
+  transition: transform 0.5s ease-in-out;
+}
+
+.flex-panel > .caption select {
+  font-size: 8px;
+  margin-left: 1em;
+  position: relative;
+  top: -1px;
+}
+
+.flex-panel > .content {
+  flex: 1 0 0;
+  padding: 0 4px;
+  font-family: monospace, times, 'Arial Unicode MS';
+  line-height: 1.2;  /* because some characters are too tall (due to alternative font glyph rendering) */
+  overflow: auto;
+  overscroll-behavior: contain;
+  white-space: pre;
+}
+
+.flex-panel > .content::before,
+.flex-panel > .content::after {  /* work around vertical padding issue */
+  content: "";
+  display: block;
+  height: 2px;
+}
+
+.flex-panel.collapsed {
+  flex-grow: 0;
+}
+
+.flex-panel.collapsed > .caption:after {
+  transform: none;
+}
+
+/* Goal panel */
+
+#goal-panel {
+  position: relative;  /* for positioning div.contextual-info */
+}
+
+/* #goal-panel:not(.collapsed) { */
+/*   flex-grow: 2000; */
+/* } */
+
+#goal-panel p {
+  margin: 0;
+}
+
+#goal-panel p.splash-above {
+  margin-top: 0.2em;
+  margin-left: 0.5em;
+}
+
+#goal-panel div.splash-middle {
+  text-align: center;
+  margin: 1em 0;
+  line-height: 0;
+}
+
+#goal-panel div.splash-middle div.splash-image {
+  display: inline-block;
+  width: 150px;
+  height: 63px;
+  background-size: 300px;
+  background-image: url(./images/jsquirrel-splash.png);
+}
+
+#goal-panel div.splash-middle div.wait {
+  background-position-x: -150px;
+}
+
+#goal-panel div.splash-middle div.splash-image img {
+  width: 100%;
+}
+
+#goal-panel p.splash-below p.quick-links {
+  white-space: normal;
+  text-align: center;
+}
+
+#goal-panel p.splash-below p.quick-links a:not(:first-child) {
+  margin-left: 1em;
+}
+#goal-panel p.splash-below p.quick-links img {
+  margin-right: 0.5em;
+}
+
+#goal-panel p.system {
+  margin: 0.75em 0; 
+}
+
+#goal-text {
+  border: 0;
+  white-space: pre;
+}
+
+/* Help panel (when shown, replaces Goal) */
+
+#help-panel:not(.collapsed) {
+  flex-grow: 2000;
+}
+
+#help-panel div.content {
+  position: relative;  /* for positioning the close button */
+  padding: 0;
+  height: 100%;
+  overflow: hidden;  /* scroll within iframe */
+}
+#help-panel div.content iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+#help-panel > .content::before,
+#help-panel > .content::after {  display: none;  }
+
+#panel-wrapper.show-help #goal-panel,
+#panel-wrapper:not(.show-help) #help-panel {
+  display: none;
+}
+
+#help-panel button.btn-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  border: none;
+  box-shadow: none;
+  background: url(./images/go-back.png);
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  opacity: .25;
+}
+
+#help-panel button.btn-close:hover { opacity: 0.5; }
+#help-panel button.btn-close:active { opacity: 0.75; }
+
+/*
+#vsep, #hsep {
+  position: absolute;
+  z-index: 3;
+}
+*/
+
+#hide-panel {
+  cursor: pointer;
+  width: 32px;
+  position: absolute;
+  left: -34px;
+  top: 2px
+}
+
+#hide-panel g path {
+  fill: #00a806;
+}
+
+#ide-wrapper.toggled #hide-panel g path {
+  fill: #f20000
+}
+
+/* Toolbar */
+
+#toolbar {
+  white-space: nowrap;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  overflow: hidden;
+  height: 36px;
+}
+
+#toolbar .exits {
+  white-space: nowrap;
+  display: inline-block;
+  vertical-align: top;
+  padding-left: .5em;
+}
+
+#toolbar .js-logo,
+#toolbar .wa-logo {
+  height: 20px;
+  margin-top: 3px;
+  vertical-align: top;
+}
+
+#toolbar .js-logo ~ i { color: #c96; }
+#toolbar .wa-logo ~ i { color: #56c; }
+
+#toolbar .squirrel-logo {
+  height: 35px;
+  vertical-align: middle;
+  margin-left: -1px;
+}
+
+#toolbar .exits.right {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transition: opacity 620ms ease-in;
+}
+
+#ide-wrapper.toggled #toolbar .exits.right {
+  opacity: 0;
+  transition: opacity 120ms linear;
+}
+
+#toolbar svg.app-menu-button {
+  height: 36px;
+  fill: #ccc;
+}
+#toolbar svg.app-menu-button:hover {
+  fill: #777;
+  background-color: #f2f6f2;
+}
+#toolbar svg.app-menu-button.active {
+  background-color: #676b67;
+  fill: #f2f6f2;
+}
+#toolbar svg.app-menu-button.active:hover {
+  background-color: #757a75;
+  fill: #f2f6f2;
+}
+
+#buttons {
+  display: inline-block;
+  text-align: left;
+  padding-left: 2em;
+  transition: opacity 500ms ease;
+  vertical-align: middle;
+  margin-top: 5px;
+}
+
+#buttons-right {
+  display: inline-block;
+  float: right;
+  text-align: right;
+  transition: opacity 500ms ease;
+  vertical-align: middle;
+  margin-top: 5px;
+}
+
+
+#buttons button {
+  background: none;
+  border: none;
+  width: 25px;
+  height: 25px;
+  background-size: 100%;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+
+#buttons-right button {
+  background: none;
+  border: none;
+  width: 25px;
+  height: 25px;
+  background-size: 100%;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: opacity 1s ease;
+}
+
+#buttons button:disabled {
+  opacity: 0.15;
+  cursor: default;
+}
+
+#buttons button:active {
+  opacity: 0.8;
+}
+
+#buttons button:focus {
+  outline: none;
+  transition: none;
+}
+
+#buttons button[name=up] {
+  background-image: url(./images/up.png);
+  width: 20px;
+  height: 20px;
+}
+#buttons button[name=down] {
+  background-image: url(./images/down.png);
+  width: 20px;
+  height: 20px;
+}
+#buttons button[name=to-cursor] {
+  background-image: url(./images/to-cursor.png);
+}
+#buttons button[name=interrupt] {
+  background-image: url(./images/stop.png);
+}
+#buttons button[name=reset] {
+  background-image: url(./images/reset.png);
+}
+
+#buttons button[name=info] {
+  background-image: url(./images/log-info.png);
+}
+
+#buttons-right button[name=file] {
+  background-image: url(./images/file.svg);
+}
+
+#buttons-right button[name=help] {
+  background-image: url(./images/question.svg);
+}
+
+#squirrel-local-files button[name=plus] {
+  background: none;
+  border: none;
+  width: 25px;
+  height: 25px;
+  background-size: 100%;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: opacity 1s ease;
+  background-image: url(./images/plus.svg);
+}
+
+.rel-pos {
+  position: relative;
+  height:0;
+}
+
+.progressbar {
+  background: #3c57a6;
+  height:2px;
+  border-radius: 2px;
+  position:relative;
+  top: -2px;
+  width:0;
+}
+
+/* Pretty-printing hacks */
+
+div.Pp_box {
+  display: inline;
+}
+
+div.Pp_box[data-margin="1"] {
+  margin-left: 0.75em;
+}
+
+div.Pp_box[data-margin="2"] {
+  margin-left: 1.5em;
+}
+
+div.Pp_box[data-mode="horizontal"] {
+  cursor: text;
+}
+
+/*
+ * Adjust line breaks and indentation to appear in appropriate modes:
+ * - Vertical mode or horizontal when line is broken: hide spaces, show br and indents.
+ * - Horizontal mode when line not broken: show spaces, hide br and indents.
+ */
+div.Pp_box .Pp_break.br > span.spaces,
+div.Pp_box[data-mode="vertical"] > .Pp_break > span.spaces {
+  display: none;
+}
+div.Pp_box:not([data-mode="vertical"]) > .Pp_break:not(.br) > br,
+div.Pp_box:not([data-mode="vertical"]) > .Pp_break:not(.br) > span.indent,
+div.Pp_box:not([data-mode="vertical"]) > .Pp_break:not(.br) > span.prev-indent {
+  display: none;
+}
+
+/* for debugging (usually invisible, as these spans only contain spaces) */
+div.Pp_box .Pp_break > span { opacity: 0.25; }
+div.Pp_box .Pp_break > span.indent { color: red; }
+
+#goal-text > div.Pp_box[data-mode="vertical"],
+#goal-text > div.Pp_box[data-mode="vertical"] > div.Pp_box[data-mode="vertical"] {
+  display: block;
+}
+
+#goal-text p.num-goals,
+#goal-text p.no-goals {
+  margin-top: .2em;
+  margin-bottom: 1em;
+  white-space: normal;
+}
+
+#goal-text .squirrel-env {
+  padding-left: 1.25em;
+}
+
+#goal-text p.aside {
+  white-space: normal;
+  color: #777;
+}
+
+#goal-text p.num-goals + p.aside {
+  margin-top: -1em;
+  margin-bottom: 1em;
+}
+
+/* Contextual info */
+
+#goal-panel div.contextual-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid rgba(0,0,0,0.25);
+  font-family: monospace, times, 'Arial Unicode MS';
+  font-size: 9pt;
+  white-space: pre-wrap;
+  max-height: 25%;
+  overflow: hidden;
+  /* this is needed to adjust the height of `.content` somehow */
+  display: flex;
+  flex-direction: column;
+}
+
+#goal-panel div.contextual-info > .content {
+  padding: 0 0.75em 2px 3px;
+  overflow-y: auto;
+}
+
+div.hint-package {
+  float: right;
+  margin-left: 1em;
+  color: #aaa;
+  font-size: 90%;
+  position: relative;
+  top: 1px;  /* this is safer than padding or margin, for floats */
+}
+
+.scroll-shadow {
+  position: absolute;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 20px;
+  pointer-events: none;
+}
+
+.scroll-shadow--bottom {
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 1), transparent);
+}
+
+/* Printing options */
+
+@media print {
+  #hide-panel { display: none; }
+  a.link-to-github { display: none; }
+
+  .flex-panel:not(.collapsed) .caption {
+    border-bottom: 1px dashed #ccc;
+  }
+
+  /* Multi-page documents with flex are not portable (e.g. Firefox) */
+  /* falling back to absolute positioning + padding */
+
+  #ide-wrapper {
+    display: block;
+    padding-right: 45%;
+    transition: none;
+  }
+
+  #ide-wrapper.toggled {
+    padding-right: 0;
+  }
+
+  #ide-wrapper > * {
+    max-height: initial;
+  }
+
+  #panel-wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-bottom: 1px solid #aaa;
+  }
+
+}
+
