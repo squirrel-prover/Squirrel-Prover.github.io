@@ -70,8 +70,8 @@ exercises of increasing difficulty, covering:
 * protocol composition.
 
 As support material to go through the exercises, we provide
-syntax documentation [here](doc-nancy.html),
-and tactics documentation [there](tactics.html).
+syntax documentation [here](doc-nancy.html).
+The full documentation can be found [here](https://squirrel-prover.github.io/documentation/).
 
 The files of the tutorial are now part of the official Squirrel
 distribution, under the `examples/tutorial/` directory.
