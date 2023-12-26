@@ -98,7 +98,7 @@ Examples used for the presentation are [here](examples.html).
  * [David Baelde](http://www.lsv.fr/~baelde/), _ENS Rennes, Univ Rennes, CNRS, IRISA_
  * [Stéphanie Delaune](http://people.irisa.fr/Stephanie.Delaune/), _Univ Rennes, CNRS, IRISA_
  * [Caroline Fontaine](http://www.lsv.fr/~fontaine/index.html.fr), _Université Paris-Saclay, CNRS, LMF_
- * [Charlie Jacomme](https://charlie.jacomme.fr), _Inria Paris_
+ * [Charlie Jacomme](https://charlie.jacomme.fr), _Inria Nancy_
  * [Adrien Koutsos](https://adrienkoutsos.fr/), _Inria Paris_
  * [Joseph Lallemand](https://people.irisa.fr/Joseph.Lallemand/), _Univ Rennes, CNRS, IRISA_
  * [Thomas Rubiano](https://people.irisa.fr/Thomas.Rubiano/), _Univ Rennes, CNRS, IRISA_
