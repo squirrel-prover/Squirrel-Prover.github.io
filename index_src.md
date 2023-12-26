@@ -32,14 +32,14 @@ provides installation instructions.
 You can also try our online version
 [here](https://squirrel-prover.github.io/jsquirrel/?open=0-logic.sp).
 
-# Reference Manual
+# Documentation
 
-A complete reference manual can be found
+The documentation can be found
 [here](https://squirrel-prover.github.io/documentation/).
 
 # Tutorial
 
-A basic [tutorial](tutorial.html) and some commented [examples](examples.html) allow to start discovering it.
+This [tutorial](https://squirrel-prover.github.io/documentation/tutorial.html) and some commented [examples](examples.html) allow to start discovering Squirrel.
 A more complete tutorial has been prepared on the occasion of the
 Cyber in Nancy summer school; see below.
 
