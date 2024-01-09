@@ -14,13 +14,13 @@ TEMPLATE_HTML = template/template.html
 
 all: index.html examples.html
 
-index.html: index_src.md
+index.html: index_src.md $(TEMPLATE_HTML)
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\
           --citeproc\
 	  -t html -o $@ $<
 
-examples.html: examples_src.md
+examples.html: examples_src.md $(TEMPLATE_HTML)
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\
 	  -t html -o $@ $<
