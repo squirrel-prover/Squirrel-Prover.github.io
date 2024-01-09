@@ -29,7 +29,8 @@ A 13 minutes introduction to the basic concepts and core ideas of the **Squirrel
 
 A [README](https://github.com/squirrel-prover/squirrel-prover/#readme)
 provides installation instructions.
-You can also try our online version
+
+You can also try our **online version**
 [here](https://squirrel-prover.github.io/jsquirrel/?open=0-logic.sp).
 
 # Documentation
