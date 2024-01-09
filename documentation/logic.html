@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Logic &mdash; Squirrel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/ansi.css" />
-    <link rel="stylesheet" type="text/css" href="_static/notations.css" />
-    <link rel="stylesheet" type="text/css" href="_static/pre-text.css" />
-    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/ansi.css" type="text/css" />
+      <link rel="stylesheet" href="_static/notations.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pre-text.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -439,16 +439,16 @@ by using the tag over the free variable of a local axiom, yielding
 <span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-binder"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-binder"><span class="hole">binder</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-var_or_hole"><span class="hole">var_or_hole</span></a> | <span><span>(</span></span><span class="repeat-wrapper-with-sub"><span class="repeat"><span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="#grammar-token-var_or_hole"><span class="hole">var_or_hole</span></a></span><span class="notation-sup">+</span><span class="notation-sub">,</span></span> <span><span>:</span></span> <a class="reference internal" href="#grammar-token-type"><span class="hole">type</span></a> <span class="repeat-wrapper"><span class="repeat"><span><span>[</span></span><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-tag"><span class="hole">tag</span></a></span><span class="notation-sup">+</span></span><span><span>]</span></span></span><span class="notation-sup">?</span></span></span><span class="notation-sup">+</span><span class="notation-sub">,</span></span><span><span>)</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-binders"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-binders"><span class="hole">binders</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-binder"><span class="hole">binder</span></a></span><span class="notation-sup">*</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags actually correspond to predicates in the logic: for instance,
-<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty[</span></span><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">]),</span> <span class="pre">phi</span></span></code> should be understood as
-<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty),</span> </span><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">(x)</span> <span class="pre">=&gt;</span> <span class="pre">phi</span></span></code> in the theory.
-Predicates such as <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">(_)</span></span></code> are however not directly accessible in
+<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty[const]),</span> <span class="pre">phi</span></span></code> should be understood as
+<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty),</span> <span class="pre">const(x)</span> <span class="pre">=&gt;</span> <span class="pre">phi</span></span></code> in the theory.
+Predicates such as <code class="squirrelinline docutils literal notranslate"><span><span class="pre">const(_)</span></span></code> are however not directly accessible in
 the tool.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Not all binders support tags, e.g. it would be meaningless
-to declare a function <a class="reference internal" href="#term-abstraction"><span class="xref std std-term">abstraction</span></a> with a <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">const</span></span></code>
-tag, as in <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fun</span></span><span><span class="pre">(x:int[</span></span><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">])=&gt;t</span></span></code>.</p>
+to declare a function <a class="reference internal" href="#term-abstraction"><span class="xref std std-term">abstraction</span></a> with a <code class="squirrelinline docutils literal notranslate"><span><span class="pre">const</span></span></code>
+tag, as in <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fun</span></span><span><span class="pre">(x:int[const])=&gt;t</span></span></code>.</p>
 </div>
 <p>A binding declaration <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code> without any attached type (i.e. using directly a
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-var_or_hole"><span class="hole"><span class="pre">var_or_hole</span></span></a></span></code>) amounts to using a type hole <code class="squirrelinline docutils literal notranslate"><span><span class="pre">(x:_)</span></span></code>,

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proofs &mdash; Squirrel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/ansi.css" />
-    <link rel="stylesheet" type="text/css" href="_static/notations.css" />
-    <link rel="stylesheet" type="text/css" href="_static/pre-text.css" />
-    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/ansi.css" type="text/css" />
+      <link rel="stylesheet" href="_static/notations.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pre-text.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -387,13 +387,13 @@ numbered list.</p>
 frame is enriched with some public key, as follows:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol] obs_equiv t : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t, pk(sk))
+<dt class="in"><span class="ansi-fg-light-blue">global</span><span> lemma [myProtocol] obs_equiv t : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t, pk(sk))
 </span></dt></dl>
 </div>
 <p>When starting its proof, after doing <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">intro</span></span><span> <span class="pre">H</span></span></code>, the goal that the user must prove is displayed as:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>Systems: </span><span class="ansi-fg-light-blue">left</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">right</span><span> (same for equivalences)
 </span></dt><dt class="in"><span>Variables: t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[glob]
 </span></dt><dt class="in"><span>H: [</span><span class="ansi-fg-light-green">happens</span><span>(t)]
@@ -626,8 +626,6 @@ goals proved by <a class="reference internal" href="#squirrel:tact.true" title="
 <p>When the conclusion of the goal is a global formula which only contains
 a local formula, the goal is then turned into a local formula. Otherwise
 the tactic does nothing.</p>
-<p>Additionaly If the <a class="reference internal" href="commands.html#term-option"><span class="xref std std-term">option</span></a> <code class="squirrelinline docutils literal notranslate"><span><span class="pre">autoIntro</span></span></code> is set to true, introductions
-are also made automatically.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
@@ -803,7 +801,7 @@ of a protocol.</p>
 <p>Over a goal of the form</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>Systems: </span><span class="ansi-fg-light-blue">left</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">right</span><span> (same for equivalences)
 </span></dt><dt class="in"><span>Variables: t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[glob]
 </span></dt><dt class="in"><span>H: [</span><span class="ansi-fg-light-green">happens</span><span>(t)]
@@ -820,7 +818,7 @@ that has a total of 3 actions, a sub-goal created for the case of <code class="s
 looks like</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">4</span><span>):
+<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">4</span><span>):
 </span></dt><dt class="in"><span>Systems: </span><span class="ansi-fg-light-blue">left</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">right</span><span> (same for equivalences)
 </span></dt><dt class="in"><span>H: [</span><span class="ansi-fg-light-green">happens</span><span>(A)]
 </span></dt><dt class="in"><span>IH:  </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;pred (A))
@@ -1428,7 +1426,7 @@ rewriting occurs in the other direction, replacing <code class="squirrelinline d
 <p>Consider the following goal.</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: default/</span><span class="ansi-fg-light-blue">left</span><span> (equivalences: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>)
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">diff</span><span>(h (a, k), n), </span><span class="ansi-fg-light-green">diff</span><span>(h (b, k), m))
 </span></dt><dt class="in"><span>U: [a &lt;&gt; b]
@@ -1443,7 +1441,7 @@ of the goal, where we want to prove that the two hashes are not equal.</p>
 <p>Calling <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">rewrite</span></span><span> </span><span class="ansi-fg-light-blue"><span class="pre">equiv</span></span><span> <span class="pre">H</span></span></code> produces the new goal:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: default/</span><span class="ansi-fg-light-blue">right</span><span> (equivalences: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>)
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">diff</span><span>(h (a, k), n), </span><span class="ansi-fg-light-green">diff</span><span>(h (b, k), m))
 </span></dt><dt class="in"><span>U: [a &lt;&gt; b]
@@ -1692,7 +1690,7 @@ will be directly closed.</p>
 <p>The goal corresponding to this proof will look like this:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>
 </span></dt><dt class="in"><span>Eq: </span><span class="ansi-fg-light-green">input</span><span>&#64;A = n
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-green">happens</span><span>(A)
@@ -1703,7 +1701,7 @@ will be directly closed.</p>
 <p>Calling <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fresh</span></span><span> <span class="pre">Eq</span></span></code> turns the goal into:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>
 </span></dt><dt class="in"><span>Eq: </span><span class="ansi-fg-light-green">input</span><span>&#64;A = n
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-green">happens</span><span>(A)
@@ -1817,7 +1815,7 @@ the key <code class="squirrelinline docutils literal notranslate"><span><span cl
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">M</span></span></code> can only hold if computing <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code> requires already knowing the hash of <code class="squirrelinline docutils literal notranslate"><span><span class="pre">m</span></span></code>.
 Accordingly, the tactic creates a first new sub-goal asking
 to prove that the key is only used in correct position, i.e.
-a sub-goal with conclusion <code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,goal,h(_,k))</span></span></code> (see the
+a sub-goal with conclusion <code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,</span></span><span class="ansi-fg-light-blue"><span class="pre">goal</span></span><span><span class="pre">,h(_,k))</span></span></code> (see the
 definition of the <a class="reference internal" href="#term-occurrence-formula"><span class="xref std std-term">occurrence formula</span></a>).
 The tactic then collects all possible occurrence of a honest hash <code class="squirrelinline docutils literal notranslate"><span><span class="pre">h(u,k)</span></span></code> inside
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code>, and for each of them, creates a sub-goal with the original conclusion
@@ -1857,7 +1855,7 @@ in <code class="squirrelinline docutils literal notranslate"><span><span class="
 honestly signed messages. A sub-goal for each possible honest signing
 case is created, as well as a sub-goal specifying that the key is
 correctly used, i.e. with conclusion
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,goal,sign(_,k),</span> <span class="pre">pk(k))</span></span></code>.</p>
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,</span></span><span class="ansi-fg-light-blue"><span class="pre">goal</span></span><span><span class="pre">,sign(_,k),</span> <span class="pre">pk(k))</span></span></code>.</p>
 <p>Latest formal Squirrel description: <span id="id25">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. working paper or preprint, 2023. URL: https://hal.inria.fr/hal-03981949.">BKL23</a>]</span>.</p>
 </dd></dl>
 
@@ -1935,7 +1933,7 @@ specified.</p>
 <p>When calling, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">ddh</span></span><span> <span class="pre">g,a,b,k</span></span></code>, the goal must contain only diff
 terms of the form <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),g^(c)))</span></span></code>. The tactic will close
 the goal if the formula
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur((a,b,c),goal,(g^a,g^b,</span></span><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),c)))</span></span></code> instantly reduces
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur((a,b,c),</span></span><span class="ansi-fg-light-blue"><span class="pre">goal</span></span><span><span class="pre">,(g^a,g^b,</span></span><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),c)))</span></span></code> instantly reduces
 to false (see the definition of the <a class="reference internal" href="#term-occurrence-formula"><span class="xref std std-term">occurrence formula</span></a>).</p>
 <p>Latest formal Squirrel description: <span id="id32">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
 </dd></dl>
@@ -2124,12 +2122,6 @@ be used inside proofs.</p>
 <em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">lemmas</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.lemmas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Print all axioms and proved lemmas. This is useful to know which lemmas can
 be used through the <a class="reference internal" href="#squirrel:tacn.use" title="use"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">use</span></code></a> or <a class="reference internal" href="#squirrel:tacn.apply" title="apply"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">apply</span></code></a> tactics.</p>
-</dd></dl>
-
-<dl class="squirrel tacn">
-<dt class="sig sig-object squirrel" id="squirrel:tacn.prof">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">prof</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.prof" title="Permalink to this definition">¶</a></dt>
-<dd><p>Print profiling information.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">

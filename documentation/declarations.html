@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Declarations &mdash; Squirrel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/ansi.css" />
-    <link rel="stylesheet" type="text/css" href="_static/notations.css" />
-    <link rel="stylesheet" type="text/css" href="_static/pre-text.css" />
-    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/ansi.css" type="text/css" />
+      <link rel="stylesheet" href="_static/notations.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pre-text.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -767,13 +767,13 @@ underscore <code class="squirrelinline docutils literal notranslate"><span><span
 <dl class="squirrel decl">
 <dt class="sig sig-object squirrel" id="squirrel:decl.lemma">
 <em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">local</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="alternative"><span class="alternative-block"><span><span><span class="pre">lemma</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">axiom</span></span></span></span></span> <a class="reference internal" href="#grammar-token-local_statement"><span class="hole"><span class="pre">local_statement</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.lemma" title="Permalink to this definition">¶</a></dt>
-<dd><p>Declares a new local <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">lemma</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">axiom</span></span></code>.</p>
+<dd><p>Declares a new local <code class="squirrelinline docutils literal notranslate"><span><span class="pre">lemma</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">axiom</span></span></code>.</p>
 </dd></dl>
 
 <dl class="squirrel decl">
 <dt class="sig sig-object squirrel" id="squirrel:decl.global">
 <em class="property"><span class="sigannot"><span class="pre">Declaration</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">global</span></span></span> <span class="alternative"><span class="alternative-block"><span><span><span class="pre">lemma</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">axiom</span></span></span></span></span> <a class="reference internal" href="#grammar-token-global_statement"><span class="hole"><span class="pre">global_statement</span></span></a></span></span><a class="headerlink" href="#squirrel:decl.global" title="Permalink to this definition">¶</a></dt>
-<dd><p>Declares a new global <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">lemma</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">axiom</span></span></code>.</p>
+<dd><p>Declares a new global <code class="squirrelinline docutils literal notranslate"><span><span class="pre">lemma</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">axiom</span></span></code>.</p>
 </dd></dl>
 
 <div class="admonition note">
@@ -799,7 +799,7 @@ action <code class="squirrelinline docutils literal notranslate"><span><span cla
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">ok</span></span></code> at time-point <cite>A1</cite>:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>] _ : </span><span class="ansi-fg-light-green">cond</span><span>&#64;A2 =&gt; </span><span class="ansi-fg-light-green">input</span><span>&#64;A1 = ok
+<dt class="in"><span>lemma [myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>] _ : </span><span class="ansi-fg-light-green">cond</span><span>&#64;A2 =&gt; </span><span class="ansi-fg-light-green">input</span><span>&#64;A1 = ok
 </span></dt></dl>
 </div>
 </div>
@@ -809,7 +809,7 @@ action <code class="squirrelinline docutils literal notranslate"><span><span cla
 of the bi-system <code class="squirrelinline docutils literal notranslate"><span><span class="pre">myProtocol</span></span></code> are observationally equivalent:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol] obs_equiv (t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[</span><span class="ansi-fg-light-blue">const</span><span>]) : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t)
+<dt class="in"><span class="ansi-fg-light-blue">global</span><span> lemma [myProtocol] obs_equiv (t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[const]) : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t)
 </span></dt></dl>
 </div>
 <p>As a slight variant,
@@ -820,8 +820,8 @@ case since <code class="squirrelinline docutils literal notranslate"><span class
 actions):</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [</span><span class="ansi-fg-light-blue">set</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>; </span><span class="ansi-fg-light-blue">equiv</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>,ideal/</span><span class="ansi-fg-light-blue">right</span><span>] ideal_real_equiv :
-</span></dt><dt class="in"><span>  </span><span class="ansi-fg-light-blue">Forall</span><span> (tau:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[</span><span class="ansi-fg-light-blue">const</span><span>]), [</span><span class="ansi-fg-light-green">happens</span><span>(tau)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;tau)
+<dt class="in"><span class="ansi-fg-light-blue">global</span><span> lemma [</span><span class="ansi-fg-light-blue">set</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>; </span><span class="ansi-fg-light-blue">equiv</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>,ideal/</span><span class="ansi-fg-light-blue">right</span><span>] ideal_real_equiv :
+</span></dt><dt class="in"><span>  </span><span class="ansi-fg-light-blue">Forall</span><span> (tau:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[const]), [</span><span class="ansi-fg-light-green">happens</span><span>(tau)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;tau)
 </span></dt></dl>
 </div>
 </div>

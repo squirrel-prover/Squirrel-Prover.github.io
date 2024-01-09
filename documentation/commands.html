@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en">
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; Squirrel  documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
-    <link rel="stylesheet" type="text/css" href="_static/ansi.css" />
-    <link rel="stylesheet" type="text/css" href="_static/notations.css" />
-    <link rel="stylesheet" type="text/css" href="_static/pre-text.css" />
-    <link rel="stylesheet" type="text/css" href="_static/tabs.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/ansi.css" type="text/css" />
+      <link rel="stylesheet" href="_static/notations.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pre-text.css" type="text/css" />
+      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -413,23 +413,19 @@ sources, the theories directory is located in <code class="docutils literal notr
 <td><p>Show hypothesis after strengthening</p></td>
 <td><p>false</p></td>
 </tr>
-<tr class="row-odd"><td><p>autoIntro</p></td>
-<td><p>Automatic introductions</p></td>
-<td><p>false</p></td>
-</tr>
-<tr class="row-even"><td><p>autoFADup</p></td>
+<tr class="row-odd"><td><p>autoFADup</p></td>
 <td><p>Automatic FA Dup</p></td>
 <td><p>true</p></td>
 </tr>
-<tr class="row-odd"><td><p>newInduction</p></td>
+<tr class="row-even"><td><p>newInduction</p></td>
 <td><p>New equivalence induction principle (FIXME)</p></td>
 <td><p>false</p></td>
 </tr>
-<tr class="row-even"><td><p>postQuantumSound</p></td>
+<tr class="row-odd"><td><p>postQuantumSound</p></td>
 <td><p>Post-quantum soundness</p></td>
 <td><p>false</p></td>
 </tr>
-<tr class="row-odd"><td><p>checkInclude</p></td>
+<tr class="row-even"><td><p>checkInclude</p></td>
 <td><p>Include will check proofs</p></td>
 <td><p>true</p></td>
 </tr>
@@ -446,7 +442,7 @@ sources, the theories directory is located in <code class="docutils literal notr
 <p class="admonition-title">Example: printing a lemma</p>
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
-<dt><span class="ansi-fg-light-blue">lemma</span><span> [</span><span class="ansi-fg-light-blue">any</span><span>] foo : </span><span class="ansi-fg-light-cyan">true</span><span>.
+<dt><span>lemma [</span><span class="ansi-fg-light-blue">any</span><span>] foo : </span><span class="ansi-fg-light-cyan">true</span><span>.
 </span></dt><dd class="squirreltop-hidden"><span>Goal foo :
   </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 </span></dd>
@@ -536,6 +532,12 @@ corresponding occurrences of <code class="docutils literal notranslate"><span cl
 </span></dt></dl>
 </div>
 </div>
+</dd></dl>
+
+<dl class="squirrel cmd">
+<dt class="sig sig-object squirrel" id="squirrel:cmd.prof">
+<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">prof</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.prof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print profiling information.</p>
 </dd></dl>
 
 </section>

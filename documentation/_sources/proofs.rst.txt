@@ -384,10 +384,6 @@ called automatically after each tactic, unless the tactical
     When the conclusion of the goal is a global formula which only contains
     a local formula, the goal is then turned into a local formula. Otherwise
     the tactic does nothing.
-    
-    Additionaly If the :term:`option` :g:`autoIntro` is set to true, introductions
-    are also made automatically.
-
 
 
 .. tacn:: simpl {? @simpl_flags}
@@ -1895,11 +1891,6 @@ Utility tactics
     Print all axioms and proved lemmas. This is useful to know which lemmas can
     be used through the :tacn:`use` or :tacn:`apply` tactics.
 
-
-.. tacn:: prof
-    
-    Print profiling information. 
-      
 .. tacn:: show @term_pat
     
     Print the messages given as argument. Can be used to print the values
