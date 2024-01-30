@@ -29,6 +29,7 @@ doc:
 	rm -rf documentation
 	cd squirrel-prover && \
 	make refman-html
+	mkdir documentation
 	cp -r squirrel-prover/_build/default/documentation/sphinx/public/* documentation
 
 jsquirrel: doc
