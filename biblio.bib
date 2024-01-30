@@ -31,17 +31,23 @@
  url = {https://hal.inria.fr/hal-03620358}
 }
 
-@unpublished{BKL23,
-  TITLE = {{A Higher-Order Indistinguishability Logic for Cryptographic Reasoning}},
-  AUTHOR = {Baelde, David and Koutsos, Adrien and Lallemand, Joseph},
-  URL = {https://hal.inria.fr/hal-03981949},
-  NOTE = {working paper or preprint},
-  YEAR = {2023},
-  KEYWORDS = {Logic and verification ; Security protocol analysis ; Computational indistinguishability},
-  PDF = {https://hal.inria.fr/hal-03981949/file/main%20%281%29.pdf},
-  HAL_ID = {hal-03981949},
-  HAL_VERSION = {v1},
+@INPROCEEDINGS {BKL23,
+author = {D. Baelde and A. Koutsos and J. Lallemand},
+booktitle = {2023 38th Annual ACM/IEEE Symposium on Logic in Computer Science (LICS)},
+title = {A Higher-Order Indistinguishability Logic for Cryptographic Reasoning},
+year = {2023},
+volume = {},
+issn = {},
+pages = {1-13},
+abstract = {The field of cryptographic protocol verification in the computational model aims at obtaining formal security proofs of protocols. To facilitate writing such proofs, which are complex and hard to automate, Bana and Comon have proposed the Computationally Complete Symbolic Attacker (CCSA) approach, which is based on a first-order logic with a probabilistic computational semantics. Later, a meta-logic was built on top of the CCSA logic, to extend it with support for unbounded protocols and effective mechanisation. This meta-logic was then implemented in the SQUIRREL prover.In this paper, we propose a careful re-design of the SQUIRREL logic, providing clean and robust foundations for its future development. We show in this way that the original meta-logic was both needlessly complex and too restrictive. Our new, higher-order logic avoids the indirect definition of the meta-logic on top of the CCSA logic, decouples the logic from the notion of protocol, and supports advanced generic reasoning and non-computable functions. We also equip it with generalised cryptographic rules to reason about corruption. This theoretical work justifies our extension of SQUIRREL with higher-order reasoning, which we illustrate on case studies.},
+keywords = {computer science;solid modeling;computational modeling;semantics;writing;solids;probabilistic logic},
+doi = {10.1109/LICS56636.2023.10175781},
+url = {https://hal.inria.fr/hal-03981949},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {jun}
 }
+
 
 @inproceedings{BC14,
   TITLE = {{A Computationally Complete Symbolic Attacker for Equivalence Properties}},
