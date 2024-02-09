@@ -42,7 +42,7 @@ The documentation can be found
 
 This [tutorial](https://squirrel-prover.github.io/documentation/tutorial.html) and some commented [examples](examples.html) allow to start discovering Squirrel.
 A more complete tutorial has been prepared on the occasion of the
-Cyber in Nancy summer school; see below.
+Cyber in Nancy summer school; see the [events](events.html) page.
 
 The technical details are inside the research papers:
 
