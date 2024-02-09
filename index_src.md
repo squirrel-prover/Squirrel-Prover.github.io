@@ -56,53 +56,14 @@ a meta-logic on top of the logic of [@BC14];
 * recently, the meta-logic approach has been abandonned in favor of
   a self-contained higher-order logic [@BKL23].
 
-# Event: Cyber in Nancy
-
-Slides are available [here](nancy22.pdf).
-
-The school featured a Squirrel tutorial, consisting of a series of
-exercises of increasing difficulty, covering:
-
-* the basic logical constructs and tactics manipulating them,
-* several cryptographic assumptions,
-* accessibility properties (authentication, injective authentication),
-* equivalence properties (unlinkability),
-* stateful protocol, and
-* protocol composition.
-
-As support material to go through the exercises, we provide
-syntax documentation [here](doc-nancy.html).
-The full documentation can be found [here](https://squirrel-prover.github.io/documentation/).
-
-The files of the tutorial are now part of the official Squirrel
-distribution, under the `examples/tutorial/` directory.
-They are also accessible directly below:
-
-- [0-logic](files/0-logic.sp)
-- [1-crypto-hash](files/1-crypto-hash.sp)
-- [2-crypto-enc](files/2-crypto-enc.sp)
-- [3-hash-lock-auth](files/3-hash-lock-auth.sp)
-- [4-hash-lock-unlink](files/4-hash-lock-unlink.sp)
-- [5-stateful](files/5-stateful.sp)
-- [6-key-establishment](files/6-key-establishment.sp)
-
-Those, again, are available on our online version [here](https://squirrel-prover.github.io/jsquirrel/?open=0-logic.sp)
-
-# Event: MOVEP
-
-Slides are available [here](movep.pdf).
-
-Examples used for the presentation are [here](examples.html).
-
 # Team
 
  * [David Baelde](http://www.lsv.fr/~baelde/), _ENS Rennes, Univ Rennes, CNRS, IRISA_
  * [Stéphanie Delaune](http://people.irisa.fr/Stephanie.Delaune/), _Univ Rennes, CNRS, IRISA_
  * [Caroline Fontaine](http://www.lsv.fr/~fontaine/index.html.fr), _Université Paris-Saclay, CNRS, LMF_
- * [Charlie Jacomme](https://charlie.jacomme.fr), _Inria Nancy_
+ * [Charlie Jacomme](https://charlie.jacomme.fr), _Université de Lorraine, LORIA, Inria Nancy Grand-Est_
  * [Adrien Koutsos](https://adrienkoutsos.fr/), _Inria Paris_
  * [Joseph Lallemand](https://people.irisa.fr/Joseph.Lallemand/), _Univ Rennes, CNRS, IRISA_
- * [Thomas Rubiano](https://people.irisa.fr/Thomas.Rubiano/), _Univ Rennes, CNRS, IRISA_
  * [Clément Herouard](https://people.irisa.fr/Clement.Herouard/), _Univ Rennes, CNRS, IRISA_
  * [Justine Sauvage](https://fr.linkedin.com/in/justine-sauvage-a05b35179), _Inria Paris_
 
@@ -110,7 +71,7 @@ Former members:
 
  * [Tito Nguyen](https://nguyentito.eu/), _formerly IRISA, now at ENS Lyon_
  * [Solène Moreau](https://pages.saclay.inria.fr/toccata/solene.moreau/), _formerly IRISA, now at AdaCore_
-
+ * [Thomas Rubiano](https://people.irisa.fr/Thomas.Rubiano/), _formerly Univ Rennes, CNRS, IRISA_
 
 # Source code
 

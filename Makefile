@@ -12,13 +12,20 @@ endif
 
 TEMPLATE_HTML = template/template.html
 
-all: index.html examples.html
+all: index.html examples.html events.html
 
 index.html: index_src.md $(TEMPLATE_HTML)
 	$(PANDOC) \
 	  --template $(TEMPLATE_HTML)\
           --citeproc\
 	  -t html -o $@ $<
+
+events.html: events_src.md $(TEMPLATE_HTML)
+	$(PANDOC) \
+	  --template $(TEMPLATE_HTML)\
+          --citeproc\
+	  -t html -o $@ $<
+
 
 examples.html: examples_src.md $(TEMPLATE_HTML)
 	$(PANDOC) \
