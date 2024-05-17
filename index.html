@@ -127,27 +127,31 @@ and some commented <a href="examples.html">examples</a> allow to start
 discovering Squirrel. A more complete tutorial has been prepared on the
 occasion of the Cyber in Nancy summer school; see the <a
 href="events.html">events</a> page.</p>
-<p>The technical details are inside the research papers:</p>
+<p>A high-level introduction to the theory behind Squirrel was published
+in the ACM Siglog newsletter <span class="citation"
+data-cites="BDJKL24"><a href="#ref-BDJKL24"
+role="doc-biblioref">[1]</a></span>. The formal technical details are
+inside the research papers:</p>
 <ul>
 <li>the computationnally complete symbolic attacker was proposed in
 <span class="citation" data-cites="BC14"><a href="#ref-BC14"
-role="doc-biblioref">[1]</a></span>;</li>
+role="doc-biblioref">[2]</a></span>;</li>
 <li>the tool Squirrel was introduced in <span class="citation"
 data-cites="BDKJM-sp21"><a href="#ref-BDKJM-sp21"
-role="doc-biblioref">[2]</a></span> as a proof assistant for a
+role="doc-biblioref">[3]</a></span> as a proof assistant for a
 meta-logic on top of the logic of <span class="citation"
 data-cites="BC14"><a href="#ref-BC14"
-role="doc-biblioref">[1]</a></span>;</li>
+role="doc-biblioref">[2]</a></span>;</li>
 <li>the meta-logic was later adapted to support protocols with mutable
 state <span class="citation" data-cites="BDKM-csf22"><a
-href="#ref-BDKM-csf22" role="doc-biblioref">[3]</a></span>;</li>
+href="#ref-BDKM-csf22" role="doc-biblioref">[4]</a></span>;</li>
 <li>a post-quantum sound variant of the logic, meta-logic and tool have
 been given in <span class="citation" data-cites="CFJ-sp22"><a
-href="#ref-CFJ-sp22" role="doc-biblioref">[4]</a></span>;</li>
+href="#ref-CFJ-sp22" role="doc-biblioref">[5]</a></span>;</li>
 <li>recently, the meta-logic approach has been abandonned in favor of a
 self-contained higher-order logic <span class="citation"
 data-cites="BKL23"><a href="#ref-BKL23"
-role="doc-biblioref">[5]</a></span>.</li>
+role="doc-biblioref">[6]</a></span>.</li>
 </ul>
 <h1 id="team">Team</h1>
 <ul>
@@ -185,8 +189,16 @@ the MIT License. All source code is available <a
 href="https://github.com/squirrel-prover/squirrel-prover/">here</a>.</p>
 <h1 class="unnumbered" id="publications">Publications</h1>
 <div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-BDJKL24" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">D.
+Baelde, S. Delaune, C. Jacomme, A. Koutsos, and J. Lallemand,
+<span>“<span class="nocase">The Squirrel Prover and its
+Logic</span>,”</span> in <em><span>ACM SIGLOG News</span></em>, 2024,
+vol. 11, <a
+href="https://inria.hal.science/hal-04579038">https://inria.hal.science/hal-04579038</a>.</div>
+</div>
 <div id="ref-BC14" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[1] </div><div class="csl-right-inline">G.
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">G.
 Bana and H. Comon-Lundh, <span>“<span class="nocase">A Computationally
 Complete Symbolic Attacker for Equivalence Properties</span>,”</span> in
 <em><span class="nocase">2014 ACM SIGSAC Conference on Computer and
@@ -194,7 +206,7 @@ Communications Security</span></em>, 2014, pp. 609–620, <a
 href="https://hal.inria.fr/hal-01102216">https://hal.inria.fr/hal-01102216</a>.</div>
 </div>
 <div id="ref-BDKJM-sp21" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">D.
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">D.
 Baelde, S. Delaune, A. Koutsos, C. Jacomme, and S. Moreau, <span>“An
 <span>Interactive</span> <span>Prover</span> for <span>Protocol</span>
 <span>Verification</span> in the <span>Computational</span>
@@ -205,7 +217,7 @@ Baelde, S. Delaune, A. Koutsos, C. Jacomme, and S. Moreau, <span>“An
 href="https://hal.inria.fr/hal-03172119">https://hal.inria.fr/hal-03172119</a>.</div>
 </div>
 <div id="ref-BDKM-csf22" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">D.
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">D.
 Baelde, S. Delaune, A. Koutsos, and S. Moreau, <span>“<span
 class="nocase">Cracking the Stateful Nut</span>,”</span> in
 <em><span>CSF 2022 - 35th IEEE Computer Security Foundations
@@ -213,7 +225,7 @@ Symposium</span></em>, 2022, <a
 href="https://hal.archives-ouvertes.fr/hal-03500056">https://hal.archives-ouvertes.fr/hal-03500056</a>.</div>
 </div>
 <div id="ref-CFJ-sp22" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">C.
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">C.
 Cremers, C. Fontaine, and C. Jacomme, <span>“A <span>Logic</span> and an
 <span>Interactive</span> <span>Prover</span> for the
 <span>Computational</span> <span>Post-Quantum</span>
@@ -224,7 +236,7 @@ Cremers, C. Fontaine, and C. Jacomme, <span>“A <span>Logic</span> and an
 href="https://hal.inria.fr/hal-03620358">https://hal.inria.fr/hal-03620358</a>.</div>
 </div>
 <div id="ref-BKL23" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">D.
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">D.
 Baelde, A. Koutsos, and J. Lallemand, <span>“A higher-order
 indistinguishability logic for cryptographic reasoning,”</span> in
 <em>2023 38th annual ACM/IEEE symposium on logic in computer science

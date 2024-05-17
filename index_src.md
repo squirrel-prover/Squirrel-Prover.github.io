@@ -10,7 +10,7 @@
   prev_page_url:
 
   bibliography: biblio.bib
-  csl: ieee
+  csl: ieee.csl
   link-citations: true
  
   nocite: |
@@ -44,7 +44,7 @@ This [tutorial](https://squirrel-prover.github.io/documentation/tutorial.html) a
 A more complete tutorial has been prepared on the occasion of the
 Cyber in Nancy summer school; see the [events](events.html) page.
 
-The technical details are inside the research papers:
+A high-level introduction to the theory behind Squirrel was published in the ACM Siglog newsletter [@BDJKL24]. The formal technical details are inside the research papers:
 
 * the computationnally complete symbolic attacker was proposed in [@BC14];
 * the tool Squirrel was introduced in [@BDKJM-sp21] as a proof assistant for
