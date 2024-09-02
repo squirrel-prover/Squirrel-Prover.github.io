@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proofs &mdash; Squirrel  documentation</title>
@@ -16,12 +16,12 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
-        <script src="_static/notations.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/notations.js?v=69751d6f"></script>
         <script src="_static/js/rtd_search_config.js"></script>
         <script src="_static/js/rtd_sphinx_search.min.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -315,7 +315,7 @@
 \newcommand{\zeroone}[1]{[{#1}]}
 \end{split}\]</div>
 <span class="target" id="section-proofs"></span><section id="proofs">
-<h1>Proofs<a class="headerlink" href="#proofs" title="Permalink to this heading">¶</a></h1>
+<h1>Proofs<a class="headerlink" href="#proofs" title="Link to this heading">¶</a></h1>
 <p>The proof of a lemma is given after the lemma declaration,
 between the <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">Proof</span></span></code> and <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">Qed</span></span></code> markers.
 It consists in a list of tactics. The invocation of each
@@ -328,19 +328,19 @@ is completed and <code class="squirrelinline docutils literal notranslate"><span
 <p>The complete list of tactics can be found in the corresponding
 <a class="reference internal" href="squirrel-tacindex.html#tactic-index"><span class="std std-ref">tactic index</span></a>.</p>
 <section id="judgements">
-<span id="section-judgements"></span><h2>Judgements<a class="headerlink" href="#judgements" title="Permalink to this heading">¶</a></h2>
+<span id="section-judgements"></span><h2>Judgements<a class="headerlink" href="#judgements" title="Link to this heading">¶</a></h2>
 <p>Squirrel features two kinds of judgements:
 local judgements and global judgements.</p>
 <section id="logical-variables">
-<h3>Logical variables<a class="headerlink" href="#logical-variables" title="Permalink to this heading">¶</a></h3>
+<h3>Logical variables<a class="headerlink" href="#logical-variables" title="Link to this heading">¶</a></h3>
 <p><span class="term-defn"><span class="target" id="term-logical_var"></span>Logical variables</span> are free variables in a current goal. Such variables are implicitly quantified universally based on their type and tags.</p>
 </section>
 <section id="hypotheses">
-<h3>Hypotheses<a class="headerlink" href="#hypotheses" title="Permalink to this heading">¶</a></h3>
+<h3>Hypotheses<a class="headerlink" href="#hypotheses" title="Link to this heading">¶</a></h3>
 <p>Hypotheses are referred to by a hypothesis identifier <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code>.</p>
 <span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-hypothesis_id"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole">hypothesis_id</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span></section>
 <section id="local-judgement">
-<h3>Local judgement<a class="headerlink" href="#local-judgement" title="Permalink to this heading">¶</a></h3>
+<h3>Local judgement<a class="headerlink" href="#local-judgement" title="Link to this heading">¶</a></h3>
 <p>The general layout for a local judgement is as follows:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
@@ -370,7 +370,7 @@ a <a class="reference internal" href="logic.html#term-global-formula"><span clas
 </ul>
 </section>
 <section id="global-judgement">
-<h3>Global judgement<a class="headerlink" href="#global-judgement" title="Permalink to this heading">¶</a></h3>
+<h3>Global judgement<a class="headerlink" href="#global-judgement" title="Link to this heading">¶</a></h3>
 <p>The general layout for a global judgement is similar to the local one except that now:</p>
 <blockquote>
 <div><ul class="simple">
@@ -387,13 +387,13 @@ numbered list.</p>
 frame is enriched with some public key, as follows:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span class="ansi-fg-light-blue">global</span><span> lemma [myProtocol] obs_equiv t : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t, pk(sk))
+<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol] obs_equiv t : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t, pk(sk))
 </span></dt></dl>
 </div>
 <p>When starting its proof, after doing <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">intro</span></span><span> <span class="pre">H</span></span></code>, the goal that the user must prove is displayed as:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>Systems: </span><span class="ansi-fg-light-blue">left</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">right</span><span> (same for equivalences)
 </span></dt><dt class="in"><span>Variables: t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[glob]
 </span></dt><dt class="in"><span>H: [</span><span class="ansi-fg-light-green">happens</span><span>(t)]
@@ -406,9 +406,9 @@ frame is enriched with some public key, as follows:</p>
 </section>
 </section>
 <section id="generalities">
-<h2>Generalities<a class="headerlink" href="#generalities" title="Permalink to this heading">¶</a></h2>
+<h2>Generalities<a class="headerlink" href="#generalities" title="Link to this heading">¶</a></h2>
 <section id="tactic-arguments">
-<h3>Tactic arguments<a class="headerlink" href="#tactic-arguments" title="Permalink to this heading">¶</a></h3>
+<h3>Tactic arguments<a class="headerlink" href="#tactic-arguments" title="Link to this heading">¶</a></h3>
 <p>Tactics that apply to judgements whose conclusion is an equivalence
 may take a natural number as argument to identify one item in the equivalence.
 This is represented using the <a class="reference internal" href="#grammar-token-position"><code class="xref std std-token docutils literal notranslate"><span class="pre">position</span></code></a> token.</p>
@@ -420,7 +420,7 @@ holes.</p>
 <p>Term patterns are produced by appending to the production of
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code> and <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-sterm"><span class="hole"><span class="pre">sterm</span></span></a></span></code> the hole construct:</p>
 <span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-term_pat"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole">term_pat</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>…</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>_</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-sterm_pat"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-sterm_pat"><span class="hole">sterm_pat</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>…</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>_</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><section id="intro-patterns">
-<h4>Intro patterns<a class="headerlink" href="#intro-patterns" title="Permalink to this heading">¶</a></h4>
+<h4>Intro patterns<a class="headerlink" href="#intro-patterns" title="Link to this heading">¶</a></h4>
 <p>Introduction patterns are the principal tool used to do proof-context
 <a class="reference external" href="https://coq.inria.fr/refman/proof-engine/ssreflect-proof-language.html#bookkeeping">book-keeping</a>.
 They are used in Squirrel with an SSReflect-inspired syntax.
@@ -501,7 +501,7 @@ specified hypotheses from the proof context.</p>
 </section>
 </section>
 <section id="proof-terms">
-<h3>Proof terms<a class="headerlink" href="#proof-terms" title="Permalink to this heading">¶</a></h3>
+<h3>Proof terms<a class="headerlink" href="#proof-terms" title="Link to this heading">¶</a></h3>
 <p>Proof terms are used by several tactics (see e.g. <a class="reference internal" href="#squirrel:tacn.have" title="have"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">have</span></code></a> or
 <a class="reference internal" href="#squirrel:tacn.apply" title="apply"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">apply</span></code></a>) as a convenient way to combine and (partially) apply
 hypotheses, axioms or proved lemmas, in order to derive new facts.</p>
@@ -518,7 +518,7 @@ the context.</p>
 change in the future.</p>
 </div>
 <section id="proof-term-resolution">
-<span id="section-pt-resolution"></span><h4>Proof-term resolution<a class="headerlink" href="#proof-term-resolution" title="Permalink to this heading">¶</a></h4>
+<span id="section-pt-resolution"></span><h4>Proof-term resolution<a class="headerlink" href="#proof-term-resolution" title="Link to this heading">¶</a></h4>
 <p>A proof-term <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a> <a class="reference internal" href="#grammar-token-pt_arg"><span class="hole"><span class="pre">pt_arg</span><sub><span class="pre">1</span></sub></span></a> <span><span><span class="pre">...</span></span></span> <a class="reference internal" href="#grammar-token-pt_arg"><span class="hole"><span class="pre">pt_arg</span><sub><span class="pre">n</span></sub></span></a></span></code> is
 resolved into a local or global formula as follows:</p>
 <ul class="simple">
@@ -565,7 +565,7 @@ formulas, e.g. when applying a global formula to a local formula.</p></li>
 </section>
 </section>
 <section id="reduction">
-<span id="id2"></span><h3>Reduction<a class="headerlink" href="#reduction" title="Permalink to this heading">¶</a></h3>
+<span id="id2"></span><h3>Reduction<a class="headerlink" href="#reduction" title="Link to this heading">¶</a></h3>
 <p>Several tactics (e.g., <a class="reference internal" href="#squirrel:tacn.simpl" title="simpl"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">simpl</span></code></a> and <a class="reference internal" href="#squirrel:tacn.auto" title="auto"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">auto</span></code></a>) rely on a
 reduction engine. This engine repeatedly applies several
 transformations, corresponding to the following flags.</p>
@@ -593,13 +593,13 @@ rules added to the rewriting database using the <a class="reference internal" hr
 command.</p>
 </section>
 <section id="automatic-simplification-tactics">
-<h3>Automatic simplification tactics<a class="headerlink" href="#automatic-simplification-tactics" title="Permalink to this heading">¶</a></h3>
+<h3>Automatic simplification tactics<a class="headerlink" href="#automatic-simplification-tactics" title="Link to this heading">¶</a></h3>
 <p>There are three automated tactics. The <a class="reference internal" href="#squirrel:tacn.autosimpl" title="autosimpl"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">autosimpl</span></code></a> tactic is
 called automatically after each tactic, unless the tactical
 <a class="reference internal" href="#squirrel:tacn.nosimpl" title="nosimpl"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">nosimpl</span></code></a> is used.</p>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.auto">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">auto</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-simpl_flags"><span class="hole"><span class="pre">simpl_flags</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.auto" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">auto</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-simpl_flags"><span class="hole"><span class="pre">simpl_flags</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.auto" title="Link to this definition">¶</a></dt>
 <dd><p>Attempt to automatically prove a goal using the hypotheses.</p>
 <p>The tactic uses the <a class="reference internal" href="#reduction"><span class="std std-ref">reduction engine</span></a>
 with the provided flags (defaults to <code class="squirrelinline docutils literal notranslate"><span><span class="pre">rw,beta,proj</span></span></code>).</p>
@@ -608,7 +608,7 @@ propositional reasoning, rewriting simplications, and both
 <a class="reference internal" href="#squirrel:tacn.constraints" title="constraints"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">constraints</span></code></a> and <a class="reference internal" href="#squirrel:tact.congruence" title="congruence"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">congruence</span></code></a>.</p>
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="id3">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cannot</span></span></span> <span><span><span class="pre">close</span></span></span> <span><span><span class="pre">goal</span></span></span></span></span><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cannot</span></span></span> <span><span><span class="pre">close</span></span></span> <span><span><span class="pre">goal</span></span></span></span></span><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
 <dd><p>The current goal could not be closed.</p>
 </dd></dl>
 
@@ -616,13 +616,13 @@ propositional reasoning, rewriting simplications, and both
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.autosimpl">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">autosimpl</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.autosimpl" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">autosimpl</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.autosimpl" title="Link to this definition">¶</a></dt>
 <dd><p>Simplify a goal, without closing it.</p>
 <p>The tactic uses the <a class="reference internal" href="#reduction"><span class="std std-ref">reduction engine</span></a>
 with the flags <code class="squirrelinline docutils literal notranslate"><span><span class="pre">rw,beta,proj</span></span></code>.</p>
 <p>When the conclusion of the goal is a conjunction, it splits the
 goal into several sub-goals, automatically closing only the trivial
-goals proved by <a class="reference internal" href="#squirrel:tact.true" title="true"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">true</span></code></a> and <a class="reference internal" href="#squirrel:tacn.assump" title="assump"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">assump</span></code></a>.</p>
+goals proved by <a class="reference internal" href="#squirrel:tact.true" title="true"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">true</span></code></a> and <a class="reference internal" href="#squirrel:tacn.assumption" title="assumption"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">assumption</span></code></a>.</p>
 <p>When the conclusion of the goal is a global formula which only contains
 a local formula, the goal is then turned into a local formula. Otherwise
 the tactic does nothing.</p>
@@ -630,7 +630,7 @@ the tactic does nothing.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.simpl">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">simpl</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-simpl_flags"><span class="hole"><span class="pre">simpl_flags</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.simpl" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">simpl</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-simpl_flags"><span class="hole"><span class="pre">simpl_flags</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.simpl" title="Link to this definition">¶</a></dt>
 <dd><p>Simplify a goal and its hypotheses.
 This tactic always succeeds, replacing the initial goal with
 a single simplified goal.</p>
@@ -649,7 +649,7 @@ if it determines that <code class="squirrelinline docutils literal notranslate">
 
 </section>
 <section id="tactics">
-<span id="section-tactics"></span><h3>Tactics<a class="headerlink" href="#tactics" title="Permalink to this heading">¶</a></h3>
+<span id="section-tactics"></span><h3>Tactics<a class="headerlink" href="#tactics" title="Link to this heading">¶</a></h3>
 <p>The full syntax of tactic combinations is as follows:</p>
 <span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-tactic"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a><span><span>;</span></span> <span class="repeat-wrapper"><span class="repeat"><span><span>tac</span></span><span><span>_</span></span><span><span>selector</span></span></span><span class="notation-sup">?</span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a><span><span>;</span></span> <span><span>[</span></span> <span class="repeat-wrapper-with-sub"><span class="repeat"><span><span>tac</span></span><span><span>_</span></span><span><span>selector</span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span><span class="notation-sup">*</span><span class="notation-sub">|</span></span> <span><span>]</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a> <span><span>+</span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>by</span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>nosimpl</span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>try</span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>repeat</span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-tactic"><span class="hole">tactic</span></a> <span><span>=&gt;</span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-intro_pat"><span class="hole">intro_pat</span></a></span><span class="notation-sup">+</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-tac_selector"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-tac_selector"><span class="hole">tac_selector</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="reference-intro.html#grammar-token-natural"><span class="hole">natural</span></a></span><span class="notation-sup">*</span><span class="notation-sub">,</span></span> <span><span>:</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>Tactic combinators behaves as follows:</p>
 <ul class="simple">
@@ -667,13 +667,13 @@ first tactic, and if that fails, applies the second one.</p></li>
 <p>The remainder behaves as follows:</p>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.by">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">by</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.by" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">by</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.by" title="Link to this definition">¶</a></dt>
 <dd><p>Fail unless the tactic closes the goal.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.nosimpl">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">nosimpl</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.nosimpl" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">nosimpl</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.nosimpl" title="Link to this definition">¶</a></dt>
 <dd><p>Call the given tactic without the implicit use of simplifications.
 This can be useful to understand what’s going on step by step.
 This is also necessary in rare occasions where simplifications are
@@ -682,14 +682,14 @@ actually undesirable to complete the proof.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.try">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">try</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.try" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">try</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.try" title="Link to this definition">¶</a></dt>
 <dd><p>Try to apply the given tactic. If it fails, succeed with the
 sub-goal left unchanged.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.repeat">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">repeat</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.repeat" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">repeat</span></span></span> <a class="reference internal" href="#grammar-token-tactic"><span class="hole"><span class="pre">tactic</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.repeat" title="Link to this definition">¶</a></dt>
 <dd><p>Apply the given tactic, and recursively apply it again on the
 generated sub-goals, until it fails.</p>
 </dd></dl>
@@ -702,23 +702,23 @@ generated sub-goals, until it fails.</p>
 
 </section>
 <section id="common-errors">
-<h3>Common errors<a class="headerlink" href="#common-errors" title="Permalink to this heading">¶</a></h3>
+<h3>Common errors<a class="headerlink" href="#common-errors" title="Link to this heading">¶</a></h3>
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.Out-of-range-position">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Out</span></span></span> <span><span><span class="pre">of</span></span></span> <span><span><span class="pre">range</span></span></span> <span><span><span class="pre">position.</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Out-of-range-position" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Out</span></span></span> <span><span><span class="pre">of</span></span></span> <span><span><span class="pre">range</span></span></span> <span><span><span class="pre">position.</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Out-of-range-position" title="Link to this definition">¶</a></dt>
 <dd><p>Argument does not correspond to a valid equivalence item.</p>
 </dd></dl>
 
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.Assumption-not-over-valid-system">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Assumption</span></span></span> <span><span><span class="pre">not</span></span></span> <span><span><span class="pre">over</span></span></span> <span><span><span class="pre">valid</span></span></span> <span><span><span class="pre">system</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Assumption-not-over-valid-system" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Assumption</span></span></span> <span><span><span class="pre">not</span></span></span> <span><span><span class="pre">over</span></span></span> <span><span><span class="pre">valid</span></span></span> <span><span><span class="pre">system</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Assumption-not-over-valid-system" title="Link to this definition">¶</a></dt>
 <dd><p>Trying to use a proof term that does not apply to the current system.</p>
 </dd></dl>
 
 </section>
 </section>
 <section id="id4">
-<h2>Tactics<a class="headerlink" href="#id4" title="Permalink to this heading">¶</a></h2>
+<h2>Tactics<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
 <p>Tactics are organized in three categories:</p>
 <blockquote>
 <div><ul class="simple">
@@ -734,19 +734,19 @@ goals. Remark that applying a tactic to a local goal may produce a
 global sub-goal, and conversely.</p>
 <p>Additionally, there are a few <a class="reference internal" href="#section-utility-tactics"><span class="std std-ref">utility tactics</span></a> listed at the end.</p>
 <section id="generic-tactics">
-<span id="section-generic-tactics"></span><h3>Generic tactics<a class="headerlink" href="#generic-tactics" title="Permalink to this heading">¶</a></h3>
+<span id="section-generic-tactics"></span><h3>Generic tactics<a class="headerlink" href="#generic-tactics" title="Link to this heading">¶</a></h3>
 <section id="common-tactics">
-<h4>Common tactics<a class="headerlink" href="#common-tactics" title="Permalink to this heading">¶</a></h4>
+<h4>Common tactics<a class="headerlink" href="#common-tactics" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.admit">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">admit</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.admit" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">admit</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.admit" title="Link to this definition">¶</a></dt>
 <dd><p>Admit the current goal, or admit the element at position
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span></code> when the goal is an equivalence.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
-<dt class="sig sig-object squirrel" id="squirrel:tacn.assump">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">assumption</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.assump" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object squirrel" id="squirrel:tacn.assumption">
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">assumption</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.assumption" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Conclude if the conclusion of the current goal (or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">false</span></span></code>) appears in the hypotheses. The
 hypothesis to be checked against may be directly specified using
@@ -756,7 +756,7 @@ hypothesis to be checked against may be directly specified using
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.case">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">case</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.case" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">case</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.case" title="Link to this definition">¶</a></dt>
 <dd><p>Perform a case analysis over the given argument:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code>: create one sub-goal for each disjunct of
@@ -771,7 +771,7 @@ as they must be be compatible).</p></li>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.induction">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">induction</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.induction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">induction</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.induction" title="Link to this definition">¶</a></dt>
 <dd><p>Apply the induction scheme to the conclusion. There are
 several behaviours depending on the type of the current goal
 and whether an argument is given.</p>
@@ -801,7 +801,7 @@ of a protocol.</p>
 <p>Over a goal of the form</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>Systems: </span><span class="ansi-fg-light-blue">left</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">right</span><span> (same for equivalences)
 </span></dt><dt class="in"><span>Variables: t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[glob]
 </span></dt><dt class="in"><span>H: [</span><span class="ansi-fg-light-green">happens</span><span>(t)]
@@ -818,7 +818,7 @@ that has a total of 3 actions, a sub-goal created for the case of <code class="s
 looks like</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">4</span><span>):
+<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">4</span><span>):
 </span></dt><dt class="in"><span>Systems: </span><span class="ansi-fg-light-blue">left</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:myProtocol/</span><span class="ansi-fg-light-blue">right</span><span> (same for equivalences)
 </span></dt><dt class="in"><span>H: [</span><span class="ansi-fg-light-green">happens</span><span>(A)]
 </span></dt><dt class="in"><span>IH:  </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;pred (A))
@@ -831,7 +831,7 @@ looks like</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.dependent-induction">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">dependent</span></span></span> <span><span><span class="pre">induction</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.dependent-induction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">dependent</span></span></span> <span><span><span class="pre">induction</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.dependent-induction" title="Link to this definition">¶</a></dt>
 <dd><p>Apply the induction scheme to the conclusion. If no argument is
 specified, the conclusion must be a universal quantification over
 a well-founded type. Alternatively, a term of a well-founded type
@@ -845,7 +845,7 @@ when the conclusion is an equivalences).</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.destruct">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">destruct</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.destruct" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">destruct</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.destruct" title="Link to this definition">¶</a></dt>
 <dd><p>Destruct a hypothesis based on its top-most connective
 (existential quantification, disjunction or conjunction),
 applying the simple introduction pattern <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span></code> to it.</p>
@@ -866,7 +866,7 @@ the other with the hypotheses <code class="squirrelinline docutils literal notra
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.exists">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">exists</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.exists" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">exists</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.exists" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">exists</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span><sub><span class="pre">1</span></sub></span></a> <span><span><span class="pre">...</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span><sub><span class="pre">n</span></sub></span></a></span></code> uses the terms <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span><sub><span class="pre">1</span></sub></span></a> <span><span><span class="pre">...</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span><sub><span class="pre">n</span></sub></span></a></span></code>
 as witnesses to prove an existentially quantified conclusion.</p>
 <p>For example, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">exists</span></span><span> <span class="pre">t</span></span></code> transforms the conclusion of a goal
@@ -875,7 +875,7 @@ as witnesses to prove an existentially quantified conclusion.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.generalize">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">generalize</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.generalize" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">generalize</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.generalize" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">generalize</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></code> looks for an instance <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code> of
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></code> in the goal. Then, it replaces all occurrences of <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code>
 by a fresh universally quantified variable
@@ -884,7 +884,7 @@ by a fresh universally quantified variable
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.generalize-dependent">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">generalize</span></span></span> <span><span><span class="pre">dependent</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.generalize-dependent" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">generalize</span></span></span> <span><span><span class="pre">dependent</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.generalize-dependent" title="Link to this definition">¶</a></dt>
 <dd><p>Same as <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">generalize</span></span></span></span></code>, but also generalize in the proof context.
 All hypotheses in which generalization occurred are pushed back into the
 conclusion before the newly added quantified variables.</p>
@@ -892,7 +892,7 @@ conclusion before the newly added quantified variables.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.have">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.have" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.have" title="Link to this definition">¶</a></dt>
 <dd><span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-have_ip"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-have_ip"><span class="hole">have_ip</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-s_item"><span class="hole">s_item</span></a></span><span class="notation-sup">*</span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole">simpl_ip</span></a> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-s_item"><span class="hole">s_item</span></a></span><span class="notation-sup">*</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <span><span><span class="pre">F</span></span></span></span></code> introduces the new hypothesis <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">F</span></span></span></span></code>, which
 can be a <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code> or a <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></code>. The new
 hypothesis is processed by <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a></span></code> (see below). A new
@@ -912,14 +912,14 @@ applied in order.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.assert">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">assert</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.assert" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">assert</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.assert" title="Link to this definition">¶</a></dt>
 <dd><p>This is an alternative syntax for <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code>,
 where <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span></code> defaults to <code class="squirrelinline docutils literal notranslate"><span><span class="pre">?</span></span></code>.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="id5">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:=</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:=</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:=</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> <a class="reference internal" href="#section-pt-resolution"><span class="std std-ref">resolves</span></a>
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> — requiring that the term unification
 enviroment is closed — and processes the resulting formula using introduction
@@ -928,7 +928,7 @@ pattern <code class="docutils literal notranslate"><span class="notation"><a cla
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.apply">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">apply</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.apply" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">apply</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.apply" title="Link to this definition">¶</a></dt>
 <dd><p>Backward reasoning tactic.
 First, <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> is <a class="reference internal" href="#section-pt-resolution"><span class="std std-ref">resolved</span></a> as a
 formula <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">F</span></span><sub><span class="pre">pt</span></sub></span></span></code>
@@ -952,7 +952,7 @@ and the tactic continues from <code class="docutils literal notranslate"><span c
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="id6">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">apply</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a> <span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">apply</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a> <span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
 <dd><p>Forward reasoning variant of <a class="reference internal" href="#squirrel:tacn.apply" title="apply"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">apply</span></code></a>, which unifies the
 premisses of <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> against the conclusion of
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code>, replacing <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code> content with
@@ -964,7 +964,7 @@ replaces
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.rewrite">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">rewrite</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-rw_arg"><span class="hole"><span class="pre">rw_arg</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-rw_target"><span class="hole"><span class="pre">rw_target</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.rewrite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">rewrite</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-rw_arg"><span class="hole"><span class="pre">rw_arg</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-rw_target"><span class="hole"><span class="pre">rw_target</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.rewrite" title="Link to this definition">¶</a></dt>
 <dd><span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-rw_arg"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-rw_arg"><span class="hole">rw_arg</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-s_item"><span class="hole">s_item</span></a></span><span class="alternative-separator">​</span><span class="alternative-block"><a class="reference internal" href="#grammar-token-rw_item"><span class="hole">rw_item</span></a></span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-rw_item"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-rw_item"><span class="hole">rw_item</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span class="repeated-alternative"><span class="alternative-block"><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="reference-intro.html#grammar-token-natural"><span class="hole">natural</span></a></span><span class="notation-sup">?</span></span> <span><span>!</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>?</span></span></span></span></span><span class="notation-sup">?</span></span> <span class="repeat-wrapper"><span class="repeat"><span><span>&lt;-</span></span></span><span class="notation-sup">?</span></span> <span class="alternative"><span class="alternative-block"><span><span>(</span></span><a class="reference internal" href="#grammar-token-proof_term"><span class="hole">proof_term</span></a><span><span>)</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>/</span></span><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>/(</span></span> <a class="reference internal" href="reference-intro.html#grammar-token-infix_op"><span class="hole">infix_op</span></a><span><span>)</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>/*</span></span></span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-rw_target"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-rw_target"><span class="hole">rw_target</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole">hypothesis_id</span></a></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>*</span></span></span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>Apply a sequence of <a class="reference internal" href="#term-rewrite-ip-item"><span class="xref std std-term">rewriting</span></a>
 and <a class="reference internal" href="#term-simplification-item"><span class="xref std std-term">simplification</span></a> items to the rewrite target, which is:</p>
 <ul class="simple">
@@ -1000,19 +1000,19 @@ Otherwise, the rewrite item must be applied exactly once.</p></li>
 </ul>
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.rule-bad-systems">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">rule</span></span></span> <span><span><span class="pre">bad</span></span></span> <span><span><span class="pre">systems</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.rule-bad-systems" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">rule</span></span></span> <span><span><span class="pre">bad</span></span></span> <span><span><span class="pre">systems</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.rule-bad-systems" title="Link to this definition">¶</a></dt>
 <dd><p>Rewrite item applies to a system which is not compatible with the rewrite target.</p>
 </dd></dl>
 
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.nothing-to-rewrite">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">nothing</span></span></span> <span><span><span class="pre">to</span></span></span> <span><span><span class="pre">rewrite</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.nothing-to-rewrite" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">nothing</span></span></span> <span><span><span class="pre">to</span></span></span> <span><span><span class="pre">rewrite</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.nothing-to-rewrite" title="Link to this definition">¶</a></dt>
 <dd><p>No instance of the rewrite rule were found.</p>
 </dd></dl>
 
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.max-nested-rewriting-reached">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">max</span></span></span> <span><span><span class="pre">nested</span></span></span> <span><span><span class="pre">rewriting</span></span></span> <span><span><span class="pre">reached</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.max-nested-rewriting-reached" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">max</span></span></span> <span><span><span class="pre">nested</span></span></span> <span><span><span class="pre">rewriting</span></span></span> <span><span><span class="pre">reached</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.max-nested-rewriting-reached" title="Link to this definition">¶</a></dt>
 <dd><p>There were too many nested rewriting. This is to avoid infinite rewriting loops.</p>
 </dd></dl>
 
@@ -1020,14 +1020,14 @@ Otherwise, the rewrite item must be applied exactly once.</p></li>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.id">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">id</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.id" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">id</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.id" title="Link to this definition">¶</a></dt>
 <dd><p>The identity tactic, which does nothing. Sometimes useful when
 using <a class="reference internal" href="#section-tactics"><span class="std std-ref">tactic combinators</span></a>.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.intro">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">intro</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-intro_pat"><span class="hole"><span class="pre">intro_pat</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.intro" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">intro</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-intro_pat"><span class="hole"><span class="pre">intro_pat</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.intro" title="Link to this definition">¶</a></dt>
 <dd><p>Introduce the top-most assumptions and universally quantified
 variables of the conclusion as specified by the given introduction
 patterns.</p>
@@ -1035,13 +1035,13 @@ patterns.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.clear">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">clear</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.clear" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">clear</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.clear" title="Link to this definition">¶</a></dt>
 <dd><p>Drop the specified hypotheses.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.reduce">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">reduce</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-simpl_flags"><span class="hole"><span class="pre">simpl_flags</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.reduce" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">reduce</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-simpl_flags"><span class="hole"><span class="pre">simpl_flags</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.reduce" title="Link to this definition">¶</a></dt>
 <dd><p>Reduce all terms in a goal, working on both hypotheses and conclusion.</p>
 <p>This tactic always succeeds, replacing the initial goal with a
 unique sub-goal (which may be identical to the initial one).</p>
@@ -1051,7 +1051,7 @@ with the provided flags (defaults to <code class="squirrelinline docutils litera
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.remember">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">remember</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.remember" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">remember</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.remember" title="Link to this definition">¶</a></dt>
 <dd><p><a class="reference internal" href="#squirrel:tacn.remember" title="remember"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">remember</span></code></a> behaves as <a class="reference internal" href="#squirrel:tacn.generalize" title="generalize"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">generalize</span></code></a>, except that it adds
 as a hypothesis the equality between the generalized term and the
 new variable.</p>
@@ -1059,7 +1059,7 @@ new variable.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.revert">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">revert</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.revert" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">revert</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span><span class="notation-sup"><span class="pre">*</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.revert" title="Link to this definition">¶</a></dt>
 <dd><p>Remove the hypotheses from the proof context, and add them back
 into the conclusion of the goal.</p>
 <p>For example, running <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">revert</span></span></span> <span><span><span class="pre">H</span></span></span></span></code> on the judgement
@@ -1068,7 +1068,7 @@ into the conclusion of the goal.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.left">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">left</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.left" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">left</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.left" title="Link to this definition">¶</a></dt>
 <dd><p>Reduce a goal with a disjunction conclusion into the goal where the
 conclusion has been replaced with the first disjunct.
 That is, <a class="reference internal" href="#squirrel:tacn.left" title="left"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">left</span></code></a> turns <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Γ</span></span></span> <span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">F</span></span></span> <span class="pre">|</span><span class="pre">|</span> <span><span><span class="pre">G</span></span></span></span></code> into <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Γ</span></span></span> <span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">F</span></span></span></span></code>.</p>
@@ -1076,7 +1076,7 @@ That is, <a class="reference internal" href="#squirrel:tacn.left" title="left"><
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.right">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">right</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.right" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">right</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.right" title="Link to this definition">¶</a></dt>
 <dd><p>Reduce a goal with a disjunction conclusion into the goal where the
 conclusion has been replaced with the second disjunct.
 That is, <a class="reference internal" href="#squirrel:tacn.right" title="right"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">right</span></code></a> turns <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Γ</span></span></span> <span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">F</span></span></span> <span class="pre">|</span><span class="pre">|</span> <span><span><span class="pre">G</span></span></span></span></code> into <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Γ</span></span></span> <span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">G</span></span></span></span></code>.</p>
@@ -1084,7 +1084,7 @@ That is, <a class="reference internal" href="#squirrel:tacn.right" title="right"
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.split">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">split</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.split" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">split</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.split" title="Link to this definition">¶</a></dt>
 <dd><p>Split a conjunction goal, creating one sub-goal per conjunct.
 For example, <a class="reference internal" href="#squirrel:tacn.split" title="split"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">split</span></code></a> replaces the goal <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">F</span></span></span> <span><span><span class="pre">&amp;&amp;</span></span></span> <span><span><span class="pre">G</span></span></span> <span><span><span class="pre">&amp;&amp;</span></span></span> <span><span><span class="pre">H</span></span></span></span></code>
 with the three goals <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">F</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">G</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">H</span></span></span></span></code>.</p>
@@ -1092,7 +1092,7 @@ with the three goals <code class="docutils literal notranslate"><span class="not
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.use">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">use</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">with</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.use" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">use</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">with</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.use" title="Link to this definition">¶</a></dt>
 <dd><p>Instantiate a lemma or hypothesis using the provided arguments (if
 any). An introduction pattern can also be specified to handle the
 new hypothesis.</p>
@@ -1106,26 +1106,26 @@ form).</p>
 
 </section>
 <section id="local-tactics">
-<h4>Local tactics<a class="headerlink" href="#local-tactics" title="Permalink to this heading">¶</a></h4>
+<h4>Local tactics<a class="headerlink" href="#local-tactics" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.true">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">true</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.true" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">true</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.true" title="Link to this definition">¶</a></dt>
 <dd><p>Close a goal when the conclusion is (syntactically) <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-cyan"><span class="pre">true</span></span></code>.</p>
 </dd></dl>
 
 </section>
 <section id="global-tactics">
-<h4>Global tactics<a class="headerlink" href="#global-tactics" title="Permalink to this heading">¶</a></h4>
+<h4>Global tactics<a class="headerlink" href="#global-tactics" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.byequiv">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">byequiv</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.byequiv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">byequiv</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.byequiv" title="Link to this definition">¶</a></dt>
 <dd><p>Transform a global judgement <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">[F]</span></span></span></span></code> into a local judgement
 <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">⊢</span></span></span> <span><span><span class="pre">F</span></span></span></span></code>.</p>
 </dd></dl>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.constseq">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">constseq</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a><span><span><span class="pre">:</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">(fun</span></span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span><span><span class="pre">=&gt;</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">)</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.constseq" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">constseq</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a><span><span><span class="pre">:</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">(fun</span></span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span><span><span class="pre">=&gt;</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">)</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.constseq" title="Link to this definition">¶</a></dt>
 <dd><p>Simplify a sequence at the given <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span></code> when it only
 contains a finite number of possible values <code class="squirrelinline docutils literal notranslate"><span><span class="pre">v_1</span></span></code>,…, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">v_i</span></span></code>
 depending on the value of the sequence variable.</p>
@@ -1178,7 +1178,7 @@ and creats two sub-goal, asking to prove the two following formulas:</p>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.enrich">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">enrich</span></span></span> <span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span><span class="notation-sub"><span class="pre">,</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.enrich" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">enrich</span></span></span> <span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span><span class="notation-sub"><span class="pre">,</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.enrich" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Enrich the conclusion of an equivalence goal with the given terms.
 Note that this changes the positions of items in the equivalence, and
@@ -1188,7 +1188,7 @@ if added before other tactics may break later references.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.localize">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">localize</span></span></span> <span class="hole"><span class="pre">hypothesis</span></span> <span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.localize" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">localize</span></span></span> <span class="hole"><span class="pre">hypothesis</span></span> <span><span><span class="pre">as</span></span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.localize" title="Link to this definition">¶</a></dt>
 <dd><p>Change a global hypothesis containing a reachability formula
 <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[</span></span></span><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">]</span></span></span></span></code> to a local hypothesis <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code>, and applies the
 given simple introduction pattern <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a></span></code> to the new hypothesis.</p>
@@ -1197,7 +1197,7 @@ given simple introduction pattern <code class="docutils literal notranslate"><sp
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.memseq">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">memseq</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.memseq" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">memseq</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.memseq" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Prove that a bi-frame element appears in a sequence of the bi-frame.</p>
 </div></blockquote>
@@ -1205,7 +1205,7 @@ given simple introduction pattern <code class="docutils literal notranslate"><sp
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.refl">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">refl</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.refl" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">refl</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.refl" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Close a goal by reflexivity. Cannot apply if the goal contains
 variable or macros, as those may have different left and right
@@ -1215,7 +1215,7 @@ behaviours.</p>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.sym">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">sym</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.sym" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">sym</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.sym" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Swap the left and right system of the equivalence goal.</p>
 </div></blockquote>
@@ -1223,7 +1223,7 @@ behaviours.</p>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.trans">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">trans</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.trans" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">trans</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.trans" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Prove an equivalence by transitivity.</p>
 </div></blockquote>
@@ -1231,7 +1231,7 @@ behaviours.</p>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.splitseq">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">splitseq</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a><span><span><span class="pre">:</span></span></span> <span><span><span class="pre">(fun</span></span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span><span><span class="pre">=&gt;</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">)</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.splitseq" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">splitseq</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a><span><span><span class="pre">:</span></span></span> <span><span><span class="pre">(fun</span></span></span> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span><span><span class="pre">=&gt;</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">)</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.splitseq" title="Link to this definition">¶</a></dt>
 <dd><p>Split a sequence according to some boolean test, replacing the
 sequence with two subsequences.</p>
 <p>The function passed as argument must be take as
@@ -1263,12 +1263,12 @@ return a boolean.</p>
 </section>
 </section>
 <section id="structural-tactics">
-<span id="section-structural-tactics"></span><h3>Structural tactics<a class="headerlink" href="#structural-tactics" title="Permalink to this heading">¶</a></h3>
+<span id="section-structural-tactics"></span><h3>Structural tactics<a class="headerlink" href="#structural-tactics" title="Link to this heading">¶</a></h3>
 <section id="id9">
-<h4>Common tactics<a class="headerlink" href="#id9" title="Permalink to this heading">¶</a></h4>
+<h4>Common tactics<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.constraints">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">constraints</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.constraints" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">constraints</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.constraints" title="Link to this definition">¶</a></dt>
 <dd><p>Attempt to conclude by automated reasoning on trace literals.
 Literals are collected from hypotheses, both local and global,
 after the destruction of conjunctions (but no case analysis is
@@ -1278,12 +1278,12 @@ is a trace literal then it is taken into account as well.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.depends">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">depends</span></span></span> <span class="hole"><span class="pre">timestamp</span></span><span><span><span class="pre">,</span></span></span> <span class="hole"><span class="pre">timestamp</span></span></span></span><a class="headerlink" href="#squirrel:tacn.depends" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">depends</span></span></span> <span class="hole"><span class="pre">timestamp</span></span><span><span><span class="pre">,</span></span></span> <span class="hole"><span class="pre">timestamp</span></span></span></span><a class="headerlink" href="#squirrel:tacn.depends" title="Link to this definition">¶</a></dt>
 <dd><p>If the second action depends on the first action, and if the second
 action happens, then add the corresponding timestamp inequality.</p>
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.Not-dependent">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Not</span></span></span> <span><span><span class="pre">dependent</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Not-dependent" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Not</span></span></span> <span><span><span class="pre">dependent</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Not-dependent" title="Link to this definition">¶</a></dt>
 <dd><p>The two actions are not dependent, i.e. were not derived
 from two outputs in sequence in the source process.</p>
 </dd></dl>
@@ -1292,7 +1292,7 @@ from two outputs in sequence in the source process.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.expand">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">expand</span></span></span> <span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-macro_id"><span class="hole"><span class="pre">macro_id</span></span></a> <span class="pre">|</span> <a class="reference internal" href="logic.html#grammar-token-macro_application"><span class="hole"><span class="pre">macro_application</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span><span class="notation-sub"><span class="pre">,</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.expand" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">expand</span></span></span> <span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-macro_id"><span class="hole"><span class="pre">macro_id</span></span></a> <span class="pre">|</span> <a class="reference internal" href="logic.html#grammar-token-macro_application"><span class="hole"><span class="pre">macro_application</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span><span class="notation-sub"><span class="pre">,</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.expand" title="Link to this definition">¶</a></dt>
 <dd><p>Expand all occurences of the given macros in both the conclusion
 and proof-context, either fully specified with an action or simply
 a type of macro.</p>
@@ -1300,13 +1300,13 @@ a type of macro.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.expandall">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">expandall</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.expandall" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">expandall</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.expandall" title="Link to this definition">¶</a></dt>
 <dd><p>Expand all possible macros in the current proof-context and conclusion.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.fa">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">fa</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="#grammar-token-fa_arg"><span class="hole"><span class="pre">fa_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span><span class="notation-sub"><span class="pre">,</span></span></span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.fa" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">fa</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="#grammar-token-fa_arg"><span class="hole"><span class="pre">fa_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span><span class="notation-sub"><span class="pre">,</span></span></span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.fa" title="Link to this definition">¶</a></dt>
 <dd><span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-fa_arg"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-fa_arg"><span class="hole">fa_arg</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span class="repeated-alternative"><span class="alternative-block"><span><span>!</span></span></span><span class="alternative-separator">​</span><span class="alternative-block"><span><span>?</span></span></span></span></span><span class="notation-sup">?</span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole">term_pat</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>Apply the function application rule, simplifying the goal by
 removing the head function symbol, as follows:</p>
 <ul class="simple">
@@ -1330,23 +1330,12 @@ as possible, including 0.</p></li>
 </ul>
 </dd></dl>
 
-<dl class="squirrel tacn">
-<dt class="sig sig-object squirrel" id="squirrel:tacn.namelength">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">namelength</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.namelength" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the fact that two names have the same
-length. The two arguments must the indeed be a <a class="reference internal" href="declarations.html#squirrel:decl.name" title="name"><code class="xref squirrel squirrel-decl docutils literal notranslate"><span class="pre">name</span></code></a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This tactic is deprecated. Use the <a class="reference internal" href="declarations.html#term-namelength-axiom"><span class="xref std std-term">namelength axiom</span></a> instead.</p>
-</div>
-</dd></dl>
-
 </section>
 <section id="id11">
-<h4>Local tactics<a class="headerlink" href="#id11" title="Permalink to this heading">¶</a></h4>
+<h4>Local tactics<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.congruence">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">congruence</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.congruence" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">congruence</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.congruence" title="Link to this definition">¶</a></dt>
 <dd><p>Attempt to conclude by automated reasoning on message (dis)-equalities.
 Equalities and disequalities are collected from hypotheses, both local
 and global, after the destruction of conjunctions (but no case analysis
@@ -1356,7 +1345,7 @@ is a message (dis)-equality then it is taken into account as well.</p>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.const">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">const</span></span></span> <a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.const" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">const</span></span></span> <a class="reference internal" href="logic.html#grammar-token-variable"><span class="hole"><span class="pre">variable</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.const" title="Link to this definition">¶</a></dt>
 <dd><p>Add the <cite>const</cite> tag to a variable.</p>
 <p>The variable must be of a finite and fixed (η-independent) type,
 and must not appear in any global hypothesis (some global
@@ -1365,18 +1354,18 @@ hypotheses may be localised (see <a class="reference internal" href="#squirrel:t
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.eqnames">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">eqnames</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.eqnames" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">eqnames</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.eqnames" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Add index constraints resulting from names equalities,
 modulo the known equalities.</p>
-<p>If <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n[i]</span> <span class="pre">=</span> <span class="pre">n[j]</span></span></code> then <code class="squirrelinline docutils literal notranslate"><span><span class="pre">i</span> <span class="pre">=</span> <span class="pre">j</span></span></code>. This is checked on all name
+<p>If <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n(i)</span> <span class="pre">=</span> <span class="pre">n(j)</span></span></code> then <code class="squirrelinline docutils literal notranslate"><span><span class="pre">i</span> <span class="pre">=</span> <span class="pre">j</span></span></code>. This is checked on all name
 equality entailed by the current context.</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.eqtrace">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">eqtrace</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.eqtrace" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">eqtrace</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.eqtrace" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Add term constraints resulting from timestamp and index
 equalities.</p>
@@ -1387,7 +1376,7 @@ in the other terms.</p>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.executable">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">executable</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.executable" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">executable</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.executable" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Assert that <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;_</span></span></code> implies <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;_</span></span></code> for all previous
 timestamps.</p>
@@ -1400,7 +1389,7 @@ sub-goals, requiring to prove that <code class="squirrelinline docutils literal 
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.project">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">project</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.project" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">project</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.project" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Turn a local goal on a <a class="reference internal" href="declarations.html#term-multi-system"><span class="xref std std-term">multi-system</span></a> into one goal for each
 single system in the multi-system.</p>
@@ -1409,7 +1398,7 @@ single system in the multi-system.</p>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.rewrite_equiv">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">rewrite</span></span></span> <span><span><span class="pre">equiv</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">-</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.rewrite_equiv" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">rewrite</span></span></span> <span><span><span class="pre">equiv</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">-</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.rewrite_equiv" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Use an equivalence to rewrite a reachability goal.</p>
 <p>First, try to resolve <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> as an equivalence
@@ -1426,7 +1415,7 @@ rewriting occurs in the other direction, replacing <code class="squirrelinline d
 <p>Consider the following goal.</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: default/</span><span class="ansi-fg-light-blue">left</span><span> (equivalences: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>)
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">diff</span><span>(h (a, k), n), </span><span class="ansi-fg-light-green">diff</span><span>(h (b, k), m))
 </span></dt><dt class="in"><span>U: [a &lt;&gt; b]
@@ -1441,7 +1430,7 @@ of the goal, where we want to prove that the two hashes are not equal.</p>
 <p>Calling <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">rewrite</span></span><span> </span><span class="ansi-fg-light-blue"><span class="pre">equiv</span></span><span> <span class="pre">H</span></span></code> produces the new goal:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: default/</span><span class="ansi-fg-light-blue">right</span><span> (equivalences: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>)
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">diff</span><span>(h (a, k), n), </span><span class="ansi-fg-light-green">diff</span><span>(h (b, k), m))
 </span></dt><dt class="in"><span>U: [a &lt;&gt; b]
@@ -1454,31 +1443,35 @@ of the goal, where we want to prove that the two hashes are not equal.</p>
 </dd></dl>
 
 <dl class="squirrel tact">
-<dt class="sig sig-object squirrel" id="squirrel:tact.slowsmt">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">slowsmt</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.slowsmt" title="Permalink to this definition">¶</a></dt>
-<dd><blockquote>
-<div><p>Version of the <a class="reference internal" href="#squirrel:tact.smt" title="smt"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">smt</span></code></a> tactic with higher time limit.</p>
-</div></blockquote>
-</dd></dl>
-
-<dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.smt">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">smt</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.smt" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">smt</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">~prover</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">~slow</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper-with-sub"><span class="repeat"><span><span><span class="pre">pure</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span><span class="notation-sub"><span class="pre">~</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">~style</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.smt" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Try to discharge the current goal using an SMT solver.</p>
+<p>The provers called can be chosen using the flag <cite>~prover</cite>, any combination
+of CVC4 (<cite>CVC4</cite>) Z3 (<cite>Z3</cite>) and Alt-Ergo (<cite>AltErgo</cite>) can be used.
+The alternative counterexamples can be used by adding (<cite>_counterexamples</cite>)
+after the name of the prover. The same goes with alternatives (<cite>_BV</cite>) for
+Alt-Ergo and (<cite>_noBV</cite>) for Z3.
+The time before the timeout can be increased by setting the flag <cite>~slow</cite> to
+<cite>true</cite>.
+We can restrict the tactic to pure trace formulas by setting the flag
+<cite>~pure</cite> to <cite>true</cite>.
+The theory used to translate timestamps is chosen using the flag <cite>~style</cite>.
+We can chose to translate timestamps to integers (<cite>nat</cite>) or to an abstract
+type with the usual equality (<cite>abstract_eq</cite>) or not (<cite>abstract</cite>).</p>
 </div></blockquote>
 </dd></dl>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.subst">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">subst</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.subst" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">subst</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.subst" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>If <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span> <span class="pre">=</span> <span class="pre">t</span></span></code> where <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code> is a variable, then <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">subst</span></span><span> <span class="pre">x,</span> <span class="pre">t</span></span></code>
 substitutes all occurrences of <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code> with <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code> and removes <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code>
 from the <a class="reference internal" href="#term-logical_var"><span class="xref std std-term">logical variables</span></a>.</p>
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.Unequal-arguments">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Unequal</span></span></span> <span><span><span class="pre">arguments</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Unequal-arguments" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Unequal</span></span></span> <span><span><span class="pre">arguments</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Unequal-arguments" title="Link to this definition">¶</a></dt>
 <dd><p>Terms given as argument are not equal.</p>
 </dd></dl>
 
@@ -1487,10 +1480,10 @@ from the <a class="reference internal" href="#term-logical_var"><span class="xre
 
 </section>
 <section id="id12">
-<h4>Global tactics<a class="headerlink" href="#id12" title="Permalink to this heading">¶</a></h4>
+<h4>Global tactics<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.case_study">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cs</span></span></span> <span class="hole"><span class="pre">pattern</span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.case_study" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cs</span></span></span> <span class="hole"><span class="pre">pattern</span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.case_study" title="Link to this definition">¶</a></dt>
 <dd><p>Performs case study on conditionals inside an equivalence.</p>
 <p>Without a specific target, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cs</span></span><span> <span class="pre">phi</span></span></code> will project all conditionals
 on phi in the equivalence. With a specific target, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cs</span></span><span> <span class="pre">phi</span> </span><span class="ansi-fg-light-blue"><span class="pre">in</span></span><span> <span class="pre">i</span></span></code>
@@ -1513,19 +1506,19 @@ will only project conditionals in the i-th item of the equivalence.</p>
 </div>
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.Argument-of-cs-should-match-a-boolean">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Argument</span></span></span> <span><span><span class="pre">of</span></span></span> <span><span><span class="pre">cs</span></span></span> <span><span><span class="pre">should</span></span></span> <span><span><span class="pre">match</span></span></span> <span><span><span class="pre">a</span></span></span> <span><span><span class="pre">boolean.</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Argument-of-cs-should-match-a-boolean" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Argument</span></span></span> <span><span><span class="pre">of</span></span></span> <span><span><span class="pre">cs</span></span></span> <span><span><span class="pre">should</span></span></span> <span><span><span class="pre">match</span></span></span> <span><span><span class="pre">a</span></span></span> <span><span><span class="pre">boolean.</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Argument-of-cs-should-match-a-boolean" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="squirrel exn">
 <dt class="sig sig-object squirrel" id="squirrel:exn.Did-not-find-any-conditional-to-analyze">
-<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Did</span></span></span> <span><span><span class="pre">not</span></span></span> <span><span><span class="pre">find</span></span></span> <span><span><span class="pre">any</span></span></span> <span><span><span class="pre">conditional</span></span></span> <span><span><span class="pre">to</span></span></span> <span><span><span class="pre">analyze.</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Did-not-find-any-conditional-to-analyze" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Error</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Did</span></span></span> <span><span><span class="pre">not</span></span></span> <span><span><span class="pre">find</span></span></span> <span><span><span class="pre">any</span></span></span> <span><span><span class="pre">conditional</span></span></span> <span><span><span class="pre">to</span></span></span> <span><span><span class="pre">analyze.</span></span></span></span></span><a class="headerlink" href="#squirrel:exn.Did-not-find-any-conditional-to-analyze" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.deduce">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">deduce</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.deduce" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">deduce</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.deduce" title="Link to this definition">¶</a></dt>
 <dd><p><code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">deduce</span></span><span> <span class="pre">i</span></span></code> removes the <code class="squirrelinline docutils literal notranslate"><span><span class="pre">i</span></span></code>’th element from the bi-frame when it can
 be computed from the rest of the bi-frame. Without any argument, it
 will remove the first element that can be dropped, if it
@@ -1543,7 +1536,7 @@ the <code class="squirrelinline docutils literal notranslate"><span class="ansi-
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.diffeq">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">diffeq</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.diffeq" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">diffeq</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.diffeq" title="Link to this definition">¶</a></dt>
 <dd><p>Close a reflexive goal up to equality. That is, if all diff-term
 whitin the global goal’s conclusion always evaluate to the same value in all
 systems, the equivalence holds. For each diff-term, a
@@ -1558,11 +1551,11 @@ stage. We do not recommend its usage.</p>
 </section>
 </section>
 <section id="cryptographic-tactics">
-<span id="section-crypto-tactics"></span><h3>Cryptographic tactics<a class="headerlink" href="#cryptographic-tactics" title="Permalink to this heading">¶</a></h3>
+<span id="section-crypto-tactics"></span><h3>Cryptographic tactics<a class="headerlink" href="#cryptographic-tactics" title="Link to this heading">¶</a></h3>
 <p>Cryptographic tactics enable reasoning over cryptographic and
 probabilistic properties of random samplings and primitives.</p>
 <section id="occurrence-formula">
-<h4>Occurrence formula<a class="headerlink" href="#occurrence-formula" title="Permalink to this heading">¶</a></h4>
+<h4>Occurrence formula<a class="headerlink" href="#occurrence-formula" title="Link to this heading">¶</a></h4>
 <p>Several reasoning techniques require tracking how a given name is
 used. For instance, if the name <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code> does not occur at all in term
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code>, then <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n=t</span></span></code> is false with overwhelming probability. To apply
@@ -1658,10 +1651,10 @@ occurrences at once, which is useful when we want to allow patterns depending on
 two names at once (see e.g. <a class="reference internal" href="#squirrel:tact.gdh" title="gdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">gdh</span></code></a> or <a class="reference internal" href="#squirrel:tace.ddh" title="ddh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">ddh</span></code></a>).</p>
 </section>
 <section id="id15">
-<h4>Common tactics<a class="headerlink" href="#id15" title="Permalink to this heading">¶</a></h4>
+<h4>Common tactics<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.fresh">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">fresh</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">~precise</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">ts</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.fresh" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">fresh</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">~precise</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">ts</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.fresh" title="Link to this definition">¶</a></dt>
 <dd><p>Fresh is an information-theoretically sound tactic exploiting the
 fact that names represent independent random samplings. This can be
 exploited in two ways: i) to remove a fresh name from an
@@ -1690,7 +1683,7 @@ will be directly closed.</p>
 <p>The goal corresponding to this proof will look like this:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>
 </span></dt><dt class="in"><span>Eq: </span><span class="ansi-fg-light-green">input</span><span>&#64;A = n
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-green">happens</span><span>(A)
@@ -1701,7 +1694,7 @@ will be directly closed.</p>
 <p>Calling <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fresh</span></span><span> <span class="pre">Eq</span></span></code> turns the goal into:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span>[</span><span class="ansi-fg-light-blue">goal</span><span>&gt; Focused </span><span class="ansi-fg-light-blue">goal</span><span> (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
+<dt class="in"><span>[goal&gt; Focused goal (</span><span class="ansi-fg-light-blue">1</span><span>/</span><span class="ansi-fg-light-blue">1</span><span>):
 </span></dt><dt class="in"><span>System: </span><span class="ansi-fg-light-blue">left</span><span>:default/</span><span class="ansi-fg-light-blue">left</span><span>, </span><span class="ansi-fg-light-blue">right</span><span>:default/</span><span class="ansi-fg-light-blue">right</span><span>
 </span></dt><dt class="in"><span>Eq: </span><span class="ansi-fg-light-green">input</span><span>&#64;A = n
 </span></dt><dt class="in"><span>H: </span><span class="ansi-fg-light-green">happens</span><span>(A)
@@ -1740,10 +1733,10 @@ occurrence of <code class="squirrelinline docutils literal notranslate"><span><s
 
 </section>
 <section id="id18">
-<h4>Local tactics<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h4>
+<h4>Local tactics<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.cdh">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cdh</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.cdh" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cdh</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.cdh" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the Computational Diffie-Hellman assumption (see
 e.g. <span id="id19">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), stating
 for a generator <span class="math notranslate nohighlight">\(g\)</span> and randomly sampled exponents <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>,
@@ -1767,7 +1760,7 @@ published work.</p>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.gdh">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">gdh</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.gdh" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">gdh</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.gdh" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the Gap Diffie-Hellman assumption (see
 e.g. <span id="id20">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), which is similar to CDH over <span class="math notranslate nohighlight">\(g^a\)</span>
 and <span class="math notranslate nohighlight">\(g^b\)</span>, except that the attacker is additionally allowed to access an oracle
@@ -1787,7 +1780,7 @@ published work.</p>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.collision">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">collision</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.collision" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">collision</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.collision" title="Link to this definition">¶</a></dt>
 <dd><p>Requires a <a class="reference internal" href="declarations.html#term-hash-function"><span class="xref std std-term">hash function declaration</span></a>.</p>
 <p>This tactic applies the known-key collision resistance assumption
 (see e.g. the cr2-kk assumption from
@@ -1803,7 +1796,7 @@ no side condition is checked on the hash key.</p>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.euf">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">euf</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.euf" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">euf</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.euf" title="Link to this definition">¶</a></dt>
 <dd><p>Requires either a <a class="reference internal" href="declarations.html#term-hash-function"><span class="xref std std-term">hash function</span></a> or a <a class="reference internal" href="declarations.html#term-signature-scheme"><span class="xref std std-term">signature
 scheme</span></a> declaration.</p>
 <p>This tactic applies the EUF-CMA axiom in a local goal, either for keyed-hashes or
@@ -1815,7 +1808,7 @@ the key <code class="squirrelinline docutils literal notranslate"><span><span cl
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">M</span></span></code> can only hold if computing <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code> requires already knowing the hash of <code class="squirrelinline docutils literal notranslate"><span><span class="pre">m</span></span></code>.
 Accordingly, the tactic creates a first new sub-goal asking
 to prove that the key is only used in correct position, i.e.
-a sub-goal with conclusion <code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,</span></span><span class="ansi-fg-light-blue"><span class="pre">goal</span></span><span><span class="pre">,h(_,k))</span></span></code> (see the
+a sub-goal with conclusion <code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,goal,h(_,k))</span></span></code> (see the
 definition of the <a class="reference internal" href="#term-occurrence-formula"><span class="xref std std-term">occurrence formula</span></a>).
 The tactic then collects all possible occurrence of a honest hash <code class="squirrelinline docutils literal notranslate"><span><span class="pre">h(u,k)</span></span></code> inside
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code>, and for each of them, creates a sub-goal with the original conclusion
@@ -1855,13 +1848,13 @@ in <code class="squirrelinline docutils literal notranslate"><span><span class="
 honestly signed messages. A sub-goal for each possible honest signing
 case is created, as well as a sub-goal specifying that the key is
 correctly used, i.e. with conclusion
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,</span></span><span class="ansi-fg-light-blue"><span class="pre">goal</span></span><span><span class="pre">,sign(_,k),</span> <span class="pre">pk(k))</span></span></code>.</p>
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,goal,sign(_,k),</span> <span class="pre">pk(k))</span></span></code>.</p>
 <p>Latest formal Squirrel description: <span id="id25">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. working paper or preprint, 2023. URL: https://hal.inria.fr/hal-03981949.">BKL23</a>]</span>.</p>
 </dd></dl>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.intctxt">
-<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">intctxt</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.intctxt" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">intctxt</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.intctxt" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the INT-CTXT assumption (see
 e.g. <span id="id26">[<a class="reference internal" href="bibliography.html#id11" title="Mihir Bellare and Chanathip Namprempre. Authenticated encryption: relations among notions and analysis of the generic composition paradigm. In International Conference on the Theory and Application of Cryptology and Information Security, 531–545. Springer, 2000. URL: https://eprint.iacr.org/2000/025.pdf.">BN00</a>]</span>) in a local goal.</p>
 <p>It requires the declaration of a <a class="reference internal" href="declarations.html#term-symmetric-encryption"><span class="xref std std-term">symmetric encryption</span></a> scheme.</p>
@@ -1885,10 +1878,10 @@ encryption are disjoint and fresh (when it is not trivially true).</p>
 
 </section>
 <section id="id28">
-<h4>Global tactics<a class="headerlink" href="#id28" title="Permalink to this heading">¶</a></h4>
+<h4>Global tactics<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.cca1">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cca1</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span></span><a class="headerlink" href="#squirrel:tace.cca1" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cca1</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span></span><a class="headerlink" href="#squirrel:tace.cca1" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the IND-CCA assumption (see
 e.g. <span id="id29">[<a class="reference internal" href="bibliography.html#id11" title="Mihir Bellare and Chanathip Namprempre. Authenticated encryption: relations among notions and analysis of the generic composition paradigm. In International Conference on the Theory and Application of Cryptology and Information Security, 531–545. Springer, 2000. URL: https://eprint.iacr.org/2000/025.pdf.">BN00</a>]</span>) in a global goal.</p>
 <p>It requires the declaration of a <a class="reference internal" href="declarations.html#term-symmetric-encryption"><span class="xref std std-term">symmetric encryption</span></a> or
@@ -1922,7 +1915,7 @@ just the the encryption we are looking at).</p>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.ddh">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">ddh</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tace.ddh" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">ddh</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tace.ddh" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the Decisional Diffie-Helman assumption (see
 e.g. <span id="id31">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), stating that for a generator <span class="math notranslate nohighlight">\(g\)</span>,
 and randomly sampled exponents <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(c\)</span>, it
@@ -1933,14 +1926,14 @@ specified.</p>
 <p>When calling, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">ddh</span></span><span> <span class="pre">g,a,b,k</span></span></code>, the goal must contain only diff
 terms of the form <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),g^(c)))</span></span></code>. The tactic will close
 the goal if the formula
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur((a,b,c),</span></span><span class="ansi-fg-light-blue"><span class="pre">goal</span></span><span><span class="pre">,(g^a,g^b,</span></span><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),c)))</span></span></code> instantly reduces
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur((a,b,c),goal,(g^a,g^b,</span></span><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),c)))</span></span></code> instantly reduces
 to false (see the definition of the <a class="reference internal" href="#term-occurrence-formula"><span class="xref std std-term">occurrence formula</span></a>).</p>
 <p>Latest formal Squirrel description: <span id="id32">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
 </dd></dl>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.enckp">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">enckp</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.enckp" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">enckp</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.enckp" title="Link to this definition">¶</a></dt>
 <dd><p>ENC-KP assumes that a symmetric or an asymmetric encryption scheme
 does not leak any information about the public (or secret) key
 used to encrypt the plaintext. It is based on the IK-CPA notion of
@@ -2029,7 +2022,7 @@ just the encryption we are looking at).</p>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.prf">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">prf</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.prf" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">prf</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.prf" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the PRF assumption (see
 e.g. <span id="id35">[<a class="reference internal" href="bibliography.html#id8" title="Shafi Goldwasser and Mihir Bellare. Lecture notes on cryptography. Summer course “Cryptography and computer security” at MIT, 1999:1999, 1996. URL: https://cseweb.ucsd.edu/~mihir/papers/gb.pdf.">GB96</a>]</span>).</p>
 <p>It requires a <a class="reference internal" href="declarations.html#term-hash-function"><span class="xref std std-term">hash function</span></a> declaration.</p>
@@ -2084,7 +2077,7 @@ optional <code class="docutils literal notranslate"><span class="notation"><a cl
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.xor">
-<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">xor</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.xor" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">xor</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.xor" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the unconditionally sound one time pad property
 of the xor operation.</p>
 <p>The tactic applied to a bi-frame element of the form <code class="squirrelinline docutils literal notranslate"><span><span class="pre">i</span> <span class="pre">:</span> <span class="pre">C[n</span> <span class="pre">XOR</span>
@@ -2107,10 +2100,10 @@ the full XOR-ed term <code class="squirrelinline docutils literal notranslate"><
 </section>
 </section>
 <section id="utility-tactics">
-<span id="section-utility-tactics"></span><h3>Utility tactics<a class="headerlink" href="#utility-tactics" title="Permalink to this heading">¶</a></h3>
+<span id="section-utility-tactics"></span><h3>Utility tactics<a class="headerlink" href="#utility-tactics" title="Link to this heading">¶</a></h3>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.help">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">help</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span class="repeated-alternative"><span class="alternative-block"><span class="hole"><span class="pre">tacn</span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">concise</span></span></span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.help" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">help</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span class="repeated-alternative"><span class="alternative-block"><span class="hole"><span class="pre">tacn</span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">concise</span></span></span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.help" title="Link to this definition">¶</a></dt>
 <dd><p>When used without arguments, display all available commands.
 The tactic can  also display the details for a given tactic name, or display or
 more concise list. It is a tactic and not a command, and as such can only
@@ -2119,14 +2112,14 @@ be used inside proofs.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.lemmas">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">lemmas</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.lemmas" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">lemmas</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.lemmas" title="Link to this definition">¶</a></dt>
 <dd><p>Print all axioms and proved lemmas. This is useful to know which lemmas can
 be used through the <a class="reference internal" href="#squirrel:tacn.use" title="use"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">use</span></code></a> or <a class="reference internal" href="#squirrel:tacn.apply" title="apply"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">apply</span></code></a> tactics.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.show">
-<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">show</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.show" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">show</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.show" title="Link to this definition">¶</a></dt>
 <dd><p>Print the messages given as argument. Can be used to print the values
 matching a pattern.</p>
 </dd></dl>

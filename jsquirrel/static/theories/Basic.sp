@@ -187,6 +187,12 @@ lemma [any] impl_true_l (b: boolean) : (true => b) = b.
 Proof. by rewrite eq_iff. Qed.
 hint rewrite impl_true_l.
 
+lemma [any] impl_contra (b,c:boolean) : (b => c) = (not c => not b).
+Proof.
+  rewrite !impl_charac /=.
+  by rewrite or_comm.
+Qed.
+
 (*------------------------------------------------------------------*)
 (* not: more lemmas *)
 
@@ -206,7 +212,7 @@ Qed.
 (* if *)
 
 lemma [any] if_true ['a] (b : boolean, x,y : 'a):
- b => if b then x else y = x.
+  b => if b then x else y = x.
 Proof.
   intro *.
   case (if b then x else y).
@@ -215,14 +221,14 @@ Proof.
 Qed.
 
 lemma [any] if_true0 ['a] (x,y : 'a):
- if true then x else y = x.
+  if true then x else y = x.
 Proof.
   by rewrite if_true. 
 Qed.
 hint rewrite if_true0.
 
 lemma [any] if_false ['a] (b : boolean, x,y : 'a):
- (not b) => if b then x else y = y.
+  (not b) => if b then x else y = y.
 Proof. 
   intro *; case (if b then x else y).
   + intro [H1 H2]. 
@@ -231,7 +237,7 @@ Proof.
 Qed.
 
 lemma [any] if_false0 ['a] (x,y : 'a):
- if false then x else y = y.
+  if false then x else y = y.
 Proof.
   by rewrite if_false.
 Qed.
@@ -315,6 +321,10 @@ Proof.
   by intro ->; case b'.
 Qed.
 hint rewrite if_else_not.
+
+lemma [any] if_app ['a 'b] (f:'a->'b) (c:bool) (x,y:'a) :
+  f (if c then x else y) = if c then f x else f y.
+Proof. by case c. Qed.
 
 (*------------------------------------------------------------------*)
 (* some functional properties *)
@@ -436,7 +446,7 @@ hint rewrite len_zeroes.
 (* exec and cond *)
 
 (* Squirrel can only expand exec for specific actions.
-   This action allows to go beyond this. It would be provable
+   This axiom allows to go beyond this. It would be provable
    in any system, by performing a case analysis on tau. *)
 axiom [any] exec_not_init (tau:timestamp) :
   init < tau => exec@tau = (exec@pred(tau) && cond@tau).
@@ -522,7 +532,7 @@ Proof.
     rewrite if_true => //. by exists x.
   }.
   rewrite -(try_carac_1 phi phi false).
-  case_struct (try find x such that phi x in phi x else false).
+  case ~struct (try find x such that phi x in phi x else false).
   + auto.
   + intro [HH _]; by use HH with x.
 Qed.
@@ -620,3 +630,20 @@ lemma [any] neq_le_pred_le (t, t' : timestamp):
 Proof. by rewrite eq_iff. Qed.
 
 axiom [any] le_lt ['a] (x, x' : 'a): x <> x' => (x <= x') = (x < x').
+
+
+(*------------------------------------------------------------------*)
+(* lists : mem and append *)
+
+type mset.
+
+abstract empty_set : mset.
+
+abstract mem : message -> mset -> bool.
+
+abstract add : message -> mset -> mset.
+
+axiom [any] empty_set_is_empty (x:message) : not (mem x empty_set).
+
+
+ 
