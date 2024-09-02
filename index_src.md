@@ -31,7 +31,7 @@ A [README](https://github.com/squirrel-prover/squirrel-prover/#readme)
 provides installation instructions.
 
 You can also try our **online version**
-[here](https://squirrel-prover.github.io/jsquirrel/?open=0-logic.sp).
+[here](https://squirrel-prover.github.io/jsquirrel/).
 
 # Documentation
 

@@ -50,7 +50,7 @@ They are also accessible directly below:
 - [5-stateful](files/5-stateful.sp)
 - [6-key-establishment](files/6-key-establishment.sp)
 
-Those, again, are available on our online version [here](https://squirrel-prover.github.io/jsquirrel/?open=0-logic.sp)
+Those, again, are available on our online version [here](https://squirrel-prover.github.io/jsquirrel/)
 
 ## MOVEP 2022
 
