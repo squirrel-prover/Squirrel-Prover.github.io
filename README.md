@@ -21,3 +21,4 @@ git submodule update
 ```
 
 <!> Jsquirrel compilation requires to uninstall why3. The doc compilation requires to have why3 installed...
+<!> JSquirrel only supports include of lib.sp files without nested includes.
