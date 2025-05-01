@@ -39,7 +39,7 @@ doc:
 	mkdir documentation
 	cp -r squirrel-prover/_build/default/documentation/sphinx/public/* documentation
 
-jsquirrel: doc
+jsquirrel:
 	rm -rf jsquirrel
 	cd squirrel-prover && \
 	make zipsquirrel
