@@ -1,31 +1,31 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Documenting Squirrel with Sphinx &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/ansi.css" type="text/css" />
-      <link rel="stylesheet" href="_static/notations.css" type="text/css" />
-      <link rel="stylesheet" href="_static/pre-text.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
+      <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
+      <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/tabs.css?v=a5c4661c" />
+
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/notations.js?v=69751d6f"></script>
-        <script src="_static/tabs.js?v=3030b3cb"></script>
-        <script src="_static/js/rtd_search_config.js"></script>
-        <script src="_static/js/rtd_sphinx_search.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/notations.js?v=69751d6f"></script>
+      <script src="_static/js/rtd_search_config.js"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/tabs.js?v=3030b3cb"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -109,6 +109,8 @@
 <li class="toctree-l4"><a class="reference internal" href="declarations.html#system-contexts">System contexts</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-binders">System binders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-annotations">System annotations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="declarations.html#axioms-and-lemmas">Axioms and Lemmas</a></li>
@@ -853,9 +855,11 @@ valid coercion paths are ignored.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-black">(*</span><span class="ansi-fg-light-black"> comment </span><span class="ansi-fg-light-black">*)</span><span>
 </span></dt><dt><span class="ansi-fg-light-blue">name</span><span> n:</span><span class="ansi-fg-light-cyan">message</span><span>.
-</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_n : [</span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">n</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]</span></dd>
+</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_n {‘P:system} &#64;system:(set:’P; equiv:None) :
+  [</span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">n</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]</span></dd>
 <dt><span class="ansi-fg-light-blue">name</span><span> s:</span><span class="ansi-fg-light-cyan">message</span><span>.
-</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_s : [</span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">s</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]</span></dd>
+</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_s {‘P:system} &#64;system:(set:’P; equiv:None) :
+  [</span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">s</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]</span></dd>
 <dt><span class="ansi-fg-light-blue">hash</span><span> h.
 </span></dt><dd></dd>
 <dt><span class="ansi-fg-light-blue">lemma</span><span> [</span><span class="ansi-fg-light-blue">any</span><span>] toto : </span><span class="ansi-fg-light-cyan">true</span><span>=&gt;</span><span class="ansi-fg-light-cyan">true</span><span>.
@@ -864,7 +868,8 @@ valid coercion paths are ignored.</p>
 </span></dd>
 <dt><span class="ansi-fg-light-blue">Proof</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: any
+System variables: ‘P
+System: (set:’P; equiv:None)
 </span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> 
 </span><span>
@@ -874,12 +879,12 @@ System: any
 </span><span>
 </span></dd>
 <dt><span class="ansi-fg-light-blue">Qed</span><span>.
-</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] toto : </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> toto {‘P:system} &#64;system:(set:’P; equiv:None) : </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 Exiting proof mode.
 </span><span>
 </span></dd>
 <dt><span class="ansi-fg-light-blue">print</span><span> toto.
-</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] toto : </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> toto {‘P:system} &#64;system:(set:’P; equiv:None) : </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 </span></dd>
 </dl>
 </div>
@@ -931,7 +936,8 @@ reST source file).  Use the <code class="docutils literal notranslate"><span cla
 </span></dd>
 <dt><span class="ansi-fg-light-blue">Proof</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: any
+System variables: ‘P
+System: (set:’P; equiv:None)
 </span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> 
 </span><span>
@@ -942,12 +948,12 @@ System: any
 </span></dt><dd><span>tutu not found
 </span></dd>
 <dt><span class="ansi-fg-light-blue">print</span><span> toto.
-</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] toto : </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> toto {‘P:system} &#64;system:(set:’P; equiv:None) : </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 </span></dd>
 </dl>
 <span class="squirreltop-reset"></span><dl>
 <dt><span class="ansi-fg-light-blue">print</span><span> toto.
-</span></dt><dd><span>toto not found
+</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> toto {‘P:system} &#64;system:(set:’P; equiv:None) : </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 </span></dd>
 </dl>
 </div>

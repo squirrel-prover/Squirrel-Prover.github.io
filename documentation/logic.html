@@ -1,30 +1,29 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Logic &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/ansi.css" type="text/css" />
-      <link rel="stylesheet" href="_static/notations.css" type="text/css" />
-      <link rel="stylesheet" href="_static/pre-text.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
+      <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
+      <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/notations.js?v=69751d6f"></script>
-        <script src="_static/js/rtd_search_config.js"></script>
-        <script src="_static/js/rtd_sphinx_search.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/notations.js?v=69751d6f"></script>
+      <script src="_static/js/rtd_search_config.js"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -108,6 +107,8 @@
 <li class="toctree-l4"><a class="reference internal" href="declarations.html#system-contexts">System contexts</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-binders">System binders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-annotations">System annotations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="declarations.html#axioms-and-lemmas">Axioms and Lemmas</a></li>
@@ -375,7 +376,7 @@ the semantics for the type can be any finite set.</p>
 </section>
 <section id="type-variables-and-polymorphism">
 <span id="section-polymorphism"></span><h3>Type variables and polymorphism<a class="headerlink" href="#type-variables-and-polymorphism" title="Link to this heading">¶</a></h3>
-<p>Squirrel supports <span class="term-defn"><span class="target" id="term-polymorphism"></span>type polymorphism</span> à la <a class="reference external" href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system">Hindley–Milner</a> in most places (<a class="reference internal" href="declarations.html#squirrel:decl.op" title="op"><code class="xref squirrel squirrel-decl docutils literal notranslate"><span class="pre">operators</span></code></a>, <span class="xref std std-term">lemmas</span>, …).
+<p>Squirrel supports <span class="term-defn"><span class="target" id="term-polymorphism"></span>type polymorphism</span> à la <a class="reference external" href="https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system">Hindley–Milner</a> in most places (<a class="reference internal" href="declarations.html#squirrel:decl.op" title="op"><code class="xref squirrel squirrel-decl docutils literal notranslate"><span class="pre">operators</span></code></a>, <a class="reference internal" href="declarations.html#squirrel:decl.lemma" title="lemma"><code class="xref squirrel squirrel-decl docutils literal notranslate"><span class="pre">lemmas</span></code></a>, …).
 Type variables are identifiers preceded by a
 single apostrophe, e.g. <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">'</span></span><span><span class="pre">x</span></span></code>.</p>
 <span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-type_variable"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-type_variable"><span class="hole">type_variable</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span>'</span><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole">ident</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-tvar_params"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-tvar_params"><span class="hole">tvar_params</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-type_variable"><span class="hole">type_variable</span></a></span><span class="notation-sup">*</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>When parametrizing a declaration, type variables are enclosed in brackets, e.g. <code class="squirrelinline docutils literal notranslate"><span><span class="pre">[</span></span><span class="ansi-fg-light-blue"><span class="pre">'</span></span><span><span class="pre">a</span> </span><span class="ansi-fg-light-blue"><span class="pre">'</span></span><span><span class="pre">b</span> </span><span class="ansi-fg-light-blue"><span class="pre">'</span></span><span><span class="pre">c]</span></span></code>.</p>

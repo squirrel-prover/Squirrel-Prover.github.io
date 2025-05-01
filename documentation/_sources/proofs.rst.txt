@@ -532,28 +532,27 @@ Common tactics
      as they must be be compatible).
       
 
-.. tacn:: induction {? @term_pat}
+.. tacn:: induction {? @@system:@expr_annot} {? @term_pat}
 
-   Apply the induction scheme to the conclusion. There are
-   several behaviours depending on the type of the current goal
-   and whether an argument is given.
+   Apply the induction scheme to the conclusion. The behaviour of the tactic
+   depends on the type of the current goal, and whether the optional arguments are given.
 
-   For a reachability goal, if no argument is specified, the
+   For a local goal, if no argument is specified, the
    conclusion must start with a universal quantification over a
    well-founded type and the induction is performed over the
    first quantified variable. If a term is manually
    specified, the goal is first generalized (see
-   :tacn:`generalize`) w.r.t. those variables and only then is
-   the induction applied.
+   :tacn:`generalize`) w.r.t. that term, understood in system :n:`@expr_annot`.
+   Only then is the induction applied.
     
-   For an equivalence goal, an argument must always be specified,
+   For a global goal, an argument must always be specified,
    and,
    
-    - if a timestamp variable is given then, a weak induction is
-      performed over this variable as well as a case disjunction over all
+    - if the given term is a timestamp variable, a weak induction is
+      performed over this variable, as well as a case disjunction over all
       possible actions;
     - for any other term argument, the
-      tactic behaves as in the reachability case.
+      tactic behaves as in the local case.
 
    The weak induction variant is in fact the most widely used tactic
    in current Squirrel examples to prove the observational equivalence
@@ -590,7 +589,7 @@ Common tactics
           0: frame@A
        
      
-.. tacn:: dependent induction {? @variable}
+.. tacn:: dependent induction {? @@system:@expr_annot} {? @variable}
     
     Apply the induction scheme to the conclusion. If no argument is
     specified, the conclusion must be a universal quantification over
@@ -632,18 +631,24 @@ Common tactics
     For example, :g:`exists t` transforms the conclusion of a goal
     :n:`(exists x, phi)` into :n:`(phi{x -> t})`.
     
-.. tacn:: generalize {+ @term_pat} {? as {+ @variable}}
+.. tacn:: generalize {? @@system:@expr_annot } {+ @term_pat} {? as {+ @variable}}
    :name: generalize    
 
-   :n:`generalize @term_pat` looks for an instance :n:`@term` of
-   :n:`@term_pat` in the goal. Then, it replaces all occurrences of :n:`@term`
-   by a fresh universally quantified variable
+   :n:`generalize @@system:@expr_annot @term_pat` looks in the conclusion of the sequent for an instance :n:`@term` of
+   :n:`@term_pat` understood in system `@expr_annot`. Then, it replaces all occurrences of :n:`@term`
+   in the conclusion with a fresh universally quantified variable
    (automatically named, or :n:`@variable` if provided).
 
-.. tacn:: generalize dependent {+ @term_pat} {? as {+ @variable}}
+   The :n:`@@system` argument, which specifies in which system the given terms are to be understood,
+   is optional. If no system is provided, terms are by default
+   understood in the current goal's :n:`set` for a local goal,
+   and in its :n:`equiv` in global goals.
+
+
+.. tacn:: generalize dependent {? @@system:@expr_annot} {+ @term_pat} {? as {+ @variable}}
    :name: generalize dependent
     
-   Same as :n:`generalize`, but also generalize in the proof context.
+   Same as :n:`generalize`, but also generalizes in the proof context.
    All hypotheses in which generalization occurred are pushed back into the
    conclusion before the newly added quantified variables.
 
@@ -721,7 +726,7 @@ Common tactics
 .. tacn:: rewrite {* @rw_arg} {? in @rw_target}
     
    .. prodn:: rw_arg ::= {| @s_item | @rw_item }
-               rw_item ::= {? {| {? @natural} ! | ?}} {? <-} {| (@proof_term) | /@ident | /( @infix_op) | /*}
+               rw_item ::= {? {| {? @natural} ! | ?}} {? -} {| (@proof_term) | /@ident | /( @infix_op) | /*}
                rw_target ::= {| @hypothesis_id | *}
        
    Apply a sequence of :term:`rewriting <rewrite ip item>`
@@ -740,7 +745,7 @@ Common tactics
        term unification environment --- as a local formula :n:`F` or
        global formula :n:`[F]` where 
        :n:`F = forall x1...xn, H1=>...=>Hn=> l = r`. 
-       At that point, :n:`l` and :n:`r` are swapped if the rewrite item is prefixed by :n:`<-`.
+       At that point, :n:`l` and :n:`r` are swapped if the rewrite item is prefixed by :n:`-`.
 
      + Then, Squirrel tries to unify :n:`l` with a sub-term of the
        rewrite target, where :n:`x1...xn` are handled as term
@@ -784,9 +789,15 @@ Common tactics
     variables of the conclusion as specified by the given introduction
     patterns.
 
-.. tacn:: clear {* @hypothesis_id}
+.. tacn:: clear {* @ident}
+
+    :g:`clear id` drops the specified hypothesis, variable declaration or 
+    definition, as long as :g:`id` is not used elsewhere in the sequent.
     
-    Drop the specified hypotheses. 
+    :g:`clear id1 ... idN` is syntactic sugar for :g:`clear id1; ...; clear idN`.
+
+    Calling :g:`clear` without arguments clears all possible unused
+    variable declarations and definitions.
 
 .. tacn:: reduce {? @simpl_flags}
 
@@ -1094,15 +1105,6 @@ Local tactics
     If :g:`n(i) = n(j)` then :g:`i = j`. This is checked on all name
     equality entailed by the current context.
 
-.. tact:: eqtrace
-   :name: eqtrace
-
-    Add term constraints resulting from timestamp and index
-    equalities. 
-
-    Whenever :g:`i=j` or :g:`ts=ts'`, we can substitute one by another
-    in the other terms.
-
 .. tact:: executable @term
    :name: executable
     
@@ -1164,23 +1166,23 @@ Local tactics
           ----------------------------------------
           n <> m
       
-.. tact:: smt {? ~prover} {? ~slow} {?~ pure} {? ~style}
+.. tact:: smt {? ~prover} {? ~style} {? ~timeout:@natural}
    :name: smt
     
     Try to discharge the current goal using an SMT solver. 
 
-    The provers called can be chosen using the flag `~prover`, any combination 
-    of CVC4 (`CVC4`) Z3 (`Z3`) and Alt-Ergo (`AltErgo`) can be used. 
+    The prover called can be chosen using the flag `~prover`, supported provers include 
+    CVC5 (`CVC5`), Z3 (`Z3`) and Alt-Ergo (`AltErgo`). 
     The alternative counterexamples can be used by adding (`_counterexamples`) 
     after the name of the prover. The same goes with alternatives (`_BV`) for 
-    Alt-Ergo and (`_noBV`) for Z3.
-    The time before the timeout can be increased by setting the flag `~slow` to 
-    `true`.
-    We can restrict the tactic to pure trace formulas by setting the flag
-    `~pure` to `true`.
+    Alt-Ergo and (`_noBV`) for Z3. 
+
+    The time before the timeout can be set with the flag `~timeout` (in seconds). 
+    By default it is 1s.
+
     The theory used to translate timestamps is chosen using the flag `~style`. 
     We can chose to translate timestamps to integers (`nat`) or to an abstract 
-    type with the usual equality (`abstract_eq`) or not (`abstract`).
+    type with the usual equality (`abstract`) or not (`abstract_noeq`).
 
 .. tact:: subst @term, @term
    :name: subst

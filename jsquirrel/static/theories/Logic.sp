@@ -1,3 +1,6 @@
+op assoc ['a] (f : 'a -> 'a ->  'a) = 
+   forall x y z, f (f x y) z = f x (f y z).
+
 (*------------------------------------------------------------------*)
 (* equality *)
 
@@ -36,6 +39,10 @@ case b0; case b1; case b2; try auto. by rewrite true_false. by rewrite false_tru
 Qed.
  
 
+(*------------------------------------------------------------------*)
+(* extentionality *)
+axiom [any] fun_ext ['a 'b] (f, g : 'a -> 'b) : 
+  (forall x, f x = g x) => f = g.
 
 (*------------------------------------------------------------------*)
 (* true/false *)
@@ -370,7 +377,6 @@ Proof.
 Qed.
 hint rewrite false_iff_true.
 
-
 lemma [any] contra_iff (x, y : boolean) : ((not x) <=> y) = (x <=> (not y)).
 Proof.
   rewrite eq_iff.
@@ -443,37 +449,6 @@ hint rewrite len_zeroes.
 
 
 (*------------------------------------------------------------------*)
-(* exec and cond *)
-
-(* Squirrel can only expand exec for specific actions.
-   This axiom allows to go beyond this. It would be provable
-   in any system, by performing a case analysis on tau. *)
-axiom [any] exec_not_init (tau:timestamp) :
-  init < tau => exec@tau = (exec@pred(tau) && cond@tau).
-
-axiom [any] exec_init (tau:timestamp) : tau = init => exec@tau = true.
-axiom [any] cond_init (tau:timestamp) : tau = init => cond@tau = true.
-
-lemma [any] exec_le (tau,tau':timestamp) : tau' <= tau => exec@tau => exec@tau'.
-Proof.
-  induction tau => tau IH Hle Hexec.
-  case (tau = tau').
-  + auto.
-  + intro Hneq.
-    rewrite exec_not_init // in Hexec.
-    by apply IH (pred(tau)).
-Qed.
-
-lemma [any] exec_cond (tau:timestamp) : happens(tau) => exec@tau => cond@tau.
-Proof.
-  intro Hap Hexec.
-  case (init < tau) => _.
-  - by rewrite exec_not_init in Hexec.
-  - by rewrite cond_init.
-Qed.
-
-(*------------------------------------------------------------------*)
-
 lemma [any] f_apply ['a 'b] (f : 'a -> 'b) (x, y : 'a) : x = y => f x = f y.
 Proof. by intro ->. Qed.
 
@@ -590,6 +565,17 @@ Qed.
 (*------------------------------------------------------------------*)
 (* Order *)
 
+op well_founded ['a] (ord : 'a -> 'a ->  bool) = 
+  forall (S: 'a -> bool),  (* for all set S *)
+    (exists (x:'a), S x) =>   (* if S is not empty *)
+    exists (min:'a), S min   (* there exists an element min in S *)
+     && forall (x:'a), S x => not (ord x min). (* for all elements, not( x < min), i.e min <= x *)
+
+
+(* We assume that lt is well_founded over all type. 
+   This does not cause any contradictions, as we will not assume it is total over any type. *)
+axiom [any] lt_wf ['a] : well_founded (fun (x,y:'a) => x < y).
+
 axiom [any] le_trans    ['a] (x,y,z : 'a) : x <= y => y <= z => x <= z.
 axiom [any] lt_trans    ['a] (x,y,z : 'a) : x < y  => y < z  => x < z.
 axiom [any] lt_le_trans ['a] (x,y,z : 'a) : x < y  => y <= z => x < z.
@@ -630,20 +616,3 @@ lemma [any] neq_le_pred_le (t, t' : timestamp):
 Proof. by rewrite eq_iff. Qed.
 
 axiom [any] le_lt ['a] (x, x' : 'a): x <> x' => (x <= x') = (x < x').
-
-
-(*------------------------------------------------------------------*)
-(* lists : mem and append *)
-
-type mset.
-
-abstract empty_set : mset.
-
-abstract mem : message -> mset -> bool.
-
-abstract add : message -> mset -> mset.
-
-axiom [any] empty_set_is_empty (x:message) : not (mem x empty_set).
-
-
- 

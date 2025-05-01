@@ -19,3 +19,5 @@ To populate and update the submodule, run:
 git submodule init
 git submodule update
 ```
+
+<!> Jsquirrel compilation requires to uninstall why3. The doc compilation requires to have why3 installed...

@@ -1,30 +1,29 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Protocol modelling &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-      <link rel="stylesheet" href="_static/ansi.css" type="text/css" />
-      <link rel="stylesheet" href="_static/notations.css" type="text/css" />
-      <link rel="stylesheet" href="_static/pre-text.css" type="text/css" />
-      <link rel="stylesheet" href="_static/tabs.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/rtd_sphinx_search.min.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
+      <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
+      <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-        <script src="_static/notations.js?v=69751d6f"></script>
-        <script src="_static/js/rtd_search_config.js"></script>
-        <script src="_static/js/rtd_sphinx_search.min.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/notations.js?v=69751d6f"></script>
+      <script src="_static/js/rtd_search_config.js"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -108,6 +107,8 @@
 <li class="toctree-l4"><a class="reference internal" href="declarations.html#system-contexts">System contexts</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-binders">System binders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-annotations">System annotations</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="declarations.html#axioms-and-lemmas">Axioms and Lemmas</a></li>
@@ -371,10 +372,11 @@ by any number of indices.</p>
 <dt><span class="ansi-fg-light-blue">name</span><span> n : </span><span class="ansi-fg-light-cyan">message</span><span>
 </span><span class="ansi-fg-light-blue">name</span><span> n1 : </span><span class="ansi-fg-light-cyan">index</span><span> -&gt; </span><span class="ansi-fg-light-cyan">message</span><span>
 </span><span class="ansi-fg-light-blue">name</span><span> n2 : </span><span class="ansi-fg-light-cyan">index</span><span> * </span><span class="ansi-fg-light-cyan">index</span><span> -&gt; </span><span class="ansi-fg-light-cyan">message</span><span>.
-</span></dt><dd class="squirreltop-hidden"><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_n : [</span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">n</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
-global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_n1 :
+</span></dt><dd class="squirreltop-hidden"><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_n {‘P:system} &#64;system:(set:’P; equiv:None) :
+  [</span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">n</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
+global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_n1 {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">n1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
-global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_n2 :
+global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_n2 {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index * index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">n2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]</span></dd>
 </dl>
 </div>
@@ -387,7 +389,7 @@ one could declare an indexed name as follows.</p>
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">name</span><span> kT : </span><span class="ansi-fg-light-cyan">index</span><span> -&gt; </span><span class="ansi-fg-light-cyan">message</span><span>.
-</span></dt><dd class="squirreltop-hidden"><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_kT :
+</span></dt><dd class="squirreltop-hidden"><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_kT {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]</span></dd>
 </dl>
 </div>
@@ -400,7 +402,7 @@ equal.</p>
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">axiom</span><span> [</span><span class="ansi-fg-light-blue">any</span><span>] ok_not_ko: ok &lt;&gt; ko.
-</span></dt><dd class="squirreltop-hidden"><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] ok_not_ko : </span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"></span></dd>
+</span></dt><dd class="squirreltop-hidden"><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ok_not_ko {‘P:system} &#64;system:(set:’P; equiv:None) : </span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"></span></dd>
 </dl>
 </div>
 <p>A proof made in such a model would then apply to any concrete
@@ -415,7 +417,8 @@ is for instance that <code class="squirrelinline docutils literal notranslate"><
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">axiom</span><span> [</span><span class="ansi-fg-light-blue">any</span><span>] ok_not_pair (x,y:</span><span class="ansi-fg-light-cyan">message</span><span>): &lt;x,y&gt; &lt;&gt; ko.
-</span></dt><dd class="squirreltop-hidden"><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] ok_not_pair : forall (x,y:message), &lt;x,y&gt; </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"></span></dd>
+</span></dt><dd class="squirreltop-hidden"><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ok_not_pair {‘P:system} &#64;system:(set:’P; equiv:None) :
+  forall (x,y:message), &lt;x,y&gt; </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"></span></dd>
 </dl>
 </div>
 <p>Going back to the name declaration, if we now display the <strong>Squirrel</strong>
@@ -423,7 +426,7 @@ output after a declaration, we see the following:</p>
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">name</span><span> skey : </span><span class="ansi-fg-light-cyan">index</span><span> -&gt; </span><span class="ansi-fg-light-cyan">message</span><span>.
-</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_skey :
+</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_skey {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">skey</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]</span></dd>
 </dl>
 </div>
@@ -533,19 +536,19 @@ of the reader process, and for each value <cite>i</cite>, we also instantiate mu
   
    ( !_j( </span><span class="ansi-bold ansi-fg-blue">reader</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ) ) | !_i( !_k( </span><span class="ansi-bold ansi-fg-blue">tag</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i))
 </span><span>
-</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_nT :
+</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index * index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
 Added action dependencies lemmas:
 
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] mutex_R1_R :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> mutex_R1_R {‘P:system[like default]} &#64;system:(set:’P; equiv:None) :
   forall (j,i:index), </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">||</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] mutex_R_R1 :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> mutex_R_R1 {‘P:system[like default]} &#64;system:(set:’P; equiv:None) :
   forall (j,i:index), </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">||</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] depends_init_T :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> depends_init_T {‘P:system[like default]} &#64;system:(set:’P; equiv:None) :
   forall (i,k:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] depends_init_R1 :
-  forall (j:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] depends_init_R :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> depends_init_R1 {‘P:system[like default]} &#64;system:(set:’P; equiv:None)
+  : forall (j:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> depends_init_R {‘P:system[like default]} &#64;system:(set:’P; equiv:None) :
   forall (j,i:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 
 System after processing:
@@ -582,11 +585,11 @@ system <cite>simple</cite>, where each tag can only be executed once for each id
   
    ( !_j( </span><span class="ansi-bold ansi-fg-blue">reader</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ) ) | !_i( </span><span class="ansi-bold ansi-fg-blue">tag</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
 </span><span>
-</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_nT1 :
+</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT1 {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
 Added action dependencies lemmas:
 
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] depends_init_T1 :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> depends_init_T1 {‘P:system[like simple]} &#64;system:(set:’P; equiv:None) :
   forall (i:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T1(i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T1(i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 
 System after processing:
@@ -673,7 +676,7 @@ details about any tactic with <cite>help tacticname.</cite></p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">Proof</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: default
+System: (set:default; equiv:None)
 </span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 forall (i,j:index),
   </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -692,7 +695,7 @@ working in, and the formula to be proved.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">intro</span><span> i j Hh Hc.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: default
+System: (set:default; equiv:None)
 Variables: i,j:index[const]
 Hc: </span><span class="ansi-bold ansi-fg-magenta">cond</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 Hh: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
@@ -712,7 +715,7 @@ assumptions are named according to the identifiers given as parameters to <a cla
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">expand</span><span> </span><span class="ansi-fg-light-green">cond</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: default
+System: (set:default; equiv:None)
 Variables: i,j:index[const]
 Hc: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
 Hh: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
@@ -739,14 +742,14 @@ in other actions:
   </span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) auth. by kT(i) 
     (collision with </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) auth. by kT(i))
     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-    in term &lt;</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
+    in term (</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), &lt;</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;)
 
 Total: 1 occurrence
        0 of them are subsumed by another
        1 occurrence remaining
        
 [goal&gt; Focused goal (1/1):
-System: default
+System: (set:default; equiv:None)
 Variables: i,j:index[const]
 Hc: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
 Hh: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
@@ -764,7 +767,7 @@ find.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">intro</span><span> [k _].
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: default
+System: (set:default; equiv:None)
 Variables: i,j,k:index[const]
 Hc: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
 Hh: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
@@ -778,7 +781,7 @@ exists (k:index), </span><span class="ansi-fg-green">T(i, k)</span><span class="
 </span><span>
 </span></dd>
 <dt><span class="ansi-fg-light-blue">Qed</span><span>.
-</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [default] wa :
+</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> wa &#64;system:(set:default; equiv:None) :
   forall (i,j:index),
     </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
     </span><span class="ansi-bold ansi-fg-magenta">cond</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -817,7 +820,7 @@ that tags cannot be tracked.</p>
 </span><span class="ansi-fg-light-blue">process</span><span> tagD(i:</span><span class="ansi-fg-light-cyan">index</span><span>,k:</span><span class="ansi-fg-light-cyan">index</span><span>) =
   </span><span class="ansi-fg-light-blue">new</span><span> nT;
   </span><span class="ansi-fg-light-blue">out</span><span>(cT, &lt;nT, h(nT,</span><span class="ansi-fg-light-green">diff</span><span>(kT(i),kT’(i,k)))&gt;).
-</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_kT’ :
+</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_kT’ {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index * index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
 </span><span class="ansi-bold ansi-fg-blue">process</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> tagD (i,k:index) =
    </span><span class="ansi-bold">new</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> : message; </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;nT,</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (nT, diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))&gt;); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -840,15 +843,16 @@ that tags cannot be tracked.</p>
   
    ( !_j( R: </span><span class="ansi-bold ansi-fg-blue">readerD</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> j) ) | !_i( !_k( T: </span><span class="ansi-bold ansi-fg-blue">tagD</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i k))
 </span><span>
-</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_nT2 :
+</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT2 {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index * index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
 Added action dependencies lemmas:
 
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] mutex_R1_R2 :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> mutex_R1_R2 {‘P:system[like BasicHash]} &#64;system:(set:’P; equiv:None) :
   forall (j:index), </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">||</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] mutex_R2_R1 :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> mutex_R2_R1 {‘P:system[like BasicHash]} &#64;system:(set:’P; equiv:None) :
   forall (j:index), </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">||</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] depends_init_R2 :
+</span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> depends_init_R2 {‘P:system[like BasicHash]}
+  &#64;system:(set:’P; equiv:None) :
   forall (j:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 
 System after processing:
@@ -903,7 +907,7 @@ logical equivalence instead of an implication.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">Proof</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: BasicHash
+System: (set:BasicHash; equiv:None)
 </span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 forall (tau:timestamp),
   </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -918,7 +922,7 @@ forall (tau:timestamp),
 </span></dd>
 <dt><span>  </span><span class="ansi-fg-light-blue">intro</span><span> tau Hap.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: BasicHash
+System: (set:BasicHash; equiv:None)
 Variables: tau:timestamp[const]
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
 </span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -939,7 +943,7 @@ in two parts. We now have two different goals to prove.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">split</span><span>; </span><span class="ansi-fg-light-blue">intro</span><span> [i k Meq].
 </span></dt><dd><span>[goal&gt; Focused goal (1/2):
-System: BasicHash
+System: (set:BasicHash; equiv:None)
 Variables: i,k:index[const],tau:timestamp[const]
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
 Meq: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau), diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))
@@ -959,7 +963,7 @@ the real system (left) and the ideal system (right).</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">project</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/3):
-System: left:BasicHash/left
+System: (set:left:BasicHash/left; equiv:None)
 Variables: i,k:index[const],tau:timestamp[const]
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
 Meq: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
@@ -987,14 +991,14 @@ in other actions:
   </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) auth. by kT(i) 
     (collision with </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) auth. by kT(i))
     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-    in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
+    in term (</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;)
 
 Total: 1 occurrence
        0 of them are subsumed by another
        1 occurrence remaining
        
 [goal&gt; Focused goal (1/3):
-System: left:BasicHash/left
+System: (set:left:BasicHash/left; equiv:None)
 Variables: i,k:index[const],tau:timestamp[const]
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
 Meq: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
@@ -1009,7 +1013,7 @@ exists (i,k:index),
 </span></dd>
 <dt><span class="ansi-fg-light-blue">intro</span><span> [k0 _].
 </span></dt><dd><span>[goal&gt; Focused goal (1/3):
-System: left:BasicHash/left
+System: (set:left:BasicHash/left; equiv:None)
 Variables: i,k,k0:index[const],tau:timestamp[const]
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
 Meq: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
@@ -1024,7 +1028,7 @@ exists (i,k:index),
 </span></dd>
 <dt><span class="ansi-fg-light-blue">by</span><span> </span><span class="ansi-fg-light-blue">exists</span><span> i,k0.
 </span></dt><dd><span>[goal&gt; Focused goal (1/2):
-System: right:BasicHash/right
+System: (set:right:BasicHash/right; equiv:None)
 Variables: i,k:index[const],tau:timestamp[const]
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
 Meq: </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))
@@ -1047,14 +1051,14 @@ in other actions:
   </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) auth. by kT’((i, k)) 
     (collision with </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) auth. by kT’((i, k)))
     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-    in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
+    in term (</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;)
 
 Total: 1 occurrence
        0 of them are subsumed by another
        1 occurrence remaining
        
 [goal&gt; Focused goal (1/2):
-System: right:BasicHash/right
+System: (set:right:BasicHash/right; equiv:None)
 Variables: i,k:index[const],tau:timestamp[const]
 H: </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> tau </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;tau) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
@@ -1069,7 +1073,7 @@ exists (i,k:index),
 </span></dd>
 <dt><span class="ansi-fg-light-blue">by</span><span> </span><span class="ansi-fg-light-blue">exists</span><span> i,k.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-System: BasicHash
+System: (set:BasicHash; equiv:None)
 Variables: i,k:index[const],tau:timestamp[const]
 Hap: </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau)
 Meq: </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> tau </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -1095,7 +1099,7 @@ directly be obtained from the hypotheses.</p>
 </span><span>
 </span></dd>
 <dt><span class="ansi-fg-light-blue">Qed</span><span>.
-</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [BasicHash] wa_R :
+</span></dt><dd><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> wa_R &#64;system:(set:BasicHash; equiv:None) :
   forall (tau:timestamp),
     </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(tau) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
     (exists (i,k:index),
@@ -1131,7 +1135,7 @@ without writing the full formula, using the keyword <code class="squirrelinline 
 </span></dd>
 <dt><span class="ansi-fg-light-blue">Proof</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/1):
-Systems: BasicHash (same for equivalences)
+Systems: BasicHash
 Variables: t:timestamp[const, glob]
 H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(t)]
 </span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -1169,7 +1173,7 @@ of the protocol.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">induction</span><span> t.
 </span></dt><dd><span>[goal&gt; Focused goal (1/4):
-Systems: BasicHash (same for equivalences)
+Systems: BasicHash
 H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
 </span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
@@ -1178,7 +1182,7 @@ H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="an
 </span></dd>
 <dt><span class="ansi-fg-light-blue">auto</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/3):
-Systems: BasicHash (same for equivalences)
+Systems: BasicHash
 Variables: j:index[const, glob]
 H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
 IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
@@ -1198,7 +1202,7 @@ two biframe elements, containing the the two components.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">expand</span><span> </span><span class="ansi-fg-light-green">frame</span><span>, </span><span class="ansi-fg-light-green">exec</span><span>, </span><span class="ansi-fg-light-green">output</span><span>.
 </span></dt><dd><span>[goal&gt; Focused goal (1/3):
-Systems: BasicHash (same for equivalences)
+Systems: BasicHash
 Variables: j:index[const, glob]
 H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
 IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
@@ -1211,7 +1215,7 @@ IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class
 </span></dd>
 <dt><span class="ansi-fg-light-blue">fa</span><span> !&lt;_,_&gt;.
 </span></dt><dd><span>[goal&gt; Focused goal (1/3):
-Systems: BasicHash (same for equivalences)
+Systems: BasicHash
 Variables: j:index[const, glob]
 H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
 IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
@@ -1235,7 +1239,7 @@ tactic.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">rewrite</span><span> /</span><span class="ansi-fg-light-green">cond</span><span> (wa_R (R2 j)) //.
 </span></dt><dd><span>[goal&gt; Focused goal (1/3):
-Systems: BasicHash (same for equivalences)
+Systems: BasicHash
 Variables: j:index[const, glob]
 H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
 IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
@@ -1258,15 +1262,13 @@ past. Indeed, each of its elements is already available in
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">by</span><span> </span><span class="ansi-fg-light-blue">deduce</span><span> </span><span class="ansi-fg-light-blue">1</span><span>.
-</span></dt><dd><span>[goal&gt; Focused goal (1/2):
-Systems: BasicHash (same for equivalences)
-Variables: j:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-3-9]
+Tactic failed: apply failed: no match found:
+  </span><span class="ansi-bg-red"></span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)</span><span> </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+  </span><span class="ansi-bg-red">exists (i,k:index),
+    </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+    </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">output</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bg-red">(</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)</span><span class="ansi-bg-red"> </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+    </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">output</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bg-red">(</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)</span><span class="ansi-bg-red"></span><span>
 </span></dd>
 </dl>
 </div>
@@ -1274,57 +1276,25 @@ IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">expand</span><span> </span><span class="ansi-fg-light-green">frame</span><span>, </span><span class="ansi-fg-light-green">exec</span><span>, </span><span class="ansi-fg-light-green">output</span><span>.
-</span></dt><dd><span>[goal&gt; Focused goal (1/2):
-Systems: BasicHash (same for equivalences)
-Variables: j:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: &lt;</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">),
-    &lt;</span><span class="ansi-bold">of_bool</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">cond</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">),
-     if (</span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">cond</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) then </span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&gt;&gt;
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-7-12]
+Tactic failed: nothing to expand
 </span></dd>
 <dt><span class="ansi-fg-light-blue">fa</span><span> !&lt;_,_&gt;.
-</span></dt><dd><span>[goal&gt; Focused goal (1/2):
-Systems: BasicHash (same for equivalences)
-Variables: j:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-1: </span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">cond</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-4-9]
+Tactic failed: FA not applicable
 </span></dd>
 <dt><span class="ansi-fg-light-blue">rewrite</span><span> /</span><span class="ansi-fg-light-green">cond</span><span> (wa_R (R1 j)) //.
-</span></dt><dd><span>[goal&gt; Focused goal (1/2):
-Systems: BasicHash (same for equivalences)
-Variables: j:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-1: </span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-   </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     exists (i,k:index),
-       </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-       </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">output</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-       </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">output</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-9-13]
+Tactic failed: nothing to expand
 </span></dd>
 <dt><span class="ansi-fg-light-blue">by</span><span> </span><span class="ansi-fg-light-blue">deduce</span><span> </span><span class="ansi-fg-light-blue">1</span><span>.
-</span></dt><dd><span>[goal&gt; Focused goal (1/1):
-Systems: BasicHash (same for equivalences)
-Variables: i,k:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-3-9]
+Tactic failed: apply failed: no match found:
+  </span><span class="ansi-bg-red"></span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)</span><span> </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+  </span><span class="ansi-bg-red">exists (i,k:index),
+    </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+    </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">output</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bg-red">(</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)</span><span class="ansi-bg-red"> </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
+    </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">output</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bg-red">(</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)</span><span class="ansi-bg-red"></span><span>
 </span></dd>
 </dl>
 </div>
@@ -1333,31 +1303,12 @@ macros and splitting the pairs.</p>
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">expand</span><span> </span><span class="ansi-fg-light-green">frame</span><span>, </span><span class="ansi-fg-light-green">exec</span><span>, </span><span class="ansi-fg-light-green">cond</span><span>, </span><span class="ansi-fg-light-green">output</span><span>.
-</span></dt><dd><span>[goal&gt; Focused goal (1/1):
-Systems: BasicHash (same for equivalences)
-Variables: i,k:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: &lt;</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">),
-    &lt;</span><span class="ansi-bold">of_bool</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">),
-     if (</span><span class="ansi-bold ansi-fg-magenta">exec</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">true</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) then
-       &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))&gt;&gt;&gt;
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-7-12]
+Tactic failed: nothing to expand
 </span></dd>
 <dt><span class="ansi-fg-light-blue">fa</span><span> !&lt;_,_&gt;, </span><span class="ansi-fg-light-blue">if</span><span> _ </span><span class="ansi-fg-light-blue">then</span><span> _, &lt;_,_&gt;.
-</span></dt><dd><span>[goal&gt; Focused goal (1/1):
-Systems: BasicHash (same for equivalences)
-Variables: i,k:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-1: </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)
-2: </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-4-9]
+Tactic failed: FA not applicable
 </span></dd>
 </dl>
 </div>
@@ -1367,69 +1318,8 @@ has never been hased before.</p>
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">prf</span><span> </span><span class="ansi-fg-light-blue">2</span><span>.
-</span></dt><dd><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [any] namelength_n_PRF : [</span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">n_PRF</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
-Applying PRF to </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))
-
-Checking for occurrences on the left
- Indirect bad occurrences of key kT(i), and messages hashed by it 
- in other actions:
-   </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) hashed by kT(i) 
-     (collision with </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT(i))
-     in action </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
-   
-   </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) hashed by kT(i) 
-     (collision with </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT(i))
-     in action </span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
-   
-   </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT(i) 
-     (collision with </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT(i))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
- 
- Total: 3 occurrences
-        0 of them are subsumed by another
-        3 occurrences remaining
-        
- 
-Checking for occurrences on the right
- Indirect bad occurrences of key kT’((i, k)), and messages hashed by it 
- in other actions:
-   </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) hashed by kT’((i, k)) 
-     (collision with </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT’((i, k)))
-     in action </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))
-   
-   </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) hashed by kT’((i, k)) 
-     (collision with </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT’((i, k)))
-     in action </span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))
-   
-   </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT’((i, k)) 
-     (collision with </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) hashed by kT’((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
- 
- Total: 3 occurrences
-        0 of them are subsumed by another
-        3 occurrences remaining
-        
- 
-[goal&gt; Focused goal (1/3):
-System: left:BasicHash/left (equivalences: BasicHash)
-Variables: i,k:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-(forall (i0,j:index),
-   </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i0 </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-(forall (i0,j:index),
-   </span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i0 </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)) </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-forall (i0,k0:index),
-  </span><span class="ansi-fg-green">T(i0, k0)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i0 </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i0, k0)
-
-</span><span>
+</span></dt><dd><span>[error&gt; [error-4-5]
+Tactic failed: out of range position
 </span></dd>
 </dl>
 </div>
@@ -1450,119 +1340,10 @@ goal onto on the left projection and one goal for the right projection of the in
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">repeat</span><span> </span><span class="ansi-fg-light-blue">split</span><span>; </span><span class="ansi-fg-light-blue">intro</span><span> *; </span><span class="ansi-fg-light-blue">by</span><span> </span><span class="ansi-fg-light-blue">fresh</span><span> Meq.
-</span></dt><dd><span>Freshness of occurrences of nT2((i, k)):
- Indirect occurrences of nT2((i, k))  in other actions:
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
-   
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
- 
- Total: 2 occurrences
-        1 of them is subsumed by another
-        1 occurrence remaining
-        
-  Freshness of occurrences of nT2((i, k)):
- Indirect occurrences of nT2((i, k))  in other actions:
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
-   
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
- 
- Total: 2 occurrences
-        1 of them is subsumed by another
-        1 occurrence remaining
-        
-  Freshness of occurrences of nT2((i, k)):
- Direct occurrences of nT2((i, k))  in </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i0, k0):
-   nT2((i0, k0)) (collision with nT2((i, k))) in term </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i0, k0)
- 
- 
- Total: 1 occurrence
-        0 of them are subsumed by another
-        1 occurrence remaining
-        
- 
-[goal&gt; Focused goal (1/2):
-System: right:BasicHash/right (equivalences: BasicHash)
-Variables: i,k:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-(forall (k0,i0,j:index),
-   </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i0 </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> k </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> k0 </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)) 
-</span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-(forall (k0,i0,j:index),
-   </span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i0 </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> k </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> k0 </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold ansi-fg-magenta">input</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)) 
-</span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-forall (i0,k0:index),
-  </span><span class="ansi-fg-green">T(i0, k0)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i0 </span><span class="ansi-bold">&amp;&amp;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> k </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> k0 </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k) </span><span class="ansi-bold">&lt;&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i0, k0)
-
-</span><span>
+</span></dt><dd><span>[error&gt; Tactic ill-formed or unapplicable: improper arguments
 </span></dd>
 <dt><span class="ansi-fg-light-blue">repeat</span><span> </span><span class="ansi-fg-light-blue">split</span><span>; </span><span class="ansi-fg-light-blue">intro</span><span> *; </span><span class="ansi-fg-light-blue">by</span><span> </span><span class="ansi-fg-light-blue">fresh</span><span> Meq.
-</span></dt><dd><span>Freshness of occurrences of nT2((i, k)):
- Indirect occurrences of nT2((i, k))  in other actions:
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
-   
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
- 
- Total: 2 occurrences
-        1 of them is subsumed by another
-        1 occurrence remaining
-        
-  Freshness of occurrences of nT2((i, k)):
- Indirect occurrences of nT2((i, k))  in other actions:
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
-   
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
- 
- Total: 2 occurrences
-        1 of them is subsumed by another
-        1 occurrence remaining
-        
-  Freshness of occurrences of nT2((i, k)):
- Direct occurrences of nT2((i, k))  in </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i0, k0):
-   nT2((i0, k0)) (collision with nT2((i, k))) in term </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i0, k0)
- 
- 
- Total: 1 occurrence
-        0 of them are subsumed by another
-        1 occurrence remaining
-        
- 
-[goal&gt; Focused goal (1/1):
-Systems: BasicHash (same for equivalences)
-Variables: i,k:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-1: </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)
-2: </span><span class="ansi-fg-yellow">n_PRF</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
- 
-</span><span>
+</span></dt><dd><span>[error&gt; Tactic ill-formed or unapplicable: improper arguments
 </span></dd>
 </dl>
 </div>
@@ -1571,22 +1352,8 @@ so we can remove it using the <a class="reference internal" href="proofs.html#sq
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">fresh</span><span> </span><span class="ansi-fg-light-blue">2</span><span>; </span><span class="ansi-fg-light-blue">1</span><span>:</span><span class="ansi-fg-light-blue">auto</span><span>.
-</span></dt><dd><span>Freshness on the left side:
- 
- 
-Freshness on the right side:
- 
- 
-[goal&gt; Focused goal (1/1):
-Systems: BasicHash (same for equivalences)
-Variables: i,k:index[const, glob]
-H: [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)]
-IH: equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span class="ansi-bold">—————————————-</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-0: </span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;</span><span class="ansi-bold">pred</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-1: </span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)
- 
-</span><span>
+</span></dt><dd><span>[error&gt; [error-6-7]
+Tactic failed: out of range position
 </span></dd>
 </dl>
 </div>
@@ -1596,47 +1363,15 @@ hypothesis.</p>
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">by</span><span> </span><span class="ansi-fg-light-blue">fresh</span><span> </span><span class="ansi-fg-light-blue">1</span><span>.
 </span></dt><dd><span>Freshness on the left side:
- Indirect occurrences of nT2((i, k))  in other actions:
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
-   
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;
- 
- Total: 2 occurrences
-        1 of them is subsumed by another
-        1 occurrence remaining
-        
- 
-Freshness on the right side:
- Indirect occurrences of nT2((i, k))  in other actions:
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
-   
-   nT2((i, k)) 
-     (collision with nT2((i, k)))
-     in action </span><span class="ansi-fg-green">T(i, k)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-     in term &lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))&gt;
- 
- Total: 2 occurrences
-        1 of them is subsumed by another
-        1 occurrence remaining
-        
- 
-[goal&gt; lemma unlinkability is proved
-</span><span>
-</span></dd>
+ [error&gt; [error-9-10]
+ Tactic failed: Term Classic.exec&#64;pred (R2(j)) &amp;&amp;
+exists (i,k:index),
+  T(i, k) &lt; R2(j) &amp;&amp;
+  fst (Classic.output&#64;T(i, k)) = fst (Classic.input&#64;R2(j)) &amp;&amp;
+  snd (Classic.output&#64;T(i, k)) = snd (Classic.input&#64;R2(j)) is not a name.
+ </span></dd>
 <dt><span class="ansi-fg-light-blue">Qed</span><span>.
-</span></dt><dd><span>global </span><span class="ansi-fg-red">lemma</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> [BasicHash (same for equivalences)] unlinkability :
-  Forall (t:timestamp[const, glob]), [</span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(t)] -&gt; equiv(</span><span class="ansi-bold ansi-fg-magenta">frame</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">&#64;t)
-Exiting proof mode.
-</span><span>
+</span></dt><dd><span>[error&gt; Unexpected command.
 </span></dd>
 </dl>
 </div>
