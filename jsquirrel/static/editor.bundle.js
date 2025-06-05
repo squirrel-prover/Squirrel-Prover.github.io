@@ -47851,6 +47851,8 @@
            // this.file_store = localforage.createInstance({'name': 'SquirrelWorker.file_store'});
            this.theories_dir = new URL("static/theories/", base_path);
            // By default we can add the tutorial to the file storage
+           var lib = ["Prelude.sp", "Classic.sp", "DeductionSyntax.sp", "PostQuantum.sp", "Reify.sp", "WeakSecrecy.sp", "Core.sp", "Int.sp", "Set.sp", "Deduction.sp", "Logic.sp", "Real.sp", "String.sp"];
+           this.lib = lib;
            var tuto = [
                "0-logic.sp",
                "1-crypto-hash.sp",
@@ -47860,9 +47862,30 @@
                "5-stateful.sp",
                "6-key-establishment.sp",
            ];
-           var lib = ["Prelude.sp", "Classic.sp", "DeductionSyntax.sp", "PostQuantum.sp", "Reify.sp", "WeakSecrecy.sp", "Core.sp", "Int.sp", "Set.sp", "Deduction.sp", "Logic.sp", "Real.sp", "String.sp"];
-           this.lib = lib;
-           var fnames = lib.concat(tuto);
+           var ex_sandp = [
+               "basic-hash.sp",
+               "basic-hash-auth.sp",
+               "feldhofer.sp",
+               "private-authentication.sp", "signed-ddh-P.sp", "ssh-forward-part1-compo.sp",
+               "hash-lock.sp", "mw.sp", "signed-ddh-S.sp", "ssh-forward-part2-compo.sp",
+               "lak-tags.sp", "signed-ddh-compo.sp"
+           ];
+           var ex_state = [
+               "canauth.sp",
+               "lfmtp21.sp",
+               "running-ex-deduction.sp",
+               "running-ex-secrecy.sp",
+               "running-ex-oracle.sp",
+               "running-ex.sp",
+               "slk06.sp",
+               "toy-counter.sp",
+               "toy-state-equiv.sp",
+               "yplrk05.sp",
+               "yubikey.sp",
+               "yubihsm.sp",
+           ];
+           this.examples = [["Base tutorial", tuto], ["Original examples from SP21", ex_sandp], ["Stateful examples from CSF22", ex_state]];
+           var fnames = lib.concat(tuto).concat(ex_state).concat(ex_sandp);
            fnames.forEach(function (fname) {
                _this.getFileString(fname);
            });
@@ -48080,22 +48103,38 @@
            var _this = this;
            var list_id = 'squirrel-local-files';
            var list = $('<ul>');
-           localforageExports.keys().then(function (keys) {
-               var _loop_1 = function (key) {
-                   console.log("Add " + key);
-                   li = $("<li><a class='fileLink'>" + key + "</a></li>")
+           for (var _i = 0, _a = this.examples; _i < _a.length; _i++) {
+               var exampleset = _a[_i];
+               var sublist = $('<ul>');
+               console.log("Add " + exampleset[0]);
+               var li = $("<li>" + exampleset[0] + "</li>");
+               list.append(li);
+               var _loop_1 = function (example) {
+                   li = $("<li><a class='fileLink'>" + example + "</a></li>")
                        .on('click', function (_) {
-                       _this.openLocal(key.toString(), view);
+                       _this.openLocal(example.toString(), view);
                        view.focus();
                    });
-                   list.append(li);
+                   sublist.append(li);
                };
                var li;
-               for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
-                   var key = keys_2[_i];
-                   _loop_1(key);
+               for (var _b = 0, _c = exampleset[1]; _b < _c.length; _b++) {
+                   var example = _c[_b];
+                   _loop_1(example);
                }
-           });
+               list.append(sublist);
+           }
+           // localforage.keys().then((keys) => {
+           //   for (let key of keys) {
+           //     console.log("Add "+key);
+           //     var li = myJquery("<li><a class='fileLink'>"+key+"</a></li>")
+           //     .on('click', _ => { 
+           //       this.openLocal(key.toString(),view);
+           //       view.focus();
+           //     });
+           //     list.append(li);
+           //   }
+           // });
            var addButton = $("<button id='plus' name='plus'>").on("click", function (_) {
                _this.openFileDialog(view);
            });
