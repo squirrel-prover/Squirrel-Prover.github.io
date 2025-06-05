@@ -47860,7 +47860,8 @@
                "5-stateful.sp",
                "6-key-establishment.sp",
            ];
-           var lib = ["Basic.sp", "Prelude.sp"];
+           var lib = ["Prelude.sp", "Classic.sp", "DeductionSyntax.sp", "PostQuantum.sp", "Reify.sp", "WeakSecrecy.sp", "Core.sp", "Int.sp", "Set.sp", "Deduction.sp", "Logic.sp", "Real.sp", "String.sp"];
+           this.lib = lib;
            var fnames = lib.concat(tuto);
            fnames.forEach(function (fname) {
                _this.getFileString(fname);
@@ -48291,18 +48292,29 @@
         */
        SquirrelWorker.prototype.init = function () {
            return __awaiter(this, void 0, void 0, function () {
-               var sentence;
-               return __generator(this, function (_a) {
-                   switch (_a.label) {
+               var _i, _a, fname, sentence;
+               return __generator(this, function (_b) {
+                   switch (_b.label) {
                        case 0:
                            this.cursor = null;
                            this.curSentences = [];
                            this.queueSentences = [];
                            this.executedSentences = [];
-                           return [4 /*yield*/, this.fileManager.getFileString("Prelude.sp")];
+                           _i = 0, _a = this.fileManager.lib;
+                           _b.label = 1;
                        case 1:
-                           sentence = _a.sent();
-                           this.sendCommand(["Reset", sentence]);
+                           if (!(_i < _a.length)) return [3 /*break*/, 4];
+                           fname = _a[_i];
+                           return [4 /*yield*/, this.fileManager.getFileString(fname)];
+                       case 2:
+                           sentence = _b.sent();
+                           this.sendCommand(["LoadFile", [fname, sentence]]);
+                           _b.label = 3;
+                       case 3:
+                           _i++;
+                           return [3 /*break*/, 1];
+                       case 4:
+                           this.sendCommand(["Reset"]);
                            return [2 /*return*/];
                    }
                });
@@ -48392,32 +48404,12 @@
        // TODO move out
        // tell if a SyntaxNode is an Include command
        SquirrelWorker.prototype.isInclude = function (x) {
-           return x.firstChild && x.firstChild.type.name === "P_include";
+           return false;
        };
        SquirrelWorker.prototype.getStringOfNode = function (x, viewState) {
            return __awaiter(this, void 0, void 0, function () {
-               var include_name, path, name_1, filename, name_2;
                return __generator(this, function (_a) {
-                   switch (_a.label) {
-                       case 0:
-                           if (!this.isInclude(x)) return [3 /*break*/, 5];
-                           include_name = x.firstChild.getChild("include_name");
-                           path = include_name.getChild("Lpath");
-                           if (!path) return [3 /*break*/, 2];
-                           name_1 = viewState.sliceDoc(path.from, path.to);
-                           filename = name_1.replace(/^.*[\\\/]/, "");
-                           return [4 /*yield*/, this.fileManager.getFileString(filename)];
-                       case 1: 
-                       // console.warn("filename : "+path);
-                       return [2 /*return*/, _a.sent()];
-                       case 2:
-                           name_2 = viewState.sliceDoc(include_name.from, include_name.to);
-                           return [4 /*yield*/, this.fileManager.getFileString(name_2 + ".sp")];
-                       case 3: return [2 /*return*/, _a.sent()];
-                       case 4: return [3 /*break*/, 6];
-                       case 5: return [2 /*return*/, viewState.sliceDoc(x.from, x.to)];
-                       case 6: return [2 /*return*/];
-                   }
+                   return [2 /*return*/, viewState.sliceDoc(x.from, x.to)];
                });
            });
        };
