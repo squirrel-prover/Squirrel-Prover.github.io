@@ -41,8 +41,8 @@ The documentation can be found
 # Tutorial
 
 This [tutorial](https://squirrel-prover.github.io/documentation/tutorial.html) and some commented [examples](examples.html) allow to start discovering Squirrel.
-A more complete tutorial has been prepared on the occasion of the
-Cyber in Nancy summer school; see the [events](events.html) page.
+More complete tutorials have been prepared on the occasion of the
+summer schols; see the [events](events.html) page.
 
 A high-level introduction to the theory behind Squirrel was published in the ACM Siglog newsletter [@BDJKL24]. The formal technical details are inside the research papers:
 

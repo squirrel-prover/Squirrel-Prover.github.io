@@ -14,13 +14,20 @@
 
 This page contains some additionals teaching materials for some future and past events. 
 
-# Up-coming events
+## EJCP 2025 (Vannes, France)
 
-Nothing is planned, yet!
+The school featured a Squirrel tutorial, with lectures in the morning
+and exercises in the afternoon. It targetted PhD students without a
+background in security protocols, cryptography or proof assistants.
+A quick introduction to these fields was given, after which the core
+approach behind Squirrel was presented. The school does not cover
+equivalence properties.
 
-# Past-Events
+Slides: [part1](ejcp25_part1.pdf) and [part2](ejcp25_part2.pdf)
 
-## Cyber 2022 in Nancy
+Files: [here](ejcp2025.tar.bz2)
+
+## Cyber 2022 (Nancy, France)
 
 Slides are available [here](nancy22.pdf).
 
@@ -52,7 +59,7 @@ They are also accessible directly below:
 
 Those, again, are available on our online version [here](https://squirrel-prover.github.io/jsquirrel/)
 
-## MOVEP 2022
+## MOVEP 2022 (Aalborg, Denmark)
 
 Slides are available [here](movep.pdf).
 
