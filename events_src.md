@@ -25,7 +25,7 @@ equivalence properties.
 
 Slides: [part1](ejcp25_part1.pdf) and [part2](ejcp25_part2.pdf)
 
-Files: [here](ejcp2025.tar.bz2)
+Files: [here](ejcp25.tar.bz2)
 
 ## Cyber 2022 (Nancy, France)
 
