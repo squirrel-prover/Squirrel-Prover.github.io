@@ -12,7 +12,7 @@
 ---
 
 
-This page contains some additionals teaching materials for some future and past events. 
+This page contains teaching material from several past events.
 
 ## EJCP 2025 (Vannes, France)
 
