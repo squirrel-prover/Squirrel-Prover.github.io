@@ -3,7 +3,8 @@
   pagetitle: Examples
 ---
 
-The following examples are replays of interactive proofs done with the Squirrel Prover.
+The following examples are replays of interactive proofs done with the Squirrel Prover. **Beware: these files use outdated syntax; fixed versions can be
+found in our code repository.**
 
 # General examples
 

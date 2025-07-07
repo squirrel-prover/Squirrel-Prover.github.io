@@ -40,8 +40,10 @@ The documentation can be found
 
 # Tutorial
 
-This [tutorial](https://squirrel-prover.github.io/documentation/tutorial.html) and some commented [examples](examples.html) allow to start discovering Squirrel.
-More complete tutorials have been prepared on the occasion of the
+You may get started with
+this [tutorial](https://squirrel-prover.github.io/documentation/tutorial.html),
+or commented examples available in our [browser-based prover](https://squirrel-prover.github.io/jsquirrel/).
+More complete tutorials have been prepared on the occasion of several
 summer schols; see the [events](events.html) page.
 
 A high-level introduction to the theory behind Squirrel was published in the ACM Siglog newsletter [@BDJKL24]. The formal technical details are inside the research papers:
@@ -69,7 +71,7 @@ a meta-logic on top of the logic of [@BC14];
 
 Former members:
 
- * [Tito Nguyen](https://nguyentito.eu/), _formerly IRISA, now at ENS Lyon_
+ * [Tito Nguyen](https://nguyentito.eu/), _formerly IRISA, now at LIS / Aix-Mariseille University_
  * [Solène Moreau](https://pages.saclay.inria.fr/toccata/solene.moreau/), _formerly IRISA, now at AdaCore_
  * [Thomas Rubiano](https://people.irisa.fr/Thomas.Rubiano/), _formerly Univ Rennes, CNRS, IRISA_
 
