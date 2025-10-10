@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Typing for secrecy &mdash; Squirrel  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
+      <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
+      <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/notations.js?v=69751d6f"></script>
+      <script src="_static/js/rtd_search_config.js"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Indexes" href="appendix/indexes/index.html" />
+    <link rel="prev" title="Protocol modelling" href="tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Squirrel
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference-intro.html">Notations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference-intro.html#lexical-conventions">Lexical conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="reference-intro.html#infix-operators">Infix operators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Logic</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#types">Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#base-types">Base types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#type-variables-and-polymorphism">Type variables and polymorphism</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#general-types">General types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#binders-and-tags">Binders and tags</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#terms-with-binders">Terms with binders</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#multi-terms">Multi-terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#diff-terms">Diff-terms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#macros">Macros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#formulas">Formulas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#local-formulas">Local formulas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="logic.html#global-formulas">Global formulas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="declarations.html">Declarations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#terms">Terms</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#names">Names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#abstract-functions">Abstract functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#operators">Operators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#built-ins">Built-ins</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#cryptographic-functions">Cryptographic functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#processes">Processes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#channels">Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#memory-cells">Memory cells</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#id4">Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#systems-and-actions">Systems and actions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-defined-macros">System-defined macros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-expressions">System expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="declarations.html#system-contexts">System contexts</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-binders">System binders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="declarations.html#system-annotations">System annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="declarations.html#axioms-and-lemmas">Axioms and Lemmas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="proofs.html">Proofs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#judgements">Judgements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#logical-variables">Logical variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#hypotheses">Hypotheses</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#local-judgement">Local judgement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#global-judgement">Global judgement</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#generalities">Generalities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactic-arguments">Tactic arguments</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#intro-patterns">Intro patterns</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#proof-terms">Proof terms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#proof-term-resolution">Proof-term resolution</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#reduction">Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#automatic-simplification-tactics">Automatic simplification tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#tactics">Tactics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#common-errors">Common errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="proofs.html#id4">Tactics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#generic-tactics">Generic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#common-tactics">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#local-tactics">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#global-tactics">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id8">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id14">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id17">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id27">Global tactics</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commands.html">Commands</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#reachability-properties">Reachability properties</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#macros">Macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#formulas">Formulas</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html#equivalence-properties">Equivalence properties</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extensions</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Typing for secrecy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typing-algorithm">Typing algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#declarations">Declarations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#name-declarations">Name declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#state-declarations">State declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#protocol-declarations">Protocol declarations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tactic">Tactic</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/indexes/index.html">Indexes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="std-glossindex.html">Glossary index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-declindex.html">Declaration index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-cmdindex.html">Command index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-tacindex.html">Tactic index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="squirrel-exnindex.html">Errors and warnings index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="doc-writing.html">Documenting Squirrel with Sphinx</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#todo-list-generation">TODO list generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-objects">Squirrel objects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#notations">Notations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#objects">Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-directives">Squirrel directives</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#squirrel-roles">Squirrel roles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#common-mistakes">Common mistakes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#improper-nesting">Improper nesting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-token">Overusing <code class="docutils literal notranslate"><span class="pre">:token:</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#omitting-annotations">Omitting annotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#using-the-squirreltop-directive-for-syntax-highlighting">Using the <code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">squirreltop::</span></code> directive for syntax highlighting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-plain-quotes">Overusing plain quotes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#overusing-the-example-directive">Overusing the <code class="docutils literal notranslate"><span class="pre">example</span></code> directive</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc-writing.html#tips-and-tricks">Tips and tricks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#nested-lemmas">Nested lemmas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#abbreviations-and-macros">Abbreviations and macros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc-writing.html#advanced-uses-of-notations">Advanced uses of notations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Squirrel</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Typing for secrecy</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/squirrel-prover/squirrel-prover/blob/master/documentation/sphinx/source/typing.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="math-preamble math notranslate nohighlight">
+\[\begin{split}\newcommand{\as}{\kw{as}}
+\newcommand{\case}{\kw{case}}
+\newcommand{\cons}{\textsf{cons}}
+\newcommand{\consf}{\textsf{consf}}
+\newcommand{\emptyf}{\textsf{emptyf}}
+\newcommand{\End}{\kw{End}}
+\newcommand{\kwend}{\kw{end}}
+\newcommand{\even}{\textsf{even}}
+\newcommand{\evenO}{\textsf{even}_\textsf{O}}
+\newcommand{\evenS}{\textsf{even}_\textsf{S}}
+\newcommand{\Fix}{\kw{Fix}}
+\newcommand{\fix}{\kw{fix}}
+\newcommand{\for}{\textsf{for}}
+\newcommand{\forest}{\textsf{forest}}
+\newcommand{\Functor}{\kw{Functor}}
+\newcommand{\In}{\kw{in}}
+\newcommand{\ind}[3]{\kw{Ind}~[#1]\left(#2\mathrm{~:=~}#3\right)}
+\newcommand{\Indp}[4]{\kw{Ind}_{#4}[#1](#2:=#3)}
+\newcommand{\Indpstr}[5]{\kw{Ind}_{#4}[#1](#2:=#3)/{#5}}
+\newcommand{\injective}{\kw{injective}}
+\newcommand{\kw}[1]{\textsf{#1}}
+\newcommand{\length}{\textsf{length}}
+\newcommand{\letin}[3]{\kw{let}~#1:=#2~\kw{in}~#3}
+\newcommand{\List}{\textsf{list}}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\Match}{\kw{match}}
+\newcommand{\Mod}[3]{{\kw{Mod}}({#1}:{#2}\,\zeroone{:={#3}})}
+\newcommand{\ModImp}[3]{{\kw{Mod}}({#1}:{#2}:={#3})}
+\newcommand{\ModA}[2]{{\kw{ModA}}({#1}=={#2})}
+\newcommand{\ModS}[2]{{\kw{Mod}}({#1}:{#2})}
+\newcommand{\ModType}[2]{{\kw{ModType}}({#1}:={#2})}
+\newcommand{\mto}{.\;}
+\newcommand{\nat}{\textsf{nat}}
+\newcommand{\Nil}{\textsf{nil}}
+\newcommand{\nilhl}{\textsf{nil\_hl}}
+\newcommand{\nO}{\textsf{O}}
+\newcommand{\node}{\textsf{node}}
+\newcommand{\nS}{\textsf{S}}
+\newcommand{\odd}{\textsf{odd}}
+\newcommand{\oddS}{\textsf{odd}_\textsf{S}}
+\newcommand{\ovl}[1]{\overline{#1}}
+\newcommand{\Pair}{\textsf{pair}}
+\newcommand{\plus}{\mathsf{plus}}
+\newcommand{\SProp}{\textsf{SProp}}
+\newcommand{\Prop}{\textsf{Prop}}
+\newcommand{\return}{\kw{return}}
+\newcommand{\Set}{\textsf{Set}}
+\newcommand{\Sort}{\mathcal{S}}
+\newcommand{\Str}{\textsf{Stream}}
+\newcommand{\Struct}{\kw{Struct}}
+\newcommand{\subst}[3]{#1\{#2/#3\}}
+\newcommand{\tl}{\textsf{tl}}
+\newcommand{\tree}{\textsf{tree}}
+\newcommand{\trii}{\triangleright_\iota}
+\newcommand{\Type}{\textsf{Type}}
+\newcommand{\WEV}[3]{\mbox{$#1[] \vdash #2 \lra  #3$}}
+\newcommand{\WEVT}[3]{\mbox{$#1[] \vdash #2 \lra$}\\ \mbox{$ #3$}}
+\newcommand{\WF}[2]{{\mathcal{W\!F}}(#1)[#2]}
+\newcommand{\WFE}[1]{\WF{E}{#1}}
+\newcommand{\WFT}[2]{#1[] \vdash {\mathcal{W\!F}}(#2)}
+\newcommand{\WFTWOLINES}[2]{{\mathcal{W\!F}}\begin{array}{l}(#1)\\\mbox{}[{#2}]\end{array}}
+\newcommand{\with}{\kw{with}}
+\newcommand{\WS}[3]{#1[] \vdash #2 &lt;: #3}
+\newcommand{\WSE}[2]{\WS{E}{#1}{#2}}
+\newcommand{\WT}[4]{#1[#2] \vdash #3 : #4}
+\newcommand{\WTE}[3]{\WT{E}{#1}{#2}{#3}}
+\newcommand{\WTEG}[2]{\WTE{\Gamma}{#1}{#2}}
+\newcommand{\WTM}[3]{\WT{#1}{}{#2}{#3}}
+\newcommand{\zeroone}[1]{[{#1}]}
+\end{split}\]</div>
+<section id="typing-for-secrecy">
+<span id="section-typing"></span><h1>Typing for secrecy<a class="headerlink" href="#typing-for-secrecy" title="Link to this heading">¶</a></h1>
+<p>This section describes the typing tactic enabled by
+<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">set</span></span><span> <span class="pre">securityTypes</span> <span class="pre">=</span> </span><span class="ansi-fg-light-cyan"><span class="pre">true</span></span></code>.
+The user must give types when declaring names and mutable states
+describing which messages are public or secret.
+Then, Squirrel will type-check all systems in the file
+when they are defined.
+Finally, the <a class="reference internal" href="#squirrel:tacn.typing" title="typing"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">typing</span></code></a> tactic proves that a public term,
+i.e., a message possibly known by the attacker,
+cannot be equal to a secret term.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tactic implements the work published in <span id="id1">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
+</div>
+<dl class="squirrel flag">
+<dt class="sig sig-object squirrel" id="squirrel:flag.securityTypes">
+<em class="property"><span class="sigannot"><span class="pre">Flag</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">securityTypes</span></span></span></span></span><a class="headerlink" href="#squirrel:flag.securityTypes" title="Link to this definition">¶</a></dt>
+<dd><p>Allows to declare security types and to use the <a class="reference internal" href="#squirrel:tacn.typing" title="typing"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">typing</span></code></a> tactic.</p>
+</dd></dl>
+
+<section id="types">
+<h2>Types<a class="headerlink" href="#types" title="Link to this heading">¶</a></h2>
+<p>Types used to express security guarantees are different from the usual
+types defined by the <code class="xref std std-token docutils literal notranslate"><span class="pre">&#64;type</span></code> production. They do not replace them,
+but are used in addition to them.</p>
+<p>To typecheck a term, the user must have assigned a security type to some base
+elements of that term (i.e. names and mutable states).
+There are two kinds of security types: types for messages and types for keys.</p>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-message_type"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>Msg</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>High</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>Low</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>Bool</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>Cst</span></span> <a class="reference internal" href="declarations.html#grammar-token-fun_id"><span class="hole">fun_id</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a> <span><span>*</span></span> <a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a> <span><span>+</span></span> <a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>A message type describes the level of knowledge the attacker may have on a
+term with that type.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Msg</span></span></span></span></code> is the most general type: it does not give any guarantee.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">High</span></span></span></span></code> means the term is secret: its exact value cannot be
+computed from public values
+(except with negligible probility).
+However, some bits of information about it could be publicly available.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Low</span></span></span></span></code> is the type of a value that may be published.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Bool</span></span></span></span></code> is the type of a boolean value. These values are always public.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Cst</span></span></span> <span><span><span class="pre">c</span></span></span></span></code> designates a term overwhelmingly interpreted
+as the constant <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">c</span></span></span></span></code>.
+The identifier <cite>c</cite> must designate an abstract function
+with a type of the form <code class="docutils literal notranslate"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">index</span></span></span> <span><span><span class="pre">-&gt;</span></span></span></span><span class="notation-sup"><span class="pre">*</span></span></span> <span><span><span class="pre">message</span></span></span></span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span> <span><span><span class="pre">*</span></span></span> <span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code> designates a pair of a term of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span></span></code> and one of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span> <span><span><span class="pre">+</span></span></span> <span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code> is a sum type: a term of this type will be
+a term of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span></span></code> in some executions, and of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code> in others.</p></li>
+</ul>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-key_type"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-key_type"><span class="hole">key_type</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>SK[</span></span><a class="reference internal" href="declarations.html#grammar-token-fun_id"><span class="hole">fun_id</span></a><span><span>,</span></span> <a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a><span><span>]</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>AK[</span></span><a class="reference internal" href="declarations.html#grammar-token-fun_id"><span class="hole">fun_id</span></a><span><span>,</span></span> <a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a><span><span>]</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>SSK[</span></span><a class="reference internal" href="declarations.html#grammar-token-fun_id"><span class="hole">fun_id</span></a><span><span>,</span></span> <a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a><span><span>]</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>A key type describes an honest uncompromised key for encryption/signature:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">SK[f,</span></span></span> <span><span><span class="pre">T]</span></span></span></span></code> is a symmetric encryption key.
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span></span></code> is the type of the plaintexts that can be encrypted with this key.
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">f</span></span></span></span></code> must be the associated encryption function,
+declared using <a class="reference internal" href="declarations.html#squirrel:decl.senc" title="senc"><code class="xref squirrel squirrel-decl docutils literal notranslate"><span class="pre">senc</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">AK[f,</span></span></span> <span><span><span class="pre">T]</span></span></span></span></code> is an asymmetric encryption private key.
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span></span></code> is the type of the plaintexts that can be encrypted with this key
+by honest agent in the protocol.
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">f</span></span></span></span></code> must be the associated encryption function,
+declared using <a class="reference internal" href="declarations.html#squirrel:decl.aenc" title="aenc"><code class="xref squirrel squirrel-decl docutils literal notranslate"><span class="pre">aenc</span></code></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">SSK[f,</span></span></span> <span><span><span class="pre">T]</span></span></span></span></code> is a signature private key.
+A signature with this key ensures the signed message is of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span></span></code>.
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">f</span></span></span></span></code> must be the associated signature function,
+declared using <a class="reference internal" href="declarations.html#squirrel:decl.signature" title="signature"><code class="xref squirrel squirrel-decl docutils literal notranslate"><span class="pre">signature</span></code></a>.</p></li>
+</ul>
+<span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-security_type"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-security_type"><span class="hole">security_type</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-message_type"><span class="hole">message_type</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-key_type"><span class="hole">key_type</span></a></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><code class="docutils literal notranslate"></code></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">|</span></code></span><span class="prodn-cell-production"><span class="notation"><span><span>Rand</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p>A security type is either a message type, a key type,
+or <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Rand</span></span></span></span></code>, a special type reserved for randomness used when encrypting.
+To encrypt a message typed <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span></span></code> with a key typed <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">SK[f,</span></span></span> <span><span><span class="pre">T]</span></span></span></span></code>
+or <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">AK[f,</span></span></span> <span><span><span class="pre">T]</span></span></span></span></code>, the randomness given to the encryption function
+must be typed <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Rand</span></span></span></span></code>.
+The type system checks, among other conditions,
+that the same random is not used twice.</p>
+</section>
+<section id="typing-algorithm">
+<h2>Typing algorithm<a class="headerlink" href="#typing-algorithm" title="Link to this heading">¶</a></h2>
+<p>The typing procedure does not support all features of Squirrel’s language.
+In particular, it cannot consider terms with user-defined types, higher-order,
+or names and mutable states with non-index arguments.</p>
+<p>The typing procedure is sound w.r.t the type system described in
+<span id="id2">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>, but it is not complete.
+One notable source of incompleteness is a rule of the type system
+that allows, when a variable is known to be of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span> <span><span><span class="pre">+</span></span></span> <span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code>,
+to perform a case disjunction, and continue the typechecking twice,
+assuming first that the variable has type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span></span></code>, and then <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code>.
+One must be careful when applying that rule, since it may lead to the same
+randomness being apparently used in different encryptions, once in each
+branch of the proof.
+Typing may thus require a subtle use of that rule to break sums.
+The implemented algorithm relies on a heuristic to decide when to apply it,
+which is not complete.
+As much as possible, when typechecking fails because of the heuristic, the
+error message reports it.</p>
+</section>
+<section id="declarations">
+<h2>Declarations<a class="headerlink" href="#declarations" title="Link to this heading">¶</a></h2>
+<p>The flag <a class="reference internal" href="#squirrel:flag.securityTypes" title="securityTypes"><code class="xref squirrel squirrel-flag docutils literal notranslate"><span class="pre">securityTypes</span></code></a> modifies the syntax and/or behaviour of some
+declarations.
+Once it is set to <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">true</span></span></span></span></code>, the user can add security types
+to name and mutable state declarations.</p>
+<section id="name-declarations">
+<h3>Name declarations<a class="headerlink" href="#name-declarations" title="Link to this heading">¶</a></h3>
+<dl class="squirrel declv">
+<dt class="sig sig-object squirrel">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span> <span class="pre">Variant</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">name</span></span></span> <a class="reference internal" href="declarations.html#grammar-token-name_id"><span class="hole"><span class="pre">name_id</span></span></a> <span><span><span class="pre">:</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a> <span><span><span class="pre">-&gt;</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-security_type"><span class="hole"><span class="pre">security_type</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span></dt>
+<dd><p>A name declaration <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">name</span></span></span> <a class="reference internal" href="declarations.html#grammar-token-name_id"><span class="hole"><span class="pre">name_id</span></span></a> <span><span><span class="pre">:</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">i</span></sub></span></a> <span><span><span class="pre">-&gt;</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">s</span></sub></span></a></span></code> introduces
+a name symbol <a class="reference internal" href="declarations.html#grammar-token-name_id"><code class="xref std std-token docutils literal notranslate"><span class="pre">name_id</span></code></a>, with a user-defined <a class="reference internal" href="#grammar-token-security_type"><code class="xref std std-token docutils literal notranslate"><span class="pre">security_type</span></code></a>.
+The same constraints on <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">i</span></sub></span></a></span></code> and <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span><sub><span class="pre">s</span></sub></span></a></span></code> as on normal
+name declarations apply.
+A name can only be declared with types <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Low</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">High</span></span></span></span></code>, <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Rand</span></span></span></span></code>,
+or a <code class="xref std std-token docutils literal notranslate"><span class="pre">&#64;key</span> <span class="pre">type</span></code>.
+Additionally, a security type other than <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Low</span></span></span></span></code> can only be declared
+if the type in which the name is sampled is tagged <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">large</span></span></span></span></code>.</p>
+</dd></dl>
+
+</section>
+<section id="state-declarations">
+<h3>State declarations<a class="headerlink" href="#state-declarations" title="Link to this heading">¶</a></h3>
+<dl class="squirrel declv">
+<dt class="sig sig-object squirrel">
+<em class="property"><span class="sigannot"><span class="pre">Declaration</span> <span class="pre">Variant</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">mutable</span></span></span> <a class="reference internal" href="declarations.html#grammar-token-state_id"><span class="hole"><span class="pre">state_id</span></span></a> <a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">:</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="#grammar-token-security_type"><span class="hole"><span class="pre">security_type</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-security_type"><span class="hole"><span class="pre">security_type</span></span></a></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span><span><span class="pre">=</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span></dt>
+<dd><p>Declares a mutable state with a user-defined &#64;security_type.
+The same restrictions on <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-binders"><span class="hole"><span class="pre">binders</span></span></a></span></code> and <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code> as usual apply.</p>
+<p>When using a <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-security_type"><span class="hole"><span class="pre">security_type</span></span></a></span></code>, <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-type"><span class="hole"><span class="pre">type</span></span></a></span></code> must be <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">message</span></span></span></span></code>.</p>
+<p>If the <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code> provided as initial value cannot be typed with the given
+<code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-security_type"><span class="hole"><span class="pre">security_type</span></span></a></span></code>, then the mutable state <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="declarations.html#grammar-token-state_id"><span class="hole"><span class="pre">state_id</span></span></a></span></code> is not well-typed.
+Since, when declaring a state, action <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">init</span></span></span></span></code> is updated in all systems
+to set its initial value, any past or future system immediately stops being well-typed
+as well, and a warning is displayed to the user.</p>
+</dd></dl>
+
+</section>
+<section id="protocol-declarations">
+<h3>Protocol declarations<a class="headerlink" href="#protocol-declarations" title="Link to this heading">¶</a></h3>
+<p>The syntax for protocol declarations is unchanged.
+However, each system is typechecked when it is declared.
+The typechecker ensures all outputs are <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Low</span></span></span></span></code>,
+all conditions are <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Bool</span></span></span></span></code>, and each update of a mutable state
+sets it to a value of the expected type, provided at the state’s declaration.
+These verifications are performed separately on each projection of the system, unless the
+system does not use the <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">diff</span></span></span></span></code> operator, in which case it is only typechecked once.</p>
+<p>When declaring a system, some proof obligations may be opened.
+Indeed, to typecheck some terms, the type system may need to assume that
+some constants with different symbols are different – typically, constants used as
+tags to distinguish protocol messages.
+If the typechecker makes this assumption, and cannot automatically prove it holds,
+it opens a subgoal asking the user to prove it, before declaring the system to be well-typed.</p>
+<p>The <a class="reference internal" href="#squirrel:tacn.typing" title="typing"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">typing</span></code></a> tactic is enabled in all well-typed projections of a system, but
+is unavailable in projections where the typechecking failed.
+In that case, a message describing the action in which the error occurred is displayed.</p>
+</section>
+</section>
+<section id="tactic">
+<h2>Tactic<a class="headerlink" href="#tactic" title="Link to this heading">¶</a></h2>
+<dl class="squirrel tacn">
+<dt class="sig sig-object squirrel" id="squirrel:tacn.typing">
+<em class="property"><span class="sigannot"><span class="pre">Tactic</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">typing</span></span></span> <a class="reference internal" href="proofs.html#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.typing" title="Link to this definition">¶</a></dt>
+<dd><p>This tactic applies to a hypothesis of the form <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span> <span><span><span class="pre">=</span></span></span> <span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code>.
+The current goal’s <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="declarations.html#grammar-token-system_context"><span class="hole"><span class="pre">system_context</span></span></a></span></code> must specify a set consisting
+in a finite number of well-typed (projections of) systems.
+The tactic attempts to give <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span></span></code> the type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Low</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code> the type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">High</span></span></span></span></code>,
+or vice-versa if that first attempt fails, in each system of the set.
+These typing derivations cannot use encryption randomness, of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Rand</span></span></span></span></code>.</p>
+<p>The <a class="reference internal" href="#squirrel:tacn.typing" title="typing"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">typing</span></code></a> tactic does not unfold macros, and it may thus be necessary
+to unfold global macros and conditions manually.</p>
+<p>Like for protocol declarations, typechecking can open subgoals:</p>
+<ul class="simple">
+<li><p>Again, if typechecking <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span></span></code> and <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code> requires the assumption that some constants are different,
+a proof obligation is generated for it.</p></li>
+<li><p>If a subterm of the form <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">output</span></span><span><span class="pre">&#64;tau</span></span></code> appears in <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span></span></code> or <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code>, the user must prove
+that it appears under a condition that implies <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">exec</span></span><span><span class="pre">&#64;tau</span></span></code>.</p></li>
+<li><p>If a mutable state <code class="squirrelinline docutils literal notranslate"><span><span class="pre">s&#64;tau</span></span></code> appears in <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span></span></code> or <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code>, the user must prove
+that it appears under a condition that implies <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">happens(tau)</span></span></span></span></code>.</p></li>
+</ul>
+<p>In these subgoals, not all hypotheses from the original proof context are sound to keep,
+according to the soundness proof of the type system in <span id="id3">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.
+The tactic only keeps global hypotheses, and local hypotheses that are either
+<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[const]</span></span></span></span></code> or of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Bool</span></span></span></span></code> in the type system.</p>
+<p>If typechecking succeeds, the hypothesis <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="proofs.html#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code> is contradictory,
+and <a class="reference internal" href="#squirrel:tacn.typing" title="typing"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">typing</span></code></a> closes the original goal.
+If typechecking fails in one or more systems, the tactic fails, and
+displays the errors obtained by both attempts at typing (<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1:Low</span></span></span></span></code>/<code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">t</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2:High</span></span></span></span></code> and the converse).</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorial.html" class="btn btn-neutral float-left" title="Protocol modelling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="appendix/indexes/index.html" class="btn btn-neutral float-right" title="Indexes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Squirrel developpers.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

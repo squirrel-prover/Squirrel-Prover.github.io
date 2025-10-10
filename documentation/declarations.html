@@ -145,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id12">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id8">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id15">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id18">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id28">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id14">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id17">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id27">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
@@ -179,6 +179,21 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html#equivalence-properties">Equivalence properties</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extensions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">Typing for secrecy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#typing-algorithm">Typing algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#declarations">Declarations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="typing.html#name-declarations">Name declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="typing.html#state-declarations">State declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="typing.html#protocol-declarations">Protocol declarations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#tactic">Tactic</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -475,7 +490,7 @@ messages to be signed, <code class="squirrelinline docutils literal notranslate"
 secret signing keys and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">typk</span></span></code> for public verification keys.
 It is assumed unforgeable against
 chosen message attacks (EUF-CMA) and satisfying the equation
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">ver(sig(m,sk),m,pk(sk))</span> <span class="pre">=</span> </span><span class="ansi-fg-light-cyan"><span class="pre">true</span></span></code>.</p>
+<code class="squirrelinline docutils literal notranslate"><span><span class="pre">ver(m,sig(m,sk),pk(sk))</span> <span class="pre">=</span> </span><span class="ansi-fg-light-cyan"><span class="pre">true</span></span></code>.</p>
 <p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tact.euf" title="euf"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">euf</span></code></a>.</p>
 </dd></dl>
 

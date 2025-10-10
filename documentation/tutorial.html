@@ -27,7 +27,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Indexes" href="appendix/indexes/index.html" />
+    <link rel="next" title="Typing for secrecy" href="typing.html" />
     <link rel="prev" title="Commands" href="commands.html" /> 
 </head>
 
@@ -145,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id12">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id8">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id15">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id18">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id28">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id14">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id17">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id27">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
@@ -179,6 +179,21 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#equivalence-properties">Equivalence properties</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extensions</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typing.html">Typing for secrecy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#typing-algorithm">Typing algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#declarations">Declarations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="typing.html#name-declarations">Name declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="typing.html#state-declarations">State declarations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="typing.html#protocol-declarations">Protocol declarations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="typing.html#tactic">Tactic</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -532,13 +547,48 @@ of the reader process, and for each value <cite>i</cite>, we also instantiate mu
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">system</span><span> ((!_j reader) | (!_i !_k tag(i))).
-</span></dt><dd><span>Typed-check process:
-  
-   ( !_j( </span><span class="ansi-bold ansi-fg-blue">reader</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ) ) | !_i( !_k( </span><span class="ansi-bold ansi-fg-blue">tag</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i))
-</span><span>
-</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT {‘P:system} &#64;system:(set:’P; equiv:None) :
+</span></dt><dd><span>[warning&gt;Type-checked process:
+
+   ( !_j( </span><span class="ansi-bold ansi-fg-blue">reader</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ) ) | !_i( !_k( </span><span class="ansi-bold ansi-fg-blue">tag</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)) 
+&lt;]</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index * index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
-Added action dependencies lemmas:
+[warning&gt;Pre-processed system:
+
+  0 - parallel/left
+</span><span>  1 - !_j
+</span><span>  2 - in([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,x)
+</span><span>  3 - try find i such that </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
+</span><span>  4 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  5 - null
+</span><span>  3 - else
+</span><span>  6 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  7 - null
+</span><span>  0 - parallel/right
+</span><span>  8 - !_i
+</span><span>  9 - !_k
+</span><span> 10 - out([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;)
+</span><span> 11 - null
+</span><span>
+&lt;]</span><span>[warning&gt;System can be used to prove diff-equivalences and diff-inclusions.
+&lt;]</span><span>[warning&gt;No conflict found.
+&lt;]</span><span>[warning&gt;Pre-processed system with end of blocks marked:
+
+  0 - parallel/left
+</span><span>  1 - !_j
+</span><span>  2 - in([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,x)
+</span><span>  3 - try find i such that </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
+</span><span>* 4 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  5 - null
+</span><span>  3 - else
+</span><span>* 6 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  7 - null
+</span><span>  0 - parallel/right
+</span><span>  8 - !_i
+</span><span>  9 - !_k
+</span><span>*10 - out([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;)
+</span><span> 11 - null
+</span><span>
+&lt;]</span><span>Added action dependencies lemmas:
 
 </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> mutex_R1_R {‘P:system[like default]} &#64;system:(set:’P; equiv:None) :
   forall (j,i:index), </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">||</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
@@ -551,17 +601,7 @@ Added action dependencies lemmas:
 </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> depends_init_R {‘P:system[like default]} &#64;system:(set:’P; equiv:None) :
   forall (j,i:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R(j, i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 
-System after processing:
-  
-   ( !_j(
-       </span><span class="ansi-bold">in</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold ansi-fg-magenta">x</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">);
-       </span><span class="ansi-underline ansi-fg-red">find</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i) </span><span class="ansi-underline ansi-fg-red">such that</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-underline ansi-fg-red">in</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-         R: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-       </span><span class="ansi-underline ansi-fg-red">else</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-         R1: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) ) |
-   !_i( !_k( T: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span>
-</span><span>System Empty registered with actions (init).
+
 </span><span>System default registered with actions (init,R,R1,T).
 </span></dd>
 </dl>
@@ -581,29 +621,51 @@ system <cite>simple</cite>, where each tag can only be executed once for each id
 <div class="squirreltop literal-block docutils container">
 <span></span><dl>
 <dt><span class="ansi-fg-light-blue">system</span><span> simple = ((!_j reader) | (!_i tag(i))).
-</span></dt><dd class="squirreltop-hidden"><span>Typed-check process:
-  
-   ( !_j( </span><span class="ansi-bold ansi-fg-blue">reader</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ) ) | !_i( </span><span class="ansi-bold ansi-fg-blue">tag</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
-</span><span>
-</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT1 {‘P:system} &#64;system:(set:’P; equiv:None) :
+</span></dt><dd class="squirreltop-hidden"><span>[warning&gt;Type-checked process:
+
+   ( !_j( </span><span class="ansi-bold ansi-fg-blue">reader</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> ) ) | !_i( </span><span class="ansi-bold ansi-fg-blue">tag</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) 
+&lt;]</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT1 {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
-Added action dependencies lemmas:
+[warning&gt;Pre-processed system:
+
+  0 - parallel/left
+</span><span>  1 - !_j
+</span><span>  2 - in([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,x)
+</span><span>  3 - try find i such that </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
+</span><span>  4 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  5 - null
+</span><span>  3 - else
+</span><span>  6 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  7 - null
+</span><span>  0 - parallel/right
+</span><span>  8 - !_i
+</span><span>  9 - out([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i,</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;)
+</span><span> 10 - null
+</span><span>
+&lt;]</span><span>[warning&gt;System can be used to prove diff-equivalences and diff-inclusions.
+&lt;]</span><span>[warning&gt;No conflict found.
+&lt;]</span><span>[warning&gt;Pre-processed system with end of blocks marked:
+
+  0 - parallel/left
+</span><span>  1 - !_j
+</span><span>  2 - in([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,x)
+</span><span>  3 - try find i such that </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)
+</span><span>* 4 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  5 - null
+</span><span>  3 - else
+</span><span>* 6 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  7 - null
+</span><span>  0 - parallel/right
+</span><span>  8 - !_i
+</span><span>* 9 - out([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i,</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;)
+</span><span> 10 - null
+</span><span>
+&lt;]</span><span>Added action dependencies lemmas:
 
 </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> depends_init_T1 {‘P:system[like simple]} &#64;system:(set:’P; equiv:None) :
   forall (i:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">T1(i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">T1(i)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 
-System after processing:
-  
-   ( !_j(
-       </span><span class="ansi-bold">in</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold ansi-fg-magenta">x</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">);
-       </span><span class="ansi-underline ansi-fg-red">find</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i) </span><span class="ansi-underline ansi-fg-red">such that</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-underline ansi-fg-red">in</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-         R: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-       </span><span class="ansi-underline ansi-fg-red">else</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-         R1: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) ) |
-   !_i( T1: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i,</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT1</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i)&gt;); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
-</span><span>
-</span><span>System Empty registered with actions (init).
-</span><span>System default registered with actions (init,R,R1,T).
+
 </span><span>System simple registered with actions (init,R,R1,T1).
 </span></dd>
 </dl>
@@ -839,13 +901,48 @@ that tags cannot be tracked.</p>
      </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
    </span><span class="ansi-underline ansi-fg-red">else</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
      </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-</span><span>Typed-check process:
-  
-   ( !_j( R: </span><span class="ansi-bold ansi-fg-blue">readerD</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> j) ) | !_i( !_k( T: </span><span class="ansi-bold ansi-fg-blue">tagD</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i k))
-</span><span>
-</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT2 {‘P:system} &#64;system:(set:’P; equiv:None) :
+</span><span>[warning&gt;Type-checked process:
+
+   ( !_j( R: </span><span class="ansi-bold ansi-fg-blue">readerD</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> j) ) | !_i( !_k( T: </span><span class="ansi-bold ansi-fg-blue">tagD</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i k)) 
+&lt;]</span><span>global </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> namelength_nT2 {‘P:system} &#64;system:(set:’P; equiv:None) :
   [forall (i:index * index), </span><span class="ansi-bold">len</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i) </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">namelength_message</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">]
-Added action dependencies lemmas:
+[warning&gt;Pre-processed system:
+
+  0 - parallel/left
+</span><span>  1 - !_j
+</span><span>  2 - in([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,x)
+</span><span>  3 - if exists (i,k:index), </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))
+</span><span>  4 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  5 - null
+</span><span>  3 - else
+</span><span>  6 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  7 - null
+</span><span>  0 - parallel/right
+</span><span>  8 - !_i
+</span><span>  9 - !_k
+</span><span> 10 - out([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))&gt;)
+</span><span> 11 - null
+</span><span>
+&lt;]</span><span>[warning&gt;System can be used to prove diff-equivalences and diff-inclusions.
+&lt;]</span><span>[warning&gt;No conflict found.
+&lt;]</span><span>[warning&gt;Pre-processed system with end of blocks marked:
+
+  0 - parallel/left
+</span><span>  1 - !_j
+</span><span>  2 - in([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,x)
+</span><span>  3 - if exists (i,k:index), </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))
+</span><span>* 4 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  5 - null
+</span><span>  3 - else
+</span><span>* 6 - out([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
+</span><span>  7 - null
+</span><span>  0 - parallel/right
+</span><span>  8 - !_i
+</span><span>  9 - !_k
+</span><span>*10 - out([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))&gt;)
+</span><span> 11 - null
+</span><span>
+&lt;]</span><span>Added action dependencies lemmas:
 
 </span><span class="ansi-fg-red">axiom</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> mutex_R1_R2 {‘P:system[like BasicHash]} &#64;system:(set:’P; equiv:None) :
   forall (j:index), </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R1(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">||</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">not</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">)
@@ -855,22 +952,8 @@ Added action dependencies lemmas:
   &#64;system:(set:’P; equiv:None) :
   forall (j:index), </span><span class="ansi-bold ansi-fg-magenta">happens</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">(</span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) </span><span class="ansi-bold">=&gt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">init</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">&lt;</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-fg-green">R2(j)</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
 
-System after processing:
-  
-   ( !_j(
-       </span><span class="ansi-bold">in</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold ansi-fg-magenta">x</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">);
-       </span><span class="ansi-underline ansi-fg-red">if</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> exists (i,k:index), </span><span class="ansi-bold">snd</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x </span><span class="ansi-bold">=</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> </span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-bold">fst</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> x, diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k))) </span><span class="ansi-underline ansi-fg-red">then</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-         R2: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ok</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-       </span><span class="ansi-underline ansi-fg-red">else</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">
-         R1: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcR</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,</span><span class="ansi-bold">ko</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">) ) |
-   !_i(
-     !_k(
-       T: </span><span class="ansi-bold">out</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">([mcT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">,&lt;</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k),</span><span class="ansi-bold">h</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (</span><span class="ansi-fg-yellow">nT2</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k), diff(</span><span class="ansi-fg-yellow">kT</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> i, </span><span class="ansi-fg-yellow">kT’</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default"> (i, k)))&gt;); </span><span class="ansi-bold ansi-fg-blue">null</span><span class="ansi-no-bold ansi-no-underline ansi-fg-default">))
-</span><span>
+
 </span><span>System BasicHash registered with actions (init,R2,R1,T).
-</span><span>System Empty registered with actions (init).
-</span><span>System default registered with actions (init,R,R1,T).
-</span><span>System simple registered with actions (init,R,R1,T1).
 </span></dd>
 </dl>
 </div>
@@ -1382,7 +1465,7 @@ exists (i,k:index),
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="commands.html" class="btn btn-neutral float-left" title="Commands" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="appendix/indexes/index.html" class="btn btn-neutral float-right" title="Indexes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="typing.html" class="btn btn-neutral float-right" title="Typing for secrecy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
