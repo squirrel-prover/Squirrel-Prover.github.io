@@ -1,4 +1,4 @@
-(*******************************************************************************
+(***********************************************************************
 # Basic Logical Reasoning
 
 This file introduces, through a series of simple exercices, the core
@@ -10,7 +10,7 @@ in Squirrel, the lemmas below are most of the time trivial.
 The syntax for tactics is often inspired from the Coq proof assistant.
 Consequently, users familiar with Coq should be able to quickly go
 through this file.
-*******************************************************************************)
+***********************************************************************)
 
 (** Basic setup: this can be ignored. *)
 include Logic.
@@ -236,214 +236,27 @@ Proof.
 Qed.
 
 (* ----------------------------------------------------------------- *)
-(** ## Names and freshness *)
-
-(* We declare a few names. *)
-name n : message.
-name m : message.
-
-(* Recall that names represent uniform random samplings of length
-   the security parameter.
-   Distinct name symbols are independent random samplings.
-   Consequently, the probability of two distinct names being equal is
-   negligible. This can be proved using the `fresh` tactic. *)
-lemma fresh_0 : n = m => false.
-Proof.
-  intro Eq.
-  fresh Eq.
-Qed.
-
-(* We can have indexed families of names. *)
-name n1 : index -> message.
-name m1 : index -> message.
-
-(* Two names `n1(i)` and `n1(j)` represent the same random sampling
-   if and only if they have the same indices. *)
-lemma fresh_1 (i, j : index) : n1(i) = n1(j) => i = j.
-Proof.
-  admit. (* TODO *)
-Qed.
-
-(* Names `n1(i)` and `m2(j)` never represent the same random sampling. *)
-lemma fresh_2 (i : index) : n1(i) = m1(i) => false.
-Proof.
-  admit. (* TODO *)
-Qed.
-
-(* Actually, the `fresh` tactic can go further: if `t` is a term, and if
-   the equality `t = n(j)` holds, then the name `n(j)` must appear somewhere
-   in `t`.
-   For example, taking `t` to be the tuple
-     `<n1(i0), <m1(i1), n1(i2)>>`
-   we get that `j` is either `i0` or `i2` (but not `i1`, since only
-   `m1(i1)` appears in `t`, not `n1(i1)`). *)
-lemma fresh_3 (i0, i1, i2, j : index) :
-  <n1(i0), <m1(i1), n1(i2)>> = n1(j) =>
-  (j = i0 || j = i2).
-Proof.
-  admit. (* TODO *)
-Qed.
-
-(* ----------------------------------------------------------------- *)
-(** ## Names and freshness in equivalences *)
-
-(* We write global formulas to reason about equivalences.
-   Global and local logical connectives have a different meaning
-   but many tactics (`intro`, `apply`, `rewrite`...) behave similarly
-   for the two. *)
-
-name k : message.
-
-(* The next lemma is a compact way of writing [k,n ~ k,m]. *)
-global lemma eqnames_0 : equiv(k,diff(n,m)).
-Proof.
-  (* Fresh names can be removed from an equivalence conclusion.
-     The `fresh` tactic used in a global goal behaves quite
-     differently from the one use in local goals.
-     Here `1` indicates where we want to remove fresh names. *)
-  fresh 1.
-  (* `fresh` produces a sub-goal to establish freshness. 
-      In this example, this is trivial. here freshness is trivial. *)
-  auto.
-  (* Conclude by reflexivity. *)
-  refl.
-  (* We could also have applied `fresh` again before
-     concluding by reflexity on `equiv()` (an equivalence
-     over an empty sequence). *)
-Qed.
-
-name n' : index -> message.
-
-(* When freshness is not guaranteed, `fresh` produces an more complicated 
-   proof-obligation.
-   For the `fresh` tactic to apply, we must require that `i` and `j`
-   are constant values: otherwise, they could
-   themselves depend on the randomness whose freshness we are 
-   exploiting! *)
-global lemma eqnames_1 (i,j:index[const]) :
-  [j<>i] ->
-  equiv(n'(i),diff(n'(j),m)).
-Proof.
-  intro H.
-  fresh 1.
-
-  apply H.
-  refl.
-Qed.
-
-(* In this variant, note that the duplicate item in the equivalence
-   is automatically simplified away, which allows to conclude as
-   before by freshness. *)
-global lemma eqnames_1b (i,j:index[const]) :
-  [j<>i] ->
-  equiv(n'(i),diff(n'(j),m),diff(n'(j),m)).
-Proof.
-  intro H.
-  (* The previous tactic can be decomposed into `nosimpl intro H`
-     followed by `simpl` (which has the effect of removing the
-     duplicate item). *)
-  fresh 1.
-
-  apply H.
-  refl.
-Qed.
-
-(* Which of the next two lemmas are provable? *)
-global lemma eqnames_2a : equiv(diff(n,m),diff(k,n),diff(n,m)).
-Proof.
-  admit. (* TODO *)
-Qed.
-
-global lemma eqnames_2b : equiv(diff(k,m),diff(m,n),diff(n,k)).
-Proof.
-  admit. (* TODO *)
-Qed.
-
-(* ----------------------------------------------------------------- *)
-(** ## More on equivalences *)
-
-abstract cst : message.
-
-(* Note that `f(diff(x,y))` is equivalent to `diff(f(x),f(y))`. *)
-global lemma fa_0 (x,y:message) :
-  [x=y] -> equiv(diff(y,n)) -> equiv(f(diff(x,n))).
-Proof.
-  intro Heq Hequiv.
-  (* We use `fa` (function application) to simplify the conclusion:
-     if
-       [  u1...uN, u'1...u'K 
-        ~ v1...vN, v'1...v'K ]
-     then 
-       [  u1...uN, f(u'1...u'K) 
-        ~ v1...vN, f(v'1...v'K) ].
-     We can target where to apply `fa` through a pattern (here, `f(_)`)
-     but we could also specify the equivalence item by its number (here, `0`). *)
-  fa f(_). 
-  (* alternatively, `fa 0` *)
-
-  rewrite Heq.
-  apply Hequiv.
-Qed.
-
-global axiom f_equiv : Forall (x:message), equiv(diff(f(x), cst)).
-
-abstract cst' : message.
-
-(* The `apply` tactic can identify non-trivial implications from
-   one equivalence to another. Intuitively, we can derive
-     `equiv(u1..uN)`
-   from
-     `equiv(v1..vM)` 
-   if the same computation, performed on the left and right projections
-   of `v1..vM` yields, respectively, the left and right projections of
-  `u1..uN`. 
-   This generalizes the reasoning behind `fa`. *)
-global lemma fa_1 (x:message) : 
-  equiv(diff(f(cst'),cst), <cst, f(diff(f(cst'),cst))>).
-Proof.
-  apply f_equiv.
-Qed.
-
-(* The next variant is beyond the scope of a direct application of `apply`
-   because of the name `n`: you'll have to handle it explicitly first. *)
-global lemma fa_2 : 
-  equiv(diff(f(cst'),cst), <n, f(diff(f(cst'),cst))>).
-Proof.
-  admit. (* TODO *)
-Qed.
-
-
-(* ----------------------------------------------------------------- *)
-(** ## Combining tactics, automatic reasoning  *)
-
-(* Tactics can be composed using `;`:
-   `tac1; tac2` applies the tactic `tac1`, and then
-   applies `tac2` to all subgoals produced by `tac1`. *)
-
-(* E.g. the following lemma can be proved with a single tactic. *)
-lemma comb_0 (x, y, z : message) : x = f(y) => y = f(z) => x = f(f(z)).
-Proof.
-  intro H1 H2; rewrite H1; rewrite H2; apply eq_refl.
-Qed.
+(** ## Automation *)
 
 (* Simple lemmas can be proved automatically using the `auto` tactic.
-   Actually, the previous lemma could be proved directly with `auto`. *)
+   For example, the next lemma can be proved directly with `auto`. *)
 lemma comb_1 (x, y, z : message) : x = f(y) => y = f(z) => x = f(f(z)).
 Proof.
   auto.
 Qed.
 
-(* ----------------------------------------------------------------- *)
-(* ----------------------------------------------------------------- *)
-(** # BONUS  *)
+(* The smt tactic, if available, is (in general) even more powerful than
+   auto. But it does not perform any cryptographic reasoning.
+   Try it whenever a goal seems "obvious" but tedious to prove step by step. *)
 
 (* ----------------------------------------------------------------- *)
 (** ## Structuring proofs  *)
 
-(* To improve readability, we often structure proofs using bullets,
-   Exemples of bullet symbols are `-` and `*` (or repetition of those).
+(* To improve readability, we often structure proofs using bullets.
+   Examples of bullet symbols are `-` and `*` (or repetition of those).
    Bullets are used when there are several sub-goals, to separate the proof of
-   each sub-goal. *)
+   each sub-goal. Using bullets is HIGHLY RECOMMENDED for the tutorials,
+   and even more so for large proofs. *)
 lemma bonus_0 ['a] (b,b' : boolean, x,y : 'a):
   if b then (if b' then x else y) else y = if (b && b') then x else y.
 Proof.
@@ -451,7 +264,7 @@ Proof.
   (* Open two subgoals (1) and (2), which we split with the bullet `-` *)
 
   - case b'.
-   (* Split (1) between subgoals (1.1) and (1.2),
+    (* Split (1) between subgoals (1.1) and (1.2),
       which we split with bullet `*`. *)
     * auto.  (* concludes (1.1) *)
     * auto.  (* concludes (1.2) *)
@@ -461,6 +274,23 @@ Proof.
        Again, we split them using `*`. *)
     * auto.  (* concludes (2.1) *)
     * auto.  (* concludes (2.2) *)
+Qed.
+
+(* ----------------------------------------------------------------- *)
+(* ----------------------------------------------------------------- *)
+(** # BONUS  *)
+
+(* ----------------------------------------------------------------- *)
+(** ## Combining tactics *)
+
+(* Tactics can be composed using `;`:
+   `tac1; tac2` applies the tactic `tac1`, and then
+   applies `tac2` to all subgoals produced by `tac1`. *)
+
+(* E.g. the following lemma can be proved with a single tactic. *)
+lemma comb_0 (x, y, z : message) : x = f(y) => y = f(z) => x = f(f(z)).
+Proof.
+  intro H1 H2; rewrite H1; rewrite H2; apply eq_refl.
 Qed.
 
 (* Now, try to prove the previous lemma in a single tactic,
