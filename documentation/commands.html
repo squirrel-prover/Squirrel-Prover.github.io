@@ -7,8 +7,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
       <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
       <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
@@ -18,12 +18,12 @@
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=5929fcd5"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/notations.js?v=69751d6f"></script>
       <script src="_static/js/rtd_search_config.js"></script>
       <script src="_static/js/rtd_sphinx_search.min.js"></script>
-      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -170,6 +170,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
 </ul>
 </li>
@@ -334,26 +335,26 @@
 <span id="section-commands"></span><h1>Commands<a class="headerlink" href="#commands" title="Link to this heading">¶</a></h1>
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.Proof">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Proof</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Proof" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Proof</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Proof" title="Link to this definition">¶</a></dt>
 <dd><p>Enter proof mode with a unique subgoal
 corresponding to the previous unproved <code class="docutils literal notranslate"><span class="notation"><span class="hole"><span class="pre">lemma</span></span></span></code>.</p>
 </dd></dl>
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.Qed">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Qed</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Qed" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Qed</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Qed" title="Link to this definition">¶</a></dt>
 <dd><p>Close the current proof, if it’s completed (i.e. has no remaining unclosed goal).</p>
 </dd></dl>
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.Abort">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Abort</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Abort" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Abort</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Abort" title="Link to this definition">¶</a></dt>
 <dd><p>Abort the current proof.</p>
 </dd></dl>
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.undo">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">undo</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="reference-intro.html#grammar-token-natural"><span class="hole"><span class="pre">natural</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.undo" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">undo</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="reference-intro.html#grammar-token-natural"><span class="hole"><span class="pre">natural</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.undo" title="Link to this definition">¶</a></dt>
 <dd><p><code class="squirrelinline docutils literal notranslate"><span><span class="pre">undo</span> <span class="pre">n</span></span></code> undoes the <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code> (default 1) last sentence(s).
 Concretely, the tactic restores the <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code><span class="math notranslate nohighlight">\(^{th}\)</span> previous prover state
 as the current one.</p>
@@ -363,14 +364,14 @@ as the current one.</p>
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.Reset">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Reset</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Reset" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">Reset</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.Reset" title="Link to this definition">¶</a></dt>
 <dd><p>Reset the prover state. This command can be undone with <a class="reference internal" href="#squirrel:cmd.undo" title="undo"><code class="xref squirrel squirrel-cmd docutils literal notranslate"><span class="pre">undo</span></code></a> since it does not clear
 the prover state history.</p>
 </dd></dl>
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.include">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">include</span></span></span> <span class="hole"><span class="pre">file</span></span></span></span><a class="headerlink" href="#squirrel:cmd.include" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">include</span></span></span> <span class="hole"><span class="pre">file</span></span></span></span><a class="headerlink" href="#squirrel:cmd.include" title="Link to this definition">¶</a></dt>
 <dd><p>Attempt to find file <code class="docutils literal notranslate"><span class="notation"><span class="hole"><span class="pre">file</span></span></span></code>.sp,
 first in the same directory as the current Squirrel file,
 and then in the theories directory.</p>
@@ -391,7 +392,7 @@ sources, the theories directory is located in <code class="docutils literal notr
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.set">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">set</span></span></span> <a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a> <span><span><span class="pre">=</span></span></span> <span class="alternative"><span class="alternative-block"><span class="hole"><span class="pre">bool</span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="reference-intro.html#grammar-token-natural"><span class="hole"><span class="pre">natural</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:cmd.set" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">set</span></span></span> <a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a> <span><span><span class="pre">=</span></span></span> <span class="alternative"><span class="alternative-block"><span class="hole"><span class="pre">bool</span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="reference-intro.html#grammar-token-natural"><span class="hole"><span class="pre">natural</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:cmd.set" title="Link to this definition">¶</a></dt>
 <dd><p>Set any squirrel <span class="term-defn"><span class="target" id="term-option"></span>option</span> using its <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></code>:</p>
 <table class="docutils align-default">
 <thead>
@@ -451,7 +452,7 @@ sources, the theories directory is located in <code class="docutils literal notr
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.print">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">print</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.print" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">print</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.print" title="Link to this definition">¶</a></dt>
 <dd><p>Show the definition of a given <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></code> if it is a lemma, function, name, or macro.
 <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">print</span></span></code> without <code class="docutils literal notranslate"><span class="notation"><span class="hole"><span class="pre">idendifier</span></span></span></code> shows the current system.</p>
 <div class="admonition note">
@@ -491,13 +492,13 @@ Exiting proof mode.
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.print-system">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">print</span></span></span> <span><span><span class="pre">system</span></span></span> <a class="reference internal" href="declarations.html#grammar-token-system_expr"><span class="hole"><span class="pre">system_expr</span></span></a></span></span><a class="headerlink" href="#squirrel:cmd.print-system" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">print</span></span></span> <span><span><span class="pre">system</span></span></span> <a class="reference internal" href="declarations.html#grammar-token-system_expr"><span class="hole"><span class="pre">system_expr</span></span></a></span></span><a class="headerlink" href="#squirrel:cmd.print-system" title="Link to this definition">¶</a></dt>
 <dd><p>Print the system <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="declarations.html#grammar-token-system_expr"><span class="hole"><span class="pre">system_expr</span></span></a></span></code>.</p>
 </dd></dl>
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.search">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">search</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">in</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="declarations.html#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span class="hole"><span class="pre">system_exp</span></span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.search" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">search</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">in</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="declarations.html#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span class="hole"><span class="pre">system_exp</span></span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.search" title="Link to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>Search lemmas containing a given <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code> (that can contain
 holes <code class="docutils literal notranslate"><span class="pre">_</span></code> as specified in <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-sterm"><span class="hole"><span class="pre">sterm</span></span></a></span></code>).
@@ -542,7 +543,7 @@ system.</p>
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.hint-rewrite">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">hint</span></span></span> <span><span><span class="pre">rewrite</span></span></span> <a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></span><a class="headerlink" href="#squirrel:cmd.hint-rewrite" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">hint</span></span></span> <span><span><span class="pre">rewrite</span></span></span> <a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></span><a class="headerlink" href="#squirrel:cmd.hint-rewrite" title="Link to this definition">¶</a></dt>
 <dd><p>Add a rewriting rule from the lemma <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="reference-intro.html#grammar-token-ident"><span class="hole"><span class="pre">ident</span></span></a></span></code> to the
 user-defined rewriting database. The lemma should establish a local
 formula consisting of a universally quantified conditional equality.
@@ -564,7 +565,7 @@ corresponding occurrences of <code class="docutils literal notranslate"><span cl
 
 <dl class="squirrel cmd">
 <dt class="sig sig-object squirrel" id="squirrel:cmd.prof">
-<em class="property"><span class="sigannot"><span class="pre">Command</span></span></em> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">prof</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.prof" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Command</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">prof</span></span></span></span></span><a class="headerlink" href="#squirrel:cmd.prof" title="Link to this definition">¶</a></dt>
 <dd><p>Print profiling information.</p>
 </dd></dl>
 
