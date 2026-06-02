@@ -7,12 +7,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Logic &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
       <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
       <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css?v=e72958e9" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -21,8 +21,8 @@
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/notations.js?v=69751d6f"></script>
-      <script src="_static/js/rtd_search_config.js"></script>
-      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script src="_static/js/rtd_search_config.js?v=b0596c34"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js?v=5e065386"></script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -145,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id8">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id7">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id14">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id17">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id27">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id13">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id16">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id26">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
@@ -167,10 +167,10 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
 </ul>
 </li>
@@ -456,16 +456,16 @@ by using the tag over the free variable of a local axiom, yielding
 <span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-binder"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-binder"><span class="hole">binder</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><a class="reference internal" href="#grammar-token-var_or_hole"><span class="hole">var_or_hole</span></a> | <span><span>(</span></span><span class="repeat-wrapper-with-sub"><span class="repeat"><span class="repeat-wrapper-with-sub"><span class="repeat"><a class="reference internal" href="#grammar-token-var_or_hole"><span class="hole">var_or_hole</span></a></span><span class="notation-sup">+</span><span class="notation-sub">,</span></span> <span><span>:</span></span> <a class="reference internal" href="#grammar-token-type"><span class="hole">type</span></a> <span class="repeat-wrapper"><span class="repeat"><span><span>[</span></span><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-tag"><span class="hole">tag</span></a></span><span class="notation-sup">+</span></span><span><span>]</span></span></span><span class="notation-sup">?</span></span></span><span class="notation-sup">+</span><span class="notation-sub">,</span></span><span><span>)</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-binders"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-binders"><span class="hole">binders</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-binder"><span class="hole">binder</span></a></span><span class="notation-sup">*</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Tags actually correspond to predicates in the logic: for instance,
-<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty[</span></span><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">]),</span> <span class="pre">phi</span></span></code> should be understood as
-<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty),</span> </span><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">(x)</span> <span class="pre">=&gt;</span> <span class="pre">phi</span></span></code> in the theory.
-Predicates such as <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">(_)</span></span></code> are however not directly accessible in
+<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty[const]),</span> <span class="pre">phi</span></span></code> should be understood as
+<code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:ty),</span> <span class="pre">const(x)</span> <span class="pre">=&gt;</span> <span class="pre">phi</span></span></code> in the theory.
+Predicates such as <code class="squirrelinline docutils literal notranslate"><span><span class="pre">const(_)</span></span></code> are however not directly accessible in
 the tool.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Not all binders support tags, e.g. it would be meaningless
-to declare a function <a class="reference internal" href="#term-abstraction"><span class="xref std std-term">abstraction</span></a> with a <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">const</span></span></code>
-tag, as in <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fun</span></span><span><span class="pre">(x:int[</span></span><span class="ansi-fg-light-blue"><span class="pre">const</span></span><span><span class="pre">])=&gt;t</span></span></code>.</p>
+to declare a function <a class="reference internal" href="#term-abstraction"><span class="xref std std-term">abstraction</span></a> with a <code class="squirrelinline docutils literal notranslate"><span><span class="pre">const</span></span></code>
+tag, as in <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">fun</span></span><span><span class="pre">(x:int[const])=&gt;t</span></span></code>.</p>
 </div>
 <p>A binding declaration <code class="squirrelinline docutils literal notranslate"><span><span class="pre">x</span></span></code> without any attached type (i.e. using directly a
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-var_or_hole"><span class="hole"><span class="pre">var_or_hole</span></span></a></span></code>) amounts to using a type hole <code class="squirrelinline docutils literal notranslate"><span><span class="pre">(x:_)</span></span></code>,
@@ -521,7 +521,7 @@ enclosing a <a class="reference internal" href="#grammar-token-term"><code class
 <a class="reference internal" href="#grammar-token-sterm"><code class="xref std std-token docutils literal notranslate"><span class="pre">sterm</span></code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Since <span id="id1">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>, terms no longer necessarily represent
+<p>Since <span class="bibtex-citation" id="id1">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>, terms no longer necessarily represent
 (PTIME) computable values.
 An example of a non PTIME-computable term is
 <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">forall</span></span><span> <span class="pre">(x:</span></span><span class="ansi-fg-light-cyan"><span class="pre">message</span></span><span><span class="pre">),</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">f(x)</span></span></code>

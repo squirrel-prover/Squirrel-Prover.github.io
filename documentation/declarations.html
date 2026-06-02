@@ -7,12 +7,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Declarations &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
       <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
       <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css?v=e72958e9" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -21,8 +21,8 @@
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/notations.js?v=69751d6f"></script>
-      <script src="_static/js/rtd_search_config.js"></script>
-      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script src="_static/js/rtd_search_config.js?v=b0596c34"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js?v=5e065386"></script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -145,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id8">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id7">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id14">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id17">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id27">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id13">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id16">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id26">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
@@ -167,10 +167,10 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
 </ul>
 </li>
@@ -509,7 +509,7 @@ chosen message attacks (EUF-CMA) and satisfying the equation
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">typk</span></span></code> for public encryption keys.
 It is assumed IND-CCA1 and ENC-KP, and satisfying the equation
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">dec(enc(m,pk(sk)),sk)</span> <span class="pre">=</span> <span class="pre">m</span></span></code>.</p>
-<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tace.cca1" title="cca1"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cca1</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tace.enckp" title="enckp"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">enckp</span></code></a>.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tace.cca1" title="cca1"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cca1</span></code></a>.</p>
 </dd></dl>
 
 <dl class="squirrel decl">
@@ -525,12 +525,12 @@ It is assumed IND-CCA1 and ENC-KP, and satisfying the equation
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyrnd</span></span></code> for encryption randomness and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">tyk</span></span></code> for keys.
 It is assumed IND-CPA and INT-CTXT, and satisfying the equation
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">dec(enc(m,sk),sk)</span> <span class="pre">=</span> <span class="pre">m</span></span></code>.</p>
-<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tace.cca1" title="cca1"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cca1</span></code></a>, <a class="reference internal" href="proofs.html#squirrel:tact.intctxt" title="intctxt"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">intctxt</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tace.enckp" title="enckp"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">enckp</span></code></a>.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tace.cca1" title="cca1"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cca1</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tact.intctxt" title="intctxt"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">intctxt</span></code></a>.</p>
 </dd></dl>
 
 <dl class="squirrel decl">
 <dt class="sig sig-object squirrel">
-<span class="property"><span class="sigannot"><span class="pre">Declaration</span></span></span> <span class="sig-name descname"><span class="notation"><span class="alternative"><span class="alternative-block"><span><span><span class="pre">ddh</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">cdh</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">gdh</span></span></span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span><a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">where</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span></dt>
+<span class="property"><span class="sigannot"><span class="pre">Declaration</span></span></span> <span class="sig-name descname"><span class="notation"><span class="alternative"><span class="alternative-block"><span><span><span class="pre">cdh</span></span></span></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><span><span><span class="pre">gdh</span></span></span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span><a class="reference internal" href="#grammar-token-fun_id"><span class="hole"><span class="pre">fun_id</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">where</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-crypto_ty_arg"><span class="hole"><span class="pre">crypto_ty_arg</span></span></a></span><span class="notation-sup"><span class="pre">+</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span></dt>
 <dd><p>The <span class="term-defn"><span class="target" id="term-group-declaration"></span>group declaration</span>:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
@@ -539,9 +539,9 @@ It is assumed IND-CPA and INT-CTXT, and satisfying the equation
 </div>
 <p>declares a group with generator <code class="squirrelinline docutils literal notranslate"><span><span class="pre">g</span></span></code>, exponentation <code class="squirrelinline docutils literal notranslate"><span><span class="pre">(^)</span></span></code> and
 exponent multiplication <code class="squirrelinline docutils literal notranslate"><span><span class="pre">(</span> <span class="pre">**</span> <span class="pre">)</span></span></code>.  The group is assumed to
-satisfy the DDH assumption when declared with <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">ddh</span></span></code>, the CDH
-assumption with <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cdh</span></span></code>, and the Gap-DH assumption with g:<cite>gdh</cite>.</p>
-<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tact.cdh" title="cdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cdh</span></code></a>, <a class="reference internal" href="proofs.html#squirrel:tact.gdh" title="gdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">gdh</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tace.ddh" title="ddh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">ddh</span></code></a>.</p>
+satisfy the CDH assumption with <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cdh</span></span></code>, and the Gap-DH assumption
+with g:<cite>gdh</cite>.</p>
+<p>Enables the use of <a class="reference internal" href="proofs.html#squirrel:tact.cdh" title="cdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">cdh</span></code></a> and <a class="reference internal" href="proofs.html#squirrel:tact.gdh" title="gdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">gdh</span></code></a>.</p>
 </dd></dl>
 
 </section>
@@ -554,9 +554,9 @@ defined through processes written in a dialect of the applied pi-calculus.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The first presentations of Squirrel’s logic relied explicitly on
-notions of systems, first without state <span id="id1">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span> and then
-with state <span id="id2">[<a class="reference internal" href="bibliography.html#id4" title="David Baelde, Stéphanie Delaune, Adrien Koutsos, and Solène Moreau. Cracking the Stateful Nut. In CSF 2022 - 35th IEEE Computer Security Foundations Symposium. Haifa, Israel, August 2022. URL: https://hal.science/hal-03500056.">BDKM22</a>]</span>. The latest presentation
-<span id="id3">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span> does not feature a notion of system, but
+notions of systems, first without state <span class="bibtex-citation" id="id1">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span> and then
+with state <span class="bibtex-citation" id="id2">[<a class="reference internal" href="bibliography.html#id4" title="David Baelde, Stéphanie Delaune, Adrien Koutsos, and Solène Moreau. Cracking the Stateful Nut. In CSF 2022 - 35th IEEE Computer Security Foundations Symposium. Haifa, Israel, August 2022. URL: https://hal.science/hal-03500056.">BDKM22</a>]</span>. The latest presentation
+<span class="bibtex-citation" id="id3">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span> does not feature a notion of system, but
 allows to encode systems through a more expressive logic.
 So far, the translation from processes to systems has not been
 formally defined in the literature.</p>
@@ -872,7 +872,7 @@ action <code class="squirrelinline docutils literal notranslate"><span><span cla
 of the bi-system <code class="squirrelinline docutils literal notranslate"><span><span class="pre">myProtocol</span></span></code> are observationally equivalent:</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
-<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol] obs_equiv (t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[</span><span class="ansi-fg-light-blue">const</span><span>]) : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t)
+<dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [myProtocol] obs_equiv (t:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[const]) : [</span><span class="ansi-fg-light-green">happens</span><span>(t)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;t)
 </span></dt></dl>
 </div>
 <p>As a slight variant,
@@ -884,7 +884,7 @@ actions):</p>
 <div class="squirreltop literal-block docutils container">
 <dl class="simple">
 <dt class="in"><span class="ansi-fg-light-blue">global</span><span> </span><span class="ansi-fg-light-blue">lemma</span><span> [</span><span class="ansi-fg-light-blue">set</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>; </span><span class="ansi-fg-light-blue">equiv</span><span>: real/</span><span class="ansi-fg-light-blue">left</span><span>,ideal/</span><span class="ansi-fg-light-blue">right</span><span>] ideal_real_equiv :
-</span></dt><dt class="in"><span>  </span><span class="ansi-fg-light-blue">Forall</span><span> (tau:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[</span><span class="ansi-fg-light-blue">const</span><span>]), [</span><span class="ansi-fg-light-green">happens</span><span>(tau)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;tau)
+</span></dt><dt class="in"><span>  </span><span class="ansi-fg-light-blue">Forall</span><span> (tau:</span><span class="ansi-fg-light-cyan">timestamp</span><span>[const]), [</span><span class="ansi-fg-light-green">happens</span><span>(tau)] -&gt; </span><span class="ansi-fg-light-blue">equiv</span><span>(</span><span class="ansi-fg-light-green">frame</span><span>&#64;tau)
 </span></dt></dl>
 </div>
 </div>

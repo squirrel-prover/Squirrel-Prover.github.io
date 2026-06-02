@@ -35,9 +35,9 @@ examples.html: examples_src.md $(TEMPLATE_HTML)
 doc: 
 	rm -rf documentation
 	cd squirrel-prover && \
-	make refman-html
+	make doc
 	mkdir documentation
-	cp -r squirrel-prover/_build/default/documentation/sphinx/public/* documentation
+	cp -r squirrel-prover//documentation/sphinx/build/html/* documentation
 
 jsquirrel:
 	rm -rf jsquirrel

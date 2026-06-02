@@ -7,12 +7,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Proofs &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
       <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
       <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css?v=e72958e9" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -21,8 +21,8 @@
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/notations.js?v=69751d6f"></script>
-      <script src="_static/js/rtd_search_config.js"></script>
-      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script src="_static/js/rtd_search_config.js?v=b0596c34"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js?v=5e065386"></script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -145,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#structural-tactics">Structural tactics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id8">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id10">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id11">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#cryptographic-tactics">Cryptographic tactics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#occurrence-formula">Occurrence formula</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id14">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id17">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id27">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id26">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#utility-tactics">Utility tactics</a></li>
@@ -167,10 +167,10 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
 </ul>
 </li>
@@ -912,9 +912,9 @@ conclusion before the newly added quantified variables.</p>
 
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.have">
-<span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.have" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.have" title="Link to this definition">¶</a></dt>
 <dd><span class="prodn-table"><span class="prodn-column-group"><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span><span class="prodn-column"></span></span><span class="prodn-row-group"><span class="prodn-row"><span class="prodn-cell-nonterminal"><span class="prodn-target"><span class="target" id="grammar-token-have_ip"></span></span><span class="notation"><a class="reference internal" href="#grammar-token-have_ip"><span class="hole">have_ip</span></a></span></span><span class="prodn-cell-op"><code class="docutils literal notranslate"><span class="pre">::=</span></code></span><span class="prodn-cell-production"><span class="notation"><span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-s_item"><span class="hole">s_item</span></a></span><span class="notation-sup">*</span></span> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole">simpl_ip</span></a> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-s_item"><span class="hole">s_item</span></a></span><span class="notation-sup">*</span></span></span></span><span class="prodn-cell-tag"><code class="docutils literal notranslate"></code></span></span></span></span><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <span><span><span class="pre">F</span></span></span></span></code> introduces the new hypothesis <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">F</span></span></span></span></code>, which
-can be a <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code> or a <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></code>. The new
+must be a <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></code>. The new
 hypothesis is processed by <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a></span></code> (see below). A new
 sub-goal requiring to prove <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">F</span></span></span></span></code> is created.</p>
 <p>If <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a></span></code> is the introduction pattern <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-s_item"><span class="hole"><span class="pre">s_item</span><sub><span class="pre">pre</span></sub></span></a> <a class="reference internal" href="#grammar-token-simpl_ip"><span class="hole"><span class="pre">simpl_ip</span></span></a> <a class="reference internal" href="#grammar-token-s_item"><span class="hole"><span class="pre">s_item</span><sub><span class="pre">post</span></sub></span></a></span></code> then:</p>
@@ -928,6 +928,10 @@ after adding the hypothesis.</p></li>
 </ul>
 <p>It there are mutliple pre or post simplification items, they are
 applied in order.</p>
+<p>If the intro-pattern is a case, it thus split the current goals
+into two goals.</p>
+<p>The tactic can be used in a global lemma, in which case the global
+hypothesis <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[</span></span></span><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">]</span></span></span></span></code> is introduced.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
@@ -938,12 +942,29 @@ where <code class="docutils literal notranslate"><span class="notation"><a class
 </dd></dl>
 
 <dl class="squirrel tacn">
-<dt class="sig sig-object squirrel" id="id5">
-<span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:=</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object squirrel" id="squirrel:tacn.ghave">
+<span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">ghave</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:</span></span></span> <a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.ghave" title="Link to this definition">¶</a></dt>
+<dd><p>Similar to <a class="reference internal" href="#squirrel:tacn.have" title="have"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">have</span></code></a> over a formula (and not a proof term), but
+to introduce a new global hypothesis, following the intro patterns
+of <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a></span></code>.</p>
+<p>Of note, a special automated treatment of local disjunction is
+supported: if the <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-global_formula"><span class="hole"><span class="pre">global_formula</span></span></a></span></code> is of the form <code class="squirrelinline docutils literal notranslate"><span><span class="pre">[</span> <span class="pre">u</span> <span class="pre">||</span>
+<span class="pre">v]</span></span></code> and both terms <code class="squirrelinline docutils literal notranslate"><span><span class="pre">u</span></span></code> and <code class="squirrelinline docutils literal notranslate"><span><span class="pre">v</span></span></code> are <code class="squirrelinline docutils literal notranslate"><span><span class="pre">[const]</span></span></code>, then, as we
+have <code class="squirrelinline docutils literal notranslate"><span><span class="pre">[</span> <span class="pre">u</span> <span class="pre">||</span> <span class="pre">v]</span> <span class="pre">&lt;-&gt;</span> <span class="pre">([u]</span> <span class="pre">\/</span> <span class="pre">[v])</span></span></code>, this formula can be
+automatically split using a case intro pattern. That is, in this
+case, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">ghave</span> <span class="pre">[U</span> <span class="pre">|</span> <span class="pre">V]</span> <span class="pre">:</span> <span class="pre">[</span> <span class="pre">u</span> <span class="pre">||</span> <span class="pre">v]</span></span></code>, splits the current goal into
+two sub-goals, one with <code class="squirrelinline docutils literal notranslate"><span><span class="pre">U:</span> <span class="pre">u</span></span></code> and one with <code class="squirrelinline docutils literal notranslate"><span><span class="pre">V:</span> <span class="pre">v</span></span></code>.</p>
+</dd></dl>
+
+<dl class="squirrel tacn">
+<dt class="sig sig-object squirrel" id="squirrel:tacn.have-(proof-terms)">
+<span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:=</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></span><a class="headerlink" href="#squirrel:tacn.have-(proof-terms)" title="Link to this definition">¶</a></dt>
 <dd><p><code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">have</span></span></span> <a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a> <span><span><span class="pre">:=</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> <a class="reference internal" href="#section-pt-resolution"><span class="std std-ref">resolves</span></a>
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> — requiring that the term unification
 enviroment is closed — and processes the resulting formula using introduction
 pattern <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-have_ip"><span class="hole"><span class="pre">have_ip</span></span></a></span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> can either reduce to a local or global
+formula, which will be introduced in the context.</p>
 </dd></dl>
 
 <dl class="squirrel tacn">
@@ -971,8 +992,8 @@ and the tactic continues from <code class="docutils literal notranslate"><span c
 </dd></dl>
 
 <dl class="squirrel tacn">
-<dt class="sig sig-object squirrel" id="id6">
-<span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">apply</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a> <span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object squirrel" id="id5">
+<span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">apply</span></span></span> <a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a> <span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
 <dd><p>Forward reasoning variant of <a class="reference internal" href="#squirrel:tacn.apply" title="apply"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">apply</span></code></a>, which unifies the
 premisses of <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-proof_term"><span class="hole"><span class="pre">proof_term</span></span></a></span></code> against the conclusion of
 <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code>, replacing <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code> content with
@@ -1371,8 +1392,8 @@ return a boolean.</p>
 </section>
 <section id="structural-tactics">
 <span id="section-structural-tactics"></span><h3>Structural tactics<a class="headerlink" href="#structural-tactics" title="Link to this heading">¶</a></h3>
-<section id="id8">
-<h4>Common tactics<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h4>
+<section id="id7">
+<h4>Common tactics<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.constraints">
 <span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">constraints</span></span></span></span></span><a class="headerlink" href="#squirrel:tacn.constraints" title="Link to this definition">¶</a></dt>
@@ -1438,8 +1459,8 @@ as possible, including 0.</p></li>
 </dd></dl>
 
 </section>
-<section id="id10">
-<h4>Local tactics<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
+<section id="id9">
+<h4>Local tactics<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.congruence">
 <span class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">congruence</span></span></span></span></span><a class="headerlink" href="#squirrel:tact.congruence" title="Link to this definition">¶</a></dt>
@@ -1573,8 +1594,8 @@ from the <a class="reference internal" href="#term-logical_var"><span class="xre
 </dd></dl>
 
 </section>
-<section id="id11">
-<h4>Global tactics<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
+<section id="id10">
+<h4>Global tactics<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.case_study">
 <span class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cs</span></span></span> <span class="hole"><span class="pre">pattern</span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">in</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.case_study" title="Link to this definition">¶</a></dt>
@@ -1728,10 +1749,10 @@ that the correct value of the state is revealed if a state can contain
 an occurrence of <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code>.</p>
 <p>We also generalize occur to allow for collecting multiple name
 occurrences at once, which is useful when we want to allow patterns depending on
-two names at once (see e.g. <a class="reference internal" href="#squirrel:tact.gdh" title="gdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">gdh</span></code></a> or <a class="reference internal" href="#squirrel:tace.ddh" title="ddh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">ddh</span></code></a>).</p>
+two names at once (see e.g. <a class="reference internal" href="#squirrel:tact.gdh" title="gdh"><code class="xref squirrel squirrel-tacn docutils literal notranslate"><span class="pre">gdh</span></code></a>).</p>
 </section>
-<section id="id14">
-<h4>Common tactics<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h4>
+<section id="id13">
+<h4>Common tactics<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tacn">
 <dt class="sig sig-object squirrel" id="squirrel:tacn.fresh">
 <span class="property"><span class="sigannot"><span class="pre">Tactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">fresh</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">~precise</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">ts</span></span></span></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="alternative"><span class="alternative-block"><a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span></span></span><a class="headerlink" href="#squirrel:tacn.fresh" title="Link to this definition">¶</a></dt>
@@ -1808,23 +1829,23 @@ bi-frame element is replaced by the tactic with</p>
 occurrence of <code class="squirrelinline docutils literal notranslate"><span><span class="pre">nL</span></span></code> is in fact the one we are currently looking at.</p>
 <p>In all cases, the <code class="squirrelinline docutils literal notranslate"><span><span class="pre">precise_ts</span></span></code> makes the tactic use
 <cite>precise_occur</cite> instead of <cite>occur</cite>.</p>
-<p>Latest formal Squirrel description: <span id="id16">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span> (Appendix F).</p>
+<p>Latest formal Squirrel description: <span class="bibtex-citation" id="id15">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span> (Appendix F).</p>
 </dd></dl>
 
 </section>
-<section id="id17">
-<h4>Local tactics<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h4>
+<section id="id16">
+<h4>Local tactics<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.cdh">
 <span class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cdh</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.cdh" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the Computational Diffie-Hellman assumption (see
-e.g. <span id="id18">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), stating
+e.g. <span class="bibtex-citation" id="id17">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), stating
 for a generator <span class="math notranslate nohighlight">\(g\)</span> and randomly sampled exponents <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span>,
 it is computationally hard to compute <span class="math notranslate nohighlight">\(g^{ab}\)</span>
 when only <span class="math notranslate nohighlight">\(g^a\)</span> and <span class="math notranslate nohighlight">\(g^b\)</span> are known.</p>
-<p>A <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cdh</span></span></code>, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">ddh</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">gdh</span></span></code>
+<p>A <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cdh</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">gdh</span></span></code>
 <a class="reference internal" href="declarations.html#term-group-declaration"><span class="xref std std-term">group declaration</span></a> must have been
-specified (the DDH or GDH assumptions indeed both imply the CDH assumption).
+specified (the GDH assumptions indeed imply the CDH assumption).
 For a group with generator <code class="squirrelinline docutils literal notranslate"><span><span class="pre">g</span></span></code> and exponentiation
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">^</span></span></code>, the tactic <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">cdh</span></span><span> <span class="pre">M,</span> <span class="pre">g</span></span></code> may be called in a local goal on
 a message equality hypothesis <code class="squirrelinline docutils literal notranslate"><span><span class="pre">M</span></span></code> of the form <cite>t=g^{a b}</cite>.
@@ -1842,10 +1863,10 @@ published work.</p>
 <dt class="sig sig-object squirrel" id="squirrel:tact.gdh">
 <span class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">gdh</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.gdh" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the Gap Diffie-Hellman assumption (see
-e.g. <span id="id19">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), which is similar to CDH over <span class="math notranslate nohighlight">\(g^a\)</span>
+e.g. <span class="bibtex-citation" id="id18">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), which is similar to CDH over <span class="math notranslate nohighlight">\(g^a\)</span>
 and <span class="math notranslate nohighlight">\(g^b\)</span>, except that the attacker is additionally allowed to access an oracle
 testing equality to <span class="math notranslate nohighlight">\(g^{ab}\)</span>. It also includes the Square-GDH
-variant (see <span id="id20">[<a class="reference internal" href="bibliography.html#id10" title="Atsushi Fujioka and Koutarou Suzuki. Designing efficient authenticated key exchange resilient to leakage of ephemeral secret keys. In Topics in Cryptology–CT-RSA 2011: The Cryptographers’ Track at the RSA Conference 2011, San Francisco, CA, USA, February 14-18, 2011. Proceedings, 121–141. Springer, 2011.">FS11</a>]</span>), which is equivalent to the GDH
+variant (see <span class="bibtex-citation" id="id19">[<a class="reference internal" href="bibliography.html#id10" title="Atsushi Fujioka and Koutarou Suzuki. Designing efficient authenticated key exchange resilient to leakage of ephemeral secret keys. In Topics in Cryptology–CT-RSA 2011: The Cryptographers’ Track at the RSA Conference 2011, San Francisco, CA, USA, February 14-18, 2011. Proceedings, 121–141. Springer, 2011.">FS11</a>]</span>), which is equivalent to the GDH
 assumption for prime order groups, where the attacker can also test
 equality to <span class="math notranslate nohighlight">\(g^{aa}\)</span> and <span class="math notranslate nohighlight">\(g^{bb}\)</span>.</p>
 <p>A <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">gdh</span></span></code> <a class="reference internal" href="declarations.html#term-group-declaration"><span class="xref std std-term">group declaration</span></a> must have been
@@ -1864,14 +1885,14 @@ published work.</p>
 <dd><p>Requires a <a class="reference internal" href="declarations.html#term-hash-function"><span class="xref std std-term">hash function declaration</span></a>.</p>
 <p>This tactic applies the known-key collision resistance assumption
 (see e.g. the cr2-kk assumption from
-<span id="id21">[<a class="reference internal" href="bibliography.html#id8" title="Shafi Goldwasser and Mihir Bellare. Lecture notes on cryptography. Summer course “Cryptography and computer security” at MIT, 1999:1999, 1996. URL: https://cseweb.ucsd.edu/~mihir/papers/gb.pdf.">GB96</a>]</span>).</p>
+<span class="bibtex-citation" id="id20">[<a class="reference internal" href="bibliography.html#id8" title="Shafi Goldwasser and Mihir Bellare. Lecture notes on cryptography. Summer course “Cryptography and computer security” at MIT, 1999:1999, 1996. URL: https://cseweb.ucsd.edu/~mihir/papers/gb.pdf.">GB96</a>]</span>).</p>
 <p>It collects all equalities between hashes occurring at top-level in
 message hypotheses, that is all hypotheses of the form
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">h(u,k)=h(v,k)</span></span></code>, and for each such hypothesis adds as new
 hypothesis <code class="squirrelinline docutils literal notranslate"><span><span class="pre">u=v</span></span></code>.</p>
 <p>As this implements the known-key variant of the collision resistance assumption,
 no side condition is checked on the hash key.</p>
-<p>Latest formal Squirrel description: <span id="id22">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span> (only as an example).</p>
+<p>Latest formal Squirrel description: <span class="bibtex-citation" id="id21">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span> (only as an example).</p>
 </dd></dl>
 
 <dl class="squirrel tact">
@@ -1880,7 +1901,7 @@ no side condition is checked on the hash key.</p>
 <dd><p>Requires either a <a class="reference internal" href="declarations.html#term-hash-function"><span class="xref std std-term">hash function</span></a> or a <a class="reference internal" href="declarations.html#term-signature-scheme"><span class="xref std std-term">signature
 scheme</span></a> declaration.</p>
 <p>This tactic applies the EUF-CMA axiom in a local goal, either for keyed-hashes or
-signatures. (see e.g. <span id="id23">[<a class="reference internal" href="bibliography.html#id8" title="Shafi Goldwasser and Mihir Bellare. Lecture notes on cryptography. Summer course “Cryptography and computer security” at MIT, 1999:1999, 1996. URL: https://cseweb.ucsd.edu/~mihir/papers/gb.pdf.">GB96</a>]</span>)</p>
+signatures. (see e.g. <span class="bibtex-citation" id="id22">[<a class="reference internal" href="bibliography.html#id8" title="Shafi Goldwasser and Mihir Bellare. Lecture notes on cryptography. Summer course “Cryptography and computer security” at MIT, 1999:1999, 1996. URL: https://cseweb.ucsd.edu/~mihir/papers/gb.pdf.">GB96</a>]</span>)</p>
 <p>For a hash function <code class="squirrelinline docutils literal notranslate"><span><span class="pre">h(x,k)</span></span></code>, one may call <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">euf</span></span><span> <span class="pre">M</span></span></code> over a
 message equality <code class="squirrelinline docutils literal notranslate"><span><span class="pre">M</span></span></code> of the form <code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span> <span class="pre">=</span> <span class="pre">h(m,k)</span></span></code> or
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">h(m,k)=t</span></span></code>. EUF-CMA then states that, provided
@@ -1929,14 +1950,14 @@ honestly signed messages. A sub-goal for each possible honest signing
 case is created, as well as a sub-goal specifying that the key is
 correctly used, i.e. with conclusion
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">not(occur(k,goal,sign(_,k),</span> <span class="pre">pk(k))</span></span></code>.</p>
-<p>Latest formal Squirrel description: <span id="id24">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>.</p>
+<p>Latest formal Squirrel description: <span class="bibtex-citation" id="id23">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>.</p>
 </dd></dl>
 
 <dl class="squirrel tact">
 <dt class="sig sig-object squirrel" id="squirrel:tact.intctxt">
 <span class="property"><span class="sigannot"><span class="pre">TraceTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">intctxt</span></span></span> <a class="reference internal" href="#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></span><a class="headerlink" href="#squirrel:tact.intctxt" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the INT-CTXT assumption (see
-e.g. <span id="id25">[<a class="reference internal" href="bibliography.html#id11" title="Mihir Bellare and Chanathip Namprempre. Authenticated encryption: relations among notions and analysis of the generic composition paradigm. In International Conference on the Theory and Application of Cryptology and Information Security, 531–545. Springer, 2000. URL: https://eprint.iacr.org/2000/025.pdf.">BN00</a>]</span>) in a local goal.</p>
+e.g. <span class="bibtex-citation" id="id24">[<a class="reference internal" href="bibliography.html#id11" title="Mihir Bellare and Chanathip Namprempre. Authenticated encryption: relations among notions and analysis of the generic composition paradigm. In International Conference on the Theory and Application of Cryptology and Information Security, 531–545. Springer, 2000. URL: https://eprint.iacr.org/2000/025.pdf.">BN00</a>]</span>) in a local goal.</p>
 <p>It requires the declaration of a <a class="reference internal" href="declarations.html#term-symmetric-encryption"><span class="xref std std-term">symmetric encryption</span></a> scheme.</p>
 <p>It can be applied to a hypothesis either of the form
 <code class="squirrelinline docutils literal notranslate"><span><span class="pre">dec(c,k)&lt;&gt;fail</span></span></code> or <code class="squirrelinline docutils literal notranslate"><span><span class="pre">dec(c,k)</span> <span class="pre">=</span> <span class="pre">t</span></span></code> (in the latter case,
@@ -1953,17 +1974,17 @@ created when it is not trivially true (see the definition of the
 <a class="reference internal" href="#term-occurrence-formula"><span class="xref std std-term">occurrence formula</span></a>).</p>
 <p>In addition, a goal asking to prove that all randomness used for
 encryption are disjoint and fresh (when it is not trivially true).</p>
-<p>Latest formal Squirrel description: <span id="id26">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
+<p>Latest formal Squirrel description: <span class="bibtex-citation" id="id25">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
 </dd></dl>
 
 </section>
-<section id="id27">
-<h4>Global tactics<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h4>
+<section id="id26">
+<h4>Global tactics<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h4>
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.cca1">
 <span class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">cca1</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a></span></span><a class="headerlink" href="#squirrel:tace.cca1" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the IND-CCA assumption (see
-e.g. <span id="id28">[<a class="reference internal" href="bibliography.html#id11" title="Mihir Bellare and Chanathip Namprempre. Authenticated encryption: relations among notions and analysis of the generic composition paradigm. In International Conference on the Theory and Application of Cryptology and Information Security, 531–545. Springer, 2000. URL: https://eprint.iacr.org/2000/025.pdf.">BN00</a>]</span>) in a global goal.</p>
+e.g. <span class="bibtex-citation" id="id27">[<a class="reference internal" href="bibliography.html#id11" title="Mihir Bellare and Chanathip Namprempre. Authenticated encryption: relations among notions and analysis of the generic composition paradigm. In International Conference on the Theory and Application of Cryptology and Information Security, 531–545. Springer, 2000. URL: https://eprint.iacr.org/2000/025.pdf.">BN00</a>]</span>) in a global goal.</p>
 <p>It requires the declaration of a <a class="reference internal" href="declarations.html#term-symmetric-encryption"><span class="xref std std-term">symmetric encryption</span></a> or
 <a class="reference internal" href="declarations.html#term-asymmetric-encryption"><span class="xref std std-term">asymmetric encryption</span></a> scheme.</p>
 <p>The tactic may be called over a bi-frame element containing a term of
@@ -1990,121 +2011,14 @@ freshness of the random used in the encryption, with the conclusion
 <p>In the symmetric case, an additional sub-goal is created ensuring
 that all encryptions are made with distinct fresh randoms (and not
 just the the encryption we are looking at).</p>
-<p>Latest formal Squirrel description:<span id="id29">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>.</p>
-</dd></dl>
-
-<dl class="squirrel tace">
-<dt class="sig sig-object squirrel" id="squirrel:tace.ddh">
-<span class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">ddh</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span></span><a class="headerlink" href="#squirrel:tace.ddh" title="Link to this definition">¶</a></dt>
-<dd><p>This tactic applies the Decisional Diffie-Helman assumption (see
-e.g. <span id="id30">[<a class="reference internal" href="bibliography.html#id9" title="Tatsuaki Okamoto and David Pointcheval. The gap-problems: a new class of problems for the security of cryptographic schemes. In Public Key Cryptography: 4th International Workshop on Practice and Theory in Public Key Cryptosystems, PKC 2001 Cheju Island, Korea, February 13–15, 2001 Proceedings 4, 104–118. Springer, 2001. URL: https://www.di.ens.fr/david.pointcheval/Documents/Papers/2001_pkc.pdf.">OP01</a>]</span>), stating that for a generator <span class="math notranslate nohighlight">\(g\)</span>,
-and randomly sampled exponents <span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span>, <span class="math notranslate nohighlight">\(c\)</span>, it
-is computationally hard to distinguish <span class="math notranslate nohighlight">\(g^{ab}\)</span> from <span class="math notranslate nohighlight">\(g^c\)</span>,
-when only <span class="math notranslate nohighlight">\(g^a\)</span> and <span class="math notranslate nohighlight">\(g^b\)</span> are known.</p>
-<p>A <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">ddh</span></span></code> <a class="reference internal" href="declarations.html#term-group-declaration"><span class="xref std std-term">group declaration</span></a> must have been
-specified.</p>
-<p>When calling, <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">ddh</span></span><span> <span class="pre">g,a,b,k</span></span></code>, the goal must contain only diff
-terms of the form <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),g^(c)))</span></span></code>. The tactic will close
-the goal if the formula
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur((a,b,c),goal,(g^a,g^b,</span></span><span class="ansi-fg-light-green"><span class="pre">diff</span></span><span><span class="pre">(g^(ab),c)))</span></span></code> instantly reduces
-to false (see the definition of the <a class="reference internal" href="#term-occurrence-formula"><span class="xref std std-term">occurrence formula</span></a>).</p>
-<p>Latest formal Squirrel description: <span id="id31">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
-</dd></dl>
-
-<dl class="squirrel tace">
-<dt class="sig sig-object squirrel" id="squirrel:tace.enckp">
-<span class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">enckp</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><a class="reference internal" href="logic.html#grammar-token-term"><span class="hole"><span class="pre">term</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.enckp" title="Link to this definition">¶</a></dt>
-<dd><p>ENC-KP assumes that a symmetric or an asymmetric encryption scheme
-does not leak any information about the public (or secret) key
-used to encrypt the plaintext. It is based on the IK-CPA notion of
-<span id="id32">[<a class="reference internal" href="bibliography.html#id7" title="Mihir Bellare, Alexandra Boldyreva, Anand Desai, and David Pointcheval. Key-privacy in public-key encryption. In International Conference on the Theory and Application of Cryptology and Information Security, 566–582. Springer, 2001. URL: https://iacr.org/archive/asiacrypt2001/22480568.pdf.">BBDP01</a>]</span>.</p>
-<p>The tactic can be called on a bi-frame element containing a term of
-the form <code class="squirrelinline docutils literal notranslate"><span><span class="pre">C[enc(n,</span> <span class="pre">r,</span> <span class="pre">m)]</span></span></code>, where</p>
-<ul class="simple">
-<li><p><code class="squirrelinline docutils literal notranslate"><span><span class="pre">r</span></span></code> must be a fresh name;</p></li>
-<li><p>there is no decryption in <code class="squirrelinline docutils literal notranslate"><span><span class="pre">C</span></span></code>;</p></li>
-<li><p>no universal message variable occurs;</p></li>
-<li><p><code class="squirrelinline docutils literal notranslate"><span><span class="pre">m</span></span></code> is either a key or the diff of two keys, that
-only appear in key position, i.e. under <code class="squirrelinline docutils literal notranslate"><span><span class="pre">pk</span></span></code>, <code class="squirrelinline docutils literal notranslate"><span><span class="pre">dec</span></span></code> or
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">enc</span></span></code>;</p></li>
-<li><p>if <code class="squirrelinline docutils literal notranslate"><span><span class="pre">m</span></span></code> is a key, and a second key has been given as argument to the
-tactic, that key must also occur only in key position.</p></li>
-</ul>
-<p>When <code class="squirrelinline docutils literal notranslate"><span><span class="pre">m</span></span></code> is the diff of two keys, the diff is simplified by keeping
-only the key on the left. When <code class="squirrelinline docutils literal notranslate"><span><span class="pre">m</span></span></code> is just one key, a new key with
-which it is replaced can be specified as arugment.</p>
-<div class="admonition note">
-<p class="admonition-title">Example: Basic ENC-KP application</p>
-<p>On a bi-frame element of the form</p>
-<div class="squirreltop literal-block docutils container">
-<dl class="simple">
-<dt class="in"><span>i : enc(n,r,</span><span class="ansi-fg-light-green">diff</span><span>(pk(k1),pk(k2)))
-</span></dt></dl>
-</div>
-<p>calling the tactic <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">enckp</span></span><span> <span class="pre">i</span></span></code> will simplify the bi-frame
-element by only keeping the key on the left, yielding</p>
-<div class="squirreltop literal-block docutils container">
-<dl class="simple">
-<dt class="in"><span>i: enc(n,r,pk(k1))
-</span></dt></dl>
-</div>
-</div>
-<p>The tactic expects as arguments:</p>
-<ul class="simple">
-<li><p>the position identifying the bi-frame element;</p></li>
-<li><p>optional: the encryption term on which to apply the tactic;</p></li>
-<li><p>optional: the new key with which to replace the key.</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Example: Switching key with ENC-KP</p>
-<p>On a bi-frame element of the form</p>
-<div class="squirreltop literal-block docutils container">
-<dl class="simple">
-<dt class="in"><span>i: enc(n,r,m)
-</span></dt></dl>
-</div>
-<p>the tactic <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">enckp</span></span><span> <span class="pre">i,</span> <span class="pre">k</span></span></code> will simplify the bi-frame element by using the specified
-key, yielding</p>
-<div class="squirreltop literal-block docutils container">
-<dl class="simple">
-<dt class="in"><span>i: enc(n,r,pk(k))
-</span></dt></dl>
-</div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Example: Targeted ENC-KP application</p>
-<p>On a bi-frame element of the form</p>
-<div class="squirreltop literal-block docutils container">
-<dl class="simple">
-<dt class="in"><span>i: </span><span class="ansi-fg-light-cyan">⟨</span><span> enc(n,r,m),m’</span><span class="ansi-fg-light-cyan">⟩</span><span>
-</span></dt></dl>
-</div>
-<p>the tactic <code class="squirrelinline docutils literal notranslate"><span class="ansi-fg-light-blue"><span class="pre">enckp</span></span><span> <span class="pre">i,enc(n,r,m),</span> <span class="pre">k</span></span></code> will simplify the bi-frame
-element by using the specified key, yielding</p>
-<div class="squirreltop literal-block docutils container">
-<dl class="simple">
-<dt class="in"><span>i: </span><span class="ansi-fg-light-cyan">⟨</span><span> enc(n,r,pk(k)),m </span><span class="ansi-fg-light-blue">‘</span><span class="ansi-fg-light-cyan">⟩</span><span>
-</span></dt></dl>
-</div>
-</div>
-<p>To apply the enckp tactic, the key <code class="squirrelinline docutils literal notranslate"><span><span class="pre">k</span></span></code> must be such that
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur(k,bi-</span></span><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">,(enc(_,_,k),</span> <span class="pre">dec(_,k))</span></span></code> (see the definition of
-the <a class="reference internal" href="#term-occurrence-formula"><span class="xref std std-term">occurrence formula</span></a>) is trivially false. (or
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur(k,bi-</span></span><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">,(pk(k),</span> <span class="pre">dec(_,k))</span></span></code>) for the asymmetric case).</p>
-<p>When it is not trivially true, a sub-goal is created, asking to prove the
-freshness of the random used in the encryption, with the conclusion
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">occur(r,bi-</span></span><span class="ansi-fg-light-green"><span class="pre">frame</span></span><span><span class="pre">,enc(n,r,m))</span></span></code>.</p>
-<p>In the symmetric case, an additional check is performed ensuring
-that all encryptions are made with distinct fresh randoms (and not
-just the encryption we are looking at).</p>
-<p>Latest formal Squirrel description:<span id="id33">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
+<p>Latest formal Squirrel description:<span class="bibtex-citation" id="id28">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>.</p>
 </dd></dl>
 
 <dl class="squirrel tace">
 <dt class="sig sig-object squirrel" id="squirrel:tace.prf">
 <span class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">prf</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.prf" title="Link to this definition">¶</a></dt>
 <dd><p>This tactic applies the PRF assumption (see
-e.g. <span id="id34">[<a class="reference internal" href="bibliography.html#id8" title="Shafi Goldwasser and Mihir Bellare. Lecture notes on cryptography. Summer course “Cryptography and computer security” at MIT, 1999:1999, 1996. URL: https://cseweb.ucsd.edu/~mihir/papers/gb.pdf.">GB96</a>]</span>).</p>
+e.g. <span class="bibtex-citation" id="id29">[<a class="reference internal" href="bibliography.html#id8" title="Shafi Goldwasser and Mihir Bellare. Lecture notes on cryptography. Summer course “Cryptography and computer security” at MIT, 1999:1999, 1996. URL: https://cseweb.ucsd.edu/~mihir/papers/gb.pdf.">GB96</a>]</span>).</p>
 <p>It requires a <a class="reference internal" href="declarations.html#term-hash-function"><span class="xref std std-term">hash function</span></a> declaration.</p>
 <p>This tactic applied to a bi-frame element containg a hash
 application <code class="squirrelinline docutils literal notranslate"><span><span class="pre">h(m,k)</span></span></code> tries to replace the hash value with a fresh
@@ -2152,29 +2066,7 @@ that <code class="squirrelinline docutils literal notranslate"><span><span class
 <p>If multiple occurrences of hashes occur in the bi-frame element, the
 first one is targeted by default. Calling the tactic with an
 optional <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span></code> allows to target a specific hash occurrence.</p>
-<p>Latest formal Squirrel description: <span id="id35">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>.</p>
-</dd></dl>
-
-<dl class="squirrel tace">
-<dt class="sig sig-object squirrel" id="squirrel:tace.xor">
-<span class="property"><span class="sigannot"><span class="pre">EquivTactic</span></span></span> <span class="sig-name descname"><span class="notation"><span><span><span class="pre">xor</span></span></span> <a class="reference internal" href="#grammar-token-position"><span class="hole"><span class="pre">position</span></span></a> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span> <span class="repeat-wrapper"><span class="repeat"><span><span><span class="pre">,</span></span></span> <a class="reference internal" href="#grammar-token-term_pat"><span class="hole"><span class="pre">term_pat</span></span></a></span><span class="notation-sup"><span class="pre">?</span></span></span></span></span><a class="headerlink" href="#squirrel:tace.xor" title="Link to this definition">¶</a></dt>
-<dd><p>This tactic applies the unconditionally sound one time pad property
-of the xor operation.</p>
-<p>The tactic applied to a bi-frame element of the form <code class="squirrelinline docutils literal notranslate"><span><span class="pre">i</span> <span class="pre">:</span> <span class="pre">C[n</span> <span class="pre">XOR</span>
-<span class="pre">t]</span></span></code> will replace the XOR term by</p>
-<div class="squirreltop literal-block docutils container">
-<dl class="simple">
-<dt class="in"><span class="ansi-fg-light-blue">if</span><span> occur(n,bi-</span><span class="ansi-fg-light-green">frame</span><span>, i : C[n XOR t] ) &amp;&amp; </span><span class="ansi-fg-light-green">len</span><span>(n) = </span><span class="ansi-fg-light-green">len</span><span>(t) </span><span class="ansi-fg-light-blue">then</span><span> n_FRESH </span><span class="ansi-fg-light-blue">else</span><span> (n XOR t)
-</span></dt></dl>
-</div>
-<p>This new term then allows us to drop the old term only if <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code> and
-<code class="squirrelinline docutils literal notranslate"><span><span class="pre">t</span></span></code> do have the same length (as the one time pad does not work otherwise),
-and if this is the only occurrence of <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code> in the
-bi-frame.</p>
-<p>When multiple XOR occur in the bi-frame, one can specify one or two
-optional term patterns, to specify in any order the name <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span></span></code> or
-the full XOR-ed term <code class="squirrelinline docutils literal notranslate"><span><span class="pre">n</span> <span class="pre">XOR</span> <span class="pre">t</span></span></code> to target.</p>
-<p>Latest formal Squirrel description: <span id="id36">[<a class="reference internal" href="bibliography.html#id3" title="David Baelde, Stéphanie Delaune, Charlie Jacomme, Adrien Koutsos, and Solène Moreau. An Interactive Prover for Protocol Verification in the Computational Model. In SP 2021 - 42nd IEEE Symposium on Security and Privacy, Proceedings of the 42nd IEEE Symposium on Security and Privacy (S&amp;P'21). San Fransisco / Virtual, United States, May 2021. URL: https://hal.science/hal-03172119.">BDJ+21</a>]</span>.</p>
+<p>Latest formal Squirrel description: <span class="bibtex-citation" id="id30">[<a class="reference internal" href="bibliography.html#id6" title="David Baelde, Adrien Koutsos, and Joseph Lallemand. A Higher-Order Indistinguishability Logic for Cryptographic Reasoning. In LICS, 1-13. Boston, United States, June 2023. IEEE. URL: https://inria.hal.science/hal-03981949.">BKL23</a>]</span>.</p>
 </dd></dl>
 
 </section>

@@ -7,12 +7,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
       <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
       <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css?v=e72958e9" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -21,8 +21,8 @@
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/notations.js?v=69751d6f"></script>
-      <script src="_static/js/rtd_search_config.js"></script>
-      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script src="_static/js/rtd_search_config.js?v=b0596c34"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js?v=5e065386"></script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -145,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id8">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id7">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id14">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id17">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id27">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id13">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id16">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id26">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
@@ -167,10 +167,10 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
 </ul>
 </li>
@@ -504,6 +504,7 @@ Exiting proof mode.
 holes <code class="docutils literal notranslate"><span class="pre">_</span></code> as specified in <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="logic.html#grammar-token-sterm"><span class="hole"><span class="pre">sterm</span></span></a></span></code>).
 A <code class="docutils literal notranslate"><span class="notation"><span class="alternative"><span class="alternative-block"><a class="reference internal" href="declarations.html#grammar-token-system_id"><span class="hole"><span class="pre">system_id</span></span></a></span><span class="alternative-separator"><span class="pre">​</span></span><span class="alternative-block"><a class="reference internal" href="declarations.html#grammar-token-system_expr"><span class="hole"><span class="pre">system_expr</span></span></a></span></span></span></code> can be specified, otherwise the command searches in <code class="docutils literal notranslate"><span class="notation"><span class="hole"><span class="pre">any</span></span></span></code>
 system.</p>
+<p>Search can only be called inside a proof.</p>
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Example: searching axioms with included patterns</p>
@@ -538,6 +539,13 @@ system.</p>
 </span></dd>
 </dl>
 </div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The name of lemmas currently returned by search does not take
+into account their namespaces. If trying to use the lemma
+fails, one may need to look given the name of the lemma where
+it is defined to find the corresponding namespace.</p>
 </div>
 </dd></dl>
 

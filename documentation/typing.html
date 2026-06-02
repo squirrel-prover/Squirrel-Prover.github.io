@@ -7,12 +7,12 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Typing for secrecy &mdash; Squirrel  documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/ansi.css?v=e3444255" />
       <link rel="stylesheet" type="text/css" href="_static/notations.css?v=1a0322d9" />
       <link rel="stylesheet" type="text/css" href="_static/pre-text.css?v=ea32c3b7" />
-      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css?v=e72958e9" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -21,8 +21,8 @@
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/notations.js?v=69751d6f"></script>
-      <script src="_static/js/rtd_search_config.js"></script>
-      <script src="_static/js/rtd_sphinx_search.min.js"></script>
+      <script src="_static/js/rtd_search_config.js?v=b0596c34"></script>
+      <script src="_static/js/rtd_sphinx_search.min.js?v=5e065386"></script>
       <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -145,16 +145,16 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#structural-tactics">Structural tactics</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id8">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id11">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id7">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id9">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id10">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#cryptographic-tactics">Cryptographic tactics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="proofs.html#occurrence-formula">Occurrence formula</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id14">Common tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id17">Local tactics</a></li>
-<li class="toctree-l4"><a class="reference internal" href="proofs.html#id27">Global tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id13">Common tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id16">Local tactics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="proofs.html#id26">Global tactics</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="proofs.html#utility-tactics">Utility tactics</a></li>
@@ -167,10 +167,10 @@
 <p class="caption" role="heading"><span class="caption-text">Tutorial</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Protocol modelling</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#messages">Messages</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#basic-assumption">Basic assumption</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#cryptographic-assumptions">Cryptographic assumptions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial.html#libraries">Libraries</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tutorial.html#protocols">Protocols</a></li>
 </ul>
 </li>
@@ -344,7 +344,7 @@ i.e., a message possibly known by the attacker,
 cannot be equal to a secret term.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This tactic implements the work published in <span id="id1">[<a class="reference internal" href="bibliography.html#id13" title="Stéphanie Delaune, Clément Herouard, and Joseph Lallemand. Secrecy by typing in the computational model. In 38th IEEE Computer Security Foundations Symposium (CSF 2025). Santa Cruz, CA, United States, June 2025. Owen Arden. URL: https://cnrs.hal.science/hal-04666965.">DHL25</a>]</span>.</p>
+<p>This tactic implements the work published in <span class="bibtex-citation" id="id1">[<a class="reference internal" href="bibliography.html#id13" title="Stéphanie Delaune, Clément Herouard, and Joseph Lallemand. Secrecy by typing in the computational model. In 38th IEEE Computer Security Foundations Symposium (CSF 2025). Santa Cruz, CA, United States, June 2025. Owen Arden. URL: https://cnrs.hal.science/hal-04666965.">DHL25</a>]</span>.</p>
 </div>
 <dl class="squirrel flag">
 <dt class="sig sig-object squirrel" id="squirrel:flag.securityTypes">
@@ -408,7 +408,7 @@ that the same random is not used twice.</p>
 In particular, it cannot consider terms with user-defined types, higher-order,
 or names and mutable states with non-index arguments.</p>
 <p>The typing procedure is sound w.r.t the type system described in
-<span id="id2">[<a class="reference internal" href="bibliography.html#id13" title="Stéphanie Delaune, Clément Herouard, and Joseph Lallemand. Secrecy by typing in the computational model. In 38th IEEE Computer Security Foundations Symposium (CSF 2025). Santa Cruz, CA, United States, June 2025. Owen Arden. URL: https://cnrs.hal.science/hal-04666965.">DHL25</a>]</span>, but it is not complete.
+<span class="bibtex-citation" id="id2">[<a class="reference internal" href="bibliography.html#id13" title="Stéphanie Delaune, Clément Herouard, and Joseph Lallemand. Secrecy by typing in the computational model. In 38th IEEE Computer Security Foundations Symposium (CSF 2025). Santa Cruz, CA, United States, June 2025. Owen Arden. URL: https://cnrs.hal.science/hal-04666965.">DHL25</a>]</span>, but it is not complete.
 One notable source of incompleteness is a rule of the type system
 that allows, when a variable is known to be of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">1</span></span></span> <span><span><span class="pre">+</span></span></span> <span><span><span class="pre">T</span></span></span><span><span><span class="pre">_</span></span></span><span><span><span class="pre">2</span></span></span></span></code>,
 to perform a case disjunction, and continue the typechecking twice,
@@ -503,7 +503,7 @@ that it appears under a condition that implies <code class="squirrelinline docut
 that it appears under a condition that implies <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">happens(tau)</span></span></span></span></code>.</p></li>
 </ul>
 <p>In these subgoals, not all hypotheses from the original proof context are sound to keep,
-according to the soundness proof of the type system in <span id="id3">[<a class="reference internal" href="bibliography.html#id13" title="Stéphanie Delaune, Clément Herouard, and Joseph Lallemand. Secrecy by typing in the computational model. In 38th IEEE Computer Security Foundations Symposium (CSF 2025). Santa Cruz, CA, United States, June 2025. Owen Arden. URL: https://cnrs.hal.science/hal-04666965.">DHL25</a>]</span>.
+according to the soundness proof of the type system in <span class="bibtex-citation" id="id3">[<a class="reference internal" href="bibliography.html#id13" title="Stéphanie Delaune, Clément Herouard, and Joseph Lallemand. Secrecy by typing in the computational model. In 38th IEEE Computer Security Foundations Symposium (CSF 2025). Santa Cruz, CA, United States, June 2025. Owen Arden. URL: https://cnrs.hal.science/hal-04666965.">DHL25</a>]</span>.
 The tactic only keeps global hypotheses, and local hypotheses that are either
 <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">[const]</span></span></span></span></code> or of type <code class="docutils literal notranslate"><span class="notation"><span><span><span class="pre">Bool</span></span></span></span></code> in the type system.</p>
 <p>If typechecking succeeds, the hypothesis <code class="docutils literal notranslate"><span class="notation"><a class="reference internal" href="proofs.html#grammar-token-hypothesis_id"><span class="hole"><span class="pre">hypothesis_id</span></span></a></span></code> is contradictory,
