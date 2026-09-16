@@ -12,7 +12,7 @@ endif
 
 TEMPLATE_HTML = template/template.html
 
-all: index.html examples.html events.html
+all: index.html examples.html events.html biblio.bib
 
 index.html: index_src.md $(TEMPLATE_HTML)
 	$(PANDOC) \
