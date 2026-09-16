@@ -131,28 +131,31 @@ page.</p>
 <p>A high-level introduction to the theory behind Squirrel was published
 in the ACM Siglog newsletter <span class="citation"
 data-cites="BDJKL24"><a href="#ref-BDJKL24"
-role="doc-biblioref">[1]</a></span>. The formal technical details are
+role="doc-biblioref">[5]</a></span>. The formal technical details are
 inside the research papers:</p>
 <ul>
 <li>the computationnally complete symbolic attacker was proposed in
 <span class="citation" data-cites="BC14"><a href="#ref-BC14"
-role="doc-biblioref">[2]</a></span>;</li>
+role="doc-biblioref">[12]</a></span>;</li>
 <li>the tool Squirrel was introduced in <span class="citation"
 data-cites="BDKJM-sp21"><a href="#ref-BDKJM-sp21"
-role="doc-biblioref">[3]</a></span> as a proof assistant for a
+role="doc-biblioref">[11]</a></span> as a proof assistant for a
 meta-logic on top of the logic of <span class="citation"
 data-cites="BC14"><a href="#ref-BC14"
-role="doc-biblioref">[2]</a></span>;</li>
+role="doc-biblioref">[12]</a></span>;</li>
 <li>the meta-logic was later adapted to support protocols with mutable
 state <span class="citation" data-cites="BDKM-csf22"><a
-href="#ref-BDKM-csf22" role="doc-biblioref">[4]</a></span>;</li>
-<li>a post-quantum sound variant of the logic, meta-logic and tool have
-been given in <span class="citation" data-cites="CFJ-sp22"><a
-href="#ref-CFJ-sp22" role="doc-biblioref">[5]</a></span>;</li>
-<li>recently, the meta-logic approach has been abandonned in favor of a
+href="#ref-BDKM-csf22" role="doc-biblioref">[9]</a></span>;</li>
+<li>the meta-logic approach has been abandonned in favor of a
 self-contained higher-order logic <span class="citation"
 data-cites="BKL23"><a href="#ref-BKL23"
-role="doc-biblioref">[6]</a></span>.</li>
+role="doc-biblioref">[8]</a></span>;</li>
+<li>support for user-defined cryptographic assumptions was added in
+<span class="citation" data-cites="bideduction"><a
+href="#ref-bideduction" role="doc-biblioref">[7]</a></span>;</li>
+<li>the framework was adapted to post-quantum cryptography in <span
+class="citation" data-cites="ho-pq-squirrel"><a
+href="#ref-ho-pq-squirrel" role="doc-biblioref">[1]</a></span>.</li>
 </ul>
 <h1 id="team">Team</h1>
 <ul>
@@ -190,35 +193,68 @@ the MIT License. All source code is available <a
 href="https://github.com/squirrel-prover/squirrel-prover/">here</a>.</p>
 <h1 class="unnumbered" id="publications">Publications</h1>
 <div id="refs" class="references csl-bib-body" role="list">
-<div id="ref-BDJKL24" class="csl-entry" role="listitem">
+<div id="ref-ho-pq-squirrel" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">D.
+Baelde, A. Dallon, S. Delaune, C. Jacomme, and A. Koutsos, <span>“Robust
+logical foundations for mechanizing post-quantum cryptography in
+squirrel,”</span> in <em>To appear in <span>CCS’26</span></em>, 2026, <a
+href="https://inria.hal.science/hal-05595035">https://inria.hal.science/hal-05595035</a>.</div>
+</div>
+<div id="ref-bideduction-foo" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">D.
+Baelde, A. Koutsos, and J. Sauvage, <span>“Leveraging cryptographic
+simulator synthesis for formally verifying the FOO e-voting
+protocol,”</span> in <em><span class="nocase">Usenix 2026 - 35th Usenix
+security symposium</span></em>, 2026, <a
+href="https://inria.hal.science/hal-05453231">https://inria.hal.science/hal-05453231</a>.</div>
+</div>
+<div id="ref-concrete-proof-term" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">C.
+Fontaine, A. Koutsos, G. Scerri, and T. Vignon, <span>“Interactive
+proofs in higher-order logic with errors and application to concrete
+cryptography,”</span> in <em><span>CSF</span></em>, 2026, pp. 529–543,
+<a
+href="https://inria.hal.science/hal-05630926">https://inria.hal.science/hal-05630926</a>.</div>
+</div>
+<div id="ref-secrecy-ratchet" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">C.
+Hérouard, C. Jacomme, A. Koutsos, and J. Lallemand, <span>“Secrecy in
+squirrel and the post-compromise security of a ratchet,”</span> in
+<em>To appear in <span>CCS’26</span></em>, 2026, <a
+href="https://hal.science/hal-05740706">https://hal.science/hal-05740706</a>.</div>
+</div>
+<div id="ref-BDJKL24" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">D.
 Baelde, S. Delaune, C. Jacomme, A. Koutsos, and J. Lallemand,
 <span>“<span class="nocase">The Squirrel Prover and its
 Logic</span>,”</span> in <em><span>ACM SIGLOG News</span></em>, 2024,
 vol. 11, <a
 href="https://inria.hal.science/hal-04579038">https://inria.hal.science/hal-04579038</a>.</div>
 </div>
-<div id="ref-BC14" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[2] </div><div class="csl-right-inline">G.
-Bana and H. Comon-Lundh, <span>“<span class="nocase">A Computationally
-Complete Symbolic Attacker for Equivalence Properties</span>,”</span> in
-<em><span class="nocase">2014 ACM SIGSAC Conference on Computer and
-Communications Security</span></em>, 2014, pp. 609–620, <a
-href="https://hal.inria.fr/hal-01102216">https://hal.inria.fr/hal-01102216</a>.</div>
+<div id="ref-concrete-security" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">D.
+Baelde, C. Fontaine, A. Koutsos, G. Scerri, and T. Vignon, <span>“A
+probabilistic logic for concrete security,”</span> in
+<em><span>CSF</span></em>, 2024, pp. 324–339, <a
+href="https://inria.hal.science/hal-04577828">https://inria.hal.science/hal-04577828</a>.</div>
 </div>
-<div id="ref-BDKJM-sp21" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[3] </div><div class="csl-right-inline">D.
-Baelde, S. Delaune, A. Koutsos, C. Jacomme, and S. Moreau, <span>“An
-<span>Interactive</span> <span>Prover</span> for <span>Protocol</span>
-<span>Verification</span> in the <span>Computational</span>
-<span>Model</span>,”</span> in <em><span>P</span>roceedings of the 42nd
-<span>IEEE</span> <span>Symposium</span> on <span>Security</span> and
-<span>Privacy</span> (<span>S</span>&amp;<span>P</span>’21)</em>, 2021,
-<a
-href="https://hal.inria.fr/hal-03172119">https://hal.inria.fr/hal-03172119</a>.</div>
+<div id="ref-bideduction" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">D.
+Baelde, A. Koutsos, and J. Sauvage, <span>“Foundations for cryptographic
+reductions in <span>CCSA</span> logics,”</span> in
+<em><span>CCS</span></em>, 2024, pp. 2814–2828, <a
+href="https://inria.hal.science/hal-04511718">https://inria.hal.science/hal-04511718</a>.</div>
+</div>
+<div id="ref-BKL23" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">D.
+Baelde, A. Koutsos, and J. Lallemand, <span>“A higher-order
+indistinguishability logic for cryptographic reasoning,”</span> in
+<em>2023 38th annual ACM/IEEE symposium on logic in computer science
+(LICS)</em>, 2023, pp. 1–13, <a
+href="https://hal.inria.fr/hal-03981949">https://hal.inria.fr/hal-03981949</a>.</div>
 </div>
 <div id="ref-BDKM-csf22" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[4] </div><div class="csl-right-inline">D.
+<div class="csl-left-margin">[9] </div><div class="csl-right-inline">D.
 Baelde, S. Delaune, A. Koutsos, and S. Moreau, <span>“<span
 class="nocase">Cracking the Stateful Nut</span>,”</span> in
 <em><span>CSF 2022 - 35th IEEE Computer Security Foundations
@@ -226,7 +262,7 @@ Symposium</span></em>, 2022, <a
 href="https://hal.archives-ouvertes.fr/hal-03500056">https://hal.archives-ouvertes.fr/hal-03500056</a>.</div>
 </div>
 <div id="ref-CFJ-sp22" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[5] </div><div class="csl-right-inline">C.
+<div class="csl-left-margin">[10] </div><div class="csl-right-inline">C.
 Cremers, C. Fontaine, and C. Jacomme, <span>“A <span>Logic</span> and an
 <span>Interactive</span> <span>Prover</span> for the
 <span>Computational</span> <span>Post-Quantum</span>
@@ -236,27 +272,24 @@ Cremers, C. Fontaine, and C. Jacomme, <span>“A <span>Logic</span> and an
 (<span>S</span>&amp;<span>P</span>’22)</em>, 2022, <a
 href="https://hal.inria.fr/hal-03620358">https://hal.inria.fr/hal-03620358</a>.</div>
 </div>
-<div id="ref-BKL23" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">D.
-Baelde, A. Koutsos, and J. Lallemand, <span>“A higher-order
-indistinguishability logic for cryptographic reasoning,”</span> in
-<em>2023 38th annual ACM/IEEE symposium on logic in computer science
-(LICS)</em>, 2023, pp. 1–13, <a
-href="https://hal.inria.fr/hal-03981949">https://hal.inria.fr/hal-03981949</a>.</div>
+<div id="ref-BDKJM-sp21" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[11] </div><div class="csl-right-inline">D.
+Baelde, S. Delaune, A. Koutsos, C. Jacomme, and S. Moreau, <span>“An
+<span>Interactive</span> <span>Prover</span> for <span>Protocol</span>
+<span>Verification</span> in the <span>Computational</span>
+<span>Model</span>,”</span> in <em><span>P</span>roceedings of the 42nd
+<span>IEEE</span> <span>Symposium</span> on <span>Security</span> and
+<span>Privacy</span> (<span>S</span>&amp;<span>P</span>’21)</em>, 2021,
+<a
+href="https://hal.inria.fr/hal-03172119">https://hal.inria.fr/hal-03172119</a>.</div>
 </div>
-<div id="ref-bideduction-to-appear" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[7] </div><div class="csl-right-inline">D.
-Baelde, A. Koutsos, and J. Sauvage, <span>“Foundations for cryptographic
-reductions in <span>CCSA</span> logics,”</span> in
-<em><span>CCS</span></em>, 2024, pp. to appear, <a
-href="https://inria.hal.science/hal-04511718">https://inria.hal.science/hal-04511718</a>.</div>
-</div>
-<div id="ref-concrete-security" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[8] </div><div class="csl-right-inline">D.
-Baelde, C. Fontaine, A. Koutsos, G. Scerri, and T. Vignon, <span>“A
-probabilistic logic for concrete security,”</span> in
-<em><span>CSF</span></em>, 2024, pp. 324–339, <a
-href="https://inria.hal.science/hal-04577828">https://inria.hal.science/hal-04577828</a>.</div>
+<div id="ref-BC14" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[12] </div><div class="csl-right-inline">G.
+Bana and H. Comon-Lundh, <span>“<span class="nocase">A Computationally
+Complete Symbolic Attacker for Equivalence Properties</span>,”</span> in
+<em><span class="nocase">2014 ACM SIGSAC Conference on Computer and
+Communications Security</span></em>, 2014, pp. 609–620, <a
+href="https://hal.inria.fr/hal-01102216">https://hal.inria.fr/hal-01102216</a>.</div>
 </div>
 </div>
 
