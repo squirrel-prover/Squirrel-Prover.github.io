@@ -53,10 +53,10 @@ A high-level introduction to the theory behind Squirrel was published in the ACM
 a meta-logic on top of the logic of [@BC14];
 * the meta-logic was later adapted
   to support protocols with mutable state [@BDKM-csf22];
-* a post-quantum sound variant of the logic, meta-logic and tool have been
-  given in [@CFJ-sp22];
-* recently, the meta-logic approach has been abandonned in favor of
-  a self-contained higher-order logic [@BKL23].
+* the meta-logic approach has been abandonned in favor of
+  a self-contained higher-order logic [@BKL23];
+* support for user-defined cryptographic assumptions was added in [@bideduction];
+* the framework was adapted to post-quantum cryptography in [@ho-pq-squirrel].
 
 # Team
 
