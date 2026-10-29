@@ -14,6 +14,15 @@
 
 This page contains teaching material from several past events.
 
+## EJCP 2026 (Nantes, France)
+
+We were invited again to present Squirrel at the EJCP school! The
+scope and content of this course followed that of last year: we
+targetted PhD students with no background in cryptography nor proof
+assistants, and focused on the reachability sub-logic of Squirrel.
+
+[Slides, files and instructions](https://gitlab.inria.fr/akoutsos1/ejcp-2026).
+
 ## EJCP 2025 (Vannes, France)
 
 The school featured a Squirrel tutorial, with lectures in the morning
